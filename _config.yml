@@ -14,6 +14,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: Your awesome title
+tagline: foo bar baz
 email: your-email@example.com
 description: >- # this means to ignore newlines until "baseurl:"
   Write an awesome description for your new site here. You can edit this
@@ -21,18 +22,28 @@ description: >- # this means to ignore newlines until "baseurl:"
   Google search results) and in your feed.xml site description.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
-github_username:  jekyll
 
-# Build settings
-markdown: kramdown
-theme: minima
+# =============================================================================
+# Build settings, dependencies
+# =============================================================================
+markdown:         kramdown
+#highlighter:     rouge and pygments do not work with complex C++, disable them now; maybe implement optional highlighting later
+#theme:           we use own, modified BlackDoc implementation, no external themes
+
+# list of plugins supported by GitHub
+# https://pages.github.com/versions/
 plugins:
   - jekyll-feed
+  - jekyll-gist # >= 1.5
+  - jekyll-paginate # >= 1.1
+  - jekyll-feed # >= 0.6
+  
+  
+paginate:         5
+# paginate_path:    '/page:num'
+                    # Or '/my-jekyll-site/page:num' if you want to move your index pages
 
-# Exclude from processing.
-# The following items will not be processed, by default. Create a custom list
-# to override the default setting.
+# The following items will not be processed. Example list:
 # exclude:
 #   - Gemfile
 #   - Gemfile.lock
@@ -42,11 +53,12 @@ plugins:
 #   - vendor/gems/
 #   - vendor/ruby/
 
-defaults:
-    -
-        scope:
-            path: ""
-            type: "posts"
-        values:
-            layout: "page"
-            
+# =============================================================================
+# Defaults
+# =============================================================================
+# defaults:
+#    scope:
+#        path: ""
+#        type: "posts"
+#    values:
+#        layout: "page"
