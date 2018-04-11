@@ -1,3 +1,7 @@
+# [[TODO]] README from BlackDoc theme, write own README later
+
+___
+
 # BlackDoc
 
 ![Jekyll version](https://img.shields.io/badge/Jekyll-3.x-brightgreen.svg?style=flat-square)
