@@ -1,0 +1,19 @@
+.page img {
+    width: 100%;
+}
+
+.menu-wrapper {
+    background: #ccc;
+}
+
+footer {
+    padding: 32px 0;
+}
+
+.hamburger-inner, .hamburger-inner::before, .hamburger-inner::after {
+    background-color: #fff;
+}
+
+.hamburger:focus {
+    outline: none;
+}

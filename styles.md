@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Theme Styles
+menus: home
 ---
 
 ## Full Style Test
@@ -213,37 +214,3 @@ The <u>u element</u> example
 ## Embeds
 
 Sometimes all you want to do is embed a little love from another location and set your post alive.
-
-### Video
-
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-
-<iframe src="//player.vimeo.com/video/83910533?title=0&amp;byline=0&amp;portrait=0" width="600" height="338" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
-
-Culpa qui officia deserunt mollit anim id est laborum.
-
-### Slides
-
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-
-<div><iframe class="speakerdeck-iframe" frameborder="0" src="//speakerdeck.com/player/88f09170c0e60131e0fe72c781b73270?" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" style="border: 0px; margin: 0px; padding: 0px; border-radius: 5px; width: 710px; height: 461.37499999999955px; background: transparent;"></iframe></div>
-
-Culpa qui officia deserunt mollit anim id est laborum.
-
-### Audio
-
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-
-<iframe width="100%" height="450" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/202156472&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>
-
-Culpa qui officia deserunt mollit anim id est laborum.
-
-### Code
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.
-
-<div><iframe id="cp_embed_bcqhe" src="//codepen.io/brenden/embed/VLjKMQ/?height=268&amp;theme-id=0&amp;slug-hash=bcqhe&amp;default-tab=result&amp;user=brenden" scrolling="no" frameborder="0" height="268" allowtransparency="true" allowfullscreen="true" class="cp_embed_iframe undefined" style="width: 100%; overflow: hidden;"></iframe></div>
-
-It is awesome.
-
-<small>Source: Markdown code of this page is based on Ghost's [comprehensive style test](http://demo.ghost.io/style-test/)</small>

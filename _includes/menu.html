@@ -1,0 +1,29 @@
+{% comment %} The code below dynamically generates a sidebar nav of pages with `layout: page` in the front-matter. See readme
+for usage. {% endcomment %}
+
+<div class="container-fluid menu-wrapper">
+  <a class="text-left" href="#mmenu">
+    <button class="hamburger hamburger--spring" type="button">
+      <span class="hamburger-box">
+        <span class="hamburger-inner"></span>
+      </span>
+    </button>
+  </a>
+
+  <div id="mmenu">
+    {% assign pages_list = site.pages %}
+    <ul>
+      {% for node in pages_list %} 
+        {% if node.title != null %} 
+          {% if node.layout == "page" %}
+            <li>
+              <a class="sidebar-nav-item{% if page.url == node.url %} active{% endif %}" href="{{ site.baseurl }}{{ node.url  | remove_first: '/' }}">
+                {{ node.title }} category {{ node.category }}
+              </a>
+            </li>
+          {% endif %} 
+        {% endif %} 
+      {% endfor %}
+    </ul>
+  </div>
+</div>
