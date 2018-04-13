@@ -46,7 +46,8 @@ img {
 }
 
 .content-wrapper a:hover, .footer a:hover, .menu-wrapper a:hover {
-    color: #F4CB89;
+    color: #dbb84e;
+    text-decoration: none;
 }
 
 .highlight {
@@ -103,6 +104,19 @@ img {
 
 .mm-panel__noresultsmsg {
     color: rgba(255, 255, 255, 0.7);
+}
+
+.gist {
+    color: #ccc !important;
+}
+
+.gist .gist-data {
+    background-color: #222 !important;
+}
+
+.gist .gist-meta {
+    background-color: #222 !important;
+    color: #ccc !important;
 }
 
 @media (max-width: 1200px) {
