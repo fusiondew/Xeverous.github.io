@@ -87,7 +87,8 @@ Labore et dolore.
 
 ## Table
 
-<table>
+<div class="table-responsive">
+<table class="table table-bordered table-dark">
 
 <tbody>
 
@@ -134,6 +135,7 @@ Labore et dolore.
 </tbody>
 
 </table>
+</div>
 
 * * *
 

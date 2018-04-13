@@ -97,7 +97,7 @@ Quisque consequat sapien eget quam rhoncus, sit amet laoreet diam tempus. Aliqua
 
 Aenean lacinia bibendum nulla sed consectetur. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 
-<table>
+<table class="table table-bordered table-dark">
   <thead>
     <tr>
       <th>Name</th>
