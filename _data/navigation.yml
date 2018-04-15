@@ -1,0 +1,136 @@
+data:
+  - title: C++ language tutorial
+    url: content/cpp_tutorial.html
+    subdiritems:
+      - title: C++ from scratch
+        url: content/cpp_tutorial/from_scratch.html
+        subdiritems:
+          - title: Hello World
+            url: content/cpp_tutorial/from_scratch/hello_world.html
+          - title: scratch 2
+            url: content/cpp_tutorial/from_scratch/2.md
+          - title: scratch 3
+            url: content/cpp_tutorial/from_scratch/3.md
+      - title: C++ with other language experience
+        url: content/cpp_tutorial/from_other.html
+        subdiritems:
+          - title: test 1
+            url: content/cpp_tutorial/from_other/test1.html
+          - title: test 2
+            url: content/cpp_tutorial/from_other/test2.html
+          - title: test 3
+            url: content/cpp_tutorial/from_other/test3.html
+      - title: basic tasks with standard library
+        url: content/cpp_tutorial/basic_tasks.html
+        subdiritems:
+          - title: text input/output guide, basic parsing
+            url: content/cpp_tutorial/basic_tasks/text_io.html
+          - title: random number generators
+            url: content/cpp_tutorial/basic_tasks/rng.html
+          - title: RAII, smart poiters
+            url: content/cpp_tutorial/basic_tasks/raii.html
+          - title: std::optional
+            url: content/cpp_tutorial/basic_tasks/std_optional.html
+  - title: advanced C++
+    url: content/advanced_cpp.html
+    subdiritems:
+      - title: custom memory allocation
+        url: content/advanced_cpp/custom_memory_allocation.html
+        subdiritems:
+          - title: std::polymorphic_allocator
+            url: content/advanced_cpp/custom_memory_allocation/std_polymorphic_allocator.html
+          - title: boost::pool_allocator
+            url: content/advanced_cpp/custom_memory_allocation/boost_pool_allocator.html
+      - title: standard library utilities
+        url: content/advanced_cpp/standard_library_utilities.html
+        subdiritems:
+          - title: std::variant
+            url: content/advanced_cpp/standard_library_utilities/std_variant.html
+          - title: std::any
+            url: content/advanced_cpp/standard_library_utilities/std_any.html
+          - title: std::pair
+            url: content/advanced_cpp/standard_library_utilities/std_pair.html
+          - title: std::tuple
+            url: content/advanced_cpp/standard_library_utilities/std_tuple.html
+          - title: callbacks: std::function, std::bind
+            url: content/advanced_cpp/standard_library_utilities/callbacks.html
+          - title: std::hash
+            url: content/advanced_cpp/standard_library_utilities/std_hash.html
+      - title: standard library algorithms
+        url: content/advanced_cpp/standard_library_algorithms.html
+        subdiritems:
+          - title: non modifying algorithms
+            url: content/advanced_cpp/standard_library_algorithms/non_modifying.html
+            subdiritems:
+              - title: std::all_of, std::any_of, std::none_of
+                url: content/advanced_cpp/standard_library_algorithms/non_modifying/std_all_any_none_of.html
+              - title: std::min_element, std::max_element
+                url: content/advanced_cpp/standard_library_algorithms/non_modifying/std_min_max_element.html
+      - title: multithreading
+        url: content/advanced_cpp/multithreading.html
+        subdiritems:
+          - title: std::thread
+            url: content/advanced_cpp/multithreading/std_thread.html
+          - title: std::promise
+            url: content/advanced_cpp/multithreading/std_promise.html
+          - title: std::future
+            url: content/advanced_cpp/multithreading/std_future.html
+          - title: std::async
+            url: content/advanced_cpp/multithreading/std_async.html
+          - title: std::atomic
+            url: content/advanced_cpp/multithreading/std_atomic.html
+      - title: I/O devices, graphics, audio
+        url: content/advanced_cpp/media.html
+        subdiritems:
+          - title: SFML
+            url: content/advanced_cpp/media/sfml.html
+          - title: games - introduction
+            url: content/advanced_cpp/media/games_introduction.html
+  - title: C++ Thorough Template Tutorial
+    url: content/ttt.html
+    subdiritems:
+      - title: magic 1
+        url: content/ttt/magic1.html
+      - title: magic 2
+        url: content/ttt/magic2.html
+      - title: magic 3
+        url: content/ttt/magic3.html
+  - title: Design Patterns in C++
+    url: content/design_patterns.html
+    subdiritems:
+      - title: creational
+        url: content/design_patterns/creational.html
+        subdiritems:
+      - title: structural
+        url: content/design_patterns/structural.html
+        subdiritems:
+      - title: behavioral
+        url: content/design_patterns/behavioral.html
+        subdiritems:
+  - title: C++ tools tutorials
+    url: content/cpp_tool_tutorials.html
+    subdiritems:
+      - title: Doxygen - documentation generator
+        url: content/cpp_tools_tutorials/doxygen.html
+      - title: Valgrind - memory debugger
+        url: content/cpp_tools_tutorials/valgrind.html      
+  - title: generic utilities
+    url: content/generic.html
+    subdiritems:
+      - title: Compendium of Common C++ Problems
+        url: content/generic/cccppp.html
+      - title: glossary
+        url: content/generic/glossary.html
+      - title: C++ cheatsheets
+        url: content/generic/cpp_cheatsheets.html
+      - title: C++ FAQ
+        url: content/generic/cpp_faq.html
+  - title: meta
+    url: content/meta.html
+    subdiritems:
+     - title: about
+       url: content/meta/about.html
+     - title: site FAQ
+       url: content/meta/site_faq.html
+     - title: playground
+       url: content/meta/playground.html
