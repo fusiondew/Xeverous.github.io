@@ -89,12 +89,85 @@ data:
   - title: "C++ Thorough Template Tutorial"
     url: content/ttt.html
     subdiritems:
-      - title: "magic 1"
-        url: content/ttt/magic1.html
-      - title: "magic 2"
-        url: content/ttt/magic2.html
-      - title: "magic 3"
-        url: content/ttt/magic3.html
+      - title: "language fundamentals"
+        url: content/ttt/language_fundamentals.html
+        subdiritems:
+          - title: "introduction to metaprogramming"
+            url: content/ttt/language_fundamentals/introduction.html
+          - title: "value types':' lvalue, xvalue, prvalue, glvalue, rvalue and their references"
+            url: content/ttt/language_fundamentals/value_types.html
+          - title: "implicit convertions"
+            url: content/ttt/language_fundamentals/implicit_convertions.html
+          - title: "`decltype` keyword"
+            url: content/ttt/language_fundamentals/decltype_keyword.html
+          - title: "name lookup rules"
+            url: content/ttt/language_fundamentals/name_lookup_rules.html
+      - title: "function templates"
+        url: content/ttt/function_templates.html
+        subdiritems:
+          - title: "basics"
+            url: content/ttt/function_templates/basics.html
+          - title: "template instances"
+            url: content/ttt/function_templates/template_instances.html
+          - title: "template specialization"
+            url: content/ttt/function_templates/template_specialization.html
+          - title: "overloading"
+            url: content/ttt/function_templates/overloading.html
+          - title: "multiple template parameters"
+            url: content/ttt/function_templates/multiple_template_parameters.html
+          - title: "template default arguments"
+            url: content/ttt/function_templates/template_default_arguments.html
+      - title: "class templates"
+        url: content/ttt/class_templates.html
+        subdiritems:
+          - title: "basics"
+            url: content/ttt/class_templates/basics.html
+          - title: "full specialization"
+            url: content/ttt/class_templates/full_specialization.html
+          - title: "partial specialization"
+            url: content/ttt/class_templates/partial_specialization.html
+          - title: "inheritance"
+            url: content/ttt/class_templates/inheritance.html
+          - title: "dependent names, temploids"
+            url: content/ttt/class_templates/dependent_names.html
+          - title: "empty base optimization"
+            url: content/ttt/class_templates/empty_base_optimization.html
+          - title: "member templates"
+            url: content/ttt/class_templates/member_templates.html
+          - title: "friends"
+            url: content/ttt/class_templates/friends.html
+          - title: "virtual functions"
+            url: content/ttt/class_templates/virtual_functions.html
+      - title: "other templates"
+        url: content/ttt/other_templates.html
+        subdiritems:
+          - title: "alias templates"
+            url: content/ttt/other_templates/alias_templates.html
+          - title: "variable templates"
+            url: content/ttt/other_templates/variable_templates.html
+          - title: "non-type templates"
+            url: content/ttt/other_templates/non_type_templates.html
+          - title: "template parameter type auto"
+            url: content/ttt/other_templates/template_parameter_type_auto.html
+          - title: "restrictions for non-type templates"
+            url: content/ttt/other_templates/restrictions_for_non_type_templates.html
+          - title: "templates for raw arrays and string literals"
+            url: content/ttt/other_templates/raw_arrays_and_string_literals.html
+      - title: "lambda expressions"
+        url: content/ttt/lambda_expressions.html
+        subdiritems:
+          - title: "leading and trailing return type"
+            url: content/ttt/lambda_expressions/leading_and_trailing_return_type.html
+          - title: "basics"
+            url: content/ttt/lambda_expressions/basics.html
+          - title: "mutable lambdas"
+            url: content/ttt/lambda_expressions/mutable_lambdas.html
+          - title: "generic lambdas"
+            url: content/ttt/lambda_expressions/generic_lambdas.html
+          - title: "constexpr lambdas"
+            url: content/ttt/lambda_expressions/constexpr_lambdas.html
+          - title: "templated lambdas"
+            url: content/ttt/lambda_expressions/templated_lambdas.html
   - title: "Design Patterns in C++"
     url: content/design_patterns.html
     subdiritems:
