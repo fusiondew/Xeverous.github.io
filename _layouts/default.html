@@ -16,9 +16,12 @@
       {% include menu.html %}
 
       <div class="container">
-          <div class="content-wrapper">
-            {{ content }}
-          </div>
+        {% if page.url != '/' %}
+          {% include breadcrumb.html %}
+        {% endif %}
+        <div class="content-wrapper">
+          {{ content }}
+        </div>
       </div>
 
       {% include footer.html %}
