@@ -15,6 +15,11 @@ $(document).ready(function () {
     ]
   });
 
+  setTimeout(() => {
+    $('#loader-wrapper').hide();
+  }, 1000);
+
+
   $('.hamburger').click(function () {
     $(this).addClass('is-active');
   })
