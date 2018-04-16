@@ -15,13 +15,15 @@ img {
 }
 
 .menu-wrapper {
-    background: #073E4F;
+    background: #1C1C1C;
+    border-bottom: 1px solid #fafafa;
 }
 
 .footer {
     padding: 32px 0;
-    background: #073E4F !important;
+    background: #1C1C1C;
     color: #fff;
+    border-top: 1px solid #fafafa;
 }
 
 .hamburger-inner, .hamburger-inner::before, .hamburger-inner::after {
@@ -34,7 +36,7 @@ img {
 
 .content-wrapper {
     padding: 30px 20px;
-    background: #283740;
+    background: rgba(89, 89, 89, .25);
     margin: 20px 0;
     border-radius: 10px;
     color: #fff;
@@ -147,6 +149,14 @@ img {
     height: 54px
 }
 
+.mm-menu .mm-listview .mm-btn_next:after {
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.mm-menu .mm-btn:after,
+.mm-menu .mm-btn:before {
+    border-color: rgba(255, 255, 255, 0.5);
+}
 
 @media (max-width: 1200px) {
     .menu-text {
