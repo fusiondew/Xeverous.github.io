@@ -98,8 +98,8 @@ data:
             url: content/ttt/language_fundamentals/value_types.html
           - title: "implicit convertions"
             url: content/ttt/language_fundamentals/implicit_convertions.html
-          - title: "`decltype` keyword"
-            url: content/ttt/language_fundamentals/decltype_keyword.html
+          - title: "keywords"
+            url: content/ttt/language_fundamentals/keywords.html
           - title: "name lookup rules"
             url: content/ttt/language_fundamentals/name_lookup_rules.html
       - title: "function templates"
@@ -138,6 +138,19 @@ data:
             url: content/ttt/class_templates/friends.html
           - title: "virtual functions"
             url: content/ttt/class_templates/virtual_functions.html
+      - title: "compile-time evaluation"
+        url: content/ttt/compile_time_evaluation.html
+        subdiritems:
+          - title: "constexpr"
+            url: content/ttt/compile_time_evaluation/constexpr.html
+          - title: "enhanced constexpr"
+            url: content/ttt/compile_time_evaluation/enhanced_constexpr.html
+          - title: "static_assert"
+            url: content/ttt/compile_time_evaluation/static_assert.html
+          - title: "passing by value and reference"
+            url: content/ttt/compile_time_evaluation/passing_by_value_and_reference.html
+          - title: "std::reference_wrapper"
+            url: content/ttt/compile_time_evaluation/std_reference_wrapper.html
       - title: "other templates"
         url: content/ttt/other_templates.html
         subdiritems:
@@ -153,6 +166,37 @@ data:
             url: content/ttt/other_templates/restrictions_for_non_type_templates.html
           - title: "templates for raw arrays and string literals"
             url: content/ttt/other_templates/raw_arrays_and_string_literals.html
+      - title: "deduction"
+        url: content/ttt/other_templates/deduction.html
+        subdiritems:
+          - title: "deduction rules"
+            url: content/ttt/deduction/deduction_rules.html
+          - title: "explicit deduction guides"
+            url: content/ttt/deducion/explicit_deduction_guides.html
+          - title: "policy classes"
+            url: content/ttt/deducion/policy_classes.html
+          - title: "tag dispatching"
+            url: content/ttt/deducion/tag_dispatching.html
+      - title: "arcane theory"
+        url: "content/ttt/other_templates/arcane_theory.html"
+        subdiritems:
+          - title: "enum values vs static constants"
+            url: content/ttt/arcane_theory/enum_vs_constants.html
+          - title: "auto function return type"
+            url: content/ttt/arcane_theory/auto_function_return_type.html
+          - title: "decltype(auto)"
+            url: content/ttt/arcane_theory/decltype_auto.html
+      - title: "variadics"
+        url: content/ttt/variadics.html
+        subdiritems:
+          - title: "variadic templates"
+            url: content/ttt/variadics/variadic_templates.html
+          - title: "sizeof... operator"
+            url: content/ttt/variadics/sizeof_operator.html
+          - title: "perfect forwarding"
+            url: content/ttt/variadics/perfect_forwarding.html
+          - title: "fold expressions"
+            url: content/ttt/variadics/fold_expressions.html
       - title: "lambda expressions"
         url: content/ttt/lambda_expressions.html
         subdiritems:
@@ -168,6 +212,8 @@ data:
             url: content/ttt/lambda_expressions/constexpr_lambdas.html
           - title: "templated lambdas"
             url: content/ttt/lambda_expressions/templated_lambdas.html
+          - title: "higher order functions"
+            url: content/ttt/lambda_expressions/higher_order_functions.html
   - title: "Design Patterns in C++"
     url: content/design_patterns.html
     subdiritems:
