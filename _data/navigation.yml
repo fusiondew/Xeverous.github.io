@@ -178,7 +178,7 @@ data:
           - title: "tag dispatching"
             url: content/ttt/deducion/tag_dispatching.html
       - title: "arcane theory"
-        url: "content/ttt/other_templates/arcane_theory.html"
+        url: content/ttt/other_templates/arcane_theory.html
         subdiritems:
           - title: "enum values vs static constants"
             url: content/ttt/arcane_theory/enum_vs_constants.html
@@ -214,6 +214,46 @@ data:
             url: content/ttt/lambda_expressions/templated_lambdas.html
           - title: "higher order functions"
             url: content/ttt/lambda_expressions/higher_order_functions.html
+      - title: "CRTP incantations"
+        url: content/ttt/crtp.html
+        subdiritems:
+          - title: "basics"
+            url: content/ttt/crtp/basics.html
+          - title: "CRTP inside CRTP"
+            url: content/ttt/crtp/crtp_inside_crtp.html
+          - title: "expression templates"
+            url: content/ttt/crtp/expression_templates.html
+      - title: "type traits"
+        url: content/ttt/type_traits.html
+        subdiritems:
+          - title: "standard library metafunctions"
+            url: content/ttt/type_traits/metafunctions.html
+          - title: "transforming types"
+            url: content/ttt/type_traits/transforming_types.html
+          - title: "specializations based on traits"
+            url: content/ttt/type_traits/specializations.html
+          - title: "if constexpr"
+            url: content/ttt/type_traits/if_constexpr.html
+      - title: "SFINAE spells"
+        url: content/ttt/sfinae.html
+        subdiritems:
+          - title: "introduction to black magic"
+            url: content/ttt/sfinae/introduction.html
+          - title: "std::enable_if"
+            url: content/ttt/sfinae/std_enable_if.html
+          - title: "std::void_t"
+            url: content/ttt/sfinae/std_void_t.html
+          - title: "type traits based on SFINAE"
+            url: content/ttt/sfinae/type_traits_based_on_sfinae.html
+      - title: "concepts"
+        url: content/ttt/concepts.html
+        subdiritems:
+          - title: "standard concepts"
+            url: content/ttt/concepts/standard_concepts.html
+          - title: "constrained templates"
+            url: content/ttt/concepts/constrained_templates.html
+          - title: "forming concepts"
+            url: content/ttt/concepts/forming_concepts.html
   - title: "Design Patterns in C++"
     url: content/design_patterns.html
     subdiritems:
