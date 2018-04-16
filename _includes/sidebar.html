@@ -1,0 +1,9 @@
+<ul>
+    {% for item in include.nav %}
+    <li>
+        <a href="/{{ item.url }}">
+            {{ item.title }}
+        </a>
+        {% if item.subdiritems %} {% include sidebar.html nav=item.subdiritems %} {% endif %} {% endfor %}
+    </li>
+</ul>

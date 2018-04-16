@@ -414,3 +414,7 @@ a.sidebar-nav-item:focus {
 ::-webkit-scrollbar-thumb:hover {
   background: #7d7d7d;
 }
+
+.sidebar a {
+  color: #cacaca;
+}
