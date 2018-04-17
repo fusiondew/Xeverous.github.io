@@ -2,12 +2,6 @@
 layout: article
 ---
 
-## Preformatted Text
-
-Below is just about everything you’ll need to style in the theme. Check the source code to see the many embedded elements within paragraphs.
-
-Typographically, preformatted text is not the same thing as code. Sometimes, a faithful execution of the text requires preformatted text that may not have anything to do with code. Most browsers use Courier and that’s a good default — with one slight adjustment, Courier 10 Pitch over regular Courier for Linux users.
-
 * * *
 
 # Heading 1
@@ -31,6 +25,103 @@ Typographically, preformatted text is not the same thing as code. Sometimes, a f
 ###### Heading 6
 ```
 
+## Preformatted Text
+
+Below is just about everything you’ll need to style in the theme. Check the source code to see the many embedded elements within paragraphs.
+
+Typographically, preformatted text is not the same thing as code. Sometimes, a faithful execution of the text requires preformatted text that may not have anything to do with code. Most browsers use Courier and that’s a good default — with one slight adjustment, Courier 10 Pitch over regular Courier for Linux users.
+
+## Blockquotes
+
+Let’s keep it simple. Italics are good to help set it off from the body text. Be sure to style the citation.
+
+> Good afternoon, gentlemen. I am a HAL 9000 computer. I became operational at the H.A.L. plant in Urbana, Illinois on the 12th of January 1992\. My instructor was Mr. Langley, and he taught me to sing a song. If you’d like to hear it I can sing it for you. <cite>— [HAL 9000](http://en.wikipedia.org/wiki/HAL_9000)</cite>
+
+* * *
+
+## Text-level semantics - markdown
+
+The [a element](#) example
+
+The **strong element** example
+
+The _em element_ example
+
+The `code element` example
+
+```markdown
+The [a element](#) example
+The **strong element** example
+The _em element_ example
+The `code element` example
+```
+
+Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
+
+[jekyll-docs]: https://jekyllrb.com/docs/home
+[jekyll-gh]:   https://github.com/jekyll/jekyll
+[jekyll-talk]: https://talk.jekyllrb.com/
+
+```markdown
+Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
+
+[jekyll-docs]: https://jekyllrb.com/docs/home
+[jekyll-gh]:   https://github.com/jekyll/jekyll
+[jekyll-talk]: https://talk.jekyllrb.com/
+```
+
+## Text-level semantics - HTML in markdown
+
+The <abbr>abbr element</abbr> and <abbr title="Title text">abbr element with title</abbr> examples
+
+The <cite>cite element</cite> example
+
+The <del>del element</del> example
+
+The <dfn>dfn element</dfn> and <dfn title="Title text">dfn element with title</dfn> examples
+
+The <ins>ins element</ins> example
+
+The <kbd>kbd element</kbd> example
+
+The <mark>mark element</mark> example
+
+The <q>q element <q>inside</q> a q element</q> example
+
+The <s>s element</s> example
+
+The <samp>samp element</samp> example
+
+The <small>small element</small> example
+
+The <span>span element</span> example
+
+The <sub>sub element</sub> example
+
+The <sup>sup element</sup> example
+
+The <var>var element</var> example
+
+The <u>u element</u> example
+
+```html
+The <abbr>abbr element</abbr> and <abbr title="Title text">abbr element with title</abbr> examples
+The <cite>cite element</cite> example
+The <del>del element</del> example
+The <dfn>dfn element</dfn> and <dfn title="Title text">dfn element with title</dfn> examples
+The <ins>ins element</ins> example
+The <kbd>kbd element</kbd> example
+The <mark>mark element</mark> example
+The <q>q element <q>inside</q> a q element</q> example
+The <s>s element</s> example
+The <samp>samp element</samp> example
+The <small>small element</small> example
+The <span>span element</span> example
+The <sub>sub element</sub> example
+The <sup>sup element</sup> example
+The <var>var element</var> example
+The <u>u element</u> example
+```
 * * *
 
 ## List Types
@@ -199,87 +290,23 @@ class InstrumentalSong < Song
   end
 end
 ```
+### Gists via GitHub Pages
 
-## Blockquotes
+{% gist 5555251 gist.md %}
 
-Let’s keep it simple. Italics are good to help set it off from the body text. Be sure to style the citation.
-
-> Good afternoon, gentlemen. I am a HAL 9000 computer. I became operational at the H.A.L. plant in Urbana, Illinois on the 12th of January 1992\. My instructor was Mr. Langley, and he taught me to sing a song. If you’d like to hear it I can sing it for you. <cite>— [HAL 9000](http://en.wikipedia.org/wiki/HAL_9000)</cite>
-
-* * *
-
-## Text-level semantics - markdown
-
-The [a element](#) example
-
-The **strong element** example
-
-The _em element_ example
-
-The `code element` example
-
-```markdown
-The [a element](#) example
-The **strong element** example
-The _em element_ example
-The `code element` example
+```
+{% gist 5555251 gist.md %}
 ```
 
-## Text-level semantics - HTML in markdown
-
-The <abbr>abbr element</abbr> and <abbr title="Title text">abbr element with title</abbr> examples
-
-The <cite>cite element</cite> example
-
-The <del>del element</del> example
-
-The <dfn>dfn element</dfn> and <dfn title="Title text">dfn element with title</dfn> examples
-
-The <ins>ins element</ins> example
-
-The <kbd>kbd element</kbd> example
-
-The <mark>mark element</mark> example
-
-The <q>q element <q>inside</q> a q element</q> example
-
-The <s>s element</s> example
-
-The <samp>samp element</samp> example
-
-The <small>small element</small> example
-
-The <span>span element</span> example
-
-The <sub>sub element</sub> example
-
-The <sup>sup element</sup> example
-
-The <var>var element</var> example
-
-The <u>u element</u> example
-
-```html
-The <abbr>abbr element</abbr> and <abbr title="Title text">abbr element with title</abbr> examples
-The <cite>cite element</cite> example
-The <del>del element</del> example
-The <dfn>dfn element</dfn> and <dfn title="Title text">dfn element with title</dfn> examples
-The <ins>ins element</ins> example
-The <kbd>kbd element</kbd> example
-The <mark>mark element</mark> example
-The <q>q element <q>inside</q> a q element</q> example
-The <s>s element</s> example
-The <samp>samp element</samp> example
-The <small>small element</small> example
-The <span>span element</span> example
-The <sub>sub element</sub> example
-The <sup>sup element</sup> example
-The <var>var element</var> example
-The <u>u element</u> example
-```
 * * *
 
 ## Media
+
+Quisque consequat sapien eget quam rhoncus, sit amet laoreet diam tempus. Aliquam aliquam metus erat, a pulvinar turpis suscipit at.
+
+![placeholder](http://placehold.it/800x400 "Large example image")
+![placeholder](http://placehold.it/400x200 "Medium example image")
+![placeholder](http://placehold.it/200x200 "Small example image")
 
 ### Big Image
 
