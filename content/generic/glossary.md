@@ -50,6 +50,8 @@ layout: article
 
 `STL` - standard template library. More than 95% of standard C++ library. Templates are found in various headers - this term is simply covering them all.
 
+`RAII` - resource aquisition is initialization idiom. Objects dynamically allocating resources are responsible for their cleanup. Idiom requires types to implement precise resource ownership models allowing move semantics and compile-time cleanup decisions.
+
 `this` - a pointer to the object itself, available in any non-static member function. Necessary in some contexts. `this` (if available) is never null.
 
 `toolchain` - a set of tools (programs, scripts) used to build a project. The typical minimal toolchain would invole a text editor, compiler and debugger. Bigger projects additionally use documentation tools, static analyzers, continuous integration tools and more.
