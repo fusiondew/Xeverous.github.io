@@ -26,7 +26,7 @@ Soon then, I realized GitHub has opened GitHub Pages and allowed for free static
 
 Other consequences
 
-- I will learn one of countless we frameworks
+- I will learn one of countless web frameworks
 - I will consolidate my skills and knowledge (and even use the site myself)
 - the site is a good portfolio for both of us (creators)
 
@@ -34,7 +34,7 @@ Other consequences
 
 - [Jekyll](https://jekyllrb.com/) - static site generator using Ruby language and Liquid template engine
 - (obviously) HTML 5, CSS 3, JavaScript
-- Bootstrap 4.1
+- Bootstrap 4.0.0
 - theme is heavily modified version of [BlackDoc](https://github.com/karloespiritu/BlackDoc)
 
 [Site repository](https://github.com/Xeverous/Xeverous.github.io)
