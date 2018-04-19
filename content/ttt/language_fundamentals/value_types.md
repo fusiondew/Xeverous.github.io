@@ -2,7 +2,7 @@
 layout: article
 ---
 
-### First glance - simple explanation
+## First glance - simple explanation
 
 I will start with simplified explanation in regards to C to grasp the concept of value types. C has only lvalues and rvalues. Then I will move onto C++ and why it has more complex system.
 
@@ -67,7 +67,7 @@ int* p = &1;
 - lvalues have well-defined scope and lifetime, as they are names of the variables
 - rvalues are temporary objects, assigning to temporaries is both pointless and impossible, address of a temporary can not be taken
 
-#### operator ++
+### operator ++
 
 You might already came up with this question: Is `++a` and `a++` an lvalue or an rvalue?
 
@@ -124,7 +124,7 @@ main.cpp:9:11: error: lvalue required as left operand of assignment
            ^
 ```
 
-#### functions
+### functions
 
 This drives to the question: How does function's return type impact valueness?
 
@@ -132,13 +132,13 @@ The answer for C is very simple: functions invokations are always an rvalue.
 
 The answer for C++ (due to references) is more complex - function call expressions are:
 
-- a prvalue if the function return type is `T`
-- an lvalue if the function return type is `T&`
-- an xvalue if the function return type is `T&&`
+- a **prvalue** if the function return type is `T`
+- an **lvalue** if the function return type is `T&`
+- an **xvalue** if the function return type is `T&&`
 
 Expression `++a` in C is an lvalue, even though the language has no notion of references. In this situation C supports on-the-fly incerement operation but does not support defining such functions in the code.
 
-### value types in C++
+## value types in C++
 
 Before C++11, the standard had only notion of left and right values. But it was not consistent - multiple contexts used these terms but applied long exceptions, thus making each situation a unique set of rules. It was clear that new terms need to be made to avoid exceptions in rules and provide more consistent behaviour.
 
@@ -146,7 +146,13 @@ lvalue term was left as it was but rvalue has been renamed to prvalue. Most of C
 
 ![value types in C++](https://i.stack.imgur.com/GNhBF.png)
 
-##### definitions - skip this section if it's too long or complex
+### the boring stuff
+
+skip these 2 sections if they are too long or complex
+
+SPOILER START
+
+##### definitions
 
 **glvalue expression** - either an lvalue or an xvalue
 
@@ -200,6 +206,16 @@ xvalues (expiring values):
 - pointer to member of object: `a.*mp` if `a` is an rvalue and `mp` is a pointer to data member
 - (since C++17) all expressions designating temporary objects after temporary materialization: `X().n`
 
+##### What about `a ? b : c` ?
+
+Now, [this is complicated](http://en.cppreference.com/w/cpp/language/operator_other#Conditional_operator). Generally it will return lvalue if both `b` and `c` are lvalues and a prvalue if both `b` and `c` are prvalues. However, there are multiple possibilities for implicit convertions and the fact that you can do things like `str = x ? "ok" : throw std::logic_error()` where `"ok"` returns a literal and second expression returns `void` makes it even more complicated. Especailly when we combine it with bit fields. Convertions for both operands must be decided at compile time as the valueness is a language specification, not runtime decision.
+
+Basically avoid this ternary operator in unclear contexts. It's a pile of C backwards compability layers and multiple implicit convertion rules. If you are going to conditionally use copy/move constructor better wrap everything in standard `if`s and use explicit casts.
+
+SPOILER END
+
+SPOILER START
+
 ##### properties
 
 **glvalue** (general left value) (an object)
@@ -236,16 +252,34 @@ xvalues (expiring values):
 ##### other notes
 
 - things (functions, casts, hardcods, enums, operators, addresses) that return non-reference are **prvalues**
-- every name (as a sole expression) is an lvalue, additionally expressions returning references to objets are also lvalues
+- every name (as a sole expression) is an **lvalue**, additionally expressions returning references to objets are also **lvalues**
+- expressions returning rvalue reference are **xvalues**
 - function name is an lvalue (`func`) but value type of function call expression (`func()`) depends on it's return type
 - value type of comma expression `a, b` is the value type of `b`
+- every named reference is an **lvalue**, since whatever has been bound to it has now a name and well-defined scope
 
-##### What about `a ? b : c` ?
+SPOILER END
 
-Now, [this is complicated](http://en.cppreference.com/w/cpp/language/operator_other#Conditional_operator). Generally it will return lvalue if both `b` and `c` are lvalues and a prvalue if both `b` and `c` are prvalues. However, there are multiple possibilities for implicit convertions and the fact that you can do things like `str = x ? "ok" : throw std::logic_error()` where `"ok"` returns a literal and second expression returns `void` makes it even more complicated. Especailly when we combine it with bit fields. Convertions for both operands must be decided at compile time as the valueness is a language specification, not runtime decision.
+## tl;dr and what you need to remember
 
-Basically avoid this ternary operator in unclear contexts. It's a pile of C backwards compability layers and multiple implicit convertion rules. If you are going to conditionally use copy/move constructor better wrap everything in standard `if`s and use explicit casts.
+Shortest value types descriptions ("can be reused" == "can be moved from")
 
-**xvalue**
+- **lvalue** - some identity with an associated resource, has a well-defined lifetime
 
-- represents an lvalue that is no longer needed - it's resources can be reused
+- **prvalue** - just the pure resource (can be reused), has no lifetime
+
+- **xvalue** - some identity with expired resource (can be reused)
+
+Binding rules - form 1
+
+- **lvalue**s can not be bound to rvalue references (`T&&`)
+- **rvalue**s (prvalues + xvalues) can not be bound to non-const lvalure references (`T&`)
+- all value types can be bound to const lvalue references (`const T&`)
+
+Binding rules - form 2
+
+- non-const lvalue references (`T&`) accept only **lvalue**s
+- rvalue references (`T&&`)  accept only **rvalue**s
+- const lvalue references (`const T&`) accept everything
+
+In terms of the code, almost all expressions will be either **lvalue** (objects) or **prvalues** (pure temporaries). Rarely you will explicitly convert **lvalue** to **xvalue** to perform move operations.
