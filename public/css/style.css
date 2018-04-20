@@ -340,12 +340,15 @@ img {
     flex-direction: column;
 }
 
-details p {
-    margin-left: 1rem;
-    border: 1px solid #ccc;
+details {
     background: #222;
-    padding: 1rem;
-    margin-top: 10px;
+    padding: 1em;
+    border-radius: 5px;
+    margin-bottom: 1em;
+}
+
+details p {
+    margin: 1.3rem 1rem 1rem 1rem;
 }
 
 @media (max-width: 1200px) {
