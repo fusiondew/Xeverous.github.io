@@ -327,3 +327,24 @@ Labore et dolore.
 ## Embeds
 
 Sometimes all you want to do is embed a little love from another location and set your post alive.
+
+## Spoiler tag
+<details>
+    <summary>Click to expand</summary>
+    whatever
+</details>
+
+
+## Spiler tag 2
+<details> 
+    <summary>Q1: What is the best Language in the World? </summary>
+    <p> A1: JavaScript </p> 
+</details>
+
+<details> 
+    <h2>Q1: What is the best Language in the World?</h2>
+    <p> 
+        <li>A1: JavaScript </li>
+        <li>A1: JavaScript </li>
+    </p> 
+</details>
