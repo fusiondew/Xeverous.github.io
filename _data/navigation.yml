@@ -1,136 +1,295 @@
 data:
   - title: "C++ language tutorial"
-    url: content/cpp_tutorial.html
+    url: cpp_tutorial
     subdiritems:
       - title: "C++ from scratch"
-        url: content/cpp_tutorial/from_scratch.html
+        url: from_scratch
         subdiritems:
           - title: "Hello World"
-            url: content/cpp_tutorial/from_scratch/hello_world.html
+            url: hello_world
           - title: "scratch 2"
-            url: content/cpp_tutorial/from_scratch/2.md
+            url: "2"
           - title: "scratch 3"
-            url: content/cpp_tutorial/from_scratch/3.md
+            url: "3"
       - title: "C++ with other language experience"
-        url: content/cpp_tutorial/from_other.html
+        url: from_other
         subdiritems:
           - title: "test 1"
-            url: content/cpp_tutorial/from_other/test1.html
+            url: test1
           - title: "test 2"
-            url: content/cpp_tutorial/from_other/test2.html
+            url: test2
           - title: "test 3"
-            url: content/cpp_tutorial/from_other/test3.html
+            url: test3
       - title: "basic tasks with standard library"
-        url: content/cpp_tutorial/basic_tasks.html
+        url: basic_tasks
         subdiritems:
-          - title: "text input/output guide, basic parsing"
-            url: content/cpp_tutorial/basic_tasks/text_io.html
+          - title: "text I/O guide, basic parsing"
+            url: text_io
           - title: "random number generators"
-            url: content/cpp_tutorial/basic_tasks/rng.html
+            url: rng
           - title: "RAII, smart poiters"
-            url: content/cpp_tutorial/basic_tasks/raii.html
+            url: raii
           - title: "std::optional"
-            url: content/cpp_tutorial/basic_tasks/std_optional.html
+            url: std_optional
   - title: "advanced C++"
-    url: content/advanced_cpp.html
+    url: advanced_cpp
     subdiritems:
       - title: "custom memory allocation"
-        url: content/advanced_cpp/custom_memory_allocation.html
+        url: custom_memory_allocation
         subdiritems:
           - title: "std::polymorphic_allocator"
-            url: content/advanced_cpp/custom_memory_allocation/std_polymorphic_allocator.html
+            url: std_polymorphic_allocator
           - title: "boost::pool_allocator"
-            url: content/advanced_cpp/custom_memory_allocation/boost_pool_allocator.html
+            url: boost_pool_allocator
       - title: "standard library utilities"
-        url: content/advanced_cpp/standard_library_utilities.html
+        url: standard_library_utilities
         subdiritems:
           - title: "std::variant"
-            url: content/advanced_cpp/standard_library_utilities/std_variant.html
+            url: std_variant
           - title: "std::any"
-            url: content/advanced_cpp/standard_library_utilities/std_any.html
+            url: std_any
           - title: "std::pair"
-            url: content/advanced_cpp/standard_library_utilities/std_pair.html
+            url: std_pair
           - title: "std::tuple"
-            url: content/advanced_cpp/standard_library_utilities/std_tuple.html
+            url: std_tuple
           - title: "callbacks':' std::function, std::bind"
-            url: content/advanced_cpp/standard_library_utilities/callbacks.html
+            url: callbacks
           - title: "std::hash"
-            url: content/advanced_cpp/standard_library_utilities/std_hash.html
+            url: std_hash
       - title: "standard library algorithms"
-        url: content/advanced_cpp/standard_library_algorithms.html
+        url: standard_library_algorithms
         subdiritems:
           - title: "non modifying algorithms"
-            url: content/advanced_cpp/standard_library_algorithms/non_modifying.html
+            url: non_modifying
             subdiritems:
               - title: "std::all_of, std::any_of, std::none_of"
-                url: content/advanced_cpp/standard_library_algorithms/non_modifying/std_all_any_none_of.html
+                url: std_all_any_none_of
               - title: "std::min_element, std::max_element"
-                url: content/advanced_cpp/standard_library_algorithms/non_modifying/std_min_max_element.html
+                url: std_min_max_element
       - title: "multithreading"
-        url: content/advanced_cpp/multithreading.html
+        url: multithreading
         subdiritems:
           - title: "std::thread"
-            url: content/advanced_cpp/multithreading/std_thread.html
+            url: std_thread
           - title: "std::promise"
-            url: content/advanced_cpp/multithreading/std_promise.html
+            url: std_promise
           - title: "std::future"
-            url: content/advanced_cpp/multithreading/std_future.html
+            url: std_future
           - title: "std::async"
-            url: content/advanced_cpp/multithreading/std_async.html
+            url: std_async
           - title: "std::atomic"
-            url: content/advanced_cpp/multithreading/std_atomic.html
+            url: std_atomic
       - title: "I/O devices, graphics, audio"
-        url: content/advanced_cpp/media.html
+        url: media
         subdiritems:
           - title: "SFML"
-            url: content/advanced_cpp/media/sfml.html
+            url: sfml
           - title: "games - introduction"
-            url: content/advanced_cpp/media/games_introduction.html
+            url: games_introduction
   - title: "C++ Thorough Template Tutorial"
-    url: content/ttt.html
+    url: ttt
     subdiritems:
-      - title: "magic 1"
-        url: content/ttt/magic1.html
-      - title: "magic 2"
-        url: content/ttt/magic2.html
-      - title: "magic 3"
-        url: content/ttt/magic3.html
+      - title: "language fundamentals"
+        url: language_fundamentals
+        subdiritems:
+          - title: "introduction to metaprogramming"
+            url: introduction
+          - title: "value types{{':'}} lvalue, xvalue, prvalue, glvalue, rvalue and their references"
+            url: value_types
+          - title: "implicit convertions"
+            url: implicit_convertions
+          - title: "keywords"
+            url: keywords
+          - title: "name lookup rules"
+            url: name_lookup_rules
+      - title: "function templates"
+        url: function_templates
+        subdiritems:
+          - title: "basics"
+            url: basics
+          - title: "template instances"
+            url: template_instances
+          - title: "template specialization"
+            url: template_specialization
+          - title: "overloading"
+            url: overloading
+          - title: "multiple template parameters"
+            url: multiple_template_parameters
+          - title: "template default arguments"
+            url: template_default_arguments
+      - title: "class templates"
+        url: class_templates
+        subdiritems:
+          - title: "basics"
+            url: basics
+          - title: "full specialization"
+            url: full_specialization
+          - title: "partial specialization"
+            url: partial_specialization
+          - title: "inheritance"
+            url: inheritance
+          - title: "dependent names, temploids"
+            url: dependent_names
+          - title: "empty base optimization"
+            url: empty_base_optimization
+          - title: "member templates"
+            url: member_templates
+          - title: "friends"
+            url: friends
+          - title: "virtual functions"
+            url: virtual_functions
+      - title: "compile-time evaluation"
+        url: compile_time_evaluation
+        subdiritems:
+          - title: "constexpr"
+            url: constexpr
+          - title: "enhanced constexpr"
+            url: enhanced_constexpr
+          - title: "static_assert"
+            url: static_assert
+          - title: "passing by value and reference"
+            url: passing_by_value_and_reference
+          - title: "std::reference_wrapper"
+            url: std_reference_wrapper
+      - title: "other templates"
+        url: other_templates
+        subdiritems:
+          - title: "alias templates"
+            url: alias_templates
+          - title: "variable templates"
+            url: variable_templates
+          - title: "non-type templates"
+            url: non_type_templates
+          - title: "template parameter type auto"
+            url: template_parameter_type_auto
+          - title: "restrictions for non-type templates"
+            url: restrictions_for_non_type_templates
+          - title: "templates for raw arrays and string literals"
+            url: raw_arrays_and_string_literals
+      - title: "deduction"
+        url: deduction
+        subdiritems:
+          - title: "deduction rules"
+            url: deduction_rules
+          - title: "explicit deduction guides"
+            url: explicit_deduction_guides
+          - title: "policy classes"
+            url: policy_classes
+          - title: "tag dispatching"
+            url: tag_dispatching
+      - title: "arcane theory"
+        url: arcane_theory
+        subdiritems:
+          - title: "enum values vs static constants"
+            url: enum_vs_constants
+          - title: "auto function return type"
+            url: auto_function_return_type
+          - title: "decltype(auto)"
+            url: decltype_auto
+      - title: "variadics"
+        url: variadics
+        subdiritems:
+          - title: "variadic templates"
+            url: variadic_templates
+          - title: "sizeof... operator"
+            url: sizeof_operator
+          - title: "perfect forwarding"
+            url: perfect_forwarding
+          - title: "fold expressions"
+            url: fold_expressions
+      - title: "lambda expressions"
+        url: lambda_expressions
+        subdiritems:
+          - title: "leading and trailing return type"
+            url: leading_and_trailing_return_type
+          - title: "basics"
+            url: basics
+          - title: "mutable lambdas"
+            url: mutable_lambdas
+          - title: "generic lambdas"
+            url: generic_lambdas
+          - title: "constexpr lambdas"
+            url: constexpr_lambdas
+          - title: "templated lambdas"
+            url: templated_lambdas
+          - title: "higher order functions"
+            url: higher_order_functions
+      - title: "CRTP incantations"
+        url: crtp
+        subdiritems:
+          - title: "basics"
+            url: basics
+          - title: "CRTP inside CRTP"
+            url: crtp_inside_crtp
+          - title: "expression templates"
+            url: expression_templates
+      - title: "type traits"
+        url: type_traits
+        subdiritems:
+          - title: "standard library metafunctions"
+            url: metafunctions
+          - title: "transforming types"
+            url: transforming_types
+          - title: "specializations based on traits"
+            url: specializations
+          - title: "if constexpr"
+            url: if_constexpr
+      - title: "SFINAE spells"
+        url: sfinae
+        subdiritems:
+          - title: "introduction to black magic"
+            url: introduction
+          - title: "std::enable_if"
+            url: std_enable_if
+          - title: "std::void_t"
+            url: std_void_t
+          - title: "type traits based on SFINAE"
+            url: type_traits_based_on_sfinae
+      - title: "concepts"
+        url: concepts
+        subdiritems:
+          - title: "standard concepts"
+            url: standard_concepts
+          - title: "constrained templates"
+            url: constrained_templates
+          - title: "forming concepts"
+            url: forming_concepts
   - title: "Design Patterns in C++"
-    url: content/design_patterns.html
+    url: design_patterns
     subdiritems:
       - title: "creational"
-        url: content/design_patterns/creational.html
+        url: creational
         subdiritems:
       - title: "structural"
-        url: content/design_patterns/structural.html
+        url: structural
         subdiritems:
       - title: "behavioral"
-        url: content/design_patterns/behavioral.html
+        url: behavioral
         subdiritems:
   - title: "C++ tools tutorials"
-    url: content/cpp_tool_tutorials.html
+    url: cpp_tool_tutorials
     subdiritems:
       - title: "Doxygen - documentation generator"
-        url: content/cpp_tools_tutorials/doxygen.html
+        url: doxygen
       - title: "Valgrind - memory debugger"
-        url: content/cpp_tools_tutorials/valgrind.html      
+        url: valgrind
   - title: "generic utilities"
-    url: content/generic.html
+    url: generic
     subdiritems:
       - title: "Compendium of Common C++ Problems"
-        url: content/generic/cccppp.html
+        url: cccppp
       - title: "glossary"
-        url: content/generic/glossary.html
+        url: glossary
       - title: "C++ cheatsheets"
-        url: content/generic/cpp_cheatsheets.html
+        url: cpp_cheatsheets
       - title: "C++ FAQ"
-        url: content/generic/cpp_faq.html
+        url: cpp_faq
   - title: "meta"
-    url: content/meta.html
+    url: meta
     subdiritems:
      - title: "about"
-       url: content/meta/about.html
+       url: about
      - title: "site FAQ"
-       url: content/meta/site_faq.html
+       url: site_faq
      - title: "playground"
-       url: content/meta/playground.html
+       url: playground
