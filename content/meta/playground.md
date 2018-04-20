@@ -331,7 +331,7 @@ Sometimes all you want to do is embed a little love from another location and se
 ## Spoiler tag
 <details>
     <summary>Click to expand</summary>
-    whatever
+    <p>whatever</p>
 </details>
 
 
@@ -339,12 +339,4 @@ Sometimes all you want to do is embed a little love from another location and se
 <details> 
     <summary>Q1: What is the best Language in the World? </summary>
     <p> A1: JavaScript </p> 
-</details>
-
-<details> 
-    <h2>Q1: What is the best Language in the World?</h2>
-    <p> 
-        <li>A1: JavaScript </li>
-        <li>A1: JavaScript </li>
-    </p> 
 </details>

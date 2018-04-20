@@ -340,6 +340,14 @@ img {
     flex-direction: column;
 }
 
+details p {
+    margin-left: 1rem;
+    border: 1px solid #ccc;
+    background: #222;
+    padding: 1rem;
+    margin-top: 10px;
+}
+
 @media (max-width: 1200px) {
     .menu-text {
         font-size: 16px;
