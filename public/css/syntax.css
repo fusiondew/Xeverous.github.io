@@ -1,3 +1,6 @@
+/* default theme - not well working with site theme
+ * TODO - change colors to suit dark background, test monokai */
+
 .highlight .hll { background-color: #ffc; }
 .highlight .c { color: #999; } /* Comment */
 .highlight .err { color: #a00; background-color: #faa } /* Error */
@@ -60,6 +63,50 @@
 .highlight .vg { color: #033 } /* Name.Variable.Global */
 .highlight .vi { color: #9E5BBC } /* Name.Variable.Instance */
 .highlight .il { color: #f60 } /* Literal.Number.Integer.Long */
+
+/* custom vibrant ink theme - mostly for C++ */
+
+.highlight .brace       { color: #ffffff } /* only { and } */
+.highlight .op          { color: #ffffff } /* operators */
+.highlight .op-ol       { color: #f7c527 } /* overloaded operators */
+.highlight .built-in    { color: #ec691e } /* build-in types such as int */
+.highlight .keyword     { color: #ec691e } /* language keyword */
+.highlight .class       { color: #9cf828 } /* classes, structs, unions, etc */
+.highlight .alias       { color: #9cf828 } /* type aliases (typedefs) */
+.highlight .namespace   { color: #91e625 } /* namespace names */
+.highlight .enumerator  { color: #7fff00 } /* enum scopes */
+.highlight .enum        { color: #408000 } /* enum values */
+.highlight .const       { color: #868613 } /* constants */
+.highlight .ext         { color: #ffffff } /* extensions and externals */
+.highlight .func        { color: #f7c527 } /* function/method calls and declarations */
+.highlight .global      { color: #ffffff } /* global objects/variables */
+.highlight .label       { color: #ffffff } /* labels (eg jump places in assembly) */
+.highlight .var-local   { color: #357a92 } /* function-local variables */
+.highlight .var-member  { color: #357a8f } /* fields - class member variables */
+.highlight .var-static  { color: #ffffff } /* static objects/variables */
+.highlight .param       { color: #408000 } /* parameters (to functions) */
+.highlight .mutparam    { color: #c86496 } /* mutable parameters (passed by non-const reference) */
+.highlight .tparam      { color: #ffaf7b } /* parameters (to templates) */
+.highlight .concept     { color: #ffaf7b } /* C++ concept (constrained template)*/
+.highlight .problem     { color: #ff0000 } /* compiler errors etc */
+.highlight .num         { color: #ff4d4d } /* numbers */
+.highlight .string      { color: #ff4d4d } /* hardcoded strings and characters */
+
+.highlight .comm-single     { color: #8136a2 } /* single-line comment */
+.highlight .comm-multi      { color: #8c3fc8 } /* multi-line comment */
+.highlight .comm-tag        { color: #800080 } /* tags in comments, eg @todo */
+.highlight .comm-single-dox { color: #4b71e3 } /* Doxygen single-line comment */
+.highlight .comm-multi-dox  { color: #4b71e3 } /* Doxygen multi-line comment */
+.highlight .comm-tag-dox    { color: #4c6073 } /* Doxygen tag in comment */
+
+.highlight .prep-direct { color: #ec691e } /* includes, imports etc */
+.highlight .prep-hdr    { color: #477488 } /* names of includes, modules, packages */
+.highlight .prep-other  { color: #ffffff } /* other preprocessor instructions */
+.highlight .macro-def   { color: #f7c527 } /* macro definitions */
+.highlight .macro-ref   { color: #ffffff } /* macro references */
+
+.highlight .asm-direct { color: #ec691e } /* directives in assembly */
+
 
 .css .o,
 .css .o + .nt,
