@@ -16,4 +16,6 @@ Short descriptions of all the keywords and relavant stuff in regards to template
 
 `auto` (since C++11) - automatic type deduction. Used in various contexts to ommit and automatically deduce result type. Analogic to `var` and `let` in other languages.
 
-`concept` (since C++20) - indicates a concept (constrained template).
+`concept` (since C++20) - defines a concept (constrained template).
+
+`requires` (since C++20) - used to form a concept or constrain a template.
