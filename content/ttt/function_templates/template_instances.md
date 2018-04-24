@@ -53,11 +53,11 @@ This process is named **two phase lookup**.
 
 ordinary function:
 
-declaration => definition => compilation
+definition => compilation
 
 templated function:
 
-template declaration => template definition => instantiation => compilation
+template definition => instantiation => compilation
 
 For ordinary functions, there is no instantiation step because everything is known in order to compile the code.
 
@@ -120,6 +120,8 @@ ERROR HERE
 
 This time the error was catched at the second stage (instantiation). If you comment the line where `min()` is used the error will not appear - at the first stage, it can not be decided whether something will work or not.
 
+This is one of the reasons why sometimes you may encounter nested errors with some of them pointing inside standard template library - it's possible to write a syntaxically valid template but only upon instantiation it's verified that it makes sense for the given types.
+
 
 ### explicit instantiations
 
@@ -150,6 +152,19 @@ int main()
 
 The program prints "foo\n". But - why? Isn't "bar" < "foo"?
 
-The answer is that it is not. Everything is ok. The problem lies in deduction - the template was instantiated with `T = const char*` (more precisely `T = const char[4]` was tried but it falled into implicit convertions). So pointer values were compared, not character sequences lexicographically.
+The answer is that it is not. Everything is ok. The problem lies in deduction - the template was instantiated with `T = char[4]`. So after substituting the T, function operated on const reference to 4-char arrays - array names have fallen into implicit convertion to `const char*` when being compared. Pointer values were compared, not character sequences lexicographically. Since addresses have unpredictable values, both answers may be correct depending on the used compiler.
 
-**Templates perform minimal effort to match the type
+**Templates perform minimal effort to match the type. Templates do not like convertions.**
+
+If we want to make this example work, we need a different type. Raw character arrays do not only support `operator<`, but also fall into `const char*` in expression `y < x` which enables very unintuitive comparison of addresses.
+
+We can ommit deduction and state type explicitly. Standard library offers 2 good choices:
+
+```c++
+min<std::string>("foo", "bar")
+min<std::string_view>("foo", "bar") // C++17
+```
+
+Both of these have overloaded operators which implement lexicographical comparison.
+
+There is a simple way to avoid this problem - **template specialization**.
