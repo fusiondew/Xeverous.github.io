@@ -40,7 +40,7 @@ c = a + b;
 int* p = &c;
 ```
 
-But the following are not:
+But all of the following are not:
 
 ```c++
 a + 1 = a;
@@ -142,7 +142,9 @@ Expression `++a` in C is an lvalue, even though the language has no notion of re
 
 Before C++11, the standard had only notion of left and right values. But it was not consistent - multiple contexts used these terms but applied long exceptions, thus making each situation a unique set of rules. It was clear that new terms need to be made to avoid exceptions in rules and provide more consistent behaviour.
 
-lvalue term was left as it was but rvalue has been renamed to prvalue. Most of C++ uses only lvalue and rvalue terms, as both are mutually exclusive. Sometimes rvalues will be split into prvalues and xvalues. glvalue term is rarely used.
+lvalue term was left as it was but rvalue has been split to prvalue and xvalue. Most of C++ uses only lvalue and rvalue terms, as both are mutually exclusive sets and such distinction is enough for near all situations. glvalue term is rarely used.
+
+TODO desribe the rvalue split and why.
 
 ![value types in C++](https://i.stack.imgur.com/GNhBF.png)
 
@@ -270,13 +272,7 @@ Shortest value types descriptions ("can be reused" == "can be moved from")
 
 - **xvalue** - some identity with expired resource (can be reused)
 
-Binding rules - form 1
-
-- **lvalue**s can not be bound to rvalue references (`T&&`)
-- **rvalue**s (prvalues + xvalues) can not be bound to non-const lvalure references (`T&`)
-- all value types can be bound to const lvalue references (`const T&`)
-
-Binding rules - form 2
+Binding rules
 
 - non-const lvalue references (`T&`) accept only **lvalue**s
 - rvalue references (`T&&`)  accept only **rvalue**s

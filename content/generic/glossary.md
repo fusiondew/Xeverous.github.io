@@ -2,6 +2,8 @@
 layout: article
 ---
 
+TODO - article with symbol character names.
+
 `ABC` - abstract base class. ABCs have at least 1 unimplemented virtual function and can not be instantiated. Some languages offer `abstract` keyword to force a class being abstract without the need to declare any unimplemented function.
 
 [`Boost`](https://en.wikipedia.org/wiki/Boost_(C%2B%2B_libraries)) - a collection of over 80 high-quality C++ libraries for various purposes. Many have been incorporated into C++ standard, with also many proposed for inclusion in future standards. Boost is sometimes referred to as "the second standard". Most Boost libraries are header-only.

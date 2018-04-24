@@ -8,13 +8,21 @@ layout: article
 
 #### Why tutorials are not build incrementally over consecutive C++ standards?
 
-This not a good idea. If you play any online game - do you learn it how it is at given moment or read patch notes for every update since the beginning? It's good to know what things have been introduced in what order, but it doesn't do well in terms of learning. A lot of features can be mixed together, so the order of presentation matters, not the chronological order of their introduction.
+This not a good idea. If you play any online game - do you learn it how it is at the given moment or read patch notes for every update since the beginning? It's good to know what things have been introduced in what order, but it doesn't do well in terms of learning. A lot of features can be mixed together, so the order of presentation matters, not the chronological order of their introduction.
 
 It's better to study a complete feature in one go than to jump back to it periodically because there was a language update. It makes searching hard (unstructured lessons) and requires jumping between features when learning which may be confusing and counter-productive. Plus you are not going to remember when everything was introduced anyway.
 
 However, newer features are explicitly marked and most chapters about certain features do go upfront from the start to the latest changes.
 
 ### Site creation
+
+#### What was the hardest part of writing the content?
+
+I would say deciding whether X amount of text for an explanation of ABC is enough. I might write 2X but will it not overwhelm the reader? Is more, simpler text always better? Some readers may find 0.5X to be enough (and more text to be redundant or boring) while some may find 2X + examples to be necessary to understand the thing. I think I may spend to much time on text-meta and think too deply about each site user.
+
+Regardless of text, I'm sure more examples are always a good idea. They don't distract the user much and each gives a chance to look how something is used.
+
+Sometimes I struggle with creating examples - especially for design patterns. And it's better not to provide bad examples.
 
 #### What was the motivation to create the site?
 

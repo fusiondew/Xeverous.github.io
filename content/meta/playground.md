@@ -298,6 +298,53 @@ end
 {% gist 5555251 gist.md %}
 ```
 
+#### Custom C++ highlight
+
+<pre class="highlight"><code><span class="prep-direct">#include</span> <span class="prep-hdr">&lt;execution&gt;</span>
+<span class="prep-direct">#include</span> <span class="prep-hdr">&lt;thread&gt;</span>
+<span class="prep-direct">#include</span> <span class="prep-hdr">&lt;string&gt;</span>
+<span class="prep-direct">#include</span> <span class="prep-hdr">&lt;fmt&gt;</span>
+
+<span class="comm-multi">/*
+ * Disjunctions are short-circuited
+ * overloaded operators can not be used in requires expressions
+ */</span>
+<span class="keyword">template</span> <span class="op">&lt;</span><span class="keyword">typename</span> <span class="tparam">T</span><span class="op">&gt;</span>
+<span class="keyword">concept</span> <span class="concept">MoreThanComparable</span> <span class="op">=</span> <span class="keyword">requires</span><span class="op">(</span><span class="tparam">T</span> <span class="param">a</span><span class="op">,</span> <span class="tparam">T</span> <span class="param">b</span><span class="op">)</span> <span class="op">||</span> <span class="concept">LessThanComparable</span>
+<span class="brace">{</span>
+&#9;<span class="brace">{</span> <span class="param">a</span> <span class="op">&gt;</span> <span class="param">b</span> <span class="brace">}</span> <span class="op">-></span> <span class="built-in">bool</span><span class="op">;</span> <span class="comm-single-dox">/// </span><span class="comm-tag-dox">@brief</span> <span class="comm-single-dox">expression "a > b" must return bool</span>
+<span class="brace">}</span><span class="op">;</span>
+
+<span class="keyword">template</span> <span class="op">&lt;</span><span class="concept">EqualityComparable</span><span class="op">...</span> <span class="tparam">Args</span><span class="op">&gt;</span> <span class="keyword">constexpr</span>
+<span class="keyword">decltype</span><span class="op">(</span><span class="keyword">auto</span><span class="op">)</span> <span class="func">build</span><span class="op">(</span><span class="tparam">Args</span><span class="op">&amp;&amp;...</span> <span class="param">args</span><span class="op">);</span> <span class="comm-single">// constrained C++20 function template</span>
+<span class="brace">{</span>
+&#9;<span class="keyword">if</span> <span class="keyword">constexpr</span> <span class="op">(</span><span class="keyword">sizeof</span><span class="op">...(</span><span class="param">args</span><span class="op">)</span> <span class="op">==</span> <span class="num">0</span><span class="op">)</span>
+&#9;&#9;<span class="keyword">throw</span> <span class="namespace">std</span><span class="op">::</span><span class="class">logic_error</span><span class="op">(</span><span class="namespace">std</span><span class="op">::</span><span class="class">string</span><span class="op">(</span><span class="string">"error in file: "</span><span class="op">)</span> <span class="op-ol">+</span> <span class="macro-ref">__FILE__</span> <span class="op-ol">+</span> <span class="string">"on line: "</span> <span class="op-ol">+</span> <span class="macro-ref">__LINE__</span><span class="op">);</span>
+
+&#9;<span class="keyword">return</span> <span class="namespace">std</span><span class="op">::</span><span class="class">tuple</span><span class="op">(</span><span class="namespace">std</span><span class="op">::</span><span class="func">forward</span><span class="op">&lt;</span><span class="tparam">Args</span><span class="op">&gt;(</span><span class="param">args</span><span class="op">)...);</span>
+<span class="brace">}</span>
+
+<span class="keyword">template</span> <span class="op">&lt;</span><span class="keyword">typename</span> <span class="tparam">T</span><span class="op">&gt;</span>
+<span class="keyword">concept</span> <span class="concept">Opaque</span> <span class="op">=</span> <span class="keyword">requires</span><span class="op">(</span><span class="tparam">T</span> <span class="param">x</span><span class="op">)</span>
+<span class="brace">{</span>
+&#9;<span class="brace">{</span><span class="op">*</span><span class="param">x</span><span class="brace">}</span> <span class="op">-></span> <span class="keyword">typename</span> <span class="tparam">T</span><span class="op">::</span><span class="class">inner</span><span class="op">;</span> <span class="comm-single">// the expression *x must be valid</span>
+&#9;                           <span class="comm-single">// AND the type T::inner must be valid</span>
+&#9;                           <span class="comm-single">// AND the result of *x must be convertible to T::inner</span>
+<span class="brace">}</span>
+
+<span class="keyword">using</span> <span class="alias">cw</span> <span class="op">=</span> <span class="namespace">std</span><span class="op">::</span><span class="namespace">chrono</span><span class="op">::</span><span class="class">weekday</span><span class="op">;</span>
+<span class="keyword">static_assert</span><span class="op">(</span><span class="alias">cw</span><span class="op">::</span><span class="const">Saturday</span> <span class="op-ol">-</span> <span class="alias">cw</span><span class="op">::</span><span class="const">Monday</span> <span class="op">==</span> <span class="num">5</span><span class="op">);</span>
+
+<span class="keyword">int</span> <span class="func">main</span><span class="op">()</span>
+<span class="brace">{</span>
+&#9;<span class="keyword">constexpr</span> <span class="namespace">std</span><span class="op">::</span><span class="class">array</span><span class="op">&lt;</span><span class="built-in">int</span><span class="op">,</span> <span class="num">5</span><span class="op">&gt;</span> <span class="var-local">a1</span> <span class="op">=</span> <span class="brace">{</span> <span class="num">0</span><span class="op">,</span> <span class="num">2</span><span class="op">,</span> <span class="num">4</span><span class="op">,</span> <span class="num">6</span><span class="op">,</span> <span class="num">8</span> <span class="brace">}</span><span class="op">;</span>
+&#9;<span class="keyword">constexpr</span> <span class="namespace">std</span><span class="op">::</span><span class="class">array</span><span class="op">&lt;</span><span class="built-in">int</span><span class="op">,</span> <span class="num">5</span><span class="op">&gt;</span> <span class="var-local">a2</span> <span class="op">=</span> <span class="brace">{</span> <span class="num">1</span><span class="op">,</span> <span class="num">3</span><span class="op">,</span> <span class="num">5</span><span class="op">,</span> <span class="num">7</span><span class="op">,</span> <span class="num">9</span> <span class="brace">}</span><span class="op">;</span>
+&#9;<span class="keyword">auto</span> <span class="var-local">it</span> <span class="op">=</span> <span class="namespace">std</span><span class="op">::</span><span class="func">find_first_of</span><span class="op">(</span><span class="mutparam">std::execution::par_unseq</span><span class="op">,</span> <span class="var-local">a1</span><span class="op">.</span><span class="func">begin</span><span class="op">(),</span> <span class="var-local">a1</span><span class="op">.</span><span class="func">end</span><span class="op">(),</span> <span class="var-local">a2</span><span class="op">.</span><span class="func">begin</span><span class="op">(),</span> <span class="var-local">a2</span><span class="op">.</span><span class="func">end</span><span class="op">());</span>
+&#9;<span class="namespace">std</span><span class="op">::</span><span class="class">thread_pool</span> <span class="var-local">tp</span><span class="op">;</span>
+&#9;<span class="var-local">tp</span><span class="op">.</span><span class="func">add_task</span><span class="op">([&amp;,</span> <span class="var-local">it</span><span class="op">]()</span> <span class="brace">{</span> <span class="namespace">std</span><span class="op">::</span><span class="namespace">fmt</span><span class="op">::</span><span class="func">print</span><span class="op">(</span><span class="string">"index = {}\n"</span><span class="op">,</span> <span class="var-local">a1</span><span class="op">.</span><span class="func">end</span><span class="op">()</span> <span class="op-ol">-</span> <span class="var-local">it</span><span class="op">);</span> <span class="brace">}</span><span class="op">).</span><span class="func">repeat</span><span class="op">(</span><span class="num">1337</span><span class="op">);</span>
+<span class="brace">}</span>
+</code></pre>
+
 * * *
 
 ## Media
