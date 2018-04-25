@@ -96,8 +96,8 @@ The fact that the deduction occurs before different overloads are considered has
 
 However, there is another consequence. **Because deduction occurs first, it has been allowed to fail.** Overloads in which deduction failed are not considered. This enables SFINAE (substitution failure is not an error) which is a very powerful feature capable to throw away certain overloads before they can be considered.
 
-SFINAE means that instead of compilation errors, overloads with failed deduction are simply not considered to be available. The error would only arise if all overloads have been discarded and there was no valid function to call. As long as at least 1 candidate is valid, everything is ok, we just ignore these that do not make sense.
+SFINAE means that instead of compilation errors, overloads with failed deduction are simply not considered to be available. The error would only arise if all overloads have been discarded (there would not be anything left to choose from). As long as at least 1 candidate is valid, everything is ok, we just ignore these that do not make sense.
 
 #### Question: When can deduction fail?
 
-Certainly not in this scenario. Not in any simple scenario where `T` can be simply replaced with the type of the object that was put into the function. 
+Certainly not in this scenario. Not in any simple scenario where `T` can be simply replaced with the type of the object that was put into the function. The deduction is strong and we need far more advanced magic to make it fail. This is the reason why SFINAE is that far on the tutorial - you need to learn many other features first.
