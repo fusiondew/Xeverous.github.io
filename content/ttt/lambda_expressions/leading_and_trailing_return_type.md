@@ -193,6 +193,8 @@ Go back to the first example from this article and change `print` to capture by 
 
 Note that both `[&]` and `[=]` capture the current object (if it exists) by reference. `[this]` is not very different, but it captures only the current object - nothing else.
 
+- `[*this]` (since C++17) captures current object by value
+
 Things that can always be used (and modified), even with `[]`:
 
 - non-local variables (aka globals)
@@ -219,3 +221,24 @@ It's possible to mix different captures if the subsequent captures are different
 `[&, i]` - capture everything by reference, but `i` by copy
 
 `[=, &i]` - capture everything by copy, but `i` by reference
+
+Some obvious rules:
+
+- Captures may not repeat.
+- If the capture-default is `&`, subsequent simple captures must not begin with `&`
+- If the capture-default is `=`, subsequent simple captures must
+    - begin with `&` OR
+    - (since C++17) be `*this` OR
+    - (since C++20) be `this`
+
+```c++
+[i, i]  // error - i repeated
+[i, &i] // error - i repeated
+[&, &i] // error - repeated & capture
+[=, i]  // error - no &, *this or this
+[this, *this] // error - this repeated
+
+[&, this]  // ok - the same as [&]
+[=, *this] // before C++17 - error: invalid syntax; after C++17 - ok
+[=, this]  // before C++20 - error: this when = is default; after C++20 - ok, same as [=]
+```
