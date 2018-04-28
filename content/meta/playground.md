@@ -387,3 +387,8 @@ Sometimes all you want to do is embed a little love from another location and se
     <summary>Q1: What is the best Language in the World? </summary>
     <p> A1: JavaScript </p> 
 </details>
+
+
+## Div with class
+{:.test-div}
+test
