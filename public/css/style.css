@@ -351,6 +351,45 @@ details p {
     margin: 1.3rem 1rem 1rem 1rem;
 }
 
+.note {
+    padding: 15px;
+    box-shadow: 5px 6px 20px 5px rgba(0, 0, 0, .3);
+    border-radius: 10px;
+    margin-bottom: 30px;
+    transition: 0.25s;
+}
+
+.note:hover {
+    transform: translateX(-20px);
+    box-shadow: 0 22px 43px rgba(0, 0, 0, 0.15);
+}
+
+svg:not(:root).svg-inline--fa {
+    font-size: 32px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.note.info {
+    background: #2c4486;
+}
+
+.note.warning {
+    background: #de8909;
+}
+
+.note.error {
+    background: #e02300;
+}
+
+.note.pro-tip {
+    background: #9e8042;
+}
+
+.note.success {
+    background: #408000;
+}
+
 @media (max-width: 1200px) {
     .menu-text {
         font-size: 16px;
