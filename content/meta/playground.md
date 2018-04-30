@@ -387,3 +387,43 @@ Sometimes all you want to do is embed a little love from another location and se
     <summary>Q1: What is the best Language in the World? </summary>
     <p> A1: JavaScript </p> 
 </details>
+
+
+## Info notes
+
+{::options parse_block_html="true" /}
+<div class="note info">
+#### Info
+<i class="fas fa-info-circle"></i>
+Tips info box, for Xeverous blog
+</div>
+
+
+{::options parse_block_html="true" /}
+<div class="note warning">
+#### Warning
+<i class="fas fa-exclamation-circle"></i>
+Tips warning box, for Xeverous blog
+</div>
+
+{::options parse_block_html="true" /}
+<div class="note error">
+#### Error
+<i class="fas fa-times"></i>
+Tips error box, for Xeverous blog
+</div>
+
+{::options parse_block_html="true" /}
+<div class="note pro-tip">
+#### Pro-Tip !
+<i class="fas fa-star-exclamation"></i>
+Tips pro-tips box, for Xeverous blog
+</div>
+
+{::options parse_block_html="true" /}
+<div class="note success">
+#### Success !
+<i class="fas fa-check"></i>
+Tips success box, for Xeverous blog
+</div>
+

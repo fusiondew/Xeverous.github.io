@@ -23,6 +23,7 @@ $(document).ready(function () {
   $('.hamburger').click(function () {
     $(this).addClass('is-active');
   })
+
   $('.mm-page__blocker.mm-slideout').click(function () {
     if ($('.hamburger').hasClass('is-active')) {
       $('.hamburger').removeClass('is-active');
