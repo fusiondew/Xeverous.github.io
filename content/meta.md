@@ -1,4 +1,8 @@
 ---
-layout: article
+layout: category
 ---
+
+# Meta category
+
+
 

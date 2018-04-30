@@ -1,0 +1,25 @@
+--- 
+layout: default
+---
+<div class="page">
+    <h1 class="page-title">{{ page.name | remove: ".md" }}</h1>
+    {{ content }}
+
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <h3 class="mb15">Categories</h3>
+        </div>
+        {% for category in site.data.navigation.data %}
+            {% assign name = page.name | remove: ".md" %}
+            {% if category.url == name %} 
+                {% for item in category.subdiritems %}
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                        <div class="category-name">
+                            <a href="{{ page.url | remove: ".html" }}/{{ item.url }}">{{ item.title }}</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
