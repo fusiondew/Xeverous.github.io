@@ -159,3 +159,5 @@ Technically, lambda expression creates a unique class satisfying `ClosureType` c
 #### Question: Where can not I use lambdas?
 
 *Lambda-expressions are not allowed in unevaluated expressions, template arguments, alias declarations, typedef declarations, and anywhere in a function (or function template) declaration except the function body and the function's default arguments.*
+
+As of C++20 the above statement is no longer true.
