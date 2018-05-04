@@ -49,3 +49,60 @@ The difference is that since we are using strongly typed language both `x` and `
 #### Question: Why ; and not .?
 
 Part of the reason is history and the other thing is that `.` has other purposes (eg writing fractional numbers: `3.14`).
+
+### comments
+
+It is possible to insert comments into the program. Such text will be completely ignored by the compiler.
+
+There are 2 types of comments in C++:
+
+```c++
+// this is a single-line comment
+// <- you need to start it with // and the comment will span to the end of line
+
+/* this is a multiline comment - it can span multiple lines
+notice the order of / and * a the beginning and end
+multi-line comments must end with * and / as it is here: */
+```
+
+Single-line comments can start after code:
+
+```c++
+int x = 5; // this comment spans to the end of this line
+```
+
+<div class="note warning">
+#### Warning
+<i class="fas fa-exclamation-circle"></i>
+Watch out for accidental `\` at the end of a single-line comment. It extends the comment to another physical line.
+
+```c++
+// text \
+this text is also a part of the comment
+``` 
+
+It's adviced to just write 2 comments instead:
+
+```c++
+// text
+// text
+```
+</div>
+
+Multi-line comments can start and end any time - in such scenario they can be shorter than `//` comments:
+
+```c++
+int /* some comment */ x = /* other comment */ 5;
+```
+
+Often you can find asterisk-stylized multi-line comments:
+
+```c++
+/*
+ * text
+ * text
+ * text
+ */
+```
+
+Some IDEs do it automatically. If you have a comment that spans many lines it's recommended to start lines with `*`, just like in the example above.
