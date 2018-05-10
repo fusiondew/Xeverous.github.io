@@ -106,3 +106,18 @@ Often you can find asterisk-stylized multi-line comments:
 ```
 
 Some IDEs do it automatically. If you have a comment that spans many lines it's recommended to start lines with `*`, just like in the example above.
+
+Sometimes you may find documentation comments:
+
+```c++
+/*
+ * @brief some short description
+ * @param x 
+ * @param y
+ * @return value or error
+ * 
+ * @details long description...
+ */
+```
+
+Tags like `@brief`, `@param` are searched by tools like Doxygen which generate documentation from the code. There are no documentation examples in this tutorial, but there is a Doxygen tuturial in other section.

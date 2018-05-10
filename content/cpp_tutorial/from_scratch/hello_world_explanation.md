@@ -60,7 +60,7 @@ int square(int x)
 
 Functions form a reusable pieces of code. Function `square` can be called as many times as wanted without the need to write it's body again.
 
-**Every executable C++ program must have a main function** (you can build non-executable libraries but that's not the scope of this tutorial).
+**Every executable C++ program must have a main function** (you can build non-executable libraries but that's not the scope of this tutorial). More about program start later.
 
 **Identifiers**
 
@@ -73,7 +73,7 @@ Valid names can consist of:
 - underscore symbol (_)
 - digits (0 - 9), with the exception that the name can not start with a digit
 
-Actually there are more possible characters but REALLY NO ONE uses them and tools, including compilers many not support them.
+Actually there are more possible characters (from unicode) but REALLY NO ONE uses them and tools, including compilers many not support them.
 
 Example valid identifiers:
 

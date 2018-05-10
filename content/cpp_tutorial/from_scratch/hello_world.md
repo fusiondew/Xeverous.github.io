@@ -116,7 +116,7 @@ Check that the executable is actually an executable. Go to it's directory and ve
 
 Likely `libstdc++-6.dll` but might be something else. This means that your program is using parts of C++ standard library but does not know where they are.
 
-Option 1. (better)
+Option 1.
 
 Use static linking of C++ standard library - it's content will be put inside your executable and thus it will not require a standalone dll (the `.exe` file will be bigger instead) [SO link](https://stackoverflow.com/questions/26103966/how-can-i-statically-link-standard-library-to-my-c-program).
 
