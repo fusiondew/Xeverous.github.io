@@ -39,29 +39,6 @@ Generally whitespace characters (spaces, tabs, new lines, ...) are ignored by th
 
 Whitespace characters are not ignored in quoted strings such as `" "` or `' '` (these are the text you put inside the program).
 
-**Functions**
-
-Multiple statements can be grouped to form a **function**. 
-
-```c++
-//(1) (2)   (3)  
-int square(int x)
-{ // <- (4)
-    int result = x * x;
-    return result;
-}
-```
-
-- (1) (`int`) - function return type. Indicates what type of result the function *returns*. Functions which do not return any meaningful value can be declared to have `void` return type.
-
-- (2) (`square`) - the name of the function
-- (3) (`(int x)`) - function arguments and their types
-- (4) (everything between `{` and `}`) - function body. This groups multiple statements
-
-Functions form a reusable pieces of code. Function `square` can be called as many times as wanted without the need to write it's body again.
-
-**Every executable C++ program must have a main function** (you can build non-executable libraries but that's not the scope of this tutorial). More about program start later.
-
 **Identifiers**
 
 Everything than can be later referred to has an **identifier**. It's just the name of the entity.
@@ -105,7 +82,3 @@ Additionally, the C++ standard reserves following names (you should not use them
 - anything in the namespace `posix`
 
 More about namespaces later. For now, simply remember to not start names with `_` character.
-
-**Libraries**
-
-Libraries are just code bases (compiled or not) with multiple functions (and classes and templates and other...) than can be reused. This tutorial uses various parts of C++ **standard library** (which comes with the compiler). Additional codebases which you can download from the internet will be **external libraries**.

@@ -43,7 +43,9 @@ Most popular free C++ IDEs:
 
 It's recommended to use one of these. All except Visual Studio work by default with GCC (or it's ports) and are multiplatform. Visual Studio comes with Microsoft's own compiler and while it can be made to work with different compiler or on a different OS it's better to use other IDEs there.
 
-**toolchain** - a set of tools used to build a project. The minimal toolchain is build script (usually done by IDEs) + compiler + linker. 
+**toolchain** - a set of tools used to build a project. The minimal toolchain is build script (usually done by IDEs) + compiler + linker.
+
+**Libraries** are just code bases (compiled or not) with multiple functions (and classes and templates and other...) than can be reused. This tutorial uses various parts of C++ **standard library** (which comes with the compiler). Additional codebases which you can download from the internet will be **external libraries**.
 
 **dynamic link library** (.dll files on Windows, .so on unix systems) - compiled code in the form which allows to reuse it by calling from executables. The content of dynamically linked libraries is mostly machine code - just like with executable files, the core difference is that libraries do not have entry point (there is no start) - they are just reusable pieces of compiled code. Dynamic link libraries are loaded at runtime, usually at the start of the application that wants to use these. The same library can be used by multiple executables.
 
