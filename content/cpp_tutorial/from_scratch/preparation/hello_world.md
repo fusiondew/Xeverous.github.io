@@ -34,18 +34,26 @@ This problem usually appears on Windows where after installing (or just unpackin
 
 Copy the path of your compiler binary directory and append it to the `PATH` in Control Panel -> environmental variables (this is pretty deeply hidden option, search the net for screens if you can't find it)
 
-The path should be a set of directories leading to the one where the compiler executable resides. If your compiler is `C:\MinGW\bin\gcc.exe` (the bin directory for various GCC ports is usually full of executables and some dlls) the path should be `C:\MinGW\bin`.
+The path should be a set of directories leading to the one where the compiler executable resides. If your compiler is `C:\MinGW\bin\g++.exe` (the bin directory for various GCC ports is usually full of executables and some dlls) the path should be `C:\MinGW\bin`. MinGW-w64 may have longer paths (my is `C:\mingw-w64\i686-7.2.0-posix-dwarf-rt_v5-rev1\mingw32\bin`).
 
 - If the variable `PATH` does not exists in the list, just add it (name `PATH` and the value is the actual path)
 - if `PATH` already exists, append your path to it after semicolon: `C:\something1;C:\something2;C:\compiler\bin`
 
 After setting up, you should be able to call the compiler from the command line (from any directory):
 
-TODO paste compiler --version call
+```shell
+C:\Users\admin>g++ --version
+g++ (i686-posix-dwarf-rev1, Built by MinGW-W64 project) 7.2.0
+Copyright (C) 2017 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+```
 
 If it does not work you probably need to restart Windows in order to apply `PATH` change.
 
 **Unix**
+
+Note: some distributions may come with GCC already, but it may have only C components installed or have an old version of C++ compiler. Check the version, just like in the example above.
 
 Binaries are usually searched in `/usr/bin` and a couple other distribution-specific places.
 
@@ -57,7 +65,7 @@ If not, I trust if you have managed to install a custom compiler on your distrib
 
 This problem similar to the one above - this time the `make` program could not be found.
 
-Go to your compiler installation directory and check that `make` actually exists. It's common that you will find something like `mingw-make32.exe` or `TODO`. It is because various GCC distributions prefix some executables with architecture name in case someone wanted to have a multi-acrhitecture toolchain installed in 1 place.
+Go to your compiler installation directory and check that `make` actually exists. It's common that you will find something like `mingw-make32.exe` or `i686-w64-mingw32-make.exe`. It is because various GCC distributions prefix some executables with architecture name in case someone wanted to have a multi-acrhitecture toolchain installed in 1 place. I hardly doubt you want to compile now for something other than x86 (i686) / x86_64 (these are the architecture names of standard 32-bit and 64-bit PC).
 
 If this is the case - simply copy the executable and give the copy a correct name (`make.exe` or `make` on Unix systems).
 
@@ -126,6 +134,13 @@ Use static linking of C++ standard library - it's content will be put inside you
 Option 2.
 
 Copy C++ standard library dlls to the directory where your executable is (dlls should be inside compiler installation, eg `C:\MinGW\bin\libstdc++-6.dll`)
+
+#### (Windows) Strange x86 / x86_64 error when launching the executable
+
+You have a 32-bit computer but build the project for 64-bit. Your processor architecture can not run this instruction set.
+
+- GCC / Clang - Add `-m32` to compiler and linker flags
+- MSVC - open project properties and the linker settings
 
 #### My problem is not listed here
 

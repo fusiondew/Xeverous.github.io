@@ -30,7 +30,7 @@ TODO - article with symbol character names.
 
 `IDE` - integrated development environment. Usually an advanced code editor with autocomplete and rich refactor features integrated with build system, compiler and debugger.
 
-`interface` - a type (class) that has no member variables and constants and only pure (unimplemented) virtual functions. There is no special notion of interfaces in C++ because there are no restrictions on members and inheritance.
+`interface` - 1. a type (class) that has no member variables and constants and only pure (unimplemented) virtual functions. There is no special notion of interfaces in C++ because there are no restrictions on members and inheritance. 2. (more general) A set of rules defining communication between some systems or humans. For example user interface (layout of buttons on the screen etc) and POSIX interface (system-specific C headers offerred by POSIX-compliant systems).
 
 `LEWG`, `LWG` - library (evolution) working groups. Parts of the [C++ Committee](https://isocpp.org/std/the-committee).
 
@@ -66,7 +66,7 @@ TODO - article with symbol character names.
 
 `reference` - an alias to a variable or constant. Does not offer all possibilities of pointers, but it safer and easier to optimize. (In C++) references to references do not exist (C++ implements reference collapsing). References must always be initialized and always point to valid object. In higher level languages references can be null but still don't offer pointer arithmetics.
 
-`RVO` (or `NRVO`) - (named) return value optimization. In C++ function returning local temporaries by value are optimized out or to at least move operations. This allows to return any big object from the function without any unnecessary copies.
+`RVO` (or `NRVO`) - (named) return value optimization. In C++ function returning local temporaries by value are optimized out or to at least move operations. This allows to return any big object from the function without any unnecessary copies. Note: this optimization does not exist in C.
 
 `segfault` - [Segmentation Fault]((https://en.wikipedia.org/wiki/Segmentation_fault)). Error caused by dereferencing an invalid poitner (not necessarily a null pointer) or violating virtual memory access.
 
@@ -82,7 +82,7 @@ TODO - article with symbol character names.
 
 `STL` - standard template library. More than 95% of standard C++ library. Templates are found in various headers - this term is simply covering them all.
 
-`strict aliasing` - an assumption that pointers to unrelated types (not sharing same inheritance tree) can never point to the same object. All variants of `char` and `void` pointers are excluded from this rule. Strict aliasing allows multiple optimizations and is very highly encouraged by the C++ standard. Enabled by default in all major compilers.
+`strict aliasing` - an assumption that pointers to unrelated types (not sharing same inheritance tree) can never point to the same object. All variants of `char` and `void` pointers are excluded from this rule (because they are used for unknown type reads/writes). Strict aliasing allows multiple optimizations because compiler can assume certain data is not overriden between various instructions. Strict aliasing is very highly encouraged by the C++ standard. Enabled by default in all major compilers and requires certain flag to compile code which violates this rule.
 
 `this` - a pointer to the object itself, available in any non-static member function. Necessary in some contexts. `this` (if available) is never null.
 
