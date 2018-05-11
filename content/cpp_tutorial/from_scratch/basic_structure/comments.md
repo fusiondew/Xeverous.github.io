@@ -102,7 +102,7 @@ good comment
 cost = items / 2 * price;
 ```
 
-Multiple comments in this tutorial will break this rule, as here they must explain what's actually happening. They are comments for learning, now how actual comments should be written.
+Multiple comments in this tutorial will break this rule, as here they must explain what's actually happening. They are comments for learning, not how actual comments should be written.
 
 ### commenting out the code
 

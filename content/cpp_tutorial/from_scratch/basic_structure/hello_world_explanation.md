@@ -32,14 +32,15 @@ foo::bar
 3.14 * (r * r)
 y = f(x)
 (x - a) + (y - b)
+arr[k] = v
 std::cout << "hello, world"
 ```
 
 Generally whitespace characters (spaces, tabs, new lines, ...) are ignored by the compiler. This means that `x+y` works the same as `x + y` or `x   +y`. Obviously whitespace separates names so `ab` will be one name "ab" while `a b` will represent 2 names "a" and "b".
 
-Whitespace characters are not ignored in quoted strings such as `" "` or `' '` (these are the text you put inside the program).
+Whitespace characters are not ignored in quoted strings such as `" "` or `' '`.
 
-**Identifiers**
+### Identifiers
 
 Everything than can be later referred to has an **identifier**. It's just the name of the entity.
 
@@ -82,3 +83,36 @@ Additionally, the C++ standard reserves following names (you should not use them
 - anything in the namespace `posix`
 
 More about namespaces later. For now, simply remember to not start names with `_` character.
+
+### name styles
+
+There have been established few core naming styles, these conventions are broadly used in the entire IT, not just programming.
+
+```
+lowercase_name_style (sometimes referred to as snake case)
+UPPERCASE_NAME_STYLE
+PascalCaseNameStyle
+camelCaseNameStyle (in camelCase first letter is lowercase)
+```
+
+It's bad to mix these styles - any of the follwoing names are against convention:
+
+```
+Account_Manager
+Accountmanager
+PrintHTTPDocument
+print_HTTP_document
+```
+
+correct names:
+
+```
+account_manager
+AccountManager
+accountManager
+print_http_document
+PrintHttpDocument
+printHttpDocument
+```
+
+C++ (following C convention) standard library uses `UPPERCASE_NAME_STYLE` for macros and `snake_case_style` for almost everything else.

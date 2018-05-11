@@ -147,3 +147,5 @@ You have a 32-bit computer but build the project for 64-bit. Your processor arch
 If you have any error message (from compiler or IDE), copy it and search the internet. I have yet to find an error which was not already in Google.
 
 If you have a configuration problem, try to condense it in a couple of words and search the net.
+
+If you have a reddit account, you can also ask on [/r/cpp_questions](https://www.reddit.com/r/cpp_questions/).

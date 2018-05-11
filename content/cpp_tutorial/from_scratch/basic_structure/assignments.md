@@ -42,7 +42,7 @@ Of course stay with `=` since it's much more intuitive for numbers. Different sy
 
 ### uninitialized variables
 
-C and C++ does not require to set any initial value (unless we use some advanced features). If you do not set anything, the value stored in variable's memory will be unknown - typically some garbage bits which were left after previous program that used the same memory area.
+C and C++ does not require to set any initial value (unless we use some advanced features). If you do not set anything, the value stored in variable's memory will be unknown - typically some garbage bits which were left after previous program that used the same memory location.
 
 ```c++
 int x;
@@ -76,4 +76,4 @@ x = x * 2; // assign to x value equal to 2 times current value of x
 std::cout << x; // prints "10", no doubt
 ```
 
-This is normal and works as expected.
+This is normal and works as expected. Language defines that assignments are made from right to left so the right side expression is eavluated first before it's saved in `x`.

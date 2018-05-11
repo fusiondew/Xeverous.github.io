@@ -8,7 +8,7 @@ As you may know, there are multiple programming languages. But what are the diff
 
 The first programming languages were designed to be easy to read and somehow to mimic human language. A good example od this is Pascal, which uses words `begin`, `end` all over the place. In many later languages, this was found to be too verbose and actually reduce readability - many words have been replaced by symbols, mostly various types of brackets. Some languages resigned from these and have different mechanism for controlling blocks of code - Python relies on indentiation level.
 
-Most languages borrowed C style and use symbols (usually `{` and `}`) to wrap blocks of code.
+Many languages borrowed C style and use symbols (usually `{` and `}`) to wrap blocks of code.
 
 TODO paste some examples of the same code
 
