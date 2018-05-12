@@ -427,3 +427,39 @@ Tips pro-tips box, for Xeverous blog
 Tips success box, for Xeverous blog
 </div>
 
+
+## Math 
+When 
+$a \ne 0$  , there are two solutions to   $ax^2 + bx + c = 0$   and they are
+
+$$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
+
+Other examples:
+
+$$E=mc^2$$
+
+$$\frac{n!}{k!(n-k)!} = \binom{n}{k}$$
+
+$$\begin{equation}
+  x = a_0 + \cfrac{1}{a_1 
+          + \cfrac{1}{a_2 
+          + \cfrac{1}{a_3 + \cfrac{1}{a_4} } } }
+\end{equation}$$
+
+$$( a ), [ b ], \{ c \}, | d |, \| e \|,
+\langle f \rangle, \lfloor g \rfloor,
+\lceil h \rceil, \ulcorner i \urcorner$$
+
+$$
+( \big( \Big( \bigg( \Bigg(
+$$
+
+$$
+A_{m,n} = 
+ \begin{pmatrix}
+  a_{1,1} & a_{1,2} & \cdots & a_{1,n} \\
+  a_{2,1} & a_{2,2} & \cdots & a_{2,n} \\
+  \vdots  & \vdots  & \ddots & \vdots  \\
+  a_{m,1} & a_{m,2} & \cdots & a_{m,n} 
+ \end{pmatrix}
+$$
