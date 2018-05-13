@@ -8,11 +8,7 @@ Our journey starts from math. I assume you know what a *function* term means in 
 
 Let's use a very simple quadratic function:
 
-TODO make it LaTeX
-
-```
-f(x) = x^2
-```
+$$f(x) = x^2$$
 
 This is how it looks like in C and C++ (written using multiplication to avoid more complex stuff):
 
@@ -32,12 +28,10 @@ There are multiple noticeable things here:
 
 So how this function is used? It's surprisingly very similar:
 
-TODO LaTeX
-
-```
-x = 5
+$$
+x = 5 \\
 y = f(x)
-```
+$$
 
 ```c++
 int x = 5;
