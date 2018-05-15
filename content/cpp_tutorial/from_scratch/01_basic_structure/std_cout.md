@@ -18,7 +18,7 @@ What is the purpose of the `#include` and what does `::` and `<<` actually do?
 
 `#include` is a preprocessor directive - it tells the compiler to *include* the contents of the `<iostream>` before this program. `<iostream>` is a standard header file which provides access to basic text input/output. More about headers later - for now it's enough that you remember to include I/O stream before using it.
 
-Every C++ standard library function, class, etc is inside `std` namespace. Namespaces are a sort of directory trees but for code and `::` is used to denote levels instead of `/` in file paths. More about namespaces later - for now just remember that standard library stuff inside `std`.
+Every C++ standard library function, class, etc is inside `std` namespace. Namespaces are a sort of directory trees but for code and `::` is used to denote levels instead of `/` in file paths. More about namespaces later - for now just remember that the standard library stuff is inside `std`.
 
 `std::cout` is a globally accessible object of type `std::ostream` (**o**utput **stream**). It represents underlying system's **c**aracter **out**put.
 
@@ -37,7 +37,7 @@ If you are using an Unix system, these 3 map directly to stdin, stdout and stder
 
 ### chaining
 
-One of the useful features of some operators is that they often can be chained one after another:
+One of the useful features of some operators is that they often can be chained one after another. `<<` can be chained like `+` in math expressions.
 
 ```c++
 #include <iostream>
@@ -74,6 +74,7 @@ x = 7
 When chaining operators, watch out for typical syntax mistakes:
 
 - double operator: `std::cout << << "text;"`
+- unwanted semicolon: `std::cout << "text"; << "text";`
 - operator with no operand: `std::cout << "text" <<;`
 - wrong operator: `std::cout >> "text";`
 
@@ -131,7 +132,7 @@ Most important escape characters:
 <div class="note info">
 #### endl
 <i class="fas fa-info-circle"></i>
-You might have see examples on other sites that use `std::endl` instead of `\n`. This is almost always used incorrectly, because `std::endl` does not only outputs line break but also explicitly flushes the buffer, which is hardly ever needed. Don't use it unless you know exactly what that means and you have a reason to do the flush.
+You might have see examples on other sites that use `std::endl` instead of `\n`. This is almost always used incorrectly, because `std::endl` does not only output line break but also explicitly flushes the buffer, which is hardly ever needed. Don't use it unless you know exactly what that means and you have a reason to do the flush.
 </div>
 
 Example

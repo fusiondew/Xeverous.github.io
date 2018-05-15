@@ -81,6 +81,7 @@ Additionally, the C++ standard reserves following names (you should not use them
 - anything containing 2 underscores
 - anything in the namespace `std`
 - anything in the namespace `posix`
+- [keywords](https://en.cppreference.com/w/cpp/keyword)
 
 More about namespaces later. For now, simply remember to not start names with `_` character.
 
