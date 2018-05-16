@@ -391,6 +391,8 @@ Sometimes all you want to do is embed a little love from another location and se
 
 ## Info notes
 
+TODO test and remove parse block statements
+
 {::options parse_block_html="true" /}
 <div class="note info">
 #### Info
