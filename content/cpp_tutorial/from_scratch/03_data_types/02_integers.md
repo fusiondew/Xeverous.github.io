@@ -2,28 +2,6 @@
 layout: article
 ---
 
-So far there were used only `int`ergers. Time to get more info about what fundamental types C++ provides and how they map to actual bits in the hardware.
-
-## The void type
-
-`void` is a type that has no possible values. It's a keyword indicating absence of data. You can't have variables of type `void` but it can be used in other contexts.
-
-<details>
-    <summary>Technicals</summary>
-    <p>`void` is an incomplete type that can not be completed.
-    
-- a function can return `void` - in other words, such function does not return any data
-- there are no references to `void`
-- there are no arrays of `void`
-- pointers to `void` are allowed</p>
-</details>
-
-## The boolean type
-
-`bool` is a type capable of holding only 2 values: `false` and `true`. It's an equivalent to logic statements in math.
-
-`bool` can also be viewed as a representation of a single bit (0 or 1), although it often occupies full byte (8 bits) or more memory - this is because in typical Von-Neumann architecture memory is addressed by bytes, not bits. Still, at the C++ language level `bool` can hold only 2 values.
-
 ## integers
 
 TODO make more newbie-friendly (mb spoiler too mch technicals).
@@ -39,6 +17,8 @@ In decimal system, if you are given 3 digit space, you can't go beyond 999. Simi
 `int` can be surrounded by specific other keywords which modify the size and encoding. This can be used to change the possible value range and modify how it's interpreted.
 
 Because plain binary numbers represent sums of consecutive powers of 2 (1, 2, 4, 8, 16, ...) there is no built-in way to represent negative numbers. Representations which allow this are named *signed representations*, they usually do this by treating first bit as +/- sign and some addiional changes in intepretation.
+
+Note that at the machine instruction level, there is notion of type - only the size. 8-bit, 16-bit, 32-bit data fields and such. It's the programmer who gives this data a meaningful interpretation.
 
 ### encoding
 
@@ -143,20 +123,19 @@ The simplest signed representations are one's/two's complement, which sacrifice 
 
 From the table above you can see that:
 
-- unsigned integer has value range [0, 255]
-- one's complement signed integer has value range [-127, 127]; 0 has two representations
-- two's complement signed integer has value range [-128, 127]
+- unsigned integer has value range $[0, 255] \space ([0, 2^8-1])$
+- one's complement signed integer has value range $[-127, 127] \space ([-2^7+1, 2^7-1])$; 0 has two representations
+- two's complement signed integer has value range $[-128, 127] \space ([-2^7, 2^7-1])$
 
 The reverse order of negative numbers (in both complement encodings) allows some math optimizations.
 
 Two's complement compared to one's complement is shifted by 1 - it avoids the problem of positive and negative 0.
 
-All used architectures use the same unsigned representation.
+Most widely used architectures use two's complement for signed representation. Unsigned is treated exactly the same everywhere.
 
-Most widely used architectures use two's complement for signed representation.
-
-#### More examples:
-
+<details> 
+    <summary>More examples</summary>
+    <p>
 ```
 16-bit unsigned int representing decimal   2925: 0000 1011 0110 1101     (0)
 16-bit signed   int representing decimal   2925: 0000 1011 0110 1101     (0)
@@ -173,6 +152,8 @@ Most widely used architectures use two's complement for signed representation.
 - (4) the number can not be represented because the value itself needs 16 bits, but signed representation sacrifices 1 bit for +/- sign
 
 The default representation is signed. This means that `int` is the same type as `signed int`.
+    </p> 
+</details>
 
 ### size
 
@@ -181,15 +162,44 @@ The default representation is signed. This means that `int` is the same type as 
 
 `long` can be used twice
 
-The exact size of an integer is architecture dependent, but there are many strong guarantees. Additionally, C++ standard guarantess minum size (in reality it can be larger, but never smaller) for each type.
+The exact size of an integer is architecture and system dependent, but C++ standard guarantess minum size for each type.
 
-These are the actual sizes for both x86 and x86_64 architecture:
-
-- `char` - 8 bits
-- `short int` - 16 bits
-- `int` - 32 bits
-- `long int` - 32 bits (same as `int`)
-- `long long int` - 64 bits
+<div class="table-responsive">
+    <table class="table table-bordered table-dark">
+        <tbody>
+            <tr>
+                <th>type</th>
+                <th>C++ minimum guaranteed size</th>
+                <th>Actual size on x86 and x86_64</th>
+            </tr>
+            <tr>
+                <td>char</td>
+                <td>8</td>
+                <td>8</td>
+            </tr>
+            <tr class="even">
+                <td>short int</td>
+                <td>16</td>
+                <td>16</td>
+            </tr>
+            <tr>
+                <td>int</td>
+                <td>16</td>
+                <td>32</td>
+            </tr>
+            <tr>
+                <td>long int</td>
+                <td>32</td>
+                <td>32</td>
+            </tr>
+            <tr>
+                <td>long long int</td>
+                <td>64</td>
+                <td>64</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 These are value ranges for integers of various lengths:
 
@@ -261,7 +271,7 @@ TODO table alignment
 
 ### notation
 
-`int` is optional if any other keyword is used. So `unsigned` or `long` is enough, you don't have to write `unsigned int` and `long int`.
+keyword `int` is optional if any other keyword is used. So `unsigned` or `long` is enough, you don't have to write `unsigned int` and `long int`.
 
 The order of applied keywords doesn't mater, but it's recommended to write intuitively - `unsigned long long`, not `long int unsigned long`.
 
@@ -271,65 +281,6 @@ The order of applied keywords doesn't mater, but it's recommended to write intui
 
 The full list is available on [reference page](https://en.cppreference.com/w/cpp/types/integer).
 
-## character types
+### What you need to remember
 
-Characters are stored as small integers. The simplest encoding - ASCII occupies numbers 0 - 127 but encodes only latin letters, digits, simplest math symbols and some control (line break, tabs, space, etc). Multiple different encodings have been created (UTF-8, UTF-16, UTF-32, Unicode) to support other alphabets and more complex symbols. Obviously they require larger integers.
-
-- `signed char` - signed 8-bit (or larger) integer
-- `unsigned char` - unsigned 8-bit (or larger) integer
-- `char` - one of the 2 above, treated as distinct type at language level; On x86 and x86_64 signed, on ARM and PowerPC unsigned
-- `char16_t` - integer capable of holding any character from UTF-16 encoding
-- `char32_t` - integer capable of holding any character from UTF-32 encoding
-- `wchar_t` - type for wide characters; 32-bit integer on systems that support Unicode but 16-bit on Windows
-
-<details>
-    <summary>`char8_t`</summary>
-    <p>There is a proposal for `char8_t` type, it gives improvements for more strict text handling and helps with Unicode but it breaks backwards compability. It's currently discussed what will be done in this manner - committee wants to push more breaking changes as the C++ language must go forward and the evolution sometimes requires breaking backwards compability.</p>
-</details>
-
-## floating-point types
-
-Types used to represent fractional numbers are named floating-point because they allow to shift the point - they are stored using scientific notation. For example: $-123 * 2^{-123}$.
-
-Floating-point types consist of two parts - the mantisa $m$ and exponent $p$. Both themselves are signed integers. In computers the base is 2, so fractions are stored as $m * 2^p$, not $m * 10^p$.
-
-Floating-point representations are standarized and practically all hardware adheres to [IEEE-754](https://en.wikipedia.org/wiki/IEEE_754).
-
-C and C++ offer 3 floating-point types:
-
-- `float` (aka single precision) - usually IEEE-754 32-bit floating-point type
-- `double` (aka double precision) - usually IEEE-754 64-bit floating-point type
-- `long double` (extended precision) - not necessarily any IEEE standard, on x86 and x86_64 architecture uses special 80-bit registers
-
-Floating-point types may additionally support special values:
-
-- negative/positive 0 - depending on the used signed representation, 0 may have 2 or even more representations
-- negative/positive infinity - used when the value is too big to fit
-- NaN (not-a-number) - used when function argument is out of domain - for example $log(-1) = NaN$ (logarithm argument can not be negative)
-
-## other types
-
-Compilers may also support other non-standard architecture-specific types, for exaple `__float128` and `__int128` found in GCC and Clang.
-
-
-## Summary
-
-Of course, you don't have to remember everything, here is the summary of crucial things:
-
-- `void` represntes no data
-- `bool` represents logic state, can only be `true` or `false`
-- `int` represents whole numbers, can be `short` / `long` / `long long` and `signed` / `unsigned`
-- `char` is an integer, but represents characters. There are no `long char`s - but types `char16_t`, `char32_t` and `wchar_t`
-- `int` by default is signed
-- `char` has no default signess, it's treated as distinct type at C++ language level (whether it is signed or not depends on the compiler and architecture)
-- all 3 floating-point types (in range order: `float`, `double`, `long double`) are signed and can support non-numeric values
-
-All of information from this lesson is available on [reference page](https://en.cppreference.com/w/cpp/language/types).
-
-Note that in reality `int` or `char` is usually enough. Examples on this site rarely go beyond simplest fundamental types, $\pm2147483647$ range is fairly enough for most computations.
-
-#### Question: How big-number computations are done?
-
-They use various custom encodings which span across multiple bytes. Numbers are stored in arrays which can have large lengths, although each cell does not necessarily represent each digit (it's more complicated).
-
-Of course, there are libraries which provide big-integer types.
+Integers can have varying size and signess. All of them have no special notion at the hardware level - it's the programmer choice how to interpret their bits.
