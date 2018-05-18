@@ -4,11 +4,11 @@ layout: article
 
 Instructions such as `a += 1` can be shortened even further - changing value by 1 is a common operation in programming. It has received it's own special operators - unary `++` and unary `--`.
 
-The other way to write `c = c + 1` or `c += 1` is to write `c++`.
+The other ways to write `c = c + 1` or `c += 1` is to write `++c` or `c++`.
 
 TODO trivia/history box
 
-The `++` and `--` operators exist since they first appeared in C language. A new, more advanced language was forming but had no widely recognizable name ("C with classes" was too long, "new C" was't precise). The current name is credited to Rick Mascitti who in 1983 came up with the idea to use C++ as a symbolic improvement over C.
+The `++` and `--` operators appeared already in early C. A new, more advanced language was forming but had no widely recognizable name ("C with classes" was too long, "new C" was't precise). The current name is credited to Rick Mascitti who in 1983 came up with the idea to use C++ as a symbolic improvement over C.
 
 ## post-increment
 
@@ -50,3 +50,14 @@ int main()
 11
 ```
 
+## decrement
+
+Operator `--` works exactly the same way, it just subtracks 1 instead of adding.
+
+## recommendation
+
+Anywhere where a simple +/- 1 is needed, prefer pre- increment/decrement - they happen instantly - the hidden delay can cause misleading code or problems in understanding actions order.
+
+## exercise
+
+Test various pre/post increments/decrements if you have any doubts. Later, in functions chapter a more in-depth explanation will be given as these operators can also be implemented as functions - you will see actual underlying code.
