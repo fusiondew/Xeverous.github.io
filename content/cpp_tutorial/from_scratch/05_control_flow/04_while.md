@@ -35,7 +35,7 @@ Test this program with big, even numbers.
 
 ## do while
 
-An alternative loop is formed using `do` and `while` keywords. The only difference is that the condition is checked after loop body, which means that it's guaranteed to execute at least once.
+An alternative loop is formed using `do` and `while` keywords. The only difference is that the condition is checked after the loop body, which means that it's guaranteed to execute at least once.
 
 ```c++
 #include <iostream>
@@ -61,3 +61,11 @@ Do-while loops are rarely used. Almost always the condition is needed to be chec
 </div>
 
 TODO example do-while -> while refactor.
+
+## exercise
+
+Write a program, similar to these above that will ask the user for a number (integer). Print the half of the number if it's even, print the number unmodified it it's odd. Continue asking the user for more numbers untill 0 is entered.
+
+You may also add a special case if the entered number is negative.
+
+TODO spoiler with example solution

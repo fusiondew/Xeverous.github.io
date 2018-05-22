@@ -13,7 +13,7 @@ There are multiple types of control flow instructions:
 
 All of these are the same at the machine instruction level - in the assembly, there are only jumps. The program is a sequence of instructions, and depending on some state program can move to arbitrary other instruction and continue execution there.
 
-Multiple control flow keywords exist - all of these do similar things. The key is to choose the right instruction for the given task.
+Multiple control flow keywords exist - all of these do similar things. The key is to choose the right instruction for the given task. All of the methods above end in machine instruction jumps, but you will see that each has different code structure and certain, strict rules - with plain "jump from this code line to that" you can easily screw up things or find yourself in a mindfuck of "Where will I land after this?".
 
 <div class="note pro-tip">
 #### Appropriate choices
