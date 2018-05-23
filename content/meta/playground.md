@@ -391,45 +391,89 @@ Sometimes all you want to do is embed a little love from another location and se
 
 ## Info notes
 
-TODO test and remove parse block statements
+TODO move "\<i\>" to CSS, div with "note info" etc should be enough
 
-{::options parse_block_html="true" /}
 <div class="note info">
 #### Info
 <i class="fas fa-info-circle"></i>
 Tips info box, for Xeverous blog
 </div>
 
-
-{::options parse_block_html="true" /}
 <div class="note warning">
 #### Warning
 <i class="fas fa-exclamation-circle"></i>
 Tips warning box, for Xeverous blog
 </div>
 
-{::options parse_block_html="true" /}
 <div class="note error">
 #### Error
 <i class="fas fa-times"></i>
 Tips error box, for Xeverous blog
 </div>
 
-{::options parse_block_html="true" /}
 <div class="note pro-tip">
 #### Pro-Tip !
 <i class="fas fa-star-exclamation"></i>
 Tips pro-tips box, for Xeverous blog
 </div>
 
-{::options parse_block_html="true" /}
+{::comment}
+The success div below should have automatically added an image
+{:/comment}
+
 <div class="note success">
 #### Success !
-<i class="fas fa-check"></i>
+
 Tips success box, for Xeverous blog
+~~~
+test code
+~~~
 </div>
 
-## Math 
+## test img
+
+Short warning
+{: .fas .fa-exclamation-circle}
+
+## test0
+
+{::comment}
+Working as intended.
+{:/comment}
+
+{:refdef: .note .warning markdown="span"}
+<i class="fas fa-exclamation-circle"></i>**Warning**
+
+warning text
+{: refdef}
+
+## test1
+
+{::comment}
+Working as intended.
+{:/comment}
+
+{:refdef: .note .warning markdown="0"}
+**Warning**
+
+warning text
+{: refdef}
+
+## test2
+
+{::comment}
+Embedds both paragraphs in div, but it's a bad workaround.
+{:/comment}
+
+{:refdef: .note .warning}
+<div><i class="fas fa-exclamation-circle"></i>
+**Warning**
+
+warning text
+</div>
+{: refdef}
+
+## LaTeX
 
 When $a \ne 0$, there are two solutions to $ax^2 + bx + c = 0$ and they are
 
