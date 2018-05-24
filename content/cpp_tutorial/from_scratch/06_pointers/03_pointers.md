@@ -44,7 +44,7 @@ The address can be different each time you run the program -  `x` can be placed 
 
 The format of the output is a hexadecimal number representing index of the first memory cell occupied by `x` (`x` may span multiple cells - you already know integers occupy 4 bytes on most systems). By the convention, hexadecimal numbers are prepended with `0x` to not mistake them with integers or something that could look like a password. Don't worry if you don't understand what `0x7ffc1d12da4c` means - it's just a number, but written in a different system.
 
-#### Question: why does the number contain letters?
+#### Question: Why does the number contain letters?
 
 Technically, they are not letters.
 
@@ -54,7 +54,7 @@ Technically, they are not letters.
 
 First letters of the alphabet were choosen to represent missing 6 digits. You might see uppercase A-F too.
 
-You don't need to understand how to read hexadecimal numbers - they may be used in the code but since memory is different every time no one can use them in any meaningful way besides having a way to write binary numbers in less characters (there is an easy way to convert binary and hexadecimal numbers between each other).
+You don't need to understand how to read hexadecimal numbers - they are used at most to check distances between variable locations during quite rare optimizations.
 
 ## addresses of multiple elements
 
@@ -74,7 +74,7 @@ However, if you have an array - all elements are in the same memory block (this 
 
 int main()
 {
-    int arr[3] = { 1, 2, 3 };
+    int arr[3] = { };
     for (int i = 0; i < 3; ++i)
         std::cout << &arr[i] << "\n";
 }
@@ -153,7 +153,7 @@ int* p = &x; // variable "p" of type int* (pointer to integer) set to the addres
 
 ### C heritage
 
-The example presented above showcases modern C++ recommended syntax. In C, you will almost always see the asterisk sticked to the pointer name:
+The example presented above showcases modern C++ syntax. In C, you will mostly see the asterisk sticked to the pointer name:
 
 ```c++
 // very common in C
@@ -173,30 +173,221 @@ To correctly define 2 pointers, the asterisk must be prepended to both names:
 
 ```c
 int *p1, *p2; // 2 pointers
-int* p1, *p2; // 2 pointers, but a bit weird writing
+int* p1, *p2; // 2 pointers, but a bit inconsistent writing
 ```
 
-This "feature", by many (including me) is considered as one of the worst decisions during the forming of C language syntax. It creates an opportunity for misleading variable definitions and - just like with array size - decouples the type information splitting part of it (`int`) before the name and part of it (`*` or `[]`) after the name.
+This "feature", by many (including me) is considered as one of the worst decisions during the forming of C language syntax. It creates an opportunity for misleading variable definitions and - just like with array size - decouples the type information by splitting part of it (`int`) before the name and part of it (`*` or `[]`) after the name.
 
-Programming languages which appeared later, use the `int[] arr` and `int* p` form. The asterisk-left-side form is also used on [C++ Core Guidelines](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines) which are written by core C++ creators.
-
-There is a long going battle (mostly C programmers + old C++ programmers vs modern C++ programmers) how pointers should be written. It's recommended to stick `*` to the type, as that is the intuitive - `p` is named `p`, not `*p`. This also solved the problem of newcomers questioning the dereference operator - the asterisk used in `int* p` is the syntax to declare a pointer - it is not "operator* applied to p".
-
-The "feature" of splitted type names can be abused heavily:
+The "feature" of splitted type tokens can be abused heavily:
 
 ```c
-int x, *p, func(), arr[10]; // define (in order): an integer, integer pointer, function returning integer, array of 10 integers
+int x, *p, *func()[3], arr[10]; // define (in order): an integer, integer pointer, function returning pointer to array of 3 integers, array of 10 integers
+
+//^        ^       ^ these are 3 parts of one type
 ```
 
-For modern C++ is adviced to abandon this feature completely and use easier to read syntax:
+It is recommended to avoid this feature completely and use easier to read statements which do one thing per line:
 
 ```c++
 int x;
 int* p;
-int func();
 int arr[10];
+
+using array = int[3];
+array* func();
 ```
+
+There is a long going battle (mostly C programmers vs modern C++ programmers) how pointers should be written. It's recommended to stick `*` to the type, as that is the intuitive - `p` is named `p`, not `*p`. This also solves the problem of newcomers questioning the dereference operator - the asterisk used in `int* p` is the syntax to declare a pointer - it is not "operator* applied to p".
+
+Programming languages which appeared later, use the `int[] arr` and `int* p` form. The left asterisk form is also used on [C++ Core Guidelines](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines) which are written by core C++ creators.
 
 And so it is used across the entire website. All asterisks that are part of the type definitions are on the left.
 
-**Note:** the problem above applies to other type modifiers too. This includes `&`, `&&` and `...` operators. Just don't define multiple variables in the same statement.
+**Note:** the problem above applies to other type modifiers too. This includes `&`, `&&`, `const`, `volatile` and `...`. Just don't define multiple variables in the same statement.
+
+<div class="note pro-tip">
+#### asterisk alignment
+
+Stick asterisks and other type modifiers to the type name.
+
+```c++
+// bad, misleading
+int &p; // p is of type "reference to int" which should be int&
+int *f1(); // function is not named "*f1" but "f1", and it returns int*, not int
+int f2()[3]; // int and [3] should be together!
+
+// good - all type modifiers are sticked together
+int& p;
+int* f1();
+auto f2() -> int[3]; // C++11 new trailing syntax
+```
+</div>
+
+## example with pointers
+
+```c++
+#include <iostream>
+ 
+int main()
+{
+    int x = 10;
+    int* ptr = &x; // initialize ptr with the address of x
+ 
+    std::cout << &x << "\n"; // print the address of x
+    std::cout << ptr << "\n"; // print the contents of the pointer
+
+    std::cout << x << "\n"; // print the value of x
+    std::cout << *ptr << "\n"; // print the value which is localed in memory address
+}
+```
+
+```
+0x7ffd4e6c179c
+0x7ffd4e6c179c
+10
+10
+```
+
+Thit should not be surprising - the contents of the pointer are equal to the address of the variable.
+
+```
+                    the variable x
+--+---+---+---+---+---+---+---+---+---+---+---+---+---+--
+  |   |   |   |   |      10       |   |   |   |   |   |
+--+---+---+---+---+---+---+---+---+---+---+---+---+---+--
+^ 0x7ffd4e6c1797    ^ 0x7ffd4e6c179c    ^ 0x7ffd4e6c17a1
+
+                     pointer to x
+--+---+---+---+---+---+---+---+---+---+---+---+---+---+--
+  |   |   |   |   | 0x7ffd4e6c179c|   |   |   |   |   |
+--+---+---+---+---+---+---+---+---+---+---+---+---+---+--
+```
+
+## using pointers - example 1
+
+A pointer can be used to modify other variables by their address:
+
+```c++
+#include <iostream>
+
+int main()
+{
+    int x = 10;
+    int* ptr = &x;
+
+    std::cout << "x = " << x << "\n";
+    *ptr = 250; // access memory address stored in ptr and write there 250
+    std::cout << "x = " << x << "\n";
+    *ptr = 2 * *ptr; // multiply *ptr by 2
+    std::cout << "x = " << x << "\n";
+}
+```
+
+```
+x = 10
+x = 250
+x = 500
+```
+
+Understand what happens at `2 * *ptr` - the first asterisk is multiplication, the second asterisk is dereference operator.
+
+## using pointers - example 2
+
+2 variables are modified through one pointer
+
+```c++
+#include <iostream>
+
+int main()
+{
+    int x = 10;
+    int y = -10;
+
+    std::cout << "x = " << x << "\n";
+    std::cout << "y = " << x << "\n";
+    std::cout << "\n";
+
+    int* ptr = &x;
+    *ptr = *ptr * 10;
+
+    std::cout << "x = " << x << "\n";
+    std::cout << "y = " << x << "\n";
+    std::cout << "\n";
+
+    ptr = &y;
+    *ptr = *ptr * 10;
+
+    std::cout << "x = " << x << "\n";
+    std::cout << "y = " << x << "\n";
+    std::cout << "\n";
+}
+```
+
+Can you deduce the output before you run the program? If so, you understood the lesson well.
+
+TODO fix formatting
+
+<div><details>
+<summary markdow="0">output
+</summary>
+<p markdown="block">
+
+~~~
+x = 10
+y = -10
+
+x = 100
+y = -10
+
+x = 100
+y = -100
+~~~
+
+</p>
+</details></div>
+
+## exercise
+
+If you have any doubts about the syntax - read carefully again, write own examples or search the internet for more explanations/examples.
+
+If you have any questions regarding why pointers are needed - move to the next lesson.
+
+## test yourself
+
+Find all the mistakes in this code:
+
+```c++
+int x = 100;
+int y = 3;
+int* ptr = &x;
+ptr = &y;
+*ptr = 2 * ptr;
+*ptr = &y;
+```
+
+<details>
+<summary>
+mistakes
+</summary>
+<p markdown="block">
+
+~~~ c++
+int x = 100;
+int y = 3;
+int* ptr = &x;
+ptr = y; // missing address-of operator - can't set ptr to y, should be &y
+*ptr = 2 * ptr; // pointer value is multipled, not the value under it's address - should be 2 * *ptr
+*ptr = &y; // can't set the memory pointed by ptr (which is of type int) to the address of y (which is of type int*) - either do ptr = &y OR *ptr = y
+~~~
+
+</p>
+</details>
+
+Explain the difference between these 2 lines:
+
+```c++
+ptr = &y;
+*ptr = y;
+```
+
+TODO solution
