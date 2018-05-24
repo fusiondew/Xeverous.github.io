@@ -136,6 +136,12 @@ How it works:
 - the value is formed from multiplication - eg line 5 (`j == 5`), number (`i == 3`) is equal to `j * 10 + i` which is 53
 - the linebreak is printed after each line - note that if you place the line break in the inner loop the output would make a new line for each number, not a row
 
+**loop counter naming**
+
+It all started with `i`. By the convention, for nested loops next alphabet letters are used: `j`, `k`, ....
+
+However, if you are working with graphics or sort of 2D/3D math, `x`, `y`, `z` names can be used - they will be easier to understand in the calculations.
+
 ### triangular output
 
 `for` loops are great for square table-like output if they are nested but with smart use of conditionals, they can be made to print like this:
@@ -155,7 +161,7 @@ int main()
 {
     for (int j = 1; j <= 5; ++j)
     {
-        for (int i = 1; i <= j; ++i) // note the comparison
+        for (int i = 1; i <= j; ++i) // note the comparison between i and j
         {    
             std::cout << i << " ";
         }
@@ -165,7 +171,7 @@ int main()
 }
 ```
 
-In this case, the inner loop counter `i` is compared with `j` which changes each outer iteration. This causes consecutive inner loops to look like:
+In this case, the inner loop counter `i` is compared with `j` which is different during each outer iteration. This causes consecutive inner loops to look like:
 
 ```c++
 for (int i = 1; i <= 1; ++i)
@@ -181,6 +187,8 @@ In other words, the length of the inner loop increases after each outer loop. In
 
 Count the sum of all natural numbers up to 99 (using a for-loop). Note that in this case starting from 0 or 1 doesn't matter, 0 will not add any value to the sum. For extra effort instead of 99 ask the user for the upper bound.
 
-In other words, count $\sum\limits_{i = 1}^{n}$.
+In other words, count $\sum\limits_{i = 0}^{n}$.
 
 You may also know that there is faster formula to do this, which does not require loops, namely $S_{n} = \frac{n(a_{1} + a_{n})}{2}$. Good compilers can actually optimize the solution and use this formula!
+
+TODO solution code
