@@ -52,9 +52,9 @@ Technically, they are not letters.
 - binary system uses 2 digits: 0, 1
 - hexadecimal system uses 16 digits: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, a, b, c, d, e, f
 
-First letters of the alphabet were choosen to represent missing 6 digits. You might see uppercase A-F too.
+First letters of the alphabet were choosen to represent missing 6 digits. You might see uppercase A-F too. By convention, hex numbers are prepended with `0x` or `#` to not mistake them with other data (C++ streams use `0x`).
 
-You don't need to understand how to read hexadecimal numbers - they are used at most to check distances between variable locations during quite rare optimizations.
+You don't need to understand how manipulate hexadecimal numbers - they will be printed mostly to check if they are the same.
 
 ## addresses of multiple elements
 
@@ -146,6 +146,8 @@ What if we could store that address somewhere?
 
 ## pointers - syntax
 
+Append `*` to the type to indicate that it's the address.
+
 ```c++
 int x = 10;  // variable "x" of type int (integer) set to the value 10
 int* p = &x; // variable "p" of type int* (pointer to integer) set to the address of x
@@ -176,7 +178,7 @@ int *p1, *p2; // 2 pointers
 int* p1, *p2; // 2 pointers, but a bit inconsistent writing
 ```
 
-This "feature", by many (including me) is considered as one of the worst decisions during the forming of C language syntax. It creates an opportunity for misleading variable definitions and - just like with array size - decouples the type information by splitting part of it (`int`) before the name and part of it (`*` or `[]`) after the name.
+This "feature", by many (including me) is considered as one of the worst design decisions during the forming of C language syntax. It creates an opportunity for misleading variable definitions and - just like with array size - decouples the type information by splitting part of it (`int`) before the name and part of it (`*` or `[]`) after the name.
 
 The "feature" of splitted type tokens can be abused heavily:
 
@@ -186,6 +188,8 @@ int x, *p, *func()[3], arr[10]; // define (in order): an integer, integer pointe
 //^        ^       ^ these are 3 parts of one type
 ```
 
+This is not really a feature but a consequence of complicated parsing rules. Modern C++ puts strong effort to form expressive, easy to read intuitive syntax - splitting parts of the type out of order hurts readability and creates a place for mistakes.
+
 It is recommended to avoid this feature completely and use easier to read statements which do one thing per line:
 
 ```c++
@@ -194,16 +198,16 @@ int* p;
 int arr[10];
 
 using array = int[3];
-array* func();
+array* func(); // clear - we get a pointer to int[3]
 ```
 
 There is a long going battle (mostly C programmers vs modern C++ programmers) how pointers should be written. It's recommended to stick `*` to the type, as that is the intuitive - `p` is named `p`, not `*p`. This also solves the problem of newcomers questioning the dereference operator - the asterisk used in `int* p` is the syntax to declare a pointer - it is not "operator* applied to p".
 
-Programming languages which appeared later, use the `int[] arr` and `int* p` form. The left asterisk form is also used on [C++ Core Guidelines](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines) which are written by core C++ creators.
+Programming languages which appeared later, use the `int[] arr` and `int* p` form. The left asterisk form is also used on [C++ Core Guidelines](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines) (see [rule NL.18](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#nl18-use-c-style-declarator-layout)) which are written by core C++ creators.
 
 And so it is used across the entire website. All asterisks that are part of the type definitions are on the left.
 
-**Note:** the problem above applies to other type modifiers too. This includes `&`, `&&`, `const`, `volatile` and `...`. Just don't define multiple variables in the same statement.
+**Note:** the problem above is not only about `*`, it applies to other type modifiers too. This includes `&`, `&&`, `const`, `volatile` and `...`.
 
 <div class="note pro-tip">
 #### asterisk alignment
@@ -214,12 +218,12 @@ Stick asterisks and other type modifiers to the type name.
 // bad, misleading
 int &p; // p is of type "reference to int" which should be int&
 int *f1(); // function is not named "*f1" but "f1", and it returns int*, not int
-int f2()[3]; // int and [3] should be together!
+int f2()[3]; // int and [3] should be together - this is one type!
 
 // good - all type modifiers are sticked together
-int& p;
-int* f1();
-auto f2() -> int[3]; // C++11 new trailing syntax
+int& p;    // clear: p is an integer reference
+int* f1(); // clear: function returns integer pointer
+auto f2() -> int[3]; // int[3] together (using C++11 new trailing syntax)
 ```
 </div>
 
@@ -237,7 +241,7 @@ int main()
     std::cout << ptr << "\n"; // print the contents of the pointer
 
     std::cout << x << "\n"; // print the value of x
-    std::cout << *ptr << "\n"; // print the value which is localed in memory address
+    std::cout << *ptr << "\n"; // print the value which is localed at memory address stored in the pointer
 }
 ```
 
@@ -263,7 +267,31 @@ Thit should not be surprising - the contents of the pointer are equal to the add
 --+---+---+---+---+---+---+---+---+---+---+---+---+---+--
 ```
 
-## using pointers - example 1
+The variable `x` is of type `int` and holds `10` (a numeric value).
+
+The variable `ptr` is of type `int*` and holds `0x7ffd4e6c179c` (an address)
+
+## pointer types
+
+All pointers (at the hardware level) are the same. On 32-bit systems they occupy 4 bytes (32 bits) and on 64 bit systems they occupy 8 bytes (64 bits).
+
+Still, at the language level they differ by the type they point to. All `int*`, `double*`, `long*` etc are the same in the machine instructions but they are differentiated at the language level for type safety purposes. If it was not the case, if we had a pointer we would not know to interpret that data (and how many memory cells that data spans).
+
+## RAM limit
+
+You may have heard that 32-bit computers can not have more than 4 GB of RAM. This is because 32-bit pointer can only represent $2^{32}$ different addresses, which is $4294967296$ bytes which is $4194304$ kilobytes which is $4096$ megabytes which is $4$ gigabytes.
+
+Disks can be larger because they have [CHS](https://en.wikipedia.org/wiki/Cylinder-head-sector) (actually had, current disks are even more complicated) system which uses multiple integers to represent memory cells.
+
+The same problem happenned for pendrives though. This is not due to how USB port works, but due to how systems handled it - they usually mapped the entire drive to the memory, having the same problem as with RAM. You can not stick a pendrive with more than 4GB memory to old (32-bit) Windows XP.
+
+There were some possible workarounds for 32-bit systems, similar to using multiple integers but all of them had costs (lower performance, possibly required specific BIOS, required processor supporting PAE).
+
+The limit for 64-bit computers is far larger, namely $2^{64}$ which is ${2^{32}}^2$ which is $4294967296^2$ bytes which is $18446744073709551616$ bytes which is $16$ exabytes. So far enough.
+
+Fun fact: current computers have actually 48-bit address bus. No one currently needs more than 256 terabytes on one computer so hardware manufacturers just save money on transistors which would always only store 0s; [more info](https://stackoverflow.com/questions/6716946/why-do-64-bit-systems-have-only-a-48-bit-address-space).
+
+## pointer usage - example 1
 
 A pointer can be used to modify other variables by their address:
 
@@ -289,9 +317,9 @@ x = 250
 x = 500
 ```
 
-Understand what happens at `2 * *ptr` - the first asterisk is multiplication, the second asterisk is dereference operator.
+Understand what happens at `2 * *ptr` - the first asterisk is multiplication, the second asterisk is a dereference.
 
-## using pointers - example 2
+## pointer usage - example 2
 
 2 variables are modified through one pointer
 
