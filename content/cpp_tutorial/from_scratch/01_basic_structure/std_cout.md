@@ -149,12 +149,14 @@ int main()
 
 <details>
 <summary>output</summary>
-<p>
-```
+<p markdown="block">
+
+~~~
 quotes: " '
 backslash: \
 some	spaced	text
-```
+~~~
+
 </p>
 </details>
 

@@ -40,7 +40,7 @@ However, there are some ways you could achieve it - there are some LLVM based to
 
 Templates are ~~hard~~ complex to parse. This usually results in lower support from various editors. In many cases, autocomplete will not work because it is not know what `T` is or has.
 
-Eclipse has relatively good code parser and smart autocomplete, but it does not parse well all features [yet]. At the time of this writing, supported is C++14 with the exception of variable templates (code may be wronly underlined as invalid syntax etc). I'm not sure but similar things may also happen in Visual Studio (likely older versions). Qt Creator is good at this place because it will not complain about syntax it can not understand - just won't display suggestions.
+Eclipse has relatively good code parser and smart autocomplete, but it does not parse well all features (yet). At the time of this writing, supported is C++14/17 with the exception of variable templates (code may be wronly underlined as invalid syntax etc) and C++17 language features like structured bindings or static ifs. I'm not sure but similar things may also happen in Visual Studio (likely older versions). Qt Creator is good at this place because it will not complain about syntax it can not understand - just won't display suggestions. It loses syntax highlightingin such places though.
 
 If you find an IDE to be wrong, or to not support newer or more advanced features and annoying you with false errors I recommend to switch to text editors sush as Notepad++, Atom and Visual Studio Code. Or Qt Creator.
 

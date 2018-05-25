@@ -27,7 +27,7 @@ int arr[10];
 int* ptr = arr; // set the pointer to (the start) of this array
 ```
 
-TODO &arr[0]
+TODO &arr\[0\]
 
 ## pointer arithmetics
 

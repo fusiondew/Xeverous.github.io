@@ -152,9 +152,7 @@ int* p2 = nullptr;
 ```
 
 <details>
-<summary>
-answer
-</summary>
+<summary>answer</summary>
 <p markdown="block">
 
 `p1` holds a valid address of an integer which holds 0. `p2` holds invalid address.
@@ -162,4 +160,6 @@ answer
 In other words, `p1` points to a valid object which has a certain value, `p2` does not point to any object.
 
 ![0 vs null](http://i.imgur.com/7QMhUom.jpg)
+
+</p>
 </details>

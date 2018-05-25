@@ -74,23 +74,27 @@ The cause of this problem is the fact that overload resolution happens *after* t
 
 Entire process, done by the compiler:
 
-1. The expression `print_info(c)` must be evaluated.
-2. The name `print_info` is looked up in relevant scopes (I will skip name lookup internals, they don't matter in this case)
-3. The name is resolved to a function. Begin search of all possible overloads.
-4. 2 potential macthes are found:
+- The expression `print_info(c)` must be evaluated.
+- The name `print_info` is looked up in relevant scopes (I will skip name lookup internals, they don't matter in this case)
+- The name is resolved to a function. Begin search of all possible overloads.
+- 2 potential macthes are found:
+
 ```c++
 template <typename T>
 void print_info(const T&);      // (1)
 
 void print_info(const animal&); // (2)
 ```
-5. Template type deduction is performed. For (1), based on provided argument, `T` is deduced to `cat`. All deductions succeed (failing deductions will be explained later).
-6. Overload resolution has 2 candidates to consider:
+
+- Template type deduction is performed. For (1), based on provided argument, `T` is deduced to `cat`. All deductions succeed (failing deductions will be explained later).
+- Overload resolution has 2 candidates to consider:
+
 ```c++
 void print_info(const cat&);    // (1)
 void print_info(const animal&); // (2)
 ```
-7. (1) is choosen because it's a perfect match. (2) would require implicit convertion.
+
+- (1) is choosen because it's a perfect match. (2) would require implicit convertion.
 
 The fact that the deduction occurs before different overloads are considered has a big consequence. It's an impactful C++ language design decision. If the reverse was true, there would be many problems regarding specializations and overloads. Instead of good matches with (potentially specialized) templates, various types would pretend very weird convertions to fit into non-template overloads potentially losing data or accuracy while being converted.
 

@@ -108,4 +108,3 @@ kramdown:
   hard_wrap:     false
   footnote_nr:   1
   show_warnings: true
-  parse_block_html: true

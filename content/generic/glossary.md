@@ -50,7 +50,7 @@ TODO - article with symbol character names.
 
 `MSYS2` (minimal system) - package manager for GNU toolchains for Windows. [Used by Qt](https://wiki.qt.io/MSYS2).
 
-`nullptr`, `NULL`, (in other languages `null` or `nil`) - the lack of object, a null (empty, invalid) memory address. On x86 equivalent to <pre>0x00000000</pre>. Using (dereferencing) a null pointer is undefined behaviour in lower level languages and an exception in higher level ones.
+`nullptr`, `NULL`, (in other languages `null` or `nil`) - the lack of object, a null (empty, invalid) memory address. On practically every (if not every) hardware represented by address `0x00000000`. Using (dereferencing) a null pointer is undefined behaviour in lower level languages and an exception in higher level ones.
 
 `OSS` - open source software.
 
@@ -60,7 +60,7 @@ TODO - article with symbol character names.
 
 `pointer` - a variable that does not store ordinary data, but holds the address of another variable. Pointers to pointers are possible.
 
-`POSIX` - portable operating system interface. A standarized C interface to create and maintain compability between operating systems. The only largerly used OS which is not POSIX compliant is Windows.
+`POSIX` - portable operating system interface. A standarized C interface to create and maintain compability between operating systems. The only largerly used OS which is not POSIX compliant is Windows. Cygwin can be used to create POSIX-compliant layer on Windows.
 
 `RAII` - resource aquisition is initialization idiom. Objects dynamically allocating resources are responsible for their cleanup (done by implementing custom destructors). Idiom requires types to implement precise resource ownership models allowing move semantics and compile-time cleanup decisions. RAII is the backbone of C++ and Rust resource management. Term sometimes referred as SBRM - scope based resource management.
 
@@ -70,7 +70,7 @@ TODO - article with symbol character names.
 
 `segfault` - [Segmentation Fault]((https://en.wikipedia.org/wiki/Segmentation_fault)). Error caused by dereferencing an invalid poitner (not necessarily a null pointer) or violating virtual memory access.
 
-`SFINAE` - substitution failure is not an error. Template instantiation mechanism used to disable certain implementations based on the type or value properties. Explained in relevant TTT chapter.
+`SFINAE` - substitution failure is not an error. Exploit on the C++ template instantiation mechanism used to disable certain implementations based on the type or value properties. Concepts leverage SFINAE and offer syntax sugar for various templete tricks.
 
 `SIGSEGV` - [Signal](https://en.wikipedia.org/wiki/Signal_(IPC)) thown to the program after encountering segentation fault or similar error.
 
@@ -78,9 +78,9 @@ TODO - article with symbol character names.
 
 `smart pointer` - a pointer that <del>is smart</del> automatically manages underlying resource (not necessarily memory). Standard library offers classes for unique ownership model (`std::unique_ptr`) and shared ownership model (`std::shared_ptr`, `std::weak_ptr`). Additional and legacy smart pointers are offered by Boost. [SO question](https://stackoverflow.com/questions/106508/what-is-a-smart-pointer-and-when-should-i-use-one).
 
-`std` - the standard library namespace. Every identifier except macros is inside this namespace.
+`std` - the standard library namespace. Every identifier except macros is inside this namespace. More namespaces are possible in the future.
 
-`STL` - standard template library. More than 95% of standard C++ library. Templates are found in various headers - this term is simply covering them all.
+`STL` - standard template library. More than 90% (or even 95%) of C++ standard library. Templates are found in various headers - this term is simply covering them all.
 
 `strict aliasing` - an assumption that pointers to unrelated types (not sharing same inheritance tree) can never point to the same object. All variants of `char` and `void` pointers are excluded from this rule (because they are used for unknown type reads/writes). Strict aliasing allows multiple optimizations because compiler can assume certain data is not overriden between various instructions. Strict aliasing is very highly encouraged by the C++ standard. Enabled by default in all major compilers and requires certain flag to compile code which violates this rule.
 

@@ -123,9 +123,9 @@ The simplest signed representations are one's/two's complement, which sacrifice 
 
 From the table above you can see that:
 
-- unsigned integer has value range $[0, 255] \space ([0, 2^8-1])$
-- one's complement signed integer has value range $[-127, 127] \space ([-2^7+1, 2^7-1])$; 0 has two representations
-- two's complement signed integer has value range $[-128, 127] \space ([-2^7, 2^7-1])$
+- unsigned integer has value range $\[0, 255\] \space (\[0, 2^8-1\])$
+- one's complement signed integer has value range $\[-127, 127\] \space (\[-2^7+1, 2^7-1\])$; 0 has two representations
+- two's complement signed integer has value range $\[-128, 127\] \space (\[-2^7, 2^7-1\])$
 
 The reverse order of negative numbers (in both complement encodings) allows some math optimizations.
 
@@ -134,16 +134,17 @@ Two's complement compared to one's complement is shifted by 1 - it avoids the pr
 Most widely used architectures use two's complement for signed representation. Unsigned is treated exactly the same everywhere.
 
 <details> 
-    <summary>More examples</summary>
-    <p>
-```
+<summary>More examples</summary>
+<p markdown="block">
+
+~~~
 16-bit unsigned int representing decimal   2925: 0000 1011 0110 1101     (0)
 16-bit signed   int representing decimal   2925: 0000 1011 0110 1101     (0)
 16-bit unsigned int representing decimal  -2925: impossible to represent (1)
 16-bit signed   int representing decimal  -2925: 1111 0100 1001 0011     (2)
 16-bit unsigned int representing decimal 48 522: 1011 1101 1000 1010     (3)
 16-bit signed   int representing decimal 48 522: impossible to represent (4)
-```
+~~~
 
 - (0) The first 2 numbers are relatively small, and fit in both representations
 - (1) -2925 (and all other negative numbers) can not be represented as unsigned integers, as there is no bit that would indicate +/- sign - all numbers are assumed to be non-negative.
@@ -152,7 +153,8 @@ Most widely used architectures use two's complement for signed representation. U
 - (4) the number can not be represented because the value itself needs 16 bits, but signed representation sacrifices 1 bit for +/- sign
 
 The default representation is signed. This means that `int` is the same type as `signed int`.
-    </p> 
+
+</p>
 </details>
 
 ### size
@@ -177,7 +179,7 @@ The exact size of an integer is architecture and system dependent, but C++ stand
                 <td>8</td>
                 <td>8</td>
             </tr>
-            <tr class="even">
+            <tr>
                 <td>short int</td>
                 <td>16</td>
                 <td>16</td>

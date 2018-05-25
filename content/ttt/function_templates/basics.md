@@ -75,7 +75,7 @@ The exact meaning and conventions of all longer names (with their list) will be 
 
 This keyword simply indicates we alias a type. There are non-type templates too. It's just the syntax.
 
-Sometimes you might see `class` keyword used. In terms of template signatures (things inside `<>`), both `typename` and `class` can be used interchangeably except 1 corner case which was a small bug in the standard (fixed with C++17).
+Sometimes you might see `class` keyword used. In terms of template signatures (things inside `<>`), both `typename` and `class` can be used interchangeably except 1 corner case which was a small bug in the standard (fixed in C++17).
 
 I use `typename` because it sounds more appropriate and doesn't confuse the reader (`T` does not have to be a class).
 
