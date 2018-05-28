@@ -11,7 +11,7 @@ Arrays are stored in consecutive memory blocks.
 ```
                     v 0x7ffd8ddc0538                v 0x7ffd8ddc0540
 --+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+--
-  |     arr[0]    |     arr[1]    |     arr[2]    |     arr[3]    |     arr[    
+  |     arr[0]    |     arr[1]    |     arr[2]    |     arr[3]    |     arr[
 --+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+--
     ^ 0x7ffd8ddc0534                ^ 0x7ffd8ddc053c                ^ 0x7ffd8ddc0544
 ```
@@ -144,7 +144,7 @@ Note: you may get different results on different systems. These examples were ru
 
 TODO def block
 
-<div class="note success">
+<div class="note success" markdown="block">
 #### pointer aritchmetics
 
 Adding (or subtracting) an integer to (or from) a pointer moves it forward (or backward) `sizeof(pointed type)` bytes.

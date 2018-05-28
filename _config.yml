@@ -84,7 +84,7 @@ paginate_path: /page:num
 timezone:      null
 
 quiet:    false
-verbose:  true
+verbose:  false
 defaults: []
 
 liquid:
