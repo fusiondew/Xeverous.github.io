@@ -50,7 +50,7 @@ If we do not know what address `ptr` holds, we should not write there. At best, 
 
 ### initialization
 
-With integers (and all other data types) it's heavily recommended to initialize them. The default value for integers is intuitively `0`, but if the variable is used for multiplication, `1` should be used - multiplying by `0` will discard all results.
+With integers (and all other data types) it's heavily recommended to initialize them. What's the default is of course situation dependent - for example `0` if we represent sum, `1` if we want to multiply or some fixed positive/negative number (base character health or speed in a game).
 
 ## null pointer
 
@@ -105,10 +105,10 @@ null pointer to int: 0
 null pointer to double: 0
 ```
 
-Not really surprising. The number `0` is still in hex btw, `0` is just the same in both decimal and hexadecimal systems.
+Not really surprising. The number `0` is still in hex btw, `0` is just written the same way in both decimal and hexadecimal systems.
 
-<div class="note success">
-#### null pointer dereference
+<div class="note info">
+<h4>null pointer dereference</h4>
 
 Dereferencing null pointer is the same as dereferencing uninitialized pointer or a dangling pointer - undefined behaviour - all of these hold invalid addresses. They just differ by how they crash your program (on most systems null pointers crash instantly, others may result in very weird memory corruption bugs).
 </div>

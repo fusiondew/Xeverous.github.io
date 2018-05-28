@@ -356,7 +356,8 @@ Can you deduce the output before you run the program? If so, you understood the 
 TODO fix formatting
 
 <div><details>
-<summary markdow="0">output
+<summary>
+output
 </summary>
 <p markdown="block">
 

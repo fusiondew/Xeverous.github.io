@@ -183,6 +183,22 @@ for (int i = 1; i <= 5; ++i)
 
 In other words, the length of the inner loop increases after each outer loop. Inner loop sizes are, in order: 1, 2, 3, 4, 5. In this example I intentionally ignored the "start from 0 and use <" rule because the inner loop sizes would be 0, 1, 2, 3, 4 which means that the first line would be empty.
 
+## doing something N times
+
+There is a simple trick to do something N times if the control variable is not needed - going down in a `while` loop.
+
+```c++
+for (int i = 0; i < n; ++i)
+```
+
+can be also done as
+
+```c++
+while (n--)
+```
+
+The loop counter decreases each iteration as long as it is not 0 (`0` converted to `bool` evaluates to `false`), essentially invoking the body `n` times. With this trick `n` in the loop body is rarely used - usually the body of the loop is always the same - focus is on the number of repeats, not the body chaning depending on the `n`.
+
 ## exercise
 
 Count the sum of all natural numbers up to 99 (using a for-loop). Note that in this case starting from 0 or 1 doesn't matter, 0 will not add any value to the sum. For extra effort instead of 99 ask the user for the upper bound.
