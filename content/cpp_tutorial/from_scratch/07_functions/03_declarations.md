@@ -195,7 +195,7 @@ Program works normally if the function that had it's return statement removed go
 If it has got an even number, 0 in that function, making it call the other one with -1 - all future calls will just go deeper with no way to stop it.
 
 You can make the program work back by chaning `if (x == 0)` to `if (x <= 0)`.
-<p>
+</p>
 </details>
 
 - What happens if the premature return statement is removed from both functions?
@@ -204,5 +204,5 @@ You can make the program work back by chaning `if (x == 0)` to `if (x <= 0)`.
 <summary>answer</summary>
 <p>
 Program runs indefinitely, there is no way to end - `foo()` will always call one more `bar()` and `bar()` will always call one more `foo()`.
-<p>
+</p>
 </details>
