@@ -294,56 +294,13 @@ end
 
 {% gist 5555251 gist.md %}
 
-```
+~~~ html
 {% gist 5555251 gist.md %}
-```
+~~~
 
 #### Custom C++ highlight
 
-<pre class="highlight"><code><span class="prep_direct">#</span><span class="prep_direct">include</span>&nbsp;<span class="prep_hdr">&lt;execution&gt;</span>
-<span class="prep_direct">#</span><span class="prep_direct">include</span>&nbsp;<span class="prep_hdr">&lt;thread&gt;</span>
-<span class="prep_direct">#</span><span class="prep_direct">include</span>&nbsp;<span class="prep_hdr">&lt;string&gt;</span>
-<span class="prep_direct">#</span><span class="prep_direct">include</span>&nbsp;<span class="prep_hdr">&lt;fmt&gt;</span>
-
-<span class="comm_multi">/*</span>
-<span class="comm_multi">&nbsp;*&nbsp;Disjunctions&nbsp;are&nbsp;short-circuited</span>
-<span class="comm_multi">&nbsp;*&nbsp;overloaded&nbsp;operators&nbsp;can&nbsp;not&nbsp;be&nbsp;used&nbsp;in&nbsp;requires&nbsp;expressions</span>
-<span class="comm_multi">&nbsp;*/</span>
-<span class="keyword">template</span>&nbsp;&lt;<span class="keyword">typename</span>&nbsp;<span class="tparam">T</span>&gt;
-<span class="keyword">concept</span>&nbsp;<span class="concept">MoreThanComparable</span>&nbsp;=&nbsp;<span class="keyword">requires</span>(<span class="tparam">T</span>&nbsp;<span class="param">a</span>,&nbsp;<span class="tparam">T</span>&nbsp;<span class="param">b</span>)&nbsp;||&nbsp;<span class="concept">LessThanComparable</span>
-{
-&#9;{&nbsp;<span class="param">a</span>&nbsp;&gt;&nbsp;<span class="param">b</span>&nbsp;}&nbsp;-&gt;&nbsp;<span class="built_in">bool</span>;&nbsp;<span class="comm_single_dox">///</span>&nbsp;<span class="comm_tag_dox">@brief</span>&nbsp;<span class="comm_single_dox">expression&nbsp;"a&nbsp;&gt;&nbsp;b"&nbsp;must&nbsp;return&nbsp;bool</span>
-};
-
-<span class="keyword">template</span>&nbsp;&lt;<span class="concept">EqualityComparable</span>...&nbsp;<span class="tparam">Args</span>&gt;&nbsp;<span class="keyword">constexpr</span>
-<span class="keyword">decltype</span>(<span class="keyword">auto</span>)&nbsp;<span class="func">build</span>(<span class="tparam">Args</span>&amp;&amp;...&nbsp;<span class="param">args</span>);&nbsp;<span class="comm_single">//&nbsp;constrained&nbsp;C++20&nbsp;function&nbsp;template</span>
-{
-&#9;<span class="keyword">if</span>&nbsp;<span class="keyword">constexpr</span>&nbsp;(<span class="keyword">sizeof</span>...(<span class="param">args</span>)&nbsp;==&nbsp;<span class="num">0</span>)
-&#9;&#9;<span class="keyword">throw</span>&nbsp;<span class="namespace">std</span>::<span class="class">logic_error</span>(<span class="namespace">std</span>::<span class="class">string</span>(<span class="string">""error&nbsp;in&nbsp;file:&nbsp;""</span>)&nbsp;<span class="op_ol">+</span>&nbsp;<span class="macro_ref">__FILE__</span>&nbsp;<span class="op_ol">+</span>&nbsp;<span class="string">""on&nbsp;line:&nbsp;""</span>&nbsp;<span class="op_ol">+</span>&nbsp;<span class="macro_ref">__LINE__</span>);
-
-&#9;<span class="keyword">return</span>&nbsp;<span class="namespace">std</span>::<span class="class">tuple</span>(<span class="namespace">std</span>::<span class="func">forward</span>&lt;<span class="tparam">Args</span>&gt;(<span class="param">args</span>)...);
-}
-
-<span class="keyword">template</span>&nbsp;&lt;<span class="keyword">typename</span>&nbsp;<span class="tparam">T</span>&gt;
-<span class="keyword">concept</span>&nbsp;<span class="concept">Opaque</span>&nbsp;=&nbsp;<span class="keyword">requires</span>(<span class="tparam">T</span>&nbsp;<span class="param">x</span>)
-{
-&#9;{*<span class="param">x</span>}&nbsp;-&gt;&nbsp;<span class="keyword">typename</span>&nbsp;<span class="tparam">T</span>::<span class="class">inner</span>;&nbsp;<span class="comm_single">//&nbsp;the&nbsp;expression&nbsp;*x&nbsp;must&nbsp;be&nbsp;valid</span>
-&#9;<span class="comm_single">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;AND&nbsp;the&nbsp;type&nbsp;T::inner&nbsp;must&nbsp;be&nbsp;valid</span>
-&#9;<span class="comm_single">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;AND&nbsp;the&nbsp;result&nbsp;of&nbsp;*x&nbsp;must&nbsp;be&nbsp;convertible&nbsp;to&nbsp;T::inner</span>
-};
-
-<span class="keyword">using</span>&nbsp;<span class="alias">cw</span>&nbsp;=&nbsp;<span class="namespace">std</span>::<span class="namespace">chrono</span>::<span class="enumerator">weekday</span>;
-<span class="keyword">static_assert</span>(<span class="alias">cw</span>::<span class="enum">Saturday</span>&nbsp;<span class="ol_op">-</span>&nbsp;<span class="alias">cw</span>::<span class="enum">Monday</span>&nbsp;==&nbsp;<span class="num">5</span>);
-
-<span class="built_in">int</span>&nbsp;<span class="func">main</span>()
-{
-&#9;<span class="keyword">constexpr</span>&nbsp;<span class="namespace">std</span>::<span class="class">array</span>&lt;<span class="built_in">int</span>,&nbsp;<span class="num">5</span>&gt;&nbsp;<span class="var_local">a1</span>&nbsp;=&nbsp;{&nbsp;<span class="num">0</span>,&nbsp;<span class="num">2</span>,&nbsp;<span class="num">4</span>,&nbsp;<span class="num">6</span>,&nbsp;<span class="num">8</span>&nbsp;};
-&#9;<span class="keyword">constexpr</span>&nbsp;<span class="namespace">std</span>::<span class="class">array</span>&lt;<span class="built_in">int</span>,&nbsp;<span class="num">5</span>&gt;&nbsp;<span class="var_local">a2</span>&nbsp;=&nbsp;{&nbsp;<span class="num">1</span>,&nbsp;<span class="num">3</span>,&nbsp;<span class="num">5</span>,&nbsp;<span class="num">7</span>,&nbsp;<span class="num">9</span>&nbsp;};
-&#9;<span class="keyword">auto</span>&nbsp;<span class="var_local">it</span>&nbsp;=&nbsp;<span class="namespace">std</span>::<span class="func">find_first_of</span>(<span class="mutparam">std</span><span class="mutparam">::</span><span class="mutparam">execution</span><span class="mutparam">::</span><span class="mutparam">par_unseq</span>,&nbsp;<span class="var_local">a1</span>.<span class="func">begin</span>(),&nbsp;<span class="var_local">a1</span>.<span class="func">end</span>(),&nbsp;<span class="var_local">a2</span>.<span class="func">begin</span>(),&nbsp;<span class="var_local">a2</span>.<span class="func">end</span>());
-&#9;<span class="namespace">std</span>::<span class="class">thread_pool</span>&nbsp;<span class="var_local">tp</span>;
-&#9;<span class="var_local">tp</span>.<span class="func">add_task</span>([&amp;,&nbsp;<span class="var_local">it</span>]()&nbsp;{&nbsp;<span class="namespace">std</span>::<span class="namespace">fmt</span>::<span class="func">print</span>(<span class="string">""index&nbsp;=&nbsp;{}\n""</span>,&nbsp;<span class="var_local">a1</span>.<span class="func">end</span>()&nbsp;-&nbsp;<span class="var_local">it</span>);&nbsp;}).<span class="func">repeat</span>(<span class="num">1337</span>);
-}
-</code></pre>
+{% include_relative playground_code.html %}
 
 * * *
 
