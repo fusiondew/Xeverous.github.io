@@ -133,7 +133,7 @@ Use static linking of C++ standard library - it's content will be put inside you
 
 Option 2.
 
-Copy C++ standard library dlls to the directory where your executable is (dlls should be inside compiler installation, eg `C:\MinGW\bin\libstdc++-6.dll`)
+Copy C++ standard library dlls to the directory where your executable is or to the root directory of your project (dlls should be inside compiler installation, eg `C:\MinGW\bin\libstdc++-6.dll`).
 
 #### (Windows) Strange x86 / x86_64 error when launching the executable
 

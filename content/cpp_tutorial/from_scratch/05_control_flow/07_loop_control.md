@@ -79,7 +79,7 @@ Unfortunately `break` exits only the current, most inner loop. There is no way t
 - add `bool exit = false;` flag, set it to `true` in the inner loop and place `break`s based on checking this flag - quite verbose and hard to read
 - put the loop in a function and `return` from the function - good
 - put the loop in a lambda and `return` from the lambda - even better
-- `throw` an exception - for more complex code skipping
+- `throw` an exception - for more complex code skipping - this will work but it's not an appropriate use of exceptions
 
 ### example with the flag
 

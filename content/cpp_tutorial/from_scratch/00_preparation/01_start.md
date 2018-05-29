@@ -7,14 +7,11 @@ I'm sorry if this is an unpleasant surprise, there will be almost no code in thi
 If you find this chapter boring (or already know the thing), just move on. But be warned - this chapter adheres to RTFM rule.
 
 <div class="note pro-tip">
-#### RTFM
-<i class="fas fa-star-exclamation"></i>
+<h4>RTFM</h4>
 READ THE FUCKING MANUAL. If you end up not being able to configure your IDE or compiler it will be your own fault.
 </div>
 
 <div class="note info">
-#### Info
-<i class="fas fa-info-circle"></i>
 a lot of additional info is covered in FAQ and the glossary. Additionally, multiple articles have embedded questions which may raise for relevant stuff.
 </div>
 
@@ -22,7 +19,7 @@ a lot of additional info is covered in FAQ and the glossary. Additionally, multi
 
 You can already find a lot about this question on the internet.
 
-In my opinion, the enough level is understanding functions and second-degree equations. Anything more will be an advantage. We program so that we are not bothered with math, this is the task for computers.
+In my opinion, the enough level is understanding functions and second-degree equations. Anything more will be an advantage. We program so that we are not bothered with math, this is the task for computers. Still, any additional knowledge will be beneficial.
 
 #### Question: Do I need to understand the binary system?
 
@@ -78,8 +75,9 @@ Explained in the FAQ.
 
 Lookup in the glossary.
 
-## tutorial tips
+## core recommendations
 
 - do not copy paste code, rewrite it instead - this will help you to memorize the syntax and prevent coming back to first examples
 - experiment with examples - change things and see what happens
 - don't stay too long if you can't accomplish something - it's likely that later chapters will explain the thing or the knowlege of next lessons will allow you to understand something better
+- move on if you can't find a way to understand something - many features depend on each other, and you need to first grasp overview of one, then learn second and then finish first - I tried to make the tutorial linear but if someting sounds you need more knowledge - move on and came there back later
