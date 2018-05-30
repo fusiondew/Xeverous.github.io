@@ -32,7 +32,7 @@ int f(int x)
 There are multiple noticeable things here:
 
 - `int` is used to indicate return type (on the left) and argument type (inside parentheses); `int` means *integer* - this function works with whole numbers
-- the function is named `f` (other names are also possible)
+- the function is named `f` (longer names are also possible)
 - the function takes 1 argument named `x` which is an `int`eger
 - the function *returns* `x` multiplied by `x`
 
