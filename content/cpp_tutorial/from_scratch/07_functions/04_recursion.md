@@ -17,7 +17,7 @@ This popular joke is kinda self explanatory - recursion happens when something i
 The simplest example is factorial:
 
 $$
-x! = \prod_{k = 1}^{n} k = 1 * 2 * 3 * ... * (x - 2) * (x - 1) * x
+x! = \prod_{k = 1}^{x} k = 1 * 2 * 3 * ... * (x - 2) * (x - 1) * x
 $$
 
 which can also be defined using recursion:
@@ -137,6 +137,57 @@ $$
 
 ## recursion vs iteration
 
-All of recursive functions can also be written in iterative form. The iterative form is very often faster because calling a function recursively requires some overhead for each call (pushing return address onto the stack). However, it's not always easy to write an iterative form - many recursive functions have self-similarity and good iterative optimizes redundant calculations - for example $fib(5) = fib(4) + fib(3) = fib(3) + fib(2) + fib(2) + fib(1)$ will need to call $fib(2)$ 3 times and $fib(1)$ 2 times. Since recursion does not save the result anywhere, it's being lost and recomputed every time.
+All of recursive functions can also be written in iterative form. The iterative form is very often faster because calling a function recursively requires some overhead for each call (pushing return address onto the stack). However, it's not always easy to write an iterative form - many recursive functions have self-similarity and a good iterative implementation needs to optimize redundant calculations - for example $fib(5) = fib(4) + fib(3) = fib(3) + fib(2) + fib(2) + fib(1)$ will need to call $fib(2)$ 3 times and $fib(1)$ 2 times. Since recursion does not save the result anywhere, it's being lost and recomputed every time - iterative form can save some time on storing 2 previous results.
 
-TODO iterative forms
+```c++
+#include <iostream>
+
+int factorial(int x)
+{
+    int result = 1;
+
+    for (int i = 2; i <= x; ++i)
+        result *= i;
+
+    return result;
+}
+
+int fibonacci(int n)
+{
+    int a = 0;
+    int b = 1;
+
+    for (int i = 0; i < n; ++i)
+    {
+        int temp = b;
+        b = a + b;
+        a = temp;
+    }
+
+    return a;
+}
+
+int main()
+{
+    for (int i = 0; i < 10; ++i)
+        std::cout << factorial(i) << "\n";
+
+    for (int i = 0; i < 10; ++i)
+        std::cout << fibonacci(i) << "\n";
+}
+```
+
+Still, in some situations recursive functions perform better (for example in graph search algorithms).
+
+Note that in the program above a lot of computation is still redundant - each call to factorial and fibonacci starts the loop again - if the results for consecutive `i`s were saved (in an array) each next step would just need 1 computation, not the redo from the beginning.
+
+## recursive main
+
+The C++ standard explicitly forbids to call main function. You can not make the program call it's start, although some compilers may accept such code (then it has undefined behaviour).
+
+## summary
+
+- recursive function is a function that calls itself
+- recursive functions do not require forward declarations
+- recursive functions must have some stop condition, otherwise they will never finish
+- usually iterative versions of recursive functions are faster
