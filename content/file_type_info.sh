@@ -40,7 +40,3 @@ echo "different extentions: ${#HASHMAP[@]}"
 echo "files without extension: $NOEXT"
 SIZE=$(du -hs . | cut -f1)
 echo "total directory size: ${SIZE}B"
-TEXTLINES="( find . -type f -print0 | xargs -0 cat ) | wc -l"
-TEXTLINES=$(eval "$TEXTLINES")
-echo "total text lines: $TEXTLINES"
-
