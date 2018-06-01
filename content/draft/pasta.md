@@ -12,7 +12,7 @@ int (*(*foo)(void))[3]; // define pointer to function (void) returning pointer t
 
 {% comment %}
 {% capture includeGuts %}
-{% include signup-guts.html %} 
+{% include signup-guts.html %}
 {% endcapture %}
 {{ includeGuts | replace: '    ', ''}}
 {% endcomment %}

@@ -111,7 +111,7 @@ Examples and exercises
 - sample part of ET library
 - lazy/delayed initialization
 
-	
+
 Cheatsheets
 - operator overloading: unary, binary, ternary (eg 1-argument "-" (x = -x) vs 2-argument "-" (z = x - y) - what, where and when can be overloaded)
 - value types
