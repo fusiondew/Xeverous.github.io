@@ -29,9 +29,9 @@ Still, I recommend to learn the binary system. Numberphile has a [great video](h
 
 #### Question: Do I need to be good in English?
 
-I try to write in easy language on this website, but I encourage you to learn English first if you have problems reading the content.
+I try to write in easy language on this website but I encourage you to learn English first (or during the reading) if you have problems reading the content.
 
-In the IT industry, this is the main language - most companies require certain skill to be hired. The more the better. TODO(add funny complex statment)
+In the IT industry, English is the main language - most companies require certain skill to be hired. The more the better. Should you find yourself not enduring the feeling of being verdant amidst sophisticated jist you better postpone the lecture in regards to seizing the exquisite English language.
 
 #### Question: Do I need a powerful computer to program?
 
@@ -43,7 +43,7 @@ This is somewhat a different thing. You can build (make) games, they just may no
 
 #### Quesion: Does it cost?
 
-All tools presented on this site are free and very often open source. Unless you want to use advanced paid features of these tools or commercial software you should only bother for the electricity bill.
+All tools presented on this site are free and very often (if not always) open source. Unless you want to use advanced paid features of these tools or commercial software you should only bother for the electricity bill.
 
 #### Question: Why there are multiple programming languages?
 
@@ -65,7 +65,7 @@ I predict you are reading this tutorial mostly for these reasons:
 
 All of these reasons are good, although not required to start this tutorial.
 
-More about main types of languages later.
+More about types of programming languages and their differences later.
 
 #### Question: Where is C++ used?
 
