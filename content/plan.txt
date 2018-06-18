@@ -1,0 +1,119 @@
+# Brief plan of the core language tutorial. Expect it to be changed very often while building the site
+
+preparation
+	what is C++ (language types: static/dynamic typing, memory mamanegement, build, etc)
+	terms (IDE, compiler, etc),
+	build configurations
+	common configuration problems
+	history
+	hello world
+
+basics
+	brief: syntax: comments, whitespace, naming rules, non-context-free grammar
+	brief: hello world explanation
+	brief: std::cout
+	brief: main function
+	brief: preprocessor
+
+preprocessor
+	include
+	define
+	ifdef
+	error (mention warning extension)
+	pragma
+	line
+	pre-defined macros
+
+type fundamentals
+	built-in types
+		integers
+		characters
+		boolean
+		floating-point
+		void
+		literals
+		brief: sizeof operator
+	brief: custom types (struct, enums)
+
+program structure
+	assignments
+	comments
+	variables, scoping
+	const
+	std::cout
+	std::cin
+
+operators
+	terms
+	arithmetics
+	increment, decrement
+	comparisons - mention floating-point comparisons
+	logical operators (logic gates, link numberphile vid) (+DeMorgans law)
+	bitwise operators (shifts etc)
+	
+control flow
+	brief: control flow, why not just jumps
+	goto
+	if
+	switch
+	while
+	for
+	loop control (break, continue)
+	
+pointers
+	arrays
+	nested arrays
+	pointers
+	null pointers
+	const
+	pointers and arrays
+	string literals
+	void pointers
+		
+references
+	lvalue vs rvalue (the simpler form)
+	lvalue references
+	rvalue references
+	
+functions
+	syntax
+	void return type
+	declarations
+	recursion
+	overloading
+	default arguments
+	returns (return by reference, static variables, return multiple values)
+	function pointers
+	ellipsis
+	
+dynamic memory
+	theory
+	malloc, free
+	operator new, operator delete
+	brief: RAII
+	
+OOP
+	introduction
+	classes, encapsulation
+	constructors (+member init list, +delegating ctors), destructors
+	member functions (+accessors)
+	this
+	const members (variables, functions)
+	static member variables
+	static member functions
+	friends
+	nested types
+
+operator overloading
+
+
+
+
+
+
+
+missing
+	overflow
+	underflow
+	implcit convertions
+	more OO syntax examples (something like (A() + B()).func().f2())

@@ -64,6 +64,8 @@ C++ has a keyword for it - `nullptr`. It represents this system-specific value.
 int* ptr = nullptr;
 ```
 
+`nullptr` is defined as universal representation of unknown address of it's own type (notably `std:nullptr_t`) which is implicitly convertible to any other pointer type. You can compare this to booleans: `bool` is a type capable of holding only 2 values: `true` and `false`. `std::nullptr_t` is a type capable of holding only 1 value: `nullptr`. Booleans are implicitly convertible to integers. Null pointers are implicitly convertible to any pointer type.
+
 <div class="note warning">
 #### NULL
 
@@ -77,7 +79,7 @@ The consequences of using `NULL` in C++ can be quite harsh. Mostly because of it
 </div>
 
 <div class="note pro-tip">
-DO NOT EVER use `NULL` macro. Use proper keyword `nullptr`.
+DO NOT EVER USE `NULL` MACRO. Use proper keyword `nullptr`.
 </div>
 
 ## null pointer print
@@ -88,8 +90,8 @@ DO NOT EVER use `NULL` macro. Use proper keyword `nullptr`.
 int main()
 {
     // this actually does't compile because nullptr is not assigned to any type
-    // and standard stream does not know how to print "null pointer value"
-    // full details will be explained at function overloading
+    // and standard stream does not know how to print value of type std::nullptr_t
+    // full details why it is so will be explained at function overloading
     // std::cout << nullptr;
 
     // so just use any specific pointers
@@ -157,7 +159,7 @@ int* p2 = nullptr;
 
 `p1` holds a valid address of an integer which holds 0. `p2` holds invalid address.
 
-In other words, `p1` points to a valid object which has a certain value, `p2` does not point to any object.
+In other words, `p1` points to a valid object which has a certain value, `p2` does not point to any object. Don't be fooled by the zero - it's a valid integer. Similarly, there is a big difference in no mark (null) and a failed test (score 0).
 
 ![0 vs null](http://i.imgur.com/7QMhUom.jpg)
 

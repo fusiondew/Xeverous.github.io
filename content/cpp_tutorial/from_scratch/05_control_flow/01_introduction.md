@@ -7,9 +7,9 @@ So far all the programs were strictly ordered and didn't have any sort of branch
 There are multiple types of control flow instructions:
 
 - jumps - **go to** other code line, breaking line-by-line execution order
-- conditionals - do something **if** something
-- loops - repeat something **as long as** something
-- exceptions - abandon something and **skip** the task
+- conditionals - do something **if** something is true
+- loops - repeat something **as long as** something is true
+- exceptions - abandon something and **skip** something **until** something
 
 All of these are the same at the machine instruction level - in the assembly, there are only jumps. The program is a sequence of instructions, and depending on some state program can move to arbitrary other instruction and continue execution from there.
 
