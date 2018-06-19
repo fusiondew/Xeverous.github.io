@@ -217,9 +217,8 @@ int main()
     int& ref1; // error: 'ref1' declared as reference but not initialized
     int& ref2 = nullptr; // error: invalid initialization of non-const reference of type 'int&' from an rvalue of type 'std::nullptr_t'
 
-    // possible workaround
     int* ptr = nullptr;
-    int& ref3 = *ptr; // but the dereference is undefined behaviour
+    int& ref3 = *ptr; // null pointer dereference is undefined behaviour
 }
 ```
 
@@ -249,17 +248,20 @@ int main()
 
 **References can not be nested. A reference to reference can not exist - it will collapse instead and alias the original variable.**
 
-It would be good to post an example for this, but there is a caveat - `int&&` is actually a valid syntax, but it means something other than a usual reference.
+`int&&` is a valid syntax, but actually it means something other than a usual reference.
 
 ```c++
 int x = 100;
 int& ref = x;
-int&& refref = ref;
+// int&& // different token, explained later
+int& & refref = ref; // error: can not create reference to a reference
 ```
 
 Nonetheless the code above will not compile, but the reason will be very different - the compiler will not output that nested references are impossible, but something about **lvalue** vs **rvalue**. This is a quite complicated topic (value types), it's explained later, including the difference between `&` and `&&` reference.
 
 **References can not be themselves const. They can alias const objects, but since a reference can not be rebound it itself is always implicitly const.**
+
+Don't get this rule wrong: you *can* write `const` with a reference declaration. But it does not mean that the reference is const - it means that the referenced object is const. References themselves are always const, because they can't be rebound. So `int&` has similar restrictions to `int* const` and `const int&` to `const int* const`.
 
 ```c++
 int x = 10;
@@ -288,12 +290,13 @@ int arr[] = { 10, 20, 30, 40, 50 };
 int* ptr = arr;
 int& ref = *ptr;
 
-// works, uses pointer arithmetics
-*(ptr + 3)
-ptr[3]
+// pointer semantics - uses addresses
+ptr + 3 // adds 3 * sizeof(int) to the address
+ptr[3]  // accesses 3rd value
 
-ref + 3 // adds 3 to the aliased object
-ref[3] // invalid syntax
+// value semantics - uses values
+ref + 3 // adds 3 to the aliased object (10 becomes 13)
+ref[3]  // invalid syntax
 ```
 
 All of the above features make references a safer, less error prone construct.

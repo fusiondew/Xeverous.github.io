@@ -106,10 +106,10 @@ Monadic visitor has 1 core difference to classic OOP approach - here the visitor
 #include <vector>
 #include <iostream>
 
-template<typename... Ts>
+template <typename... Ts>
 struct overloaded : Ts... { using Ts::operator()...; };
 
-template<typename... Ts>
+template <typename... Ts>
 overloaded(Ts...) -> overloaded<Ts...>;
 
 struct cat {};

@@ -50,7 +50,7 @@ operators
 	comparisons - mention floating-point comparisons
 	logical operators (logic gates, link numberphile vid) (+DeMorgans law)
 	bitwise operators (shifts etc)
-	
+
 control flow
 	brief: control flow, why not just jumps
 	goto
@@ -59,7 +59,7 @@ control flow
 	while
 	for
 	loop control (break, continue)
-	
+
 pointers
 	arrays
 	nested arrays
@@ -69,7 +69,7 @@ pointers
 	pointers and arrays
 	string literals
 	void pointers
-		
+
 references
 	lvalue vs rvalue (the simpler form)
 	lvalue references
@@ -85,13 +85,13 @@ functions
 	returns (return by reference, static variables, return multiple values)
 	function pointers
 	ellipsis
-	
+
 dynamic memory
 	theory
 	malloc, free
 	operator new, operator delete
 	brief: RAII
-	
+
 OOP
 	introduction
 	classes, encapsulation
@@ -105,6 +105,96 @@ OOP
 	nested types
 
 operator overloading
+	core rules (creating operators, short-circuit, sequencing, member/free)
+	binary + - * / %
+	binary += -= *= /= %=
+	binary ^ & |
+	binary ^= &= |=
+	binary << >>
+	binary <<= >>=
+	binary && ||
+	unary + -
+	unary ! ~
+	binary =
+	binary == != < > <= >=
+	binary <=>
+	unary ++ --
+	binary ,
+	unary -> ->*
+	unary []
+	N-ary ()
+	unary ""
+	custom convertions
+	new / delete
+	std::string
+
+RAII
+	copy ctor vs move ctor
+	shallow vs deep copying
+	STL containers
+	std::unique_ptr
+	std::shared_ptr
+	std::weak_ptr (+circular dependency)
+
+inheritance
+	public / protected / private inheritance
+	order of construction
+	delegating construction to parents
+	derived, inherited functions
+	shadowing inherited functions
+	inherited overloads (+usings)
+	multiple inheritance
+	virtual inheritance
+
+polymorphism
+	base class pointers
+	virtual functions
+	override, final
+	covariant return type
+	virtual destructors
+	virtual assignment
+	early binding vs late binding
+	virtual table implementation
+	ABC, pure virtual functions
+	interfaces
+	virtual base classes
+	object slicing
+	dynamic_cast vs static_cast
+	RTTI
+	polymorphic operator<<
+
+lambda expressions
+	intro: higher order functions
+	leading vs trailing return type
+	catch by value/reference
+	mutable lambdas
+	generic lambdas
+	constexpr lambdas
+	templated lambdas
+
+exceptions
+	intro: error handling methods (return, out code, expected, exceptions)
+	throw and catch
+	stack unwinding
+	uncaught exceptions
+	catch(...)
+	exception specifiers
+	noexcept
+	exception classes
+	rethrowing exceptions
+	function try blocks
+	exception downsides and the future of them in C++
+
+miscellaneous
+	alignas, alignof
+	volatile
+	attributes
+	contracts
+	asm
+	decltype
+	future directions (concurrency, modules)
+	digraphs
+	trigraphs
 
 
 
@@ -116,4 +206,16 @@ missing
 	overflow
 	underflow
 	implcit convertions
+	converting constructors
+	overloading the assignment operator
 	more OO syntax examples (something like (A() + B()).func().f2())
+	static virtual
+	static_assert
+
+	Object relationships
+	Composition
+	Aggregation
+	Association
+	Dependencies
+	Container classes
+	std::initializer_list
