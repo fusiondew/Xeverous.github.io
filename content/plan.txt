@@ -196,12 +196,6 @@ miscellaneous
 	digraphs
 	trigraphs
 
-
-
-
-
-
-
 missing
 	overflow
 	underflow
@@ -211,7 +205,6 @@ missing
 	more OO syntax examples (something like (A() + B()).func().f2())
 	static virtual
 	static_assert
-
 	Object relationships
 	Composition
 	Aggregation
@@ -219,3 +212,7 @@ missing
 	Dependencies
 	Container classes
 	std::initializer_list
+	header/source separation
+	"\n" after every output line
+	
+**articles which do not have title (below layout) are considered unfinished**
