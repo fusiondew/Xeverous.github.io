@@ -10,7 +10,7 @@ Despite the fact that C++ does not put as much hype into OOP as other languages,
 
 ## the purpose
 
-So what exactly is a class? In simple terms, it's a group of closely related variables which are intended to be used together. Such group can have own class-specific functions - **methods**. Methods can be used only with appropriate classes.
+So what exactly is a class? In simple terms, it's a group of closely related variables which are intended to be used together. Such group can have own class-specific functions - **methods**. Methods can be used **on** objects of appropriate classes.
 
 Classes can improve code readability and offer modular design. They also feature a different syntax.
 
@@ -99,7 +99,7 @@ p2.x = -3;
 p2.y = 6;
 ```
 
-`public` access works the same way as with structures. You can freely change member variables any time. `protected` and `private` allows only to access member variables inside class functions - the code above would not be valid.
+`public` access works the same way as with structures. `public` access means no restrictions. You can freely change member variables any time. `protected` and `private` allows only to access member variables inside class functions - the code above would not be valid.
 
 #### Question: Why would I want to limit access to member variables?
 

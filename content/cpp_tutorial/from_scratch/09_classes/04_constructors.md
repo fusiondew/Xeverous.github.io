@@ -46,7 +46,7 @@ Now some examples. The theory is simple but there are few things you might misun
 
 ```c++
 point p;       // creates a point with name p, uses 0-argument constructor
-point p();     // declares a function named p returning a point!
+point p();     // surprise: declares a function named p returning a point!
 point p(3, 4); // creates a point with name p, uses 2-argument constructor
 ```
 
@@ -64,7 +64,7 @@ I like such rules because they simplify learning - the reader does not have to c
 <li>implicit `this`</li>
 <li>implicit destructors</li>
 <li>implicit copy and move constructors</li>
-<li>default initialization for aggregates</li>
+<li>initialization for aggregates</li>
 </ul>
 </details>
 
@@ -184,7 +184,7 @@ point::point(int x, int y)
 
 The argument names are identical to member variable names - this is valid and works as expected. This is idiomatic way to initialize member variables. Also, by allowing the same names for function arguments you are no longer bothered with creating argument names.
 
-Note: the "same name" feature works only for member initializer list. It does not work inside the ctor body - in the body argument names would take - lines such as `x = x;` would emit a warning about assignint argument to itself.
+Note: the "same name" feature works only for member initializer list. It does not work inside the ctor body - in the body argument names would take over - lines such as `x = x;` would emit a warning about assigning argument to itself.
 
 **Member initializer list is the only way to setup const members and parent classes.**
 
@@ -196,6 +196,7 @@ Const member example:
 class point
 {
 private:
+    // const members - must be initialized, can not ever be assigned
     const int x;
     const int y;
 
@@ -204,7 +205,7 @@ public:
 };
 
 point::point(int x, int y)
-: x(x), y(y) // correct initialization of const members
+: x(x), y(y) // the only way to initialize const members
 {
     x = /*...*/; // error: x is const
 }
@@ -217,3 +218,7 @@ Always use member initializer list, whenever possible.
 <div class="note warning">
 Do not confuse member initializer list with `std::initializer_list`. It's something different.
 </div>
+
+## ???
+
+TODO Summary? Exercise?

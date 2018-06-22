@@ -50,7 +50,7 @@ double triangle::get_area() const
 int main()
 {
     triangle t;
-    t.set_side(0); // prints error
+    t.set_side(-1); // prints error
     t.set_side(10);
     t.set_height(5);
 
@@ -65,6 +65,11 @@ int main()
 The `triangle` class has 2 setters and 1 getter. We can add more getters in case someone wants to get the side and height back:
 
 ```c++
+// inside class
+    double get_side() const;
+    double get_height() const;
+
+// outisde class
 double triangle::get_side() const
 {
     return side;
@@ -177,13 +182,13 @@ s = \frac{a + b + c}{2} \\
 A = \sqrt{s(s - a)(s - b)(s - c)}
 $$
 
-The code is reused - `get_perimeter` is called inside `get_area` to avoid duplicated math. Note that `get_perimeter` is called without `.` - the code is inside member function - it's calling this method on the object itself.
+The code is reused - `get_perimeter` is called inside `get_area` to avoid duplicated math. Note that inside `get_area` `get_perimeter` is called without `.` - the code is inside member function - it's calling this method on the object itself.
 
-`get_height_for_` functions allow to calculate heights for respective sides thanks to the area - since $A = \frac{ah}{2}$, $h = \frac{A}{h} * 2$. This is done for each side. These functions showcase even larger code reuse - they call `get_area` which calls `get_perimeter`. 
+`get_height_for_` functions allow to calculate heights for respective sides thanks to the area - since $A = \frac{ah}{2}$, $h = \frac{A}{h} * 2$. This is done for each side. These functions showcase even larger code reuse - they call `get_area` which in turn calls `get_perimeter`. 
 
 Additionally, there is a private function used to validate the input - it's private because we do not want to use it from the outside, only from inside other methods.
 
-The class setter prevents from violating each side invariant but it does not check for triangle's invariant - we can set values 1, 2, 10 and they will be accepted but such triangle can not exist.
+The class setter prevents from violating each side invariant but it does not check for triangle's invariant - we can not set -1, -2, -3 but we can set values 1, 2, 10 and they will be accepted but such triangle can not exist.
 
 ## exercise
 
