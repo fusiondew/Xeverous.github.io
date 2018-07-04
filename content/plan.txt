@@ -95,38 +95,14 @@ dynamic memory
 OOP
 	introduction
 	classes, encapsulation
-	constructors (+member init list, +delegating ctors), destructors
 	member functions (+accessors)
+	constructors (+member init list, +delegating ctors), destructors
 	this
 	const members (variables, functions)
 	static member variables
 	static member functions
 	friends
 	nested types
-
-operator overloading
-	core rules (creating operators, short-circuit, sequencing, member/free)
-	binary + - * / %
-	binary += -= *= /= %=
-	binary ^ & |
-	binary ^= &= |=
-	binary << >>
-	binary <<= >>=
-	binary && ||
-	unary + -
-	unary ! ~
-	binary =
-	binary == != < > <= >=
-	binary <=>
-	unary ++ --
-	binary ,
-	unary -> ->*
-	unary []
-	N-ary ()
-	unary ""
-	custom convertions
-	new / delete
-	std::string
 
 RAII
 	copy ctor vs move ctor
@@ -135,6 +111,27 @@ RAII
 	std::unique_ptr
 	std::shared_ptr
 	std::weak_ptr (+circular dependency)
+	std::string
+
+operator overloading
+	core rules (creating operators, short-circuit, sequencing, member/free)
+	binary + - * / %
+	binary += -= *= /= %=
+	binary ^ & |, binary ^= &= |=
+	binary << >>, binary <<= >>=
+	unary + -
+	unary ++ --
+?	binary = - move semantics where?
+	2way comparisons: == != < > <= >=
+	3way comparisons: <=> and equality/ordering types
+	binary && ||
+	binary ,
+	unary -> ->*
+	unary []
+	N-ary ()
+	unary ""
+	custom convertions, unary ! ~
+	new / delete
 
 inheritance
 	public / protected / private inheritance
@@ -214,5 +211,9 @@ missing
 	std::initializer_list
 	header/source separation
 	"\n" after every output line
+	delete this
 	
 **articles which do not have title (below layout) are considered unfinished**
+
+cheatsheet operator overloading
+	operator - arity - example expression - overloading (can not/should member/should non-mmeber/must member) - syntax example - notes (specific return, losing short-circuit)
