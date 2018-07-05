@@ -30,7 +30,7 @@ From Bjarne Stroustrup FAQ:
 
 From Bjarne Stroustrup FAQ:
 
-> Naturally, calling C++ a legacy language shows a bias [...]. That aside, people are usually thinking of Java or C# when they ask such a question. I will not compare C++ to those languages, but I can point out that "modern" doesn't necessarily mean "better", and that both Java and C# are rooted in 1980s style OOP to an even greater extent than early C++ is.
+> Naturally, calling C++ a legacy language shows a bias \[...\]. That aside, people are usually thinking of Java or C# when they ask such a question. I will not compare C++ to those languages, but I can point out that "modern" doesn't necessarily mean "better", and that both Java and C# are rooted in 1980s style OOP to an even greater extent than early C++ is.
 
 > Since 1987 or so, the focus of development the C++ language and its associated programming styles have been the use of templates, static polymorphism, generic programming, and multiparadigm programming. This is way beyond the scope of the much-hyped proprietary languages. Another key difference is that C++ supports user-defined types to the same extent as built-in types. This - especially in combination with the use of templates, constructors, and destructors - enables the C++ programmer to use programming and design techniques that (IMO) are more advanced than what is supported in the languages with which C++ is most often compared
 

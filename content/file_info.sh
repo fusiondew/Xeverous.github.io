@@ -33,4 +33,3 @@ echo "file length => file copies"
 printf '%s\n' "${SORTED[@]}"
 echo "total files: $FILECOUNT"
 echo "different files: ${#HASHMAP[@]}"
-
