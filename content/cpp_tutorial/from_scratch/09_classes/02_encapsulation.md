@@ -2,7 +2,129 @@
 layout: article
 ---
 
-Let's begin with an example. We create a `rectangle` class representing a mathematical rectangle. We add member functions to leverage OOP features.
+## how to
+
+Classes are custom (user-defined) types. Before using a class, you have to define it.
+
+syntax:
+
+TODO make it HTML
+
+```c++
+class class_name
+{
+access_specifier:
+    member variables, functions, ...
+access_specifier:
+    member variables, functions, ...
+...
+access_specifier:
+    member variables, functions, ...
+}; // <== don't forget this semicolon
+```
+
+`class_name` - name of the class. Essentialy the name of the type that is created.
+
+`access_specifier` - limits how the data is accessed. There are 3 possible specifiers: `private`, `protected` and `public`. What they do exactly - very soon. Just keep reading.
+
+`fields` - class variables. In C++, you can encounter the term **member variables**.
+
+`methods` - class functions. In C++, you can encounter the term **member functions**.
+
+There are few more things which you can put inside a class (and therefore make them members of the class) - they will be introduced in further lessons.
+
+## access specifiers
+
+Structures have pretty intuitive use.
+
+```c++
+struct point
+{
+    int x;
+    int y;
+};
+
+point p1;
+p1.x = 5;
+p1.y = 10;
+
+point p2;
+p2.x = -3;
+p2.y = 6;
+```
+
+In the example above, you can write `p1.x`, `p2.y` and such to modify each of the point variables. Classes can constrain access to their member variables.
+
+```c++
+class point
+{
+public:
+    int x;
+    int y;
+};
+
+point p1;
+p1.x = 5;
+p1.y = 10;
+
+point p2;
+p2.x = -3;
+p2.y = 6;
+```
+
+`public` access works the same way as with structures. `public` access means no restrictions. You can freely change member variables any time. Classes with public access works exactly the same as structs.
+
+`protected` and `private` allows only to access member variables inside class functions - the code above would not be valid.
+
+## struct vs class
+
+For historical reasons, in C++, `structs` have all power that `class`es have. You can aswell use keyword `struct` when defining custom types.
+
+The only differences are:
+
+- the default access in structs is public while in classes it's private
+
+```c++
+struct foo
+{
+// no specifier here - assumed 'public'
+    int x; // x is public
+};
+
+class bar
+{
+// no specifier here - assumed 'private'
+    int x; // x is private
+};
+```
+
+- the default inheritance in structs is public while in classes it's private
+
+```c++
+struct base {};
+struct derived : base {};
+struct derived : public base {}; // same as line above
+
+class base {};
+class derived : base {};
+class derived : private base {}; // same as line above
+```
+
+(more about inheritance in few chapters).
+
+<div class="note pro-tip">
+Use structs only as types that tie together few public members. If you need anything more (restricting access to protected/private, member functions) use classes.
+
+When in doubt, use a class.
+</div>
+
+#### Question: Why would I want to limit access to member variables?
+
+Remeber the `const`? We limit mutability to avoid potential errors. Similarly with classes, we use access specifiers to limit potential misuse. Once you learn the purpose and convenience of member functions, you will understand it better.
+
+## example
+
+We create a `rectangle` class representing a mathematical rectangle. We add member functions to leverage OOP features.
 
 ```c++
 #include <iostream>
@@ -14,25 +136,27 @@ private:
     int height;
 
 public:
-    void set_values(int a, int b);
-    int get_area() const;
+    void set_values(int a, int b)
+    {
+        if (a > 0)
+            width = a;
+
+        if (b > 0)
+            height = b;
+    }
+
+    int get_area()
+    {
+        return width * height;
+    }
 };
-
-void rectangle::set_values(int a, int b)
-{
-    width = a;
-    height = b;
-}
-
-int rectangle::get_area() const
-{
-    return width * height;
-}
+// we are outside of the class definition here
+// from this point and further, we can only use what is public
 
 int main()
 {
     rectangle r1;
-    r1.set_values(5, 10);
+    r1.set_values(5, 10); // r1.width = 5; would not compile (width is private)
     std::cout << r1.get_area() << "\n";
 
     rectangle r2;
@@ -52,61 +176,121 @@ Okay, that's a lot of new code. I will explain things one by one.
 
 ## private variables, public functions
 
-`rectangle`'s dimensions are `private`. They can only be accessed inside member functions. Line such as `r1.width = 10;` would not compile - we can not access private members inside main function. Inside main functions, **we have to use `public` method to set dimensions.**
+`rectangle`'s dimensions are `private`. They can only be accessed inside member functions. Line such as `r1.width = 10;` would not compile - we can not access private members inside main function. Outside the class, **we have to use `public` method to set dimensions.**
+
+<div class="note info">
+All member functions (with any access specificiation) can access member variables.
+</div>
 
 This is good - just think what can be done if someone writes `r1.width = -5;`. Dimensions for any geometric figure must be positive. If we force to use public functions we can prevent such situation - someone can write `r1.set_values(-5, 10);` but since it's a function we can place an `if` inside and ignore values if they are not correct.
 
-#### Question: I don't get access specifiers. When exactly do private/public limit access?
+<div class="note pro-tip">
+In practically all scenarios, all member variables should be private.
 
-Don't worry, there will be more examples. You can also change the code from example above and experiment - if you encounter a compilation error you will know why.
+Functions which are part of the class interface (how it is used from the outside) should be public.
+
+Functions which are only internal logic of the class (often helper functions to avoid code duplication) should be private.
+</div>
+
+Applying the above recommendation to the rectangle class:
+
+- member variables are private to prevent modifications from the outside which could set invalid values
+- 2 member functions are public - they are the outside functionality of the class
+- we could move `if (a > 0)` to private member function - something like `bool is_valid(int length)` - this function would be then used inside other member functions
+
+## analogy
+
+Kitches devices are pretty good examples - they are relatively simple to use but hide a complicated mechanisms inside.
+
+<div class="table-responsive">
+    <table class="table table-bordered table-dark">
+        <tbody>
+            <tr>
+                <th>device</th>
+                <th>private variable(s)</th>
+                <th>private function(s)</th>
+                <th>public function(s)</th>
+            </tr>
+            <tr>
+                <td>microwave</td>
+                <td>physical measures</td>
+                <td>rotate plate, switch light, emit microwaves</td>
+                <td>switch on/off, set time, set power</td>
+            </tr>
+                <td>refrigerator</td>
+                <td>current temperature, expected temperature</td>
+                <td>switch light, compressor controls</td>
+                <td>open, close, take, put</td>
+            </tr>
+            <tr>
+                <td>blender (mixer)</td>
+                <td>force currently applied</td>
+                <td>engine controls (set speed, force, rotation)</td>
+                <td>switch on/off, set power</td>
+            </tr>
+            <tr>
+                <td>dishwasher</td>
+                <td>available water, current program stage</td>
+                <td>enable water pump, rotate nozzles</td>
+                <td>switch on/off, set program, open/close</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+- private variables represent internal state - something which you should better not fiddle with (force, temperature, electricity, etc)
+- private functions represent mechanisms that are used internally (you don't explicitly switch light or rotate plate) - these functionalities should be used only in specific situations (don't rotate when microwave is open, switch light off when fridge is closed)
+- public functions represent mechanisms that are intended to be used by final user - buttons which set time, power, open/close etc
+
+## keeping sensible state
+
+Classes limit bugs by keeping **invariant**s intact. An invariant is something that is always true.
+
+Example invariants:
+
+- light is off when fridge is closed
+- when microwave is open, plate does not rotate
+- water does not get out (for washing machine and dishwasher)
+- temperature is in safe range
 
 #### Question: What about protected access?
 
-Up to some point, `protected` will work the same way as `private`. The only differences are when it comes to inheritance - all examples before inheritance chapter will only use private and public access.
+In most situations, `protected` will work the same way as `private`. The only differences are when it comes to inheritance - all examples before inheritance chapter will only use private and public access.
 
-## function definition syntax
+#### Question: I still don't get access specifiers. Where exactly do private/public limit access?
 
-The function declaration inside a class looks as usual, but the body is a bit different - noticed how it uses `rectangle::` before it's name?
+Don't worry, there will be more examples. You can also change the code from example above and experiment - if you encounter a compilation error you will know why.
 
-```c++
-void rectangle::set_values(int a, int b)
-//   ^^^^^^^^^^^ here
-{
-    width = a;
-    height = b;
-}
-```
+#### Question: I have problems deciding on privte/public access.
 
-This is because it's a member function. It belongs to rectangle class. That's how bodies for member functions are written. The body of the funtion modifies `width` and `height` - they are members of the rectangle class. These variables are `private` but it's allowed for member functions to access them.
+Classes in current examples are pretty small. Real classes usually contain 3-10 variables and even up to 100 functions. Then it's clear that there is need to limit what can be accessed from the outside - otherwise it's like using a device with opened cover where you can see working engine - touching moving parts can damage you and/or device.
 
-Don't get it wrong: `width` and `height` are not global variables. They are member variables of class `rectangle`. Each rectangle has it's own width and height -  `r1` and `r2` are 2 different objects of the same type.
+I agree that small examples are not always the best because they can be too far from real use cases. Skills require training effort to obtain them and even more to write good examples to teach others.
 
-Note how member functions have to be called on concrete objects:
+Many of OOP decisions are not always trivial. Some problems take a lot of attempts and experiments to learn. If you can't grasp it now, move on, continue and come back later.
 
-```c++
-r1.set_values(5, 10); // sets width and height on r1
-set_values(5, 10);    // error: we need an object to set values on
-```
+Remember that **the best way to learn programming is by writing code**. The more problems you encounter and solve, the better.
 
-## `const` method
+## exercise
 
-```c++
-int rectangle::get_area() const
-//                        ^^^^^
-{
-    return width * height;
-}
-```
+Can you specify what are invariants for rectangle and triangle?
 
-This means that the method does not modify object's state. The presence of `const` prevents from changing values of width and height. This is good, because we do not want the function `rectanle::get_area()` to change the object - only to calculate it's area.
+<details>
+<summary>answer</summary>
+<p markdown="block">
+rectangle
 
-You can still do everything else in such function - create function-local variables, loops, output text, etc. You just can't change member variables. It's like member variables are const for this function.
+- width and height are positive
 
-## core conventions
+triangle
 
-- It's very typical to have **private fields** and **public methods**. Such design allows to prevent setting wrong values - by being forced to use pulic methods you can be sure that the "if" checking if the values are correct is always executed. It also reduces code duplication.
-- Member functions can be divided into 2 core categories: setters and getters. Setters modify the data and secure **class invariant**s. Getters do not modify the data (const methods) and provide a convenient way to certain calculations.
+- a, b and c are positive
+- $a + b > c$, $a + c > b$, $b + c > a$ (you can't have triangle with sides 1, 2, 5)
+</p>
+</details>
 
-**class invariant** - something that is always true. In the case of rectangle, the invariant is that width and height are always positive.
+## summary
 
-Getters and setters are sometimes referred to as **accessors**.
+**Classes** tie together **fields** (member variables) and **methods** (member functions).
+
+**Access specifiers** are used to limit access to members. Limited access and exposing only what is needed to the public helps to keep class **invariants**.

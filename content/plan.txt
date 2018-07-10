@@ -124,13 +124,12 @@ operator overloading
 ?	binary = - move semantics where?
 	2way comparisons: == != < > <= >=
 	3way comparisons: <=> and equality/ordering types
-	binary && ||
-	binary ,
+	binary && ||, binary ,
 	unary -> ->*
 	unary []
 	N-ary ()
 	unary ""
-	custom convertions, unary ! ~
+	custom convertions + explicit keyword, unary ! ~
 	new / delete
 
 inheritance
@@ -212,8 +211,10 @@ missing
 	header/source separation
 	"\n" after every output line
 	delete this
+	nested classes, anonymous classes/namespaces
 	
 **articles which do not have title (below layout) are considered unfinished**
 
-cheatsheet operator overloading
+cheatsheet - header/source (keywords, syntax)
+cheatsheet - operator overloading
 	operator - arity - example expression - overloading (can not/should member/should non-mmeber/must member) - syntax example - notes (specific return, losing short-circuit)

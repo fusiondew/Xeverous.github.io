@@ -2,207 +2,128 @@
 layout: article
 ---
 
-This lesson showcases a similar class to demonstrate accessors and conventions when writing object-oriented code.
+## member functions outside class
+
+Functions inside classes gain access to member variables. They can also be split up into declarations and definitions.
+
+TODO header/source separation. But in which chapter?
 
 ```c++
-#include <iostream>
-
-class triangle
+class rectangle
 {
 private:
-    double side;
-    double height;
+    int width;
+    int height;
 
 public:
-    void set_side(double value);
-    void set_height(double value);
-
-    double get_area() const;
+    void set_values(int a, int b); // declaration
+    int get_area() const;          // declaration
 };
 
-void triangle::set_side(double value)
+void rectangle::set_values(int a, int b) // definition
+//   ^^^^^^^^^^^ spot this
 {
-    if (value <= 0.0)
-    {
-        std::cout << "error: side must be positive\n";
-        return;
-    }
-
-    side = value;
-}
-
-void triangle::set_height(double value)
-{
-    if (value <= 0.0)
-    {
-        std::cout << "error: height must be positive\n";
-        return;
-    }
-
-    height = value;
-}
-
-double triangle::get_area() const
-{
-    return side * height / 2.0;
-}
-
-int main()
-{
-    triangle t;
-    t.set_side(-1); // prints error
-    t.set_side(10);
-    t.set_height(5);
-
-    std::cout << t.get_area() << "\n";
-
-    t.set_height(3);
-
-    std::cout << t.get_area() << "\n";
+    width = a;
+    height = b;
 }
 ```
 
-The `triangle` class has 2 setters and 1 getter. We can add more getters in case someone wants to get the side and height back:
+Note how definition uses `rectangle::` before it's name. It's to inform the compiler that we are writing a member function - otherwise it would complain that `width` and `height` are unknown names.
+
+Don't get it wrong: `width` and `height` are not global variables. They are member variables of class `rectangle`. Each rectangle has it's own width and height.
+
+The body of the funtion modifies `width` and `height` - they are members of the rectangle class. These variables are `private` but it's allowed for member functions to access them.
+
+## member function usage
+
+Note how member functions have to be called on concrete objects:
 
 ```c++
-// inside class
-    double get_side() const;
-    double get_height() const;
-
-// outisde class
-double triangle::get_side() const
-{
-    return side;
-}
-
-double triangle::get_height() const
-{
-    return height;
-}
+r1.set_values(5, 10); // sets width and height on r1
+set_values(5, 10);    // error: we need an object to set values on - a rectangle that has width and height
 ```
 
-## different approach
+`5` and `10` are the arguments that match parameters `a` and `b`. `r1` is the object that matches `rectangle::`. Member functions have a hidden mechanism for handling on which object method is invoked.
 
-We can define the triangle class in a very different way:
+## const methods
+
+You might have noticed unusually placed `const` at the end of second member function declaration. Definition of this function also has it:
 
 ```c++
-#include <iostream>
-#include <cmath> // for std::sqrt
-
-class triangle
+int rectangle::get_area() const
+//                        ^^^^^
 {
-private:
-    double a;
-    double b;
-    double c;
-
-    bool verify_value(double side) const;
-
-public:
-    void set_values(double new_a, double new_b, double new_c);
-
-    double get_area() const;
-    double get_perimeter() const;
-
-    double get_height_for_a() const;
-    double get_height_for_b() const;
-    double get_height_for_c() const;
-};
-
-bool triangle::verify_value(double value) const
-{
-    if (value <= 0.0)
-    {
-        std::cout << "error: side value must be positive\n";
-        return false;
-    }
-
-    return true;
-}
-
-void triangle::set_values(double new_a, double new_b, double new_c)
-{
-    if (!verify_value(new_a))
-        return;
-
-    if (!verify_value(new_b))
-        return;
-
-    if (!verify_value(new_c))
-        return;
-
-    a = new_a;
-    b = new_b;
-    c = new_c;
-}
-
-double triangle::get_perimeter() const
-{
-    return a + b + c;
-}
-
-double triangle::get_area() const
-{
-    const double s = get_perimeter() / 2.0;
-    return std::sqrt(s * (s - a) * (s - b) * (s - c));
-}
-
-double triangle::get_height_for_a() const
-{
-    return get_area() / a * 2.0;
-}
-
-double triangle::get_height_for_b() const
-{
-    return get_area() / b * 2.0;
-}
-
-double triangle::get_height_for_c() const
-{
-    return get_area() / c * 2.0;
-}
-
-int main()
-{
-    triangle t;
-    t.set_values(3, 4, 5);
-
-    std::cout << "perimeter: " << t.get_perimeter() << "\n";
-    std::cout << "area     : " << t.get_area() << "\n";
-    std::cout << "heights  : " << t.get_height_for_a() << ", " << t.get_height_for_b() << ", " << t.get_height_for_c() << "\n";
+    return width * height;
 }
 ```
 
-Instead of storing side and height we store lengths of each side. This allows us to provide more functionality - such as calculating perimeter.
+This means that the method does not modify object's state. The presence of `const` prevents from changing values of width and height. This is good, because we do not want the function `rectanle::get_area()` to change the object - only to calculate it's area.
 
-We can still calculate the area by using [Heron's formula](https://en.wikipedia.org/wiki/Heron%27s_formula):
+You can still do everything else in such function - create function-local variables, loops, output text, etc. You just can't change member variables. **It's like member variables are const for this function.**
 
-$$
-s = \frac{a + b + c}{2} \\
-A = \sqrt{s(s - a)(s - b)(s - c)}
-$$
+Const methods follow intuitive const behaviour - you can't assign to const variables and similarly you can't call non-const methods on const objects.
 
-The code is reused - `get_perimeter` is called inside `get_area` to avoid duplicated math. Note that inside `get_area` `get_perimeter` is called without `.` - the code is inside member function - it's calling this method on the object itself.
+```c++
+void func(const rectangle& r) // object taken by const reference - can not change it
+{
+    int area = r.get_area(); // compilation error if method is not const
 
-`get_height_for_` functions allow to calculate heights for respective sides thanks to the area - since $A = \frac{ah}{2}$, $h = \frac{A}{h} * 2$. This is done for each side. These functions showcase even larger code reuse - they call `get_area` which in turn calls `get_perimeter`. 
+    // ...
+}
+```
 
-Additionally, there is a private function used to validate the input - it's private because we do not want to use it from the outside, only from inside other methods.
+## accessors
 
-The class setter prevents from violating each side invariant but it does not check for triangle's invariant - we can not set -1, -2, -3 but we can set values 1, 2, 10 and they will be accepted but such triangle can not exist.
+From member functions there can be distincted 2 characteristic kinds: **setters** and **getters**.
 
-## exercise
+Setters:
 
-Add more methods to the triangle class to check all triangle's invariants. Make sure it's not possible to set invalid values such as 1, 2, 10 or 2, 4, 100.
+- modify the data (they *set* things)
+- secure **class invariant**s.
+- function names usually start with `set`
+ 
+Getters:
+
+- do not modify the data (const methods)
+- provide a convenient way to access information (different figures have different formulas but we don't need to remember them - just call `get_area()`)
+- function names usually start with `get` (return some private value or computation result) or `is`, `has` (names resemble questions and functions return `bool`)
+
+Not all member functions belong to these. These are just 2 kinds which very often appear in classes.
+
+In simple scenarios, there is 1 getter and setter for each member variable
+
+```c++
+void set_x(X x);
+X get_x() const;
+
+// with (const) references if objects are heavy
+void set_x(const X& x);
+const X& get_x() const;
+```
+
+Setters sometimes return `bool` to indicate whether operation succeeded - if result is `false` we can expect that the invalid value has been ignored and object is left unchanged.
+
+## summary
+
+Getters and setters are sometimes referred to as **accessors**.
+
+Getters and setters are the simplest examples of methods.
+
+The purpose of setters is to prevent setting invalid values (they secure invariants).
+
+The purpose of getters is to give access to members without allowing to modify them.
 
 ## hidden bug
 
-The program is safe against setting invalid values if getters secure all triangle's invariants. But there is 1 hidden problem: what if we do:
+The program is safe against setting invalid values if getters secure all invariants. But there is 1 hidden problem: what if we do:
 
 ```c++
-triangle t;
-std::cout << t.get_area() << "\n";
+rectangle r;
+std::cout << r.get_area() << "\n";
 ```
 
-`get_area` would then use variables which were not initialized. That's undefined behaviour. It would be good if we could provide some default values or force to set them upon creation.
+`get_area` would then use variables which were not initialized. That's undefined behaviour. It would be good if we could provide some default values or force to set them upon object creation.
 
-That's the purpose of constructors.
+That's the purpose of **constructors**.
+
+TODO where to put lesson about THIS keyword?

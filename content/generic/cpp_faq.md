@@ -10,13 +10,17 @@ layout: article
 
 Because `this` was introduced before references have been added to the language. If references came earlier, `this` would be a reference. Relevant [SO question](https://stackoverflow.com/questions/645994/why-this-is-a-pointer-and-not-a-reference).
 
+#### Is there a way to terminate the program instantly but outside main function?
+
+See [this](https://en.cppreference.com/w/cpp/utility/program). There are few functions which differ by behaviour.
+
 #### Is C faster than C++?
 
-No. Correctly written code should be fast in both languages. Misused C usually ends in crashes, misused C++ features usually end in lower performance.
+No. Correctly written code should be fast in both languages. It's just that misused C usually ends in crashes but misused C++ usually ends in lower performance or complex build errors.
 
-There are few things in C that are slower than their relatives in C++. This applies specifically to C standard library which does not have efficient generic abstractions besided macros - for example C functions taking void pointers are far worse optimized than C++ templates.
+There are few things in C that are slower than their relatives in C++. This applies specifically to C standard library which does not have efficient generic abstractions besides macros - for example C functions taking function pointers are far worse optimized than C++ templates.
 
-Even when developing high-performance programs, performance is not needed strictly everywhere. Where possible, convenience features can be used over performance features. It doesn't matter if text entered by the user is processed 10% slower, but it matters if the full product can be delivered several times faster (compared to C) with the same core performance.
+Even when developing high-performance programs, performance is not needed strictly everywhere. Where possible, convenience features can be used over performance features. It doesn't matter if text entered by the user is processed 10% slower (eg because you used a lot of very-safe-and-convenient-but-somewhat-slower things) but it matters if the full product can be delivered several times faster (because you avoid manually rewriting input processing in C) with the same core performance (where C and C++ code uses very similar or even the same mechanisms).
 
 From Bjarne Stroustrup FAQ:
 
@@ -46,7 +50,7 @@ See also cat-dog program written in various styles. TODO link.
 
 #### What is STL?
 
-Standard template library. Specifically, containers (data structures), iterators and algorithms. By far templates are the biggest part of C++ standard library (more than 90%). It's quite an effort to find classes that are not templates.
+Standard template library. Specifically, containers (data structures), iterators and algorithms. By far templates are the biggest part of C++ standard library (more than 90%). It's quite an effort to find a thing that is not a template.
 
 ### Templates
 
@@ -84,7 +88,7 @@ The committee is divided into groups:
 - Library Evolution Working Group
 - Core Working Group
 - Evolution Working Group
-- Study Groups (more than 15, various topics: eg concurrency, low-latency, database, netorking)
+- Study Groups (more than 15, various topics: eg concurrency, low-latency, database, networking)
 
 Committee schema + images: https://isocpp.org/std/the-committee.
 
