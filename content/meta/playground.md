@@ -332,14 +332,6 @@ Sometimes all you want to do is embed a little love from another location and se
     <p>whatever</p>
 </details>
 
-
-## Spiler tag 2
-<details> 
-    <summary>Q1: What is the best Language in the World? </summary>
-    <p> A1: JavaScript </p> 
-</details>
-
-
 ## Info notes
 
 TODO move "\<i\>" to CSS, div with "note info" etc should be enough
