@@ -1,5 +1,7 @@
 /* default theme - not well working with site theme
- * TODO - change colors to suit dark background, test monokai */
+ * TODO - change colors to suit dark background, test monokai
+ * https: //github.com/jwarby/jekyll-pygments-themes
+ */
 
 .highlight .hll { background-color: #ffffcc !important; }
 .highlight .c   { color: #999999 !important; } /* Comment */
@@ -66,47 +68,47 @@
 
 /* custom vibrant ink theme - mostly for C++ */
 
-.highlight              { color: #ffffff !important } /* default color */
-.highlight .brace       { color: #ffffff !important } /* only { and } */
-.highlight .op          { color: #ffffff !important } /* operators */
-.highlight .op-ol       { color: #f7c527 !important } /* overloaded operators */
-.highlight .built-in    { color: #ec691e !important } /* build-in types such as int */
-.highlight .keyword     { color: #ec691e !important } /* language keyword */
-.highlight .class       { color: #9cf828 !important } /* classes, structs, unions, etc */
-.highlight .alias       { color: #9cf828 !important } /* type aliases (typedefs) */
-.highlight .namespace   { color: #91e625 !important } /* namespace names */
-.highlight .enumerator  { color: #7fff00 !important } /* enum scopes */
-.highlight .enum        { color: #408000 !important } /* enum values */
-.highlight .const       { color: #868613 !important } /* constants */
-.highlight .ext         { color: #ffffff !important } /* extensions and externals */
-.highlight .func        { color: #f7c527 !important } /* function/method calls and declarations */
-.highlight .global      { color: #ffffff !important } /* global objects/variables */
-.highlight .label       { color: #ffffff !important } /* labels (eg jump places in assembly) */
-.highlight .var-local   { color: #357a92 !important } /* function-local variables */
-.highlight .var-member  { color: #357a8f !important } /* fields - class member variables */
-.highlight .var-static  { color: #ffffff !important } /* static objects/variables */
-.highlight .param       { color: #408000 !important } /* parameters (to functions) */
-.highlight .mutparam    { color: #c86496 !important } /* mutable parameters (passed by non-const reference) */
-.highlight .tparam      { color: #ffaf7b !important } /* parameters (to templates) */
-.highlight .concept     { color: #ffaf7b !important } /* C++ concept (constrained template)*/
-.highlight .problem     { color: #ff0000 !important } /* compiler errors etc */
-.highlight .num         { color: #ff4d4d !important } /* numbers */
-.highlight .string      { color: #ff4d4d !important } /* hardcoded strings and characters */
+.highlight-cpp              { color: #ffffff !important } /* default color */
+.highlight-cpp .brace       { color: #ffffff !important } /* only { and } */
+.highlight-cpp .op          { color: #ffffff !important } /* operators */
+.highlight-cpp .op-ol       { color: #f7c527 !important } /* overloaded operators */
+.highlight-cpp .built-in    { color: #ec691e !important } /* build-in types such as int */
+.highlight-cpp .keyword     { color: #ec691e !important } /* language keyword */
+.highlight-cpp .class       { color: #9cf828 !important } /* classes, structs, unions, etc */
+.highlight-cpp .alias       { color: #9cf828 !important } /* type aliases (typedefs) */
+.highlight-cpp .namespace   { color: #91e625 !important } /* namespace names */
+.highlight-cpp .enumerator  { color: #7fff00 !important } /* enum scopes */
+.highlight-cpp .enum        { color: #408000 !important } /* enum values */
+.highlight-cpp .const       { color: #868613 !important } /* constants */
+.highlight-cpp .ext         { color: #ffffff !important } /* extensions and externals */
+.highlight-cpp .func        { color: #f7c527 !important } /* function/method calls and declarations */
+.highlight-cpp .global      { color: #ffffff !important } /* global objects/variables */
+.highlight-cpp .label       { color: #ffffff !important } /* labels (eg jump places in assembly) */
+.highlight-cpp .var-local   { color: #319bbe !important } /* function-local variables */
+.highlight-cpp .var-member  { color: #319bbe !important } /* fields - class member variables */
+.highlight-cpp .var-static  { color: #ffffff !important } /* static objects/variables */
+.highlight-cpp .param       { color: #408000 !important } /* parameters (to functions) */
+.highlight-cpp .mutparam    { color: #c86496 !important } /* mutable parameters (passed by non-const reference) */
+.highlight-cpp .tparam      { color: #ffaf7b !important } /* parameters (to templates) */
+.highlight-cpp .concept     { color: #ffaf7b !important } /* C++ concept (constrained template)*/
+.highlight-cpp .problem     { color: #ff0000 !important } /* compiler errors etc */
+.highlight-cpp .num         { color: #ff4d4d !important } /* numbers */
+.highlight-cpp .string      { color: #ff4d4d !important } /* hardcoded strings and characters */
 
-.highlight .comm-single     { color: #8136a2 !important } /* single-line comment */
-.highlight .comm-multi      { color: #8c3fc8 !important } /* multi-line comment */
-.highlight .comm-tag        { color: #800080 !important } /* tags in comments, eg @todo */
-.highlight .comm-single-dox { color: #4b71e3 !important } /* Doxygen single-line comment */
-.highlight .comm-multi-dox  { color: #4b71e3 !important } /* Doxygen multi-line comment */
-.highlight .comm-tag-dox    { color: #4c6073 !important } /* Doxygen tag in comment */
+.highlight-cpp .comm-single     { color: #af47ff !important } /* single-line comment */
+.highlight-cpp .comm-multi      { color: #be68ff !important } /* multi-line comment */
+.highlight-cpp .comm-tag        { color: #c402c4 !important } /* tags in comments, eg @todo */
+.highlight-cpp .comm-single-dox { color: #4b71e3 !important } /* Doxygen single-line comment */
+.highlight-cpp .comm-multi-dox  { color: #4b71e3 !important } /* Doxygen multi-line comment */
+.highlight-cpp .comm-tag-dox    { color: #c402c4 !important } /* Doxygen tag in comment */
 
-.highlight .prep-direct { color: #ec691e !important } /* includes, imports etc */
-.highlight .prep-hdr    { color: #477488 !important } /* names of includes, modules, packages */
-.highlight .prep-other  { color: #ffffff !important } /* other preprocessor instructions */
-.highlight .macro-def   { color: #f7c527 !important } /* macro definitions */
-.highlight .macro-ref   { color: #ffffff !important } /* macro references */
+.highlight-cpp .prep-direct { color: #ec691e !important } /* includes, imports etc */
+.highlight-cpp .prep-hdr    { color: #319bbe !important } /* names of includes, modules, packages */
+.highlight-cpp .prep-other  { color: #ffffff !important } /* other preprocessor instructions */
+.highlight-cpp .macro-def   { color: #f7c527 !important } /* macro definitions */
+.highlight-cpp .macro-ref   { color: #ffffff !important } /* macro references */
 
-.highlight .asm-direct { color: #ec691e !important } /* directives in assembly */
+.highlight-cpp .asm-direct { color: #ec691e !important } /* directives in assembly */
 
 
 .css .o,

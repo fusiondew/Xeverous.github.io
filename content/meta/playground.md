@@ -300,6 +300,8 @@ end
 
 #### Custom C++ highlight
 
+Inline code: <code class="highlight-cpp"><span class="prep-direct">#include</span> <span class="prep-hdr">&lt;boost/interprocess/allocators/adaptive_pool.hpp&gt;</span></code>
+
 {% include_relative playground_code.html %}
 
 * * *
