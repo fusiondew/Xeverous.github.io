@@ -137,7 +137,6 @@ inheritance
 	order of construction
 	delegating construction to parents
 	derived, inherited functions
-	object slicing
 	shadowing inherited functions
 	inherited overloads (+usings)
 	multiple inheritance
@@ -155,6 +154,7 @@ polymorphism
 	ABC, pure virtual functions
 	interfaces
 	virtual base classes
+	object slicing
 	dynamic_cast vs static_cast
 	RTTI
 	polymorphic operator<<
@@ -202,6 +202,9 @@ missing
 	static virtual
 	static_assert
 	Object relationships
+	Composition
+	Aggregation
+	Association
 	Dependencies
 	Container classes
 	std::initializer_list
@@ -215,3 +218,5 @@ missing
 cheatsheet - header/source (keywords, syntax)
 cheatsheet - operator overloading
 	operator - arity - example expression - overloading (can not/should member/should non-mmeber/must member) - syntax example - notes (specific return, losing short-circuit)
+
+inheritance should be after smart pointers + data structures - reason - examples, need vector and string
