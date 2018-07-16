@@ -8,7 +8,16 @@ Just like it's possible to create an unnamed object:
 
 ```c++
 std::string str = "something"; // named object (str)
-some_func(std::string("foo") + "bar"); // unnamed string - just the constructor call
+some_func_which_takes_string(std::string("foo") + "bar"); // unnamed string - just the constructor call
+```
+
+or unnamed class:
+
+```c++
+class
+{
+    // ...
+} object_name;
 ```
 
 it's also possible to create an unnamed function:
@@ -26,7 +35,7 @@ int func(int x)
 }
 ```
 
-As you see, the lambda has no name. There is no "func". Instead, there is a pair of brackets: `[]`. It has nothing to do with arrays - it's just reused symbol. Just like `class` has been reused to create strongly typed enumerations, `[]` has been reused to create lambda expressions.
+As you see, the lambda has no name. There is no "func". Instead, there is a pair of brackets: `[]`. It has nothing to do with arrays - it's just reused symbol. Just like `class` keyword has been reused to create strongly typed enumerations, `[]` characters have been reused to create lambda expressions. Some programming languages have `lambda` keyword - C++ has the philosophy of not adding new keywords if something existing can be reused (backwards compability) - this time the bracket syntax has been given a new purpose. Since `[]` alone would not make sense earlier, the addition of lambda expressions did not break anything - previously it was invalid code.
 
 Now some terms:
 
@@ -37,13 +46,13 @@ Now some terms:
 //           ^^^^^^ return type
 ```
 
-Paremeters and return type should be obvious - they work just like with ordinary funcions. Only there is a different order - return type is specified after parameters with `-> Type` syntax.
+Paremeters and return type should be obvious - they work just like with ordinary funcions. There is just a different order - return type is specified **after** parameters with `-> Type` syntax.
 
-The `[]` is not only used to start a lambda expression. It has the feature of capturing - this is "what makes lambdas lambdas". Some programming languages do have `lambda` keyword. C++ has the philosophy of not adding new keywords, if something existing can be reused (backwards compability) - this time the bracket syntax has been given a new purpose. And since `[]` alone would not make sense earlier, the addition of lambda expressions did not break anything - previously it was invalid code.
+`[]` has more purposes besides just starting a lambda expression. Between brackets, **captures** can placed - and this is the very unique feature of lambdas.
 
 On captures and more special use of `[]` there will in a while. First, I will explain more things about the syntax.
 
-### trailing return type
+## trailing return type
 
 C++11 has introduced lambda expressions. Part of their syntax relies upon the *trailing return type* (also introduced in 2011). Interestingly, this feature can also be used for ordinary functions:
 
@@ -61,7 +70,7 @@ auto func2(int x) -> int // C++11 trailing return type
 
 `auto` in this case expresses "hold on, the actual return type is later, after parameters". `func2` is still a normal function. This is just the different way to write it.
 
-You even write `int main()` as `auto main() -> int`!
+You even write `int main()` as `auto main() -> int`. Open your tools and try!
 
 #### Question: What's the point of trailing return type?
 
@@ -69,7 +78,7 @@ At first, it's not obvious what's the purpose of this new syntax. More code has 
 
 As for now, just trust that trailing return type has some use, but only in more advanced scenarios.
 
-### comparison
+## comparison
 
 Coming back to the example, we can compare lambda with 2 possible ways to write an ordinary function:
 
@@ -79,7 +88,7 @@ auto func2(int x) -> int // function with trailing return type
         [](int x) -> int // lambda expression
 ```
 
-Now you should notice lambda looks very similar to the function with trailing return type. It just doesn't have name (has `[]` instead) and does not need `auto` to express trailing return type.
+Now you should notice lambda looks very similar to the function with trailing return type. It just doesn't have a name (has `[]` instead) and does not need `auto` to express trailing return type.
 
 **Lambdas use only trailing return type. They can not specify return type before parameters.**
 
@@ -94,7 +103,7 @@ There are 2 options:
 
 The second option requires more knowledge. *How to pass a lambda as an argument?* The short answer is: templates. There will be examples which present use of some standard library functions which can take lambdas, but (just now) there won't be examples presenting how to write a such function.
 
-For now, let's state that standard library has some *template magic*. And this *magic* is capable of taking lambdas as parameters. We do not need to explain it now, just remember *there is a way* to do it.
+For now, let's state that standard library has some *template magic*. And this *magic* is capable of taking lambdas as parameters. We do not need to explain it now, just remember that *there is a way* to do it.
 
 So we are left with the first option. Save lambda to a variable.
 
@@ -107,13 +116,15 @@ So we are left with the first option. Save lambda to a variable.
 
 But wait, what's the type of lambda? There is no `std::lambda`. You might try with function pointers and have some luck with it, but most of the time they will not work. More about "function pointers to lambdas" later.
 
-So what's the answer? `auto`. We just don't care. Let the compiler do the work. This is intentional.
+So what's the answer? We just don't care - use `auto`. Let the compiler do the work.
 
 **Every lambda expression has it's own unique type. Even 2 lambas with exactly the same parameters, return type and body are treated as 2 distinct types.**
 
 This makes `auto` the only always-valid option which does not use template magic. Function pointers may be sometimes used, but you will see in further lessons that they are very limited.
 
-### exercise
+You can think of lambdas as objects of unnamed classes that overload `operator()`.
+
+## exercise
 
 Play with the example. Call a lambda few times and get used to it's syntax
 
@@ -136,19 +147,19 @@ int main()
 
     // this is also possible - note () after the body
     // these lambdas are invoked instantly after creation
-    double d = []() -> double { return 3.14; }();
+    const double d = []() -> double { return 3.14; }();
     std::cout << [](int x) -> int { return x * x; }(5) << '\n';
 }
 ```
-#### Question: Why can't I copy/move a lambda?
+#### Question: Can I copy/move a lambda?
 
-It has been allowed in C++20, but with many restrictions. They depend on the capture. More about it - later.
+It has been allowed in C++20 but with many restrictions. They depend on the capture. More about it - later.
 
 #### Question: What's the difference between lambda expression and a struct with overloaded `operator()`?
 
-In the examples so far - pretty much nothing besides some language internals. But in the next article, we will start using lambda features which are not available for overloaded `operator()`.
+In the examples so far - pretty much nothing besides deeper terminology. But in the next article, we will start using lambda features which are not available for overloaded `operator()`.
 
-Technically, lambda expression creates a unique class satisfying `ClosureType` concept which has overloaded `operator()`.
+Technically, lambda expression creates a unique class satisfying `ClosureType` concept.
 
 <details>
     <summary>Full technicals</summary>

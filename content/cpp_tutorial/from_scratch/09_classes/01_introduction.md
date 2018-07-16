@@ -11,9 +11,9 @@ Despite the fact that C++ does not put as much hype into OOP as other languages,
 This lesson is a more philosophical than others but further ones in this chapter showcase a lot of new code. It's important to not only understand *how*, but also *why*. You can perfectly memorize all OOP rules, write any program that satisfies given requirements but whether the code will be a good code is a very different topic.
 
 <div class="note warning">
-A lof of examples in this chapter are very purpose-oriented. They are here to teach - it's similar situation as with redundant comments explaining things that should be obvious (you don't write such comments in the real code).
+A lof of examples in this chapter might look like an overuse of features. I focus first on learning parts and then how to use them together. Actual real-life usage examples would take hundreds of lines. At the end of this chapter I list all actual recommendations.
 <br>
-You will realize that examples are not perfect (not-so-conventional order of declarations, missing const, missing static, overused features) - as with most things I focus first on learning parts and then how to use them together. 
+If you find yourself questioning - what's the purpose of feature X? Why should I use it over Y? - Think and decide. A lof of OOP features can be mixed and for many situations there is no "the only proper choice". <b>Design patterns</b> is the term which describes well-known specific usages of certain OOP features that are good for certain scenarios.
 </div>
 
 *It was quite hard for me to write lessons in order that would perfectly satisfy me. If you find something hard to understand, simply move on and come back later - classes hit with lots of rules and most of them are related (rather than built on-top-of) which makes it hard to explain 1-2-3 way. Don't treat order of articles in this chapter with as much respect as in others.*

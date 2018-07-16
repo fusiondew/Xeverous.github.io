@@ -30,7 +30,7 @@ It does the same thing but has noticeable differences:
 - `begin()` is used to initialize the iterator
 - iterator is compared with `end()`
 - the comparison uses `!=` instead of `<`
-- element is accessed by `*it`
+- element is accessed by `*it` (similar to pointer dereference)
 
 This brings us to one question
 

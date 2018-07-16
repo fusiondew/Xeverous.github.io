@@ -2,11 +2,9 @@
 layout: article
 ---
 
-Prerequisities: understanding base syntax of lambdas and overloaded operators.
+## deduced return type
 
-### defaulted return type
-
-There is 1 more thing to note - specifying return type in lambdas is optional. You can ommit it if it can be deduced from the return statement.
+Specifying return type in lambdas is optional. You can ommit it if it can be deduced from the return statement.
 
 ```c++
 auto my_lambda = [](int x)
@@ -34,13 +32,10 @@ There are few simple (and probably obvious) rules:
 - If there is no return statement or if the argument of the return statement is a void expression, the return type is deduced to `void`
 
 ```c++
-[](){} // no return statement - return type deduced to void
-
 void func();
-[]()
-{
-    return func(); // func() returns void, return type deduced to void
-}
+
+[]() { } // no return statement - return type deduced to void
+[]() { return func(); } // func() returns void, return type deduced to void
 ```
 
 - Virtual functions cannot use return type deduction
@@ -57,7 +52,7 @@ These 2 rules only apply to templated and `auto`'d functions. Lambda expressions
 }
 ```
 
-### optional parameter list
+## optional parameter list
 
 Writing parameter list is optional if the lambda takes no arguments. But if you want to specify return type, parameter list must be written.
 
@@ -68,11 +63,11 @@ Writing parameter list is optional if the lambda takes no arguments. But if you 
 []   -> int { return 42; } // error: expected '{' before '->' token
 ```
 
-I have seen many people writing `()` anyway even if it was not needed. Perhaps it's rarely used feature because rarely there is an opportunity for parameterless lambda. I also tend to write `()` after `[]` without thinking how many parameters will be needed.
+I have seen many people writing `()` anyway even if it was not needed. Perhaps it's rarely used feature because rarely there is an opportunity for parameterless lambda. I also tend to write `()` after `[]` without thinking how many parameters will be needed. I'm not sure whether skipping `()` is just a cosmetic decision or it has actually some deeper (proably future-related) purpose.
 
 #### Question: Is `[]{}` the shortest possible lambda?
 
-Yes. There is no upper limit on longest possible one. We can make some fun stuff with all symbols though
+Yes. There is no upper limit on longest possible one. We can make some fun stuff with nested lambdas:
 
 ```c++
 []{}(); // empty lambda, instantly called - nothing happens
@@ -80,7 +75,7 @@ Yes. There is no upper limit on longest possible one. We can make some fun stuff
 [](){[](){[](){[](){[](){[](){}();}();}();}();}();}(); // empty lambda inside lambda inside ...
 ```
 
-### capturing - introduction
+## capturing
 
 Time for the most interesting part of lambdas - the capture.
 
@@ -118,8 +113,11 @@ int main()
 ```
 
 <details>
-    <summary>output</summary>
-    <p><pre>a = 0
+<summary>output</summary>
+<p markdown="block">
+
+~~~
+a = 0
 b = 1
 
 a = 1
@@ -130,8 +128,8 @@ b = -2
 
 a = -4
 b = 6
-
-</pre></p>
+~~~
+</p>
 </details>
 
 With the power of `[&]`, lambdas can access and modify outer scope objects. There are other captures too.
@@ -150,7 +148,7 @@ int main()
 }
 ```
 
-- `[&]` captures all automatic variables used in the body of the lambda by reference and current object by reference if exists
+- `[&]` captures by reference all automatic variables used in the body of the lambda and (if exists) enclosing class object
 
 ```c++
 #include <iostream>
@@ -185,9 +183,9 @@ int main()
 }
 ```
 
-- `[=]` captures all automatic variables used in the body of the lambda by copy and current object by reference if exists
+- `[=]` captures all automatic **variables** used in the body of the lambda **by copy** and (if exists) **current object by reference**
 
-Go back to the first example from this article and change `print` to capture by copy. `change()` will still work, but `print()` will always output that `a` and `b` is `0` and `1`. This is because values of `a` and `b` were saved at the moment the lambda was created. **Lambda capture by copy is not the same as function parameter passed by value.** The values are copied only once - subsequent calls of the lambda will not update their state.
+Go back to the first example from this article and change `print` to capture by copy. `change()` will still work, but `print()` will always output that `a` and `b` is `0` and `1`. This is because values of `a` and `b` were saved at the moment the lambda was created. **Lambda capture by copy is not the same as function parameter passed by value.** The values are copied only once - subsequent calls of the lambda will input newer copies.
 
 - `[this]` captures the current object by reference
 
@@ -195,7 +193,7 @@ Note that both `[&]` and `[=]` capture the current object (if it exists) by refe
 
 - `[*this]` (since C++17) captures current object by value
 
-Things that can always be used (and modified), even with `[]`:
+Things that can always be used (and modified), even without any capture (`[]`):
 
 - non-local variables (aka globals)
 - static variables (both static global and static class members)
@@ -212,7 +210,7 @@ Things that can not be captured:
 - structured bindings
 - `thread_local` variables (but they can be used without capture)
 
-### mixed captures
+## mixed captures
 
 It's possible to mix different captures if the subsequent captures are different. Multiple variables can be captured by their name.
 
@@ -242,3 +240,5 @@ Some obvious rules:
 [=, *this] // before C++17 - error: invalid syntax; after C++17 - ok
 [=, this]  // before C++20 - error: this when = is default; after C++20 - ok, same as [=]
 ```
+
+Changes in rules over `this` were made for better code clarity. **It's recommended to always explicitly capture `this` if you want to use the enclosing class object.**
