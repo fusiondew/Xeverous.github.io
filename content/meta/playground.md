@@ -300,6 +300,8 @@ end
 
 #### Custom C++ highlight
 
+Inline code: <code class="highlight-cpp"><span class="prep-direct">#include</span> <span class="prep-hdr">&lt;boost/interprocess/allocators/adaptive_pool.hpp&gt;</span></code>
+
 {% include_relative playground_code.html %}
 
 * * *
@@ -331,14 +333,6 @@ Sometimes all you want to do is embed a little love from another location and se
     <summary>Click to expand</summary>
     <p>whatever</p>
 </details>
-
-
-## Spiler tag 2
-<details> 
-    <summary>Q1: What is the best Language in the World? </summary>
-    <p> A1: JavaScript </p> 
-</details>
-
 
 ## Info notes
 

@@ -144,6 +144,7 @@ Remainder: if `<` returns `false` for `a < b` it does not mean that `a > b`, the
                 <td>==</td>
                 <td>!=</td>
             </tr>
+            <tr>
                 <td>&lt;</td>
                 <td>&gt;=</td>
             </tr>

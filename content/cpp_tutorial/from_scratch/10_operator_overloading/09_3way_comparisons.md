@@ -71,6 +71,7 @@ we can sort it using various methods that implement different ordering guarantee
                 <td>${-13, -10, -7, -3, 1, 3, 5, 8, 10}$</td>
                 <td>strong ordering</td>
             </tr>
+            <tr>
                 <td>$g(x) => abs(x)$</td>
                 <td>${1, 3, -3, 5, -7, 8, -10, 10, -13}$</td>
                 <td>weak ordering</td>
@@ -170,6 +171,7 @@ There is a [type trait](https://en.cppreference.com/w/cpp/utility/compare/common
                 <td>&#10004;</td>
                 <td>&#10004;</td>
             </tr>
+            <tr>
                 <td>`std::weak_ordering`</td>
                 <td>&lt; &gt; &lt;= &gt;= == !=</td>
                 <td>&#10004;</td>
