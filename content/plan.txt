@@ -222,9 +222,3 @@ cheatsheet - operator overloading
 	operator - arity - example expression - overloading (can not/should member/should non-mmeber/must member) - syntax example - notes (specific return, losing short-circuit)
 
 inheritance should be after smart pointers + data structures - reason - examples, need vector and string
-
-HTML tags - b vs strong etc
-good inheritance example
-core language schema
-
-auto clipboard copy for examples, notation for compileable ones?
