@@ -225,6 +225,7 @@ Kitches devices are pretty good examples - they are relatively simple to use but
                 <td>rotate plate, switch light, emit microwaves</td>
                 <td>switch on/off, set time, set power</td>
             </tr>
+            <tr>
                 <td>refrigerator</td>
                 <td>current temperature, expected temperature</td>
                 <td>switch light, compressor controls</td>
