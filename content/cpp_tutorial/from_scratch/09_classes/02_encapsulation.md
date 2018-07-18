@@ -76,6 +76,10 @@ p2.y = 6;
 
 `protected` and `private` allows only to access member variables inside class functions - the code above would not be valid.
 
+#### Question: Why would I want to limit access to member variables?
+
+Remeber the `const`? We limit mutability to avoid potential errors. Similarly with classes, we use access specifiers to limit potential misuse. Once you learn the purpose and convenience of member functions, you will understand it better.
+
 ## struct vs class
 
 For historical reasons, in C++, `structs` have all power that `class`es have. You can aswell use keyword `struct` when defining custom types.
@@ -110,17 +114,21 @@ class derived : base {};
 class derived : private base {}; // same as line above
 ```
 
-(more about inheritance in few chapters).
+*More about inheritance in it's chapter*.
+
+C++ originally did not have `class` keyword and just allowed everything inside `struct`. `class` keyword was very anticipated though so it eventually arrived. This caused shift in convention to use `class` for classes and even though `struct` can be used too it's recommended to use only the C subset of `struct` features.
+
+Cases where to use `struct` instead of `class`:
+
+- all members are intentionally public and there are no strong invariants - the type is just a box for multiple variables - common example is a point struct holding just X and Y coordinates
+- the type is empty (empty types are useful in some situations)
+- the type is a template helper (also applies to type traits)
 
 <div class="note pro-tip">
-Use structs only as types that tie together few public members. If you need anything more (restricting access to protected/private, member functions) use classes.
+Use structs only as types that tie together few public members. If you need something more (restricting access to protected/private, invariant-safe member functions) use classes.
 
 When in doubt, use a class.
 </div>
-
-#### Question: Why would I want to limit access to member variables?
-
-Remeber the `const`? We limit mutability to avoid potential errors. Similarly with classes, we use access specifiers to limit potential misuse. Once you learn the purpose and convenience of member functions, you will understand it better.
 
 ## example
 
@@ -187,9 +195,9 @@ This is good - just think what can be done if someone writes `r1.width = -5;`. D
 <div class="note pro-tip">
 In practically all scenarios, all member variables should be private.
 
-Functions which are part of the class interface (how it is used from the outside) should be public.
+Functions which are part of the class interface (how it is supposed to be used from the outside) should be public.
 
-Functions which are only internal logic of the class (often helper functions to avoid code duplication) should be private.
+Functions which are only internal logic of the class (often helper functions to avoid code duplication, not intended to be used in main code) should be protected/private.
 </div>
 
 Applying the above recommendation to the rectangle class:
