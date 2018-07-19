@@ -16,7 +16,9 @@ click_sound_effect.play();
 
 ## typical member functions
 
-From member functions there can be distincted few characteristic kinds: **setters**, **getters** and question-like functions.
+From member functions there can be distincted few characteristic kinds: **setters**, **getters** and few others.
+
+Not all member functions belong to these. These are just the most characteristic ones.
 
 Setters:
 
@@ -43,13 +45,18 @@ Action-like functions:
 - names are formed like orders - for example: `change_image()`, `load_file()`, `refresh()`
 - typically return `void` or `bool` (to inform if the operation succeeded)
 
-Not all member functions belong to these. These are just the most characteristic ones.
+Other important member functions (these have their respective lessons), they have special rules:
+
+- **constructors**
+- **assignment operator**
+- **destructors**
+
 
 Getters and setters are sometimes referred to as **accessors**.
 
 Getters and setters do not always come in pairs - getters may combine information from multiple members and setters (and action functions) may change more than 1 variable.
 
-It's rarely the case that getter and setter just set and return private members - it's usually more complicated. Even if not, if you use someone else's code (eg from a library) methods can be changed (eg library update) and code that uses them will also change it's behaviour. In this regards methods save us from rewriting the program.
+It's rarely the case that getter and setter just set and return private members - it's usually more complicated. Even if not, if you use someone else's code (eg from a library) methods can be changed (eg library update) and code that uses them will also change it's behaviour. In this regards methods save us from rewriting the program - all of your code automatically gets updated when a method is changed. This is one of the reasons why it's recommended to have all member variables private.
 
 ## summary
 

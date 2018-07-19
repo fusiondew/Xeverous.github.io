@@ -2,7 +2,7 @@
 layout: article
 ---
 
-## how to
+## class definition
 
 Classes are custom (user-defined) types. Before using a class, you have to define it.
 
@@ -82,7 +82,7 @@ Remeber the `const`? We limit mutability to avoid potential errors. Similarly wi
 
 ## struct vs class
 
-For historical reasons, in C++, `structs` have all power that `class`es have. You can aswell use keyword `struct` when defining custom types.
+For historical reasons, in C++, `structs` have all power that `class`es have (structs can have member functions too). You can aswell use keyword `struct` when defining custom types.
 
 The only differences are:
 
@@ -120,12 +120,12 @@ C++ originally did not have `class` keyword and just allowed everything inside `
 
 Cases where to use `struct` instead of `class`:
 
-- all members are intentionally public and there are no strong invariants - the type is just a box for multiple variables - common example is a point struct holding just X and Y coordinates
+- all members are intentionally public and there are no strong relations - the type is just a box for multiple variables - common example is a point struct holding just X and Y coordinates
 - the type is empty (empty types are useful in some situations)
 - the type is a template helper (also applies to type traits)
 
 <div class="note pro-tip">
-Use structs only as types that tie together few public members. If you need something more (restricting access to protected/private, invariant-safe member functions) use classes.
+Use structs only as types that tie together few public members. If you need something more (restricting access to protected/private, complex member functions) use classes.
 
 When in doubt, use a class.
 </div>
@@ -204,7 +204,7 @@ Applying the above recommendation to the rectangle class:
 
 - member variables are private to prevent modifications from the outside which could set invalid values
 - 2 member functions are public - they are the outside functionality of the class
-- we could move `if (a > 0)` to private member function - something like `bool is_valid(int length)` - this function would be then used inside other member functions
+- we could move `if (a > 0)` to private member function - something like `bool is_valid(int length)` - this function would be then used inside other member functions (this is a very trivialized example)
 
 ## analogy
 
@@ -273,11 +273,9 @@ Don't worry, there will be more examples. You can also change the code from exam
 
 Classes in current examples are pretty small. Real classes usually contain 3-10 variables and even up to 100 functions. Then it's clear that there is need to limit what can be accessed from the outside - otherwise it's like using a device with opened cover where you can see working engine - touching moving parts can damage you and/or device.
 
-I agree that small examples are not always the best because they can be too far from real use cases. Skills require training effort to obtain them and even more to write good examples to teach others.
+Many of OOP decisions are not always trivial. Some problems take a lot of attempts and experiments to learn. If you can't grasp it now, move on, continue and come back later. Remember that **the best way to learn programming is by writing code**. The more problems you encounter and solve, the better.
 
-Many of OOP decisions are not always trivial. Some problems take a lot of attempts and experiments to learn. If you can't grasp it now, move on, continue and come back later.
-
-Remember that **the best way to learn programming is by writing code**. The more problems you encounter and solve, the better.
+If you are already experimenting with writing OOP code and are unsure about access - make every variable private and every function public.
 
 ## exercise
 

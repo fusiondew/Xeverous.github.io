@@ -32,20 +32,9 @@ Note how definition uses `rectangle::` before it's name. It's to inform the comp
 
 Don't get it wrong: `width` and `height` are not global variables. They are member variables of class `rectangle`. Each rectangle has it's own width and height.
 
-The body of the funtion modifies `width` and `height` - they are members of the rectangle class. These variables are `private` but it's allowed for any member function to access them.
-
 ## accessing member variables
 
-You may wonder how member functions actually work
-
-```c++
-void rectangle::set_values(int a, int b)
-{
-    // width and height are not global, so where do they come from?
-    width = a;
-    height = b;
-}
-```
+You may wonder how member functions actually work.
 
 Each object of type `rectangle` has it's own `width` and `height`, but how compiler knows which `width` and `height` modify if you have multiple `rectangle` objects in the program?
 
@@ -86,11 +75,12 @@ void set_values(rectangle* obj_ptr, int a, int b)
 }
 ```
 
-Functions can not access any data outside global variables and their arguments. For each member function you write, compiler adds hidden parameter that holds the address of the object on which operation should be performed.
+For each member function you write, compiler adds hidden parameter that holds the address of the object on which operation should be performed.
 
 Viewing it from the outside:
 
 ```c++
+rectangle r1;
 r1.set_values(3, 4);   // what you write
 set_values(&r1, 3, 4); // how compiler understands it
 ```
@@ -154,6 +144,7 @@ Since every time you write `obj.` compiler takes the address of this object, **i
 #include <iostream>
 
 int main()
+// ^ no class_name:: here
 {
     std::cout << this << "\n"; // error: not inside a member function
 }
@@ -172,7 +163,7 @@ void rectangle::set_values(int a, int b)
 }
 ```
 
-can be written as (this is a valid code)
+can be written as:
 
 ```c++
 void rectangle::set_values(int a, int b)
@@ -218,11 +209,12 @@ int main()
 }
 ```
 
-It seems to work because the method does not dereference `this`. It only prints the value of the pointer - if it was to access some members (dereference needed) it would likely crash. Dereference in main function does not affect it because it does not try to modify any data.
+It seems to work because the method does not dereference `this`. It only prints the value of the pointer - if it was to access some members (dereference needed) it would likely crash. Dereference in main function is only an abstraction (the actual dereference in machine code happens when it reads/writes member variables)
 
 ## summary
 
-- All member non-`static` variables are accessed by this pointer.
+- All member non-`static` variables are accessed through `this` pointer.
+- `this` is optional when acessing members.
 - `this` is only accessible inside non-`static` member functions.
 - For class `X`, `this` is of type `X*` inside non-const methods and `const X*` inside const methods.
 - `this` is never null.
@@ -233,4 +225,4 @@ It seems to work because the method does not dereference `this`. It only prints 
 
 History. `this` was added to the language before references. It would be a reference if added later.
 
-Programming languages similar to C++ which appeared later have `this` or `self` keyword which is a reference but the *reference* term is these languages may be also different.
+Programming languages similar to C++ which appeared later have `this` or `self` keyword which is a reference but the *reference* term in these languages is also different.
