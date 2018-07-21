@@ -34,7 +34,7 @@ using namespace bar;
 }
 ```
 
-Now, consider this: library *bar* is updated and in it's new version it also offers a function named `func` but in it's own namespace. The function signature is `int func(int)`.
+Now, consider this: library *bar* is updated and it also offers a function named `func` but in it's own namespace. The function signature is `int func(int)`.
 
 Qualified name lookup would just search for the function in the specified namespace.
 
@@ -73,7 +73,7 @@ Besides name-clash-free code, there are other benefits of explicitly used namesp
 
 **Legitimate uses of namespace usings**
 
-- Local statements (eg inside function). Such using affects only the enclosing scope. Some might say it's okay to use it at global scope in source files since they are (at least should not be) not included - I would be careful with this - you can still get name clashes in 1 source file.
+- Local statements (eg inside function). Such using affects only the enclosing scope. Some might say it's okay to use it at global scope in source files since they are not (at least should not be) included - I would be careful with this - you can still get name clashes in 1 source file.
 - Defining aliases to shorten code. This the proper solution to long names.
 
 ```c++
