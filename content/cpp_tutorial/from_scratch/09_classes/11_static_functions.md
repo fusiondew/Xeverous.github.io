@@ -22,7 +22,7 @@ struct foo
     static int func();
 };
 
-int foo::func()
+int foo::func() // note: no static here
 {
     // usual function definition
 
@@ -44,11 +44,17 @@ private:
 
 public:
     static int get_next_it();
+    static int generate_next_it(); // TODO this is good for [[nodiscard]]
 };
 
 int user::get_next_id()
 {
     return next_id;
+}
+
+int user::generate_next_id()
+{
+    return ++next_id;
 }
 ```
 

@@ -29,6 +29,7 @@ foo::foo(int x)
 }
 
 int foo::s = 5; // definition + initialization of static member
+// note: no static keyword here
 
 // main.cpp
 #include <iostream>
@@ -102,10 +103,10 @@ int main()
 }
 ```
 
-You can edit the first example: replace `f1.s` and `f2.s` with `foo::s`. Everything should work the same.
+In the first example, you can replace `f1.s` and `f2.s` with `foo::s`. Everything will work the same.
 
 <div class="note pro-tip">
-When using static members, prefer to call them through class name scope (`::`).
+When using static members, access them through class name + scope resolution operator (`::`).
 </div>
 
 It's allowed to use static members through instances for code compatibility reasons. If you refactor a program by adding `static` to some members (eg because you realize some variable is not needed for every object) you don't have to rewrite all the code from `f.s` to `foo::s`. *You don't have to but you should.*
@@ -116,12 +117,12 @@ Obviously it's better to use the designated way to access static variables - usi
 
 Like with all objects, static objects should be initialized before they are used. The line inside class which declares static object does not define it - it only provides the name. That's why you need to put `int bar::s = ...` in source file.
 
-If you put static variable initialization outside the class (but still in header file) it will likely cause linker problems - headers might be included multiple times (each time by different source file) and therefore result in multiple definition linker errors.
+If you put static variable definition outside the class but still in header file it will likely cause linker problems - headers might be included multiple times (each time by different source file) and therefore result in multiple definition linker errors.
 
 <div class="note pro-tip">
 Headers should provide <b>declarations</b>. If you want to <b>define</b> something, make it `inline`.
 
-Exception: classes are defined within headers. It's like they are always inline.
+Exception: classes are defined within headers (the reason is that they do no provide any code to assemble but specify data layout in memory).
 </div>
 
 TODO implicit inline and more - this lesson really requires header/source separation
@@ -248,7 +249,7 @@ There is a simple solution to force certain order of initialization - **static f
 
 ## concurrency
 
-Static member variables may be declared `thread_local`. Then, instead of one for the entire program there is one for each thread.
+Static member variables (like global variables) may be declared `thread_local`. Then, instead of one for the entire program there is one for each thread.
 
 *This is only for informational purposes. The actual concurrency tutorial is a very different thing.*
 
@@ -273,6 +274,10 @@ class // (2)
 But really - who defines a class inside a function?
 
 ## summary
+
+<div class="note info">
+Non-const static member variables have the same recommendation as usual global variables - too much of globally accessible state causes multiple problems (static member constants are okay).
+</div>
 
 - Static members are affected by access specifiers (except initialization statement).
 - Static members are not associated with any object. They exist even if no objects of the class have been created.

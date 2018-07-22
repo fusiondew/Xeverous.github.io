@@ -263,7 +263,7 @@ _GLOBAL__sub_I_A::A() [base object constructor] [base object constructor] [base 
 </p>
 </details>
 
-In short, we can see encoded strings like `"A::A()\n"` and lots of instructions related to initialization if I/O stream - text output is OS-dependent so there are lots of instructions.
+In short, we can see encoded strings like `"A::A()\n"` and lots of instructions related to initialization of I/O stream - text output requires some effort so there are lots of instructions.
 
 If we remove all `std::cout` lines, `<iostream>` header, leave only empty constructors + destructors and apply all relevant optimizations we get this:
 
@@ -366,7 +366,7 @@ How objects are related:
 +-------------+
 ~~~
 
-I intentionally wrote `c` below `a` and `b` because additional `C` members would be after first ones. **The order of declarations (inside a class) affects the order of variables in memory.**
+**The order of declarations (inside a class) affects the order of variables in memory.**
 
 ## summary
 

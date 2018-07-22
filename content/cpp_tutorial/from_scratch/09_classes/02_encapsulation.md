@@ -14,12 +14,12 @@ TODO make it HTML
 class class_name
 {
 access_specifier:
-    member variables, functions, ...
+    fields, methods, ...
 access_specifier:
-    member variables, functions, ...
+    fields, methods, ...
 ...
 access_specifier:
-    member variables, functions, ...
+    fields, methods, ...
 }; // <== don't forget this semicolon
 ```
 
@@ -74,7 +74,7 @@ p2.y = 6;
 
 `public` access works the same way as with structures. `public` access means no restrictions. You can freely change member variables any time. Classes with public access works exactly the same as structs.
 
-`protected` and `private` allows only to access member variables inside class functions - the code above would not be valid.
+`protected` and `private` allows only to access member variables inside class functions - with such specifiers the code above would not be valid.
 
 #### Question: Why would I want to limit access to member variables?
 
@@ -82,7 +82,7 @@ Remeber the `const`? We limit mutability to avoid potential errors. Similarly wi
 
 ## struct vs class
 
-For historical reasons, in C++, `structs` have all power that `class`es have (structs can have member functions too). You can aswell use keyword `struct` when defining custom types.
+For historical reasons, in C++, `structs` have all power that `class`es have (structs can have access specifiers and member functions too). You can aswell use keyword `struct` when defining custom types.
 
 The only differences are:
 
@@ -116,7 +116,7 @@ class derived : private base {}; // same as line above
 
 *More about inheritance in it's chapter*.
 
-C++ originally did not have `class` keyword and just allowed everything inside `struct`. `class` keyword was very anticipated though so it eventually arrived. This caused shift in convention to use `class` for classes and even though `struct` can be used too it's recommended to use only the C subset of `struct` features.
+C++ originally did not have `class` keyword and just allowed everything inside `struct`. `class` keyword was very anticipated though so it eventually arrived. This caused shift in convention to use `class` for classes and even though `struct` has all the same features (with just 2 minor differences above) it's recommended to use only the C subset of `struct` features.
 
 Cases where to use `struct` instead of `class`:
 
@@ -253,7 +253,7 @@ Kitches devices are pretty good examples - they are relatively simple to use but
 
 ## keeping sensible state
 
-Classes limit bugs by keeping **invariant**s intact. An invariant is something that is always true.
+Classes limit bugs by keeping **invariant**s intact. **An invariant is something that is always true**.
 
 Example invariants:
 
@@ -261,6 +261,8 @@ Example invariants:
 - when microwave is open, plate does not rotate
 - water does not get out (for washing machine and dishwasher)
 - temperature is in safe range
+
+You never directly call private methods - private `rotate_plate()` would be called only inside public functions of microwave. Similarly light switch by fridge.
 
 #### Question: What about protected access?
 

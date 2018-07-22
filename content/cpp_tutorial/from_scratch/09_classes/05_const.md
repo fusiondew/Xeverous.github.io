@@ -6,7 +6,7 @@ layout: article
 
 ## const methods
 
-In order to do this, you need to place `const` between function parameters and it's body. Putting `const` on the left (here: just before/after `int`) would change return type instead of the type of the function.
+Place `const` between function parameters and it's body. Putting `const` on the left (here: just before/after `int`) would change return type instead of the type of the function.
 
 **Const-qualifying a member function changes it's type.**
 
@@ -72,7 +72,7 @@ public:
 
 Similarly to passing arguments, we can use references in return types to avoid unnecessary copies.
 
-It was stated previously that references returned from functions are dangling - this is not the case for member functions.
+It was stated previously that references returned from functions are dangerous - this is not the case for member functions.
 
 ```c++
 bar b1;
@@ -80,13 +80,15 @@ const X& x_ref = b1.get_x();
 // x still lives inside b1 object
 ```
 
-References to local variables (defined inside functions) are dangerous - but class member variables do not get destroyed when function returns - their lifetime is tied to the lifetime of the object.
+References to local variables (defined inside functions) are dangling - but class member variables do not get destroyed when function returns - their lifetime is tied to the lifetime of the object.
 
 ## const propagation misuse
 
+TODO refactor this and move to overloading operator\[\]?
+
 This is a commonly made mistake when writing getters that return pointers or references.
 
-In some patterns, getters are used to return references of member objects: `main_window.get_main_menu().get_exit_button().set_color(color::red);`. This allows to get deeper into the object but still without directly touching member variables.
+In real-life scenarios you will often have objects within objects: `main_window.get_main_menu().get_exit_button().set_color(color::red);`. This allows to get deeper into the object but still without directly touching member variables.
 
 Because the last function is modifying button state, we need to get non-const reference of the button. And because we want non-const reference of the button - we should get it from non-const menu too, (and so on...).
 
@@ -95,6 +97,8 @@ The mistake is made when someone creates a getter that creates an illusion of be
 ```c++
 class window
 {
+private:
+    menu main_menu;
     // [...]
 public:
     menu& get_menu() const; // illusion of constness
@@ -123,23 +127,6 @@ public:
 };
 ```
 
-The const one is needed in the situation as described above - now it truly does not allow for modification.
+Want to modify the menu? Sure, you can *get* it but you will need non-const window. Want to just read something off the menu? Sure, there is a const getter that will also prevent you from accidental operations.
 
-The second one is needed when we do want to modify the object - then the function is non-const which will require to get non-const reference/pointer to the window.
-
-TODO refactor this and move to overloading operator\[\]?
-
-## hidden bug
-
-The program is safe against setting invalid values if getters secure all invariants. But there is 1 hidden problem: what if we do:
-
-```c++
-rectangle r;
-std::cout << r.get_area() << "\n";
-```
-
-`get_area` would then use variables which were not initialized. That's undefined behaviour. It would be good if we could provide some default values or force to set them upon object creation.
-
-That's the purpose of **constructors**.
-
-TODO where to put lesson about THIS keyword?
+Overload resolution will automatically choose the getter depending on the mutability of window object.

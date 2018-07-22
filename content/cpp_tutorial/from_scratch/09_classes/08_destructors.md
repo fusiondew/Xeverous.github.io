@@ -2,7 +2,7 @@
 layout: article
 ---
 
-Ok, you probably surmise what destructors do. Like constructors, they are inevitable and are always called when an object is destroyed (goes out of scope).
+Ok, you probably surmise what destructors do. Like constructors, they are inevitable (almost) and are always called when an object is destroyed (goes out of scope).
 
 Destructors are written like constructors, but the class name is prepended with `~`.
 
@@ -27,10 +27,10 @@ Most rules for destructors are the same as for constructors:
 - Like constructors, destructors do not have a return type - not even `void`.
 - Like constructors, destructors can have an early `return` statement like in a function returning `void`.
 - Like constructors, if you don't write any destructor a default one is implicitly added to the class (it's public and does nothing).
-- Like constructors, destructors are affected by access specifiers
+- Like constructors, destructors are affected by access specifiers.
 - Like constructors, destructors can be made `= default` and `= delete`.
-- Unlike constructors, destructors can not be overloaded.
-- Unlike constructors, destructors are not inevitable - but the ways to avoid destruction are not that trivial
+- Unlike constructors, destructors can not be overloaded and always take 0 arguments.
+- Unlike constructors, destructors are not inevitable - but the ways to avoid destruction are not that trivial (note: destruction is always wanted, in rare cases you just have to do it manually)
 
 1 rule requires knowledge from further chapters (not explained in this lesson)
 
@@ -79,9 +79,11 @@ For heap-allocated objects - they are called when you `delete` the pointer that 
 
 For other types of allocation - well, it's complicated. Nothing you should be worried now though.
 
+As you see, for some cases it's possible to avoid (read: forget) destruction. You will soon learn about standard library classes that help with this problem.
+
 ## purpose of destructors
 
-Usually custom destructors are not needed - we do not care with member variables that die - there is no point in resetting them to zero or something similar.
+Usually custom destructors are not needed - we do not care with member objects that die - there is no point in resetting them to zero or something similar because the memory will be overwritten by another program.
 
 **But what if memory is dynamically allocated?** Destructors are then the best way to always enforce cleanup!
 
@@ -110,9 +112,11 @@ dynamic_array::~dynamic_array()
 }
 ```
 
-I used const pointer and const size as it does not change through the lifetime of objects of this class. This also forces us to correctly use member initializer list - and as you see, you can put arbitrary expressions there like `new int[size]`.
+I used const pointer and const size as it does not change through the lifetime of objects of this class. This also forces us to correctly use member initializer list - and as you see, you can put arbitrary expressions there like `new int[size]` (but don't forget about initialization order).
 
 In this simple class ctor + dtor form a pair that is hard to break through - if someone creates a local object of type `dynamic_array`, it's guaranteed to execute both ctor and dtor and therefore both allocation and deallocation of memory.
+
+Thanks to such class, dynamic allocation works like stack-allocated objects:
 
 ```c++
 {
@@ -135,4 +139,4 @@ We can now write a class that safely manages dynamic memory. By adding more publ
 
 There is such class in stanard library - `std::vector`. If you can already understand and use it (even partially) - that's awesome.
 
-There is a vector tutorial later. Now, continue with learning OOP stuff. A lof of further lessons showcases features which are used to write classes like vector.
+There is a vector tutorial later. Now, continue with learning OOP stuff. A lof of further lessons showcase features which are used to write classes like vector.

@@ -28,7 +28,7 @@ void rectangle::set_values(int a, int b) // definition
 }
 ```
 
-Note how definition uses `rectangle::` before it's name. It's to inform the compiler that we are writing a member function - otherwise it would complain that `width` and `height` are unknown names.
+Note how definition uses `rectangle::` before it's name. It's to inform the compiler that we are writing a member function - otherwise it would complain that `width` and `height` are unknown names inside global function.
 
 Don't get it wrong: `width` and `height` are not global variables. They are member variables of class `rectangle`. Each rectangle has it's own width and height.
 
@@ -53,7 +53,7 @@ Certainly there must be some hidden mechanism that knows when the function is in
 
 ## implementation
 
-Compare these 2 functions:
+Think how would you implement functions operating on objects without putting them inside a class. Global function taking object as a parameter?
 
 ```c++
 // what you write
@@ -65,7 +65,7 @@ void rectangle::set_values(int a, int b)
     other_member_func(...);
 }
 
-// how compiler understands it
+// how compiler implements it
 void set_values(rectangle* obj_ptr, int a, int b)
 //              ^^^^^^^^^^^^^^^^^^
 {
@@ -75,14 +75,15 @@ void set_values(rectangle* obj_ptr, int a, int b)
 }
 ```
 
-For each member function you write, compiler adds hidden parameter that holds the address of the object on which operation should be performed.
+Compiler implements methods just like global functions, but for each member function it adds hidden parameter that holds the address of the object on which operation should be performed.
 
 Viewing it from the outside:
 
 ```c++
 rectangle r1;
+
 r1.set_values(3, 4);   // what you write
-set_values(&r1, 3, 4); // how compiler understands it
+set_values(&r1, 3, 4); // how compiler implements it
 ```
 
 This is the core mechanism that makes member functions work - `r1.set_values()` and `r2.set_values()` set width and height for different objects because they get different object pointers.
@@ -178,7 +179,7 @@ You can not add manually `this` parameter (it is already there when you write `c
 
 **All member variables are implicitly accessed through `this` pointer**.
 
-#### Question: If `this` can be skipped, does it exist only for examples or has it some actual purpose? Are there situations were `this` is actually needed to be written?
+#### Question: If `this` can be skipped, does it exist only for examples or has it some actual purpose? Are there situations where `this` is actually needed to be written?
 
 Yes, there are multiple situations in which `this` needs to be explicitly written. One of these situations is presented in few lessons.
 
@@ -209,7 +210,7 @@ int main()
 }
 ```
 
-It seems to work because the method does not dereference `this`. It only prints the value of the pointer - if it was to access some members (dereference needed) it would likely crash. Dereference in main function is only an abstraction (the actual dereference in machine code happens when it reads/writes member variables)
+It seems to work because the method does not dereference `this`. It only prints the value of the pointer - if it was to access some members (dereference needed) it would likely crash. Dereference in main function is only an abstraction (the actual dereference in machine code happens when it reads/writes member variables). No access through null pointer, so no crash (at least on major compilers which transform the code above in this manner).
 
 ## summary
 
@@ -225,4 +226,4 @@ It seems to work because the method does not dereference `this`. It only prints 
 
 History. `this` was added to the language before references. It would be a reference if added later.
 
-Programming languages similar to C++ which appeared later have `this` or `self` keyword which is a reference but the *reference* term in these languages is also different.
+Programming languages similar (in terms of object-oriented programming features) to C++ which appeared later have `this` or `self` keyword which is a reference but the *reference* term in these languages is also different.

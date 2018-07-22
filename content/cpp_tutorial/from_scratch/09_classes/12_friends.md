@@ -10,6 +10,8 @@ Friends have access to anything, including private and protected members.
 
 ## friend functions
 
+**A class can friend a non-member function. This function will have access to private and protected members.**
+
 ```c++
 #include <iostream>
 
@@ -59,11 +61,13 @@ int main()
 }
 ```
 
-Friend function definitions inside class are only allowed if the class is defined non-locally (at global scope or in some namespace, it won't work for types defined locally - eg in a function).
+Friend function definitions inside class are only allowed if the class is defined non-locally (at global scope or in some namespace, it won't work for class defined locally - eg in a function - but obviously noone defines classes inside functions...).
 
 ## friend classes
 
-There are 2 types of declarations (definitions must be outside).
+**A class can friend another class. Friended class (and it's functions) will have access to private and protcted data. This works only in 1 direction.**
+
+There are 2 types of declarations:
 
 ```c++
 friend class_name;       // 1: simple type specifier
@@ -97,7 +101,7 @@ private:
     friend class Z1; // as above
     friend class Z2; // as above + also forward declares class Z2
 
-    // friend class Z3 {}; // error: friend class definition inside class not allowed
+    // friend class Z3 {}; // error: friended class definition inside enclosing class not allowed
 };
 ```
 
@@ -109,13 +113,16 @@ It's also possible to friend certain members of other classes. But you need firs
 class X
 {
 public:
-    int func() const;
+    int func1() const;
+private:
+    int func2() const;
 };
 
 class Y
 {
     friend X::X(); // default 0-argument ctor is public
-    friend int X::func() const; // ok, X::func is public so you can access it here
+    friend int X::func1() const; // ok, X::func1 is public so you can access it here
+    // friend int X::func2() const; // error, X::func is private so we can not access to friend it
 };
 ```
 
@@ -124,6 +131,8 @@ class Y
 - Friendship is a one-way relation: if A friends B, B can access protected and private members of A but A can not access private and protected members of B.
 - Friendship is not transitive: a friend of your friend is not your friend.
 - Friendship is not inherited: your friend's children are not your friends; your's children do not friend your friends.
+
+In short, friendship is a one-way relation that does not propagate.
 
 **Note:** it's possible to template friend statements. Rules regarding template friends are not covered here.
 
@@ -142,7 +151,7 @@ Legitimate uses of friends:
 
 **Do not ever friend any class or function from the standard library.**
 
-The standard does not mandate concrete implementation. Practically every implementation of the standard library uses `__compiler_specific` types inside - friending officially-available "surface" will just delay problem and cause access compilation errors to happen inside internals of given standard library implementation.
+Standard library has it's own, internal `__compiler_specific` classes and functions inside it's "accessible surface". Because friendship does not propagate, it will not work.
 
 ## summary
 
