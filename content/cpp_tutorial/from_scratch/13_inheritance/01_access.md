@@ -231,14 +231,12 @@ TODO std::move in ctor?
 ```c++
 book::book(int isbn, std::string title, std::string authors, int issue_year)
     // requires 0-argument constructor of product
-    : isbn(isbn), title(title), authors(authors), issue_year(issue_year)
+    : isbn(isbn), title(std::move(title)), authors(std::move(authors)), issue_year(issue_year)
 {
 }
 ```
 
 You know that you can initialize (construct) any member in the initializer list. But what if the parent class has no default constructor? It's not a named member but some type. The solution is simple - just call it like a function - using type name instead of variable name.
-
-TODO std::move in ctor?
 
 ```c++
 book::book(
@@ -249,8 +247,8 @@ book::book(
     std::string title,
     std::string authors,
     int issue_year)
-    : product(name, price, in_stock), // calling base type ctor like a function
-    isbn(isbn), title(title), authors(authors), issue_year(issue_year)
+    : product(std::move(name), price, in_stock), // calling base type ctor like a function
+    isbn(isbn), title(std::move(title)), authors(std::move(authors)), issue_year(issue_year)
 {
 }
 ```

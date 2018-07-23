@@ -2,7 +2,7 @@
 layout: article
 ---
 
-## shadowing members
+## shadowing fields
 
 Inheritance has shadowing rules, similar to the rules describing shadowing in nested scopes.
 

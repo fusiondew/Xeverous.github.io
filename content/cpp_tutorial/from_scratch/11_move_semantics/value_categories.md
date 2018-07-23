@@ -81,7 +81,7 @@ int* p = &(a + b);
 
 Thus, `a + 1` and `a + b` are **rvalue expression**s. They can not be put on the left.
 
-In other words, rvalues are temporary objects. **You can not assign to temporaries and can not obtain their address.**
+In other words, rvalues are temporary objects. **You can not assign to temporaries and can not obtain their address.** It's because **temporaries have no defined lifetime**.
 
 `1` is also an rvalue expression:
 
@@ -96,7 +96,7 @@ const int* p = &1;
 - **lvalue expressions** can appear on both left and right side of an assignment
 - **rvalue expressions** can appear only on the right side of an assignment
 - lvalues have well-defined scope and lifetime, as they represent variables
-- rvalues are temporary objects, they live only as long as necessary (usually to the end of statement)
+- rvalues are temporary objects, they live only as long as necessary (to the end of statement)
 - assigning to rvalues is impossible
 - an address of rvalue can not be taken
 
@@ -137,13 +137,13 @@ The following expressions are valid:
 ```c++
 b = ++a; // lvalue = lvalue (saves new a)
 b = a++; // lvalue = rvalue (saves old a)
-++a = b; // lvalue = lvalue (increases a, writes b into it)
+++a = b; // lvalue = lvalue (increments a, then writes b into it)
 ```
 
 but the following is not:
 
 ```c++
-a++ = b; // rvalue = lvalue (increase a but return rvalue of old a)
+a++ = b; // rvalue = lvalue (increase a but return rvalue of old a - can not save to temporary)
 ```
 
 and produces such error message for GCC:
@@ -182,7 +182,7 @@ The answer for full C++ (due to references) is more complex - function call expr
 
 Before C++11, the standard had only notion of left and right values. But it was not consistent - multiple contexts used these terms but applied long exceptions, thus making each situation a unique set of rules. It was clear that new terms need to be made to avoid exceptions in rules and provide more consistent writing.
 
-lvalue term was left as it was but rvalue has been split to **prvalue** and **xvalue**. Most of C++ uses only lvalue and rvalue terms, as both are mutually exclusive sets and such distinction is enough for near all situations. glvalue term is rarely used.
+lvalue term was left as it was but rvalue has been split to **prvalue** and **xvalue**. Most of C++ uses only lvalue and rvalue terms, as both are mutually exclusive sets and such distinction is enough for near all situations; glvalue term is rarely used.
 
 ![value types in C++](https://i.stack.imgur.com/GNhBF.png)
 
@@ -192,7 +192,7 @@ Now, instead of 2 we have 3 mutually exclusive groups: **lvalues**, **xvalues** 
 
 A **prvalue expression** is an expression that denotes a temporary or initializes an object. Expressions returning `void` are also prvalues. prvalues represent middle-computation values that do not have any defined origin - **prvalues live only to the end of expression and do not have any connection to where they came from**.
 
-It's the ultimate form of temporary.
+It's the ultimate form of a temporary.
 
 example prvalues (pure right values):
 
@@ -206,8 +206,8 @@ example prvalues (pure right values):
 - pointer to member of pointer: `p->*mp` if `mp` is a pointer to member function
 - a cast to non-reference type: `static_cast<T>(expr)` (can can be considered a function which returns by value)
 - a **lambda expression**
-- (since C++20) a requires expression
-- (since C++20) a specialization of a concept
+- (since C++20) a requires expression (template stuff)
+- (since C++20) a specialization of a concept (template stuff)
 
 ## lvalue
 
