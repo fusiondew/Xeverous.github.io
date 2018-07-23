@@ -61,4 +61,19 @@ The problem happens here:
 b_ref = d2;
 ```
 
-TODO
+This line assigns `d2` to `d1` through a reference to `base`. Since it sees the object only as a `base`, it only assigns `base` memebers. `d1` ends in a half-assigned state.
+
+<div class="note pro-tip">
+Do not assign or invoke copy or move constructors through references unless you can guuarantee that there are no derived types or both objects are of the same type as the reference.
+</div>
+
+## derived types as arguments
+
+Object slicing can also happen when passing arguments to functions:
+
+```c++
+void func(const base& b); // good, will not invoke slicing
+void func(base b);        // bad, base can be a slice of bigger object
+```
+
+The same recommendation applies here - when there is some inheritance hierarchy you should take objects by (const) reference.
