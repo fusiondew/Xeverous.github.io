@@ -215,6 +215,7 @@ missing
 	access specifiers apply to names only (aliases example)
 	vector, vector of references
 	function pointers, void pointers and member pointers are not compatible
+	multiple inheritance - multiple vtable pointers
 	
 **articles which do not have title (below layout) are considered unfinished**
 

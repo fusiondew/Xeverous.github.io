@@ -4,7 +4,7 @@ layout: article
 
 ## early binding
 
-So far all functions that were used were implemented by the compiler as **early binding**. This means that every time you call a function, compiler inserts specific address of this function there - it *binds* an address to a statement.
+So far all functions that were used were implemented by the compiler as **early binding**. This means that every time you call a function, compiler inserts specific address of the function where it is called - it *binds* an address to a statement.
 
 ```c++
 #include <iostream>
@@ -131,7 +131,7 @@ This metadata could be a simple enum describing the actual type, initialized in 
 
 ## late binding
 
-Such solution would work, but it's very verbose, long to write and easy to make a mistake (eg forget an if/switch case, inconsistent handling in multiple places etc).
+Enum solution would work, but it's very verbose, long to write and easy to make a mistake (eg forget an if/switch case, inconsistent handling in multiple places etc).
 
 Instead of integer, we could store a pointer. Why constantly check integer when we can just use the pointed function?
 
@@ -159,7 +159,7 @@ public:
     }
 
 private:
-    void (*const func_ptr)();
+    void (*const func_ptr)(); // late binding - set up at runtime
 };
 
 void cat_sound()
@@ -222,7 +222,7 @@ animal::~animal()
 animal::~animal()
 ~~~
 
-What has been done in the example above is **late binding**. Function pointers get different value depending on the type of the object which results in different functions being called.
+What has been done in the example above is **late binding**. Function pointer gets different value depending on the type of the object which results in different functions being called.
 
 It's also a better approach than enum - we setup it only once (in the constructor). No else-ifs or switches every time a function needs to be used, just pointer dereference.
 
@@ -305,26 +305,48 @@ dog::~dog()
 animal::~animal()
 ~~~
 
-Now everything works as expected.
+Now everything works as it should.
 
-## ???
+## how it works
 
-Ok, that's truly some pointer sorcery. So what actually happens here?
+In previous example, we used a member pointer to a function. It allowed to bind a function at runtime, giving the flexibility of late binding - different derived classes could set different function.
 
-1. We create 4 objects, each of type derived from `animal`
-2. We put (smart) pointers of these objects to the vector.
-3. There is no object slicing because we used (smart) pointers.
-4. We call `animal::sound()` in the loop.
-5. Different functions get executed depending on the type of animal.
+If we wanted to use more dynamically dispatched functions, we would need more pointers. Because real-life classes usually contain just few variables but dozens of functions, we would need a ton of pointers. That would impose a significant overhead - each object in addition to storing just few variables would store even a hundred of pointers. Pointers would contribute as the majority in object memory representation, causing the object to occupy even 10 times more memory than it's actual variables.
 
-But more important - how does it even work?
+Because of this, the actual implementation of virtual functions is different.
 
-## late binding
+## dynamic dispatch implementaton
 
-1. Class `animal` contains a poiner to `vtable`.
-2. `vtable` is a struct holding pointers to member functions.
-3. There exist 3 tables: each containing different function addresses.
-4. Classes derived from `animal` pass different `vtable` pointers to `animal`'s constructor.
-5. `animal` methods access `vtable` and call functions which addresses are stored in the `vtable`.
-6. Because each derived type provides different `vtable` pointer, `animal` functions will call different methods depending on which `vtable` pointer was given.
-7. **`a->sound()` (and 2 other `animal` methods) are polymorphic** - which function is run depends on the provided **virtual table**.
+<div class="note info">
+The C++ standard does not mandate any concrete implementation of virtual functions. Still, what is presented below is the overwhelmingly the most popular implementation, used by most programming languages.
+</div>
+
+Because pointers can occupy a lot of space and adding more functions would increase the object size in memory, the most common way is to place all these pointers in a global structure knows as **virtual table**.
+
+Then, each **polymorphic** object contains a pointer to the virtual table. This significantly reduces needed memory.
+
+For each **polymorphic** type, compiler generates different virtual table. Objects of the same type use the same one.
+
+Each object holds a pointer to it's appropriate virtual table which is automatically set in the constructor.
+
+When a virtual function is called, an object accesses virtual table through it's member pointer. Then, uses the function pointer that is at certain offset in this virtual table.
+
+Note that we do not need any concrete information about the actual object type - we rely on the fact that different types have different value of virtual table pointer.
+
+### example manual implementation
+
+It's possible to manually implemenent virtual tables, fill them with function pointers and set up table pointer (or reference) in each class constructor.
+
+I initially wanted this to be a part of this lesson, but resigned for few reasons:
+
+- virtual table definition uses complex syntax (pointers to *member* functions)
+- filling virtual table requires a lot of explicit type convertions and we need to fill a separate table for each class
+- the call of a virtual function requires double pointer dereference (first which table, then which function) which itself is a complex line because of member function pointers syntax
+
+Still, if this doesn't discourage you, here is the link. TODO link
+
+## features of virtual functions
+
+Because each class receives own virtual table, it's possible to reuse some functions from other classes. Virtual table can consist of multiple reused function pointers but also few derived-type-specific function pointers that the derived type wants to *override*.
+
+The ability to mix function implementations from different classes caused additional features of dynamic dispatch. In further lessons, you will be presented various aspects of these features and how to use them effectively.

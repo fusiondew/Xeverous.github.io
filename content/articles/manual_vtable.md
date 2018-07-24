@@ -187,6 +187,13 @@ party does crrra
 
 I initially wanted to to place it in the tutorial as it would be the best possible "how it works" but after implementing it and knowing it's all quirks (upcasts on member function pointers, syntax for using member function pointers, vtable initialization bloat) I resigned. It would cause more confusion than explanatory help.
 
-It was a fun though to implement. TODO paste compiler error.
+It was a fun though to implement.
+
+```
+main.cpp: In member function 'bool animal::has_tail() const':
+main.cpp:107:42: error: must use '.*' or '->*' to call pointer-to-member function in '((const vtable*)((const animal*)this)->animal::vtable_ptr)->vtable::has_tail (...)', e.g. '(... ->* ((const vtable*)((const animal*)this)->animal::vtable_ptr)->vtable::has_tail) (...)'
+     return this->*(vtable_ptr->has_tail)();
+                                          ^
+```
 
 Seriously. Always wanted to try and see how actual vtable looks like.
