@@ -3,10 +3,8 @@ op
 op-ol
 built-in
 keyword
-class
-alias
+type
 namespace
-enumerator
 enum
 const
 ext

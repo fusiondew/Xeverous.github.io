@@ -1,0 +1,17 @@
+{% raw %}<pre class="highlight-cpp"><code><span class="prep-direct">#include</span>&nbsp;<span class="prep-hdr">&lt;iostream&gt;</span>
+
+<span class="keyword">struct</span>&nbsp;<span class="type">base</span>&nbsp;{&nbsp;<span class="built-in">int</span>&nbsp;<span class="var-member">foo</span>;&nbsp;};
+<span class="keyword">struct</span>&nbsp;<span class="type">derived</span>&nbsp;:&nbsp;<span class="type">base</span>&nbsp;{&nbsp;<span class="built-in">int</span>&nbsp;<span class="var-member">bar</span>;&nbsp;};
+
+<span class="built-in">int</span>&nbsp;<span class="func">main</span>()
+{
+&#9;<span class="type">derived</span>&nbsp;<span class="var-local">d1</span>{{<span class="num">1</span>},&nbsp;<span class="num">2</span>};&nbsp;<span class="comm-single">//&nbsp;d.foo&nbsp;==&nbsp;1,&nbsp;d.bar&nbsp;==&nbsp;2</span>
+&#9;<span class="type">derived</span>&nbsp;<span class="var-local">d2</span>{{<span class="num">3</span>},&nbsp;<span class="num">4</span>};&nbsp;<span class="comm-single">//&nbsp;d.foo&nbsp;==&nbsp;3,&nbsp;d.bar&nbsp;==&nbsp;4</span>
+
+&#9;<span class="type">base</span>&amp;&nbsp;<span class="var-local">b_ref</span>&nbsp;=&nbsp;<span class="var-local">d1</span>;<span class="comm-single">&nbsp;//&nbsp;bind&nbsp;derived&nbsp;object&nbsp;to&nbsp;base&nbsp;reference&nbsp;(so&nbsp;far&nbsp;good)</span>
+&#9;<span class="var-local">b_ref</span>&nbsp;=&nbsp;<span class="var-local">d2</span>;<span class="comm-single">&nbsp;//&nbsp;object&nbsp;slicing!</span>
+
+&#9;<span class="namespace">std</span>::<span class="global">cout</span>&nbsp;&lt;&lt;&nbsp;<span class="string">"d1.foo:&nbsp;"</span>&nbsp;&lt;&lt;&nbsp;<span class="var-local">d1</span>.<span class="var-local">foo</span>&nbsp;&lt;&lt;&nbsp;<span class="string">"</span><span class="escape">\n</span><span class="string">"</span>;
+&#9;<span class="namespace">std</span>::<span class="global">cout</span>&nbsp;&lt;&lt;&nbsp;<span class="string">"d1.bar:&nbsp;"</span>&nbsp;&lt;&lt;&nbsp;<span class="var-local">d1</span>.<span class="var-local">bar</span>&nbsp;&lt;&lt;&nbsp;<span class="string">"</span><span class="escape">\n</span><span class="string">"</span>;
+}</code></pre>
+{% endraw %}

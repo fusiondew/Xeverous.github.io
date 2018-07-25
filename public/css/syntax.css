@@ -74,10 +74,8 @@
 .highlight-cpp .op-ol       { color: #f7c527 !important } /* overloaded operators */
 .highlight-cpp .built-in    { color: #ec691e !important } /* build-in types such as int */
 .highlight-cpp .keyword     { color: #ec691e !important } /* language keyword */
-.highlight-cpp .class       { color: #9cf828 !important } /* classes, structs, unions, etc */
-.highlight-cpp .alias       { color: #9cf828 !important } /* type aliases (typedefs) */
+.highlight-cpp .type        { color: #9cf828 !important } /* classes, structs, unions, enum types, type aliases, etc */
 .highlight-cpp .namespace   { color: #91e625 !important } /* namespace names */
-.highlight-cpp .enumerator  { color: #7fff00 !important } /* enum scopes */
 .highlight-cpp .enum        { color: #408000 !important } /* enum values */
 .highlight-cpp .const       { color: #868613 !important } /* constants */
 .highlight-cpp .ext         { color: #ffffff !important } /* extensions and externals */

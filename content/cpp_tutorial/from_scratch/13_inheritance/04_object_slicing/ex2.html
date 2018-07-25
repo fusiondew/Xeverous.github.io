@@ -1,0 +1,6 @@
+{% raw %}<pre class="highlight-cpp"><code><span class="comm-single">//&nbsp;(using&nbsp;aggregate&nbsp;initialiation)</span>
+<span class="type">base</span>&nbsp;<span class="var-local">b</span>{<span class="num">1</span>};&nbsp;<span class="comm-single">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;b.foo&nbsp;==&nbsp;1</span>
+<span class="type">derived</span>&nbsp;<span class="var-local">d</span>{{<span class="num">2</span>},&nbsp;<span class="num">3</span>};&nbsp;<span class="comm-single">//&nbsp;d.foo&nbsp;==&nbsp;2,&nbsp;d.bar&nbsp;==&nbsp;3</span>
+
+<span class="var-local">b</span>&nbsp;=&nbsp;<span class="var-local">d</span>;&nbsp;<span class="comm-single">//&nbsp;b.foo&nbsp;==&nbsp;2&nbsp;now,&nbsp;d.bar&nbsp;is&nbsp;lost</span></code></pre>
+{% endraw %}

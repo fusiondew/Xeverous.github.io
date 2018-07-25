@@ -1,0 +1,5 @@
+0comm_single
+type var_local{num}; 0comm_single
+type var_local{{num}, num}; 0comm_single
+
+var_local = var_local; 0comm_single

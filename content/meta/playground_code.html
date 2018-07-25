@@ -1,4 +1,4 @@
-<pre class="highlight-cpp"><code><span class="prep-direct">#include</span>&nbsp;<span class="prep-hdr">&lt;fmt&gt;</span>
+{% raw %}<pre class="highlight-cpp"><code><span class="prep-direct">#include</span>&nbsp;<span class="prep-hdr">&lt;fmt&gt;</span>
 <span class="prep-direct">#include</span>&nbsp;<span class="prep-hdr">&lt;iomanip&gt;</span>
 <span class="prep-direct">#include</span>&nbsp;<span class="prep-hdr">&lt;iostream&gt;</span>
 <span class="prep-direct">#include</span>&nbsp;<span class="prep-hdr">&lt;string&gt;</span>
@@ -10,20 +10,20 @@
 <span class="prep-direct">#undef</span>&nbsp;<span class="macro-ref">SOME_MACRO</span>&nbsp;<span class="comm-single">//&nbsp;macros&nbsp;are&nbsp;bad</span>
 
 <span class="keyword">template</span>&nbsp;&lt;<span class="keyword">typename</span>&nbsp;<span class="tparam">T</span>&gt;
-<span class="keyword">struct</span>&nbsp;<span class="class">always_false</span>&nbsp;:&nbsp;<span class="namespace">std</span>::<span class="class">false_type</span>&nbsp;{};
+<span class="keyword">struct</span>&nbsp;<span class="type">always_false</span>&nbsp;:&nbsp;<span class="namespace">std</span>::<span class="type">false_type</span>&nbsp;{};
 
 <span class="comm-multi-dox">/**</span>&nbsp;<span class="comm-tag-dox">@brief</span>&nbsp;<span class="comm-single-dox">alias&nbsp;for&nbsp;our&nbsp;variant&nbsp;*/</span>
-<span class="keyword">using</span>&nbsp;<span class="alias">var_t</span>&nbsp;=&nbsp;<span class="namespace">std</span>::<span class="class">variant</span>&lt;<span class="built-in">int</span>,&nbsp;<span class="built-in">long</span>,&nbsp;<span class="built-in">double</span>,&nbsp;<span class="namespace">std</span>::<span class="class">string</span>&gt;;
+<span class="keyword">using</span>&nbsp;<span class="type">var_t</span>&nbsp;=&nbsp;<span class="namespace">std</span>::<span class="type">variant</span>&lt;<span class="built-in">int</span>,&nbsp;<span class="built-in">long</span>,&nbsp;<span class="built-in">double</span>,&nbsp;<span class="namespace">std</span>::<span class="type">string</span>&gt;;
 
 <span class="keyword">template</span>&nbsp;&lt;<span class="keyword">typename</span>...&nbsp;<span class="tparam">Ts</span>&gt;
-<span class="keyword">struct</span>&nbsp;<span class="class">overloaded</span>&nbsp;:&nbsp;<span class="tparam">Ts</span>...&nbsp;{&nbsp;<span class="keyword">using</span>&nbsp;<span class="tparam">Ts</span>::<span class="keyword">operator</span>()...;&nbsp;};
+<span class="keyword">struct</span>&nbsp;<span class="type">overloaded</span>&nbsp;:&nbsp;<span class="tparam">Ts</span>...&nbsp;{&nbsp;<span class="keyword">using</span>&nbsp;<span class="tparam">Ts</span>::<span class="keyword">operator</span>()...;&nbsp;};
 <span class="keyword">template</span>&nbsp;&lt;<span class="keyword">typename</span>...&nbsp;<span class="tparam">Ts</span>&gt;
-<span class="func">overloaded</span>(<span class="tparam">Ts</span>...)&nbsp;-&gt;&nbsp;<span class="class">overloaded</span>&lt;<span class="tparam">Ts</span>...&gt;;
+<span class="func">overloaded</span>(<span class="tparam">Ts</span>...)&nbsp;-&gt;&nbsp;<span class="type">overloaded</span>&lt;<span class="tparam">Ts</span>...&gt;;
 
 <span class="keyword">template</span>&nbsp;&lt;<span class="keyword">typename</span>&nbsp;<span class="tparam">T</span>&gt;
 <span class="keyword">concept</span>&nbsp;<span class="concept">Opaque</span>&nbsp;=&nbsp;<span class="keyword">requires</span>(<span class="tparam">T</span>&nbsp;<span class="param">x</span>)
 {
-&#9;{*<span class="param">x</span>}&nbsp;-&gt;&nbsp;<span class="keyword">typename</span>&nbsp;<span class="tparam">T</span>::<span class="class">inner</span>;&nbsp;<span class="comm-single">//&nbsp;the&nbsp;expression&nbsp;*x&nbsp;must&nbsp;be&nbsp;valid</span>
+&#9;{*<span class="param">x</span>}&nbsp;-&gt;&nbsp;<span class="keyword">typename</span>&nbsp;<span class="tparam">T</span>::<span class="type">inner</span>;&nbsp;<span class="comm-single">//&nbsp;the&nbsp;expression&nbsp;*x&nbsp;must&nbsp;be&nbsp;valid</span>
 &#9;<span class="comm-single">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;AND&nbsp;the&nbsp;type&nbsp;T::inner&nbsp;must&nbsp;be&nbsp;valid</span>
 &#9;<span class="comm-single">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;AND&nbsp;the&nbsp;result&nbsp;of&nbsp;*x&nbsp;must&nbsp;be&nbsp;convertible&nbsp;to&nbsp;T::inner</span>
 };
@@ -31,11 +31,11 @@
 <span class="keyword">template</span>&nbsp;&lt;<span class="concept">Callable</span>&nbsp;<span class="tparam">C</span>,&nbsp;<span class="keyword">typename</span>...&nbsp;<span class="tparam">Args</span>&gt;&nbsp;<span class="keyword">constexpr</span>
 <span class="keyword">decltype</span>(<span class="keyword">auto</span>)&nbsp;<span class="func">execute</span>(<span class="tparam">C</span>&amp;&amp;&nbsp;<span class="param">func</span>,&nbsp;<span class="tparam">Args</span>&amp;&amp;...&nbsp;<span class="param">args</span>)&nbsp;<span class="comm-single">//&nbsp;constrained&nbsp;C++20&nbsp;function&nbsp;template</span>
 {
-&#9;<span class="keyword">return</span>&nbsp;<span class="namespace">std</span>::<span class="func">forward</span>&lt;<span class="tparam">C</span>&gt;(<span class="param">func</span>)(<span class="namespace">std</span>::<span class="class">forward</span>&lt;<span class="tparam">Args</span>&gt;(<span class="param">args</span>)...);
+&#9;<span class="keyword">return</span>&nbsp;<span class="namespace">std</span>::<span class="func">forward</span>&lt;<span class="tparam">C</span>&gt;(<span class="param">func</span>)(<span class="namespace">std</span>::<span class="func">forward</span>&lt;<span class="tparam">Args</span>&gt;(<span class="param">args</span>)...);
 }
 
-<span class="keyword">template</span>&nbsp;&lt;<span class="keyword">typename</span>&nbsp;<span class="tparam">Tuple</span>,&nbsp;<span class="namespace">std</span>::<span class="alias">size_t</span>...&nbsp;<span class="tparam">Is</span>&gt;&nbsp;<span class="keyword">constexpr</span>
-<span class="built-in">bool</span>&nbsp;<span class="func">are_sorted_impl</span>(<span class="tparam">Tuple</span>&amp;&amp;&nbsp;<span class="param">tuple</span>,&nbsp;<span class="namespace">std</span>::<span class="class">index_sequence</span>&lt;<span class="tparam">Is</span>...&gt;)
+<span class="keyword">template</span>&nbsp;&lt;<span class="keyword">typename</span>&nbsp;<span class="tparam">Tuple</span>,&nbsp;<span class="namespace">std</span>::<span class="type">size_t</span>...&nbsp;<span class="tparam">Is</span>&gt;&nbsp;<span class="keyword">constexpr</span>
+<span class="built-in">bool</span>&nbsp;<span class="func">are_sorted_impl</span>(<span class="tparam">Tuple</span>&amp;&amp;&nbsp;<span class="param">tuple</span>,&nbsp;<span class="namespace">std</span>::<span class="type">index_sequence</span>&lt;<span class="tparam">Is</span>...&gt;)
 {
 &#9;<span class="keyword">return</span>&nbsp;!((<span class="namespace">std</span>::<span class="func">get</span>&lt;<span class="tparam">Is</span>&nbsp;+&nbsp;<span class="num">1</span>&gt;(<span class="namespace">std</span>::<span class="func">forward</span>&lt;<span class="tparam">Tuple</span>&gt;(<span class="param">tuple</span>))&nbsp;&lt;&nbsp;<span class="namespace">std</span>::<span class="func">get</span>&lt;<span class="tparam">Is</span>&gt;(<span class="namespace">std</span>::<span class="func">forward</span>&lt;<span class="tparam">Tuple</span>&gt;(<span class="param">tuple</span>)))&nbsp;&amp;&amp;&nbsp;...);
 }
@@ -46,12 +46,12 @@
 &#9;<span class="keyword">if</span>&nbsp;<span class="keyword">constexpr</span>&nbsp;(<span class="keyword">sizeof</span>...(<span class="tparam">Args</span>)&nbsp;&lt;=&nbsp;<span class="num">1</span>u)
 &#9;&#9;<span class="keyword">return</span>&nbsp;<span class="keyword">true</span>;
 &#9;<span class="keyword">else</span>&nbsp;<span class="comm-single-dox">///</span>&nbsp;<span class="comm-tag-dox">@note</span>&nbsp;<span class="comm-single-dox">else&nbsp;needed&nbsp;to&nbsp;discard&nbsp;template&nbsp;instantiation&nbsp;of&nbsp;index&nbsp;sequence&nbsp;with&nbsp;sizeof...(T)&nbsp;-&nbsp;1&nbsp;with&nbsp;[T&nbsp;=&nbsp;0]</span>
-&#9;&#9;<span class="keyword">return</span>&nbsp;<span class="func">are_sorted_impl</span>(<span class="namespace">std</span>::<span class="func">forward_as_tuple</span>(<span class="namespace">std</span>::<span class="func">forward</span>&lt;<span class="tparam">Args</span>&gt;(<span class="param">args</span>)...),&nbsp;<span class="namespace">std</span>::<span class="class">make_index_sequence</span>&lt;<span class="keyword">sizeof</span>...(<span class="tparam">Args</span>)&nbsp;-&nbsp;<span class="num">1</span>&gt;{});
+&#9;&#9;<span class="keyword">return</span>&nbsp;<span class="func">are_sorted_impl</span>(<span class="namespace">std</span>::<span class="func">forward_as_tuple</span>(<span class="namespace">std</span>::<span class="func">forward</span>&lt;<span class="tparam">Args</span>&gt;(<span class="param">args</span>)...),&nbsp;<span class="namespace">std</span>::<span class="type">make_index_sequence</span>&lt;<span class="keyword">sizeof</span>...(<span class="tparam">Args</span>)&nbsp;-&nbsp;<span class="num">1</span>&gt;{});
 }
 
 <span class="built-in">int</span>&nbsp;<span class="func">main</span>()
 {
-&#9;<span class="namespace">std</span>::<span class="class">vector</span>&lt;<span class="alias">var_t</span>&gt;&nbsp;<span class="var-local">vec</span>&nbsp;=&nbsp;{<span class="num">10</span>,&nbsp;<span class="num">15</span>l,&nbsp;<span class="num">1.5</span>,&nbsp;<span class="string">"hello"</span>};
+&#9;<span class="namespace">std</span>::<span class="type">vector</span>&lt;<span class="type">var_t</span>&gt;&nbsp;<span class="var-local">vec</span>&nbsp;=&nbsp;{<span class="num">10</span>,&nbsp;<span class="num">15</span>l,&nbsp;<span class="num">1.5</span>,&nbsp;<span class="string">"hello"</span>};
 
 &#9;<span class="keyword">for</span>&nbsp;(<span class="keyword">auto</span>&amp;&nbsp;<span class="var-local">v</span>&nbsp;:&nbsp;<span class="var-local">vec</span>)
 &#9;{
@@ -59,34 +59,35 @@
 &#9;&#9;<span class="namespace">std</span>::<span class="func">visit</span>([](<span class="keyword">auto</span>&amp;&amp;&nbsp;<span class="param">arg</span>)&nbsp;{&nbsp;<span class="namespace">std</span>::<span class="var-static">cout</span>&nbsp;&lt;&lt;&nbsp;<span class="param">arg</span>;&nbsp;},&nbsp;<span class="var-local">v</span>);
 
 &#9;&#9;<span class="comm-single">//&nbsp;value-returning&nbsp;visitor;&nbsp;a&nbsp;common&nbsp;idiom&nbsp;is&nbsp;to&nbsp;return&nbsp;another&nbsp;variant</span>
-&#9;&#9;<span class="var-local">v</span>&nbsp;=&nbsp;<span class="namespace">std</span>::<span class="func">visit</span>([](<span class="keyword">auto</span>&amp;&amp;&nbsp;<span class="param">arg</span>)&nbsp;-&gt;&nbsp;<span class="alias">var_t</span>&nbsp;{&nbsp;<span class="keyword">return</span>&nbsp;<span class="param">arg</span>&nbsp;+&nbsp;<span class="param">arg</span>;&nbsp;},&nbsp;<span class="var-local">v</span>);
+&#9;&#9;<span class="var-local">v</span>&nbsp;=&nbsp;<span class="namespace">std</span>::<span class="func">visit</span>([](<span class="keyword">auto</span>&amp;&amp;&nbsp;<span class="param">arg</span>)&nbsp;-&gt;&nbsp;<span class="type">var_t</span>&nbsp;{&nbsp;<span class="keyword">return</span>&nbsp;<span class="param">arg</span>&nbsp;+&nbsp;<span class="param">arg</span>;&nbsp;},&nbsp;<span class="var-local">v</span>);
 
 &#9;&#9;<span class="namespace">std</span>::<span class="var-static">cout</span>&nbsp;&lt;&lt;&nbsp;<span class="string">"&nbsp;after&nbsp;doubling&nbsp;is&nbsp;"</span>;
 
 &#9;&#9;<span class="comm-single">//&nbsp;type-matching&nbsp;visitor:&nbsp;can&nbsp;also&nbsp;be&nbsp;a&nbsp;class&nbsp;with&nbsp;4&nbsp;overloaded&nbsp;operator()s</span>
 &#9;&#9;<span class="namespace">std</span>::<span class="func">visit</span>([](<span class="keyword">auto</span>&amp;&amp;&nbsp;<span class="param">arg</span>)
 &#9;&#9;{
-&#9;&#9;&#9;<span class="keyword">using</span>&nbsp;<span class="alias">T</span>&nbsp;=&nbsp;<span class="namespace">std</span>::<span class="class">decay_t</span>&lt;<span class="keyword">decltype</span>(<span class="param">arg</span>)&gt;;
+&#9;&#9;&#9;<span class="keyword">using</span>&nbsp;<span class="type">T</span>&nbsp;=&nbsp;<span class="namespace">std</span>::<span class="type">decay_t</span>&lt;<span class="keyword">decltype</span>(<span class="param">arg</span>)&gt;;
 
-&#9;&#9;&#9;<span class="keyword">if</span>&nbsp;<span class="keyword">constexpr</span>&nbsp;(<span class="namespace">std</span>::<span class="class">is_same_v</span>&lt;<span class="alias">T</span>,&nbsp;<span class="built-in">int</span>&gt;)
+&#9;&#9;&#9;<span class="keyword">if</span>&nbsp;<span class="keyword">constexpr</span>&nbsp;(<span class="namespace">std</span>::<span class="type">is_same_v</span>&lt;<span class="type">T</span>,&nbsp;<span class="built-in">int</span>&gt;)
 &#9;&#9;&#9;&#9;<span class="namespace">std</span>::<span class="namespace">fmt</span>::<span class="func">print</span>(<span class="string">"int&nbsp;with&nbsp;value&nbsp;{}</span><span class="escape">\n</span><span class="string">"</span>,&nbsp;<span class="param">arg</span>);
-&#9;&#9;&#9;<span class="keyword">else</span>&nbsp;<span class="keyword">if</span>&nbsp;<span class="keyword">constexpr</span>&nbsp;(<span class="namespace">std</span>::<span class="class">is_same_v</span>&lt;<span class="alias">T</span>,&nbsp;<span class="built-in">long</span>&gt;)
+&#9;&#9;&#9;<span class="keyword">else</span>&nbsp;<span class="keyword">if</span>&nbsp;<span class="keyword">constexpr</span>&nbsp;(<span class="namespace">std</span>::<span class="type">is_same_v</span>&lt;<span class="type">T</span>,&nbsp;<span class="built-in">long</span>&gt;)
 &#9;&#9;&#9;&#9;<span class="namespace">std</span>::<span class="namespace">fmt</span>::<span class="func">print</span>(<span class="string">"long&nbsp;with&nbsp;value&nbsp;{}</span><span class="escape">\n</span><span class="string">"</span>,&nbsp;<span class="param">arg</span>);
-&#9;&#9;&#9;<span class="keyword">else</span>&nbsp;<span class="keyword">if</span>&nbsp;<span class="keyword">constexpr</span>&nbsp;(<span class="namespace">std</span>::<span class="class">is_same_v</span>&lt;<span class="alias">T</span>,&nbsp;<span class="built-in">double</span>&gt;)
+&#9;&#9;&#9;<span class="keyword">else</span>&nbsp;<span class="keyword">if</span>&nbsp;<span class="keyword">constexpr</span>&nbsp;(<span class="namespace">std</span>::<span class="type">is_same_v</span>&lt;<span class="type">T</span>,&nbsp;<span class="built-in">double</span>&gt;)
 &#9;&#9;&#9;&#9;<span class="namespace">std</span>::<span class="namespace">fmt</span>::<span class="func">print</span>(<span class="string">"double&nbsp;with&nbsp;value&nbsp;{}</span><span class="escape">\n</span><span class="string">"</span>,&nbsp;<span class="param">arg</span>);
-&#9;&#9;&#9;<span class="keyword">else</span>&nbsp;<span class="keyword">if</span>&nbsp;<span class="keyword">constexpr</span>&nbsp;(<span class="namespace">std</span>::<span class="class">is_same_v</span>&lt;<span class="alias">T</span>,&nbsp;<span class="namespace">std</span>::<span class="class">string</span>&gt;)
+&#9;&#9;&#9;<span class="keyword">else</span>&nbsp;<span class="keyword">if</span>&nbsp;<span class="keyword">constexpr</span>&nbsp;(<span class="namespace">std</span>::<span class="type">is_same_v</span>&lt;<span class="type">T</span>,&nbsp;<span class="namespace">std</span>::<span class="type">string</span>&gt;)
 &#9;&#9;&#9;&#9;<span class="namespace">std</span>::<span class="namespace">fmt</span>::<span class="func">print</span>(<span class="string">"std::string&nbsp;with&nbsp;value&nbsp;'{}'</span><span class="escape">\n</span><span class="string">"</span>,&nbsp;<span class="param">arg</span>);
 &#9;&#9;&#9;<span class="keyword">else</span>
-&#9;&#9;&#9;&#9;<span class="keyword">static_assert</span>(<span class="class">always_false</span>&lt;<span class="alias">T</span>&gt;::<span class="var-local">value</span>,&nbsp;<span class="string">"non-exhaustive&nbsp;visitor!"</span>);
+&#9;&#9;&#9;&#9;<span class="keyword">static_assert</span>(<span class="type">always_false</span>&lt;<span class="type">T</span>&gt;::<span class="var-local">value</span>,&nbsp;<span class="string">"non-exhaustive&nbsp;visitor!"</span>);
 &#9;&#9;},&nbsp;<span class="var-local">v</span>);
 &#9;}
 
 &#9;<span class="keyword">for</span>&nbsp;(<span class="keyword">const</span>&nbsp;<span class="keyword">auto</span>&amp;&nbsp;<span class="var-local">v</span>&nbsp;:&nbsp;<span class="var-local">vec</span>)
 &#9;{
-&#9;&#9;<span class="namespace">std</span>::<span class="func">visit</span>(<span class="class">overloaded</span>&nbsp;{
+&#9;&#9;<span class="namespace">std</span>::<span class="func">visit</span>(<span class="type">overloaded</span>&nbsp;{
 &#9;&#9;&#9;[](<span class="keyword">auto</span>&nbsp;<span class="param">arg</span>)&nbsp;{&nbsp;<span class="namespace">std</span>::<span class="var-static">cout</span>&nbsp;<span class="op-ol">&lt;&lt;</span>&nbsp;<span class="param">arg</span>&nbsp;<span class="op-ol">&lt;&lt;</span>&nbsp;<span class="chars">'&nbsp;'</span>;&nbsp;},
 &#9;&#9;&#9;[](<span class="keyword">double</span>&nbsp;<span class="param">arg</span>)&nbsp;{&nbsp;<span class="namespace">std</span>::<span class="var-static">cout</span>&nbsp;<span class="op-ol">&lt;&lt;</span>&nbsp;<span class="namespace">std</span>::<span class="func">fixed</span>&nbsp;<span class="op-ol">&lt;&lt;</span>&nbsp;<span class="param">arg</span>&nbsp;<span class="op-ol">&lt;&lt;</span>&nbsp;<span class="chars">'&nbsp;'</span>;&nbsp;},
-&#9;&#9;&#9;[](<span class="keyword">const</span>&nbsp;<span class="namespace">std</span>::<span class="class">string</span>&amp;&nbsp;<span class="param">arg</span>)&nbsp;{&nbsp;<span class="namespace">std</span>::<span class="var-static">cout</span>&nbsp;<span class="op-ol">&lt;&lt;</span>&nbsp;<span class="namespace">std</span>::<span class="func">quoted</span>(<span class="param">arg</span>)&nbsp;<span class="op-ol">&lt;&lt;</span>&nbsp;<span class="chars">'&nbsp;'</span>;&nbsp;}
+&#9;&#9;&#9;[](<span class="keyword">const</span>&nbsp;<span class="namespace">std</span>::<span class="type">string</span>&amp;&nbsp;<span class="param">arg</span>)&nbsp;{&nbsp;<span class="namespace">std</span>::<span class="var-static">cout</span>&nbsp;<span class="op-ol">&lt;&lt;</span>&nbsp;<span class="namespace">std</span>::<span class="func">quoted</span>(<span class="param">arg</span>)&nbsp;<span class="op-ol">&lt;&lt;</span>&nbsp;<span class="chars">'&nbsp;'</span>;&nbsp;}
 &#9;&#9;},&nbsp;<span class="var-local">v</span>);
 &#9;}
 }</code></pre>
+{% endraw %}

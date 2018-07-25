@@ -10,20 +10,20 @@
 6prep_direct macro_ref 0comm_single
 
 keyword <keyword tparam>
-keyword class : namespace::class {};
+keyword type : namespace::type {};
 
 3comm_multi_dox "@brief"comm_tag_dox 0comm_single_dox
-keyword alias = namespace::class<built_in, built_in, built_in, namespace::class>;
+keyword type = namespace::type<built_in, built_in, built_in, namespace::type>;
 
 keyword <keyword... tparam>
-keyword class : tparam... { keyword tparam::keyword()...; };
+keyword type : tparam... { keyword tparam::keyword()...; };
 keyword <keyword... tparam>
-func(tparam...) -> class<tparam...>;
+func(tparam...) -> type<tparam...>;
 
 keyword <keyword tparam>
 keyword concept = keyword(tparam param)
 {
-	{*param} -> keyword tparam::class; 0comm_single
+	{*param} -> keyword tparam::type; 0comm_single
 	0comm_single
 	0comm_single
 };
@@ -31,11 +31,11 @@ keyword concept = keyword(tparam param)
 keyword <concept tparam, keyword... tparam> keyword
 keyword(keyword) func(tparam&& param, tparam&&... param) 0comm_single
 {
-	keyword namespace::func<tparam>(param)(namespace::class<tparam>(param)...);
+	keyword namespace::func<tparam>(param)(namespace::func<tparam>(param)...);
 }
 
-keyword <keyword tparam, namespace::alias... tparam> keyword
-built_in func(tparam&& param, namespace::class<tparam...>)
+keyword <keyword tparam, namespace::type... tparam> keyword
+built_in func(tparam&& param, namespace::type<tparam...>)
 {
 	keyword !((namespace::func<tparam + num>(namespace::func<tparam>(param)) < namespace::func<tparam>(namespace::func<tparam>(param))) && ...);
 }
@@ -46,12 +46,12 @@ built_in func(tparam&&... param)
 	keyword keyword (keyword...(tparam) <= num1$)
 		keyword keyword;
 	keyword "///"comm_single_dox "@note"comm_tag_dox 0comm_single_dox
-		keyword func(namespace::func(namespace::func<tparam>(param)...), namespace::class<keyword...(tparam) - num>{});
+		keyword func(namespace::func(namespace::func<tparam>(param)...), namespace::type<keyword...(tparam) - num>{});
 }
 
 built_in func()
 {
-	namespace::class<alias> var_local = {num, num1$, num, string};
+	namespace::type<type> var_local = {num, num1$, num, string};
 
 	keyword (keyword& var_local : var_local)
 	{
@@ -59,34 +59,34 @@ built_in func()
 		namespace::func([](keyword&& param) { namespace::var_static << param; }, var_local);
 
 		0comm_single
-		var_local = namespace::func([](keyword&& param) -> alias { keyword param + param; }, var_local);
+		var_local = namespace::func([](keyword&& param) -> type { keyword param + param; }, var_local);
 
 		namespace::var_static << string;
 
 		0comm_single
 		namespace::func([](keyword&& param)
 		{
-			keyword alias = namespace::class<keyword(param)>;
+			keyword type = namespace::type<keyword(param)>;
 
-			keyword keyword (namespace::class<alias, built_in>)
+			keyword keyword (namespace::type<type, built_in>)
 				namespace::namespace::func(string, param);
-			keyword keyword keyword (namespace::class<alias, built_in>)
+			keyword keyword keyword (namespace::type<type, built_in>)
 				namespace::namespace::func(string, param);
-			keyword keyword keyword (namespace::class<alias, built_in>)
+			keyword keyword keyword (namespace::type<type, built_in>)
 				namespace::namespace::func(string, param);
-			keyword keyword keyword (namespace::class<alias, namespace::class>)
+			keyword keyword keyword (namespace::type<type, namespace::type>)
 				namespace::namespace::func(string, param);
 			keyword
-				keyword(class<alias>::var_local, string);
+				keyword(type<type>::var_local, string);
 		}, var_local);
 	}
 
 	keyword (keyword keyword& var_local : var_local)
 	{
-		namespace::func(class {
+		namespace::func(type {
 			[](keyword param) { namespace::var_static 2op_ol param 2op_ol chars; },
 			[](keyword param) { namespace::var_static 2op_ol namespace::func 2op_ol param 2op_ol chars; },
-			[](keyword namespace::class& param) { namespace::var_static 2op_ol namespace::func(param) 2op_ol chars; }
+			[](keyword namespace::type& param) { namespace::var_static 2op_ol namespace::func(param) 2op_ol chars; }
 		}, var_local);
 	}
 }

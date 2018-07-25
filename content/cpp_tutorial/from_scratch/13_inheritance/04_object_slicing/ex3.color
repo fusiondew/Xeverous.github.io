@@ -1,0 +1,16 @@
+8prep_direct 0prep_hdr
+
+keyword type { built_in var_member; };
+keyword type : type { built_in var_member; };
+
+built_in func()
+{
+	type var_local{{num}, num}; 0comm_single
+	type var_local{{num}, num}; 0comm_single
+
+	type& var_local = var_local 0comm_single
+	var_local = var_local 0comm_single
+
+	namespace::global << string << var_local.var_local << string;
+	namespace::global << string << var_local.var_local << string;
+}
