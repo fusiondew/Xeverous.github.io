@@ -325,7 +325,7 @@ Because pointers can occupy a lot of space and adding more functions would incre
 
 Then, each **polymorphic** object contains a pointer to the virtual table. This significantly reduces needed memory.
 
-For each **polymorphic** type, compiler generates different virtual table. Objects of the same type use the same one.
+For each **polymorphic** type, compiler generates different virtual table. Objects of the same type use the same table.
 
 Each object holds a pointer to it's appropriate virtual table which is automatically set in the constructor.
 
