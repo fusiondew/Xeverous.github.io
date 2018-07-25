@@ -118,7 +118,7 @@ public:
 };
 ```
 
-Such shadowing can be a bug hard to spot. Function exists but actually is never called. Since C++11 it became better - **use `virtual` (for first function) and `override` (for functions in every derived class)**.
+Such shadowing can be a bug hard to spot. Function exists but actually is never called. Since C++11 it you should **use `virtual` (for first function) and `override` (for functions in every derived class)**.
 
 ## destructors
 
@@ -136,7 +136,7 @@ If base class destructor is not virtual, an attempt to dynamically destroy objec
 
 The first option is simple - virtual destructors are necessary for correct destruction of objects viewed as a base type. Constructors can not be virtual because at the moment of creation of any type we exactly know which type is created.
 
-The second option is for "controlled inheritance" case - non-virtual destructor is unsafe (as it will not release resources) but making it protected removes the possibility to destroy and consequently the possibility to create (without intentional leaks) any object. This option is used for certain inheritance patters - the class with protected non-virtual destructor is only for further inheriting (not "derived enough" to be used). It's also [discussed in Core Guidelines](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#discussion-make-base-class-destructors-public-and-virtual-or-protected-and-nonvirtual).
+The second option: non-virtual destructor is unsafe (as it will not release resources) but making it protected removes the possibility to destroy and consequently the possibility to create (without intentional leaks) any object. This option is used for certain (more advanced) patterns. It's [discussed in Core Guidelines](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#discussion-make-base-class-destructors-public-and-virtual-or-protected-and-nonvirtual).
 
 ## longer heriarchies
 
@@ -152,7 +152,7 @@ Overriding happens in 1 way: always down. Derived classes can either:
 
 struct A
 {
-    virtual ~A() = default; // public virtual ddestructor
+    virtual ~A() = default; // public virtual destructor
 
     virtual void func() const
     {
@@ -181,7 +181,7 @@ struct D : C
 {
     void func() const override
     {
-        B::func(); // explicit use of parent class function
+        B::func(); // explicit use of parent class version
         // because B has not overriden it's parent it will actually be A::func
     }
 };
@@ -193,3 +193,5 @@ int main()
     ref.func(); // prints "A::func()"
 }
 ```
+
+Overriding happens top-to-down in the hierarchy. If at any level there is no override, parent version will be used (if parent also did not override it goes further upwards).
