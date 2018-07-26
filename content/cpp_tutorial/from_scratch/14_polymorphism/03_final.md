@@ -4,8 +4,8 @@ layout: article
 
 `final` has 2 uses
 
-- blocks further overriding
-- blocks further inheritance
+- blocking further overriding
+- blocking further inheritance
 
 Similarly to `override`, it is not technically a keyword (obviously using is for naming things is a bad idea) - it has it's special meaning only in function qualifiers context.
 
