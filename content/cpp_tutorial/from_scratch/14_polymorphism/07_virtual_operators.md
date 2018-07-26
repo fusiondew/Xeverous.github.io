@@ -25,7 +25,7 @@ Generally, it's a bad idea to mix operator overloading and inheritance (even wit
 
 ## rationale - unary operators
 
-This is a pretty grey area. Personally, I haven't encountered any case for making virtual unary operators. I would stick to general recommendation - just don't. Use named functions.
+This is a pretty grey area. Personally, I haven't encountered any situation for making virtual unary operators. I would stick to general recommendation - just don't. Use named functions.
 
 ## rationale - operator ()
 
