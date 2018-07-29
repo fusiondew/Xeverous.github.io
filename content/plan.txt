@@ -212,6 +212,7 @@ missing
 	vector, vector of references
 	function pointers, void pointers and member pointers are not compatible
 	multiple inheritance - multiple vtable pointers
+	function type vs function signature
 	
 **articles which do not have title (below layout) are considered unfinished**
 
@@ -226,3 +227,17 @@ inheritance should be after smart pointers + data structures - reason - examples
 traps
 	default arguments in virtual functions
 	rvalue to lvalue reference
+
+articles
+	C pitfals
+		null-terminated strings
+		errno
+		qsort()
+		
+learncpp problems
+	NULL
+	*/& alignment
+	const-qualified member function, really everywhere
+	14.3 - sqrt from cmath
+	14.5 - "deriving your class from std::exception" - example does not compile (const issues)
+	
