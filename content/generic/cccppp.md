@@ -2,6 +2,10 @@
 layout: article
 ---
 
+Note: all rulies apply to "modern C++" where it is assumed that the project is written in C++11 or later standard.
+
+___
+
 ## relying on unqualified/argument-dependent name lookup when qualified name lookup should be used (aka namespace pollution)
 
 More precisely known as:
@@ -10,7 +14,7 @@ More precisely known as:
 using namespace std;
 ```
 
-There are tons of places where you can read read it's a terrible practice. **It's the \#1 the most trivial and the most common C++ mistake ever made. It's often the first thing which is recommended for beginners and presented in hello world example.**
+There are tons of places where you can read read it's a terrible practice. **It's the \#1 the most trivial and the most common C++ mistake ever made. But it's often the first thing which is recommended for beginners and presented in hello world examples.**
 
 So what's the actual problem with this statement? - It's in the title. Placing a namespace using allows to shorten names of their namespaces - eg `std::cout` to `cout`.
 
@@ -106,6 +110,63 @@ More info + example - [see this](https://stackoverflow.com/a/14395960/4818802).
 
 TODO
 
+## unnecessary large lifetime
+
+```c++
+int func(/* ... */)
+{
+    int a;
+    int b;
+    float x;
+
+    // ... 10 lines
+    // a and b used for the first time
+
+    // ... 20 lines
+    // x finally used
+
+    return x;
+}
+```
+
+This is a bad habit coming from C89 where all local variables had to be declared first before any are used. Since C99 it's no longer required. This requirement was just a limitation of first compilers.
+
+**Declaring variables before use is an antipattern** - too large scope impacts readers cognitive load and creates more opportunities for mistakes. **Declare variables as late as possible with minimal scope required and use them instantly.**
+
+## arrays with non-constant size
+
+*ignoring lack of `std::array` for this one*
+
+```c++
+int arr[n]; // where n is not a compile-time constant
+```
+
+This was never a valid C++ code.
+
+This was only valid in C99 but the feature of arrays with non-constant size was optional. Feature has been removed in C11.
+
+<div class="note warning">
+Many compilers accept it as non-standard extension. Note that there are no guuarantees on stack size and `n` big enough will cause undefined behaviour.
+</div>
+
+## deprecated includes
+
+```c++
+#include <stdlib.h> // C, deprecated in C++
+#include <cstdlib>  // only C++
+#include <math.h>   // C, deprecated in C++
+#include <cmath>    // only C++
+```
+
+Most of `<xxx.h>` (original C header names) have their equivalent `<cxxx>` name in C++.
+
+Apart from names, there are 2 differences:
+
+- Old headers put names directly in global scope, newer in C++ standard namespace - newer headers do not pollute global scope
+- Old headers contain stuff imported from C which was available at that time. Newer headers are updated - some things can be found only in newer ones.
+
+Multiple `<xxx.h>` headers are not available in C++. They have been replaced by C++ keywords, language features or standard library.
+
 ## camelCase and PascalCase name style
 
 I don't know who/what started this trend (maybe Java?). This may seem more of cosmetic problem, but it can hurt.
@@ -126,7 +187,5 @@ Camel case names for functions can be weird and unintuitive. I have worked in so
 Other arguments:
 
 - camelCaseIsHardToRead. dontBelieveMe? thereAre[StudiesWhichConfirmThis](https://www.researchgate.net/profile/Bonita_Sharif/publication/224159770_An_Eye_Tracking_Study_on_camelCase_and_under_score_Identifier_Styles/links/00b49534cc03bab22b000000/An-Eye-Tracking-Study-on-camelCase-and-under-score-Identifier-Styles.pdf).
-- People argue about whether to capitalize words of length 1-2 and shortcuts. `ExportAsXml()` or `ExportAsXML()` or `exportAsXml()` or `exportAsXML()`? `export_as_xml()`!
-- Underscores are more 1337*. We even got `std::compare_3way()`.
-
-**\*:** read "leet"
+- People argue about whether to capitalize words of length 1-2 and shortcuts. `ExportAsXml()` or `ExportAsXML()` or `exportAsXml()` or `exportAsXML()`? `export_as_xml()`! With snake case, there are no doubts.
+- Underscores are more 1337 (read: leet). We even got `std::compare_3way()`.

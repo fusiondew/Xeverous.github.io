@@ -24,8 +24,6 @@ int x = 5; // this comment spans to the end of this line
 ```
 
 <div class="note warning">
-#### Warning
-<i class="fas fa-exclamation-circle"></i>
 Watch out for accidental `\` at the end of a single-line comment. It extends the comment to another physical line.
 
 ```c++

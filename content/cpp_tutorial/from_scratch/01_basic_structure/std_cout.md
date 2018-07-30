@@ -129,6 +129,8 @@ Most important escape characters:
 
 `/` does not need to be escaped and behaves normally.
 
+Null-terminator character is not visible, but it has important uses.
+
 <div class="note info">
 #### endl
 <i class="fas fa-info-circle"></i>

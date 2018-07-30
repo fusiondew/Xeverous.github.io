@@ -17,8 +17,7 @@ int main()
 This is a minimal program that should print the "hello, world" on the terminal. It is commonly used as a sanity check (in any programming language) to verify that all tools are setup correctly and the build succeeds.
 
 <div class="note info">
-#### Info
-<i class="fas fa-info-circle"></i>
+
 Tutorials how to configure various IDEs are in other category on this website.
 </div>
 

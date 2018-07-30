@@ -93,15 +93,16 @@ dynamic memory
 	brief: RAII
 
 OOP
-	introduction
-	classes, encapsulation
-	member functions (+accessors)
-	constructors (+member init list, +delegating ctors), destructors
-	this
-	const members (variables, functions)
-	static member variables
-	static member functions
-	friends
+	[x] introduction
+	[x] classes, encapsulation
+	[x] member functions (+accessors)
+	[x] constructors (+member init list, +delegating ctors), destructors
+	[x] this
+	[x] const members (variables, functions)
+	[x] mutable member variables
+	[x] static member variables
+	[x] static member functions
+	[x] friends
 	nested types
 
 RAII
@@ -143,21 +144,21 @@ inheritance
 	virtual inheritance
 
 polymorphism
-	base class pointers
-	virtual functions
-	override, final
-	covariant return type
-	virtual destructors
+	[x] base class pointers
+	[x] virtual functions
+	[x] override, final
+	[x] covariant return type
+	[x] virtual destructors
 	virtual assignment
 	early binding vs late binding
-	virtual table implementation
-	ABC, pure virtual functions
-	interfaces
+	[x] virtual table implementation
+	[x] ABC, pure virtual functions
+	[x] interfaces
 	virtual base classes
 	object slicing
 	dynamic_cast vs static_cast
 	RTTI
-	polymorphic operator<<
+	[x] polymorphic operator<<
 
 lambda expressions
 	intro: higher order functions
@@ -169,17 +170,17 @@ lambda expressions
 	templated lambdas
 
 exceptions
-	intro: error handling methods (return, out code, expected, exceptions)
-	throw and catch
-	stack unwinding
-	uncaught exceptions
-	catch(...)
-	exception specifiers
-	noexcept
-	exception classes
-	rethrowing exceptions
-	function try blocks
-	exception downsides and the future of them in C++
+	[x] intro: error handling methods (return, out code, expected, exceptions)
+	[x] throw and catch
+	[x] stack unwinding
+	[ ] uncaught exceptions
+	[x] catch(...)
+	[x] exception specifiers
+	[x] noexcept
+	[x] exception classes
+	[x] rethrowing exceptions
+	[x] function try blocks
+	[x] exception downsides and the future of them in C++
 
 miscellaneous
 	alignas, alignof
@@ -213,6 +214,7 @@ missing
 	function pointers, void pointers and member pointers are not compatible
 	multiple inheritance - multiple vtable pointers
 	function type vs function signature
+	rule of 3/5/0
 	
 **articles which do not have title (below layout) are considered unfinished**
 
@@ -241,3 +243,10 @@ learncpp problems
 	14.3 - sqrt from cmath
 	14.5 - "deriving your class from std::exception" - example does not compile (const issues)
 	
+pygments test
+	// text \
+	this text is also a part of the comment
+	
+	/* text1 /* text2 */ text3 */ (multi-lien commens can not be nested)
+	
+	`x   +y` (cuts spaces)

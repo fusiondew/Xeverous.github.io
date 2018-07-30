@@ -4,7 +4,7 @@ layout: article
 
 ## The void type
 
-`void` is a type that has no possible values. It's a keyword indicating absence of data. You can't have variables of type `void` but it can be used in other contexts.
+`void` is a type that has no possible values. It's a keyword indicating absence of data. You can't have variables of type `void` (they could not store anything) but it can be used in many other contexts.
 
 <details>
     <summary>Technicals</summary>
