@@ -2,38 +2,32 @@
 layout: article
 ---
 
-One of the first, not-so-obvious things you have seen so far is printing
-
 ```c++
-#include <iostream>
- 
-int main()
-{
 	std::cout << "hello, world";
-	return 0;
-}
 ```
-
-What is the purpose of the `#include` and what does `::` and `<<` actually do?
-
-`#include` is a preprocessor directive - it tells the compiler to *include* the contents of the `<iostream>` before this program. `<iostream>` is a standard header file which provides access to basic text input/output. More about headers later - for now it's enough that you remember to include I/O stream before using it.
 
 Every C++ standard library function, class, etc is inside `std` namespace. Namespaces are a sort of directory trees but for code and `::` is used to denote levels instead of `/` in file paths. More about namespaces later - for now just remember that the standard library stuff is inside `std`.
 
-`std::cout` is a globally accessible object of type `std::ostream` (**o**utput **stream**). It represents underlying system's **c**aracter **out**put.
+`std::cout` is a globally accessible object of type `std::ostream` (**o**utput **stream**). It represents underlying system's **c**haracter **out**put.
 
 There is also `std::cin` and `std::cerr` which represent **c**haracter **in**put and **c**haracter **err**or stream.
 
-If you are using an Unix system, these 3 map directly to stdin, stdout and stderr ([file descriptors](https://en.wikipedia.org/wiki/File_descriptor), in order: 0, 1 ,2). If you are using Windows system, `std::cerr` and `std::cout` have some distinction but it's more complicated.
-
 <details>
-    <summary>Unix shell stream manipulation</summary>
-    <p>Programs in C and C++ using different standard output streams will print to the screen the same way, but their content can be split by stream redirection - see [this SO question](https://stackoverflow.com/questions/818255/in-the-shell-what-does-21-mean). Eg by adding `1>/dev/null` you will see only error prints.</p>
+<summary>relation to operating system</summary>
+<p>
+
+*Don't worry if you don't understand OS streams - this is only for informational purpose, it's more of operating system theory rather than programming.*
+
+If you are using an Unix system (MacOS, Linux, Android, BSD and other), these 3 map directly to stdin, stdout and stderr ([file descriptors](https://en.wikipedia.org/wiki/File_descriptor), in order: 0, 1 ,2). If you are using Windows system, `std::cerr` and `std::cout` have some distinction but it's more complicated.
+
+**shell stream manipulation**
+
+Programs using different standard output streams will print to the screen the same way, but their content can be split by stream redirection - see [this SO question](https://stackoverflow.com/questions/818255/in-the-shell-what-does-21-mean). Eg by adding `1>/dev/null` you will see only error prints.</p>
 </details>
 
-`<<` is an operator that is used by streams to output data. I don't want to explain all internals of this now as there are used many advanced language features which are yet to be explained later. For now, just assume there is some underlying magic which allows it to understand data types and convert numbers (stored in computer as binary) to characters and output them to the screen.
+`<<` is an operator that is used by streams to output data. I don't want to explain all internals of this now as there are used many advanced language features which are yet to be explained later. For now, just assume there is some underlying magic which allows it to understand various data types and convert them to characters and output them to the screen.
 
-`<<` can output vary many different data types (so far seen numbers and character sequenes) but more data types will be shown in a couple of lessons. If you get an error like `no match for 'operator<<' (operand types are 'std::ostream' ...` this means you have hit a data type that has no defined output. It is possible to define it, but that needs far more skills than presented in this chapter.
+`<<` can output vary many different data types (so far seen numbers and character sequenes) but more data types will be shown in a couple of lessons. If you get an error like `no match for 'operator<<' (operand types are 'std::ostream' ...` this means you have hit a data type that has no defined output. It is possible to define it, but that obviously requires you to understand many language features first.
 
 ### chaining
 

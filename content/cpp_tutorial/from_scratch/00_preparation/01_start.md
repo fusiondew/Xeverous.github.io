@@ -69,11 +69,11 @@ More about types of programming languages and their differences later.
 
 #### Question: Where is C++ used?
 
-Explained in the FAQ.
+Explained in the FAQ. TODO link
 
 #### Question: What is ...?
 
-Lookup in the glossary.
+Lookup in the glossary. TODO link
 
 ## core recommendations
 

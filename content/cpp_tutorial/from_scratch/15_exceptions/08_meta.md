@@ -39,6 +39,6 @@ I still encourage you to use exceptions because:
 
 ## the future
 
-The committee is aware of the problem. What looks very promising is [Herb Sutter's proposal](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p0709r0.pdf) which completely overhauls exceptions giving complete refactor of the feature - in both how exceptions work and what they can offer.
+The committee is aware of the problem. What looks very promising is [Herb Sutter's proposal](https://wg21.link/P0709) which completely overhauls exceptions giving complete refactor of the feature - in both how exceptions work and what they can offer.
 
 The committee also wants to remove `std::bad_alloc` and possible other unnecessary exceptions in the standard library - they would be replaced by *contracts* which are new, **configurable** language feature introduced in C++20. Such change would make significant part of the standard library `noexcept` and allow to write standard-compliant code while having choices how errors such as failed dynamic allocation are handled.

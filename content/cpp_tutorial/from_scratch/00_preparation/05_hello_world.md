@@ -66,7 +66,7 @@ This problem similar to the one above - this time the `make` program could not b
 
 Go to your compiler installation directory and check that `make` actually exists. It's common that you will find something like `mingw-make32.exe` or `i686-w64-mingw32-make.exe`. It is because various GCC distributions prefix some executables with architecture name in case someone wanted to have a multi-acrhitecture toolchain installed in 1 place. I hardly doubt you want to compile now for something other than x86 (i686) / x86_64 (these are the architecture names of standard 32-bit and 64-bit PC).
 
-If this is the case - simply copy the executable and give the copy a correct name (`make.exe` or `make` on Unix systems).
+If this is the case - simply copy the executable and give the copy a correct name (`make.exe` on Windows and `make` on Unix systems).
 
 You might also find more exectables with prefixed names - in case of problems do the same.
 
