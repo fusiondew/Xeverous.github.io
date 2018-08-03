@@ -218,6 +218,8 @@ missing
 	
 **articles which do not have title (below layout) are considered unfinished**
 
+replace "technicals" with "technicalities"
+
 cheatsheet - header/source (keywords, syntax)
 cheatsheet - operator overloading
 	operator - arity - example expression - overloading (can not/should member/should non-mmeber/must member) - syntax example - notes (specific return, losing short-circuit)

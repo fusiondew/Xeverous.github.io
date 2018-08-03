@@ -2,13 +2,13 @@
 layout: article
 ---
 
-## integers
+<div class="note info">
+This article is mostly for informational purposes. Important thigs you should remember are in the summary.
+</div>
 
-TODO make more newbie-friendly (mb spoiler too mch technicals).
+`int` is the most basic numeric type. It represents a whole number in the most natural form for the target architecture.
 
-`int` is the most basic type. It represents a whole number in the most natural form for the target architecture.
-
-### storage
+## storage
 
 Integers are stored in certain amount of bytes - this means that they have finite amount of bits and therefore they have bounds - you can't represent all possible numbers in them!
 
@@ -20,7 +20,9 @@ Because plain binary numbers represent sums of consecutive powers of 2 (1, 2, 4,
 
 Note that at the machine instruction level, there is notion of type - only the size. 8-bit, 16-bit, 32-bit data fields and such. It's the programmer who gives this data a meaningful interpretation.
 
-### encoding
+If type safety is violated, given any number, we could easily interpret it in various ways resulting in multiple different values.
+
+## encoding
 
 `unsigned` - the integer is in it's simplest form, the underlying bits are treated with no modification (each more left-side bit is a bigger power of 2).
 
@@ -127,14 +129,14 @@ From the table above you can see that:
 - one's complement signed integer has value range $\[-127, 127\] \space (\[-2^7+1, 2^7-1\])$; 0 has two representations
 - two's complement signed integer has value range $\[-128, 127\] \space (\[-2^7, 2^7-1\])$
 
-The reverse order of negative numbers (in both complement encodings) allows some math optimizations.
+The reverse order of negative numbers (in both complement encodings) allows some math optimizations. Negavive/positive values can be switched by flipping all bits (look at 126 and 127).
 
-Two's complement compared to one's complement is shifted by 1 - it avoids the problem of positive and negative 0.
+Two's complement compared to one's complement is shifted by 1 on negative numbers - it avoids the problem of two 0 representations.
 
-Most widely used architectures use two's complement for signed representation. Unsigned is treated exactly the same everywhere.
+On most (if not all) architectures signed numbers are intrepreted in terms of two's complement.
 
 <details> 
-<summary>More examples</summary>
+<summary>additional examples</summary>
 <p markdown="block">
 
 ~~~
@@ -152,12 +154,12 @@ Most widely used architectures use two's complement for signed representation. U
 - (3) the number is represented normally
 - (4) the number can not be represented because the value itself needs 16 bits, but signed representation sacrifices 1 bit for +/- sign
 
-The default representation is signed. This means that `int` is the same type as `signed int`.
-
 </p>
 </details>
 
-### size
+The default representation is signed. This means that `int` is the same type as `signed int`.
+
+## size
 
 - `short` - makes integer occupy less bytes
 - `long` - makes inteegr occupy more bytes
@@ -271,18 +273,24 @@ TODO table alignment
     </table>
 </div>
 
-### notation
+## notation
 
 keyword `int` is optional if any other keyword is used. So `unsigned` or `long` is enough, you don't have to write `unsigned int` and `long int`.
 
 The order of applied keywords doesn't mater, but it's recommended to write intuitively - `unsigned long long`, not `long int unsigned long`.
 
-### fixed-width integers
+## fixed-width integers
 
 `<cstdint>` supplies multiple fixed-with integer types or types with strict minimal size.
 
 The full list is available on [reference page](https://en.cppreference.com/w/cpp/types/integer).
 
-### What you need to remember
+## summary
 
-Integers can have varying size and signess. All of them have no special notion at the hardware level - it's the programmer choice how to interpret their bits.
+**What you need to remember**
+
+Integers can have varying length - it's controlled by `short` and `long` keywords.
+
+Integers may be interpreted differently - this is controlled by `signed` and `unsigned` keywords. Unsigned integers have wider range of positive values but can not represent negative numbers.
+
+Default interpretation is signed: `int` is the same as `signed int`. 
