@@ -2,7 +2,7 @@
 layout: article
 ---
 
-Instructions such as `a += 1` can be shortened even further - changing value by 1 is a common operation in programming. It has received it's own special operators - unary `++` and unary `--`.
+Instructions such as `a += 1` can be shortened even further - changing value by 1 is a common operation in programming. It has received it's own special operators: unary `++` and unary `--`.
 
 The other ways to write `c = c + 1` or `c += 1` is to write `++c` or `c++`.
 
@@ -52,11 +52,20 @@ int main()
 
 ## decrement
 
-Operator `--` works exactly the same way, it just subtracks 1 instead of adding.
+Operator `--` works exactly the same way, it just subtracts 1 instead of adding.
 
 ## recommendation
 
 Anywhere where a simple +/- 1 is needed, prefer pre- increment/decrement - they happen instantly - the hidden delay can cause misleading code or problems in understanding actions order.
+
+Don't use multiple increments on the same line:
+
+```c++
+int i = 10;
+int j = i++ + ++i + i++;
+```
+
+`j` has unspecified value because compiler is requested to change value of `i` multiple times in one line.
 
 ## exercise
 

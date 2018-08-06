@@ -8,48 +8,15 @@ preparation
 	history
 	hello world
 
-basics
-	brief: syntax: comments, whitespace, naming rules, non-context-free grammar
-	brief: hello world explanation
-	brief: std::cout
-	brief: main function
-	brief: preprocessor
-
-preprocessor
-	include
-	define
-	ifdef
-	error (mention warning extension)
-	pragma
-	line
-	pre-defined macros
-
 type fundamentals
-	built-in types
-		integers
-		characters
-		boolean
-		floating-point
-		void
-		literals
-		brief: sizeof operator
 	brief: custom types (struct, enums)
 
 program structure
-	assignments
-	comments
-	variables, scoping
-	const
 	std::cout
 	std::cin
 
 operators
-	terms
-	arithmetics
-	increment, decrement
-	comparisons - mention floating-point comparisons
-	logical operators (logic gates, link numberphile vid) (+DeMorgans law)
-	bitwise operators (shifts etc)
+	bit operators - theory (logic gates, link numberphile vid) (+DeMorgans law)
 
 control flow
 	brief: control flow, why not just jumps
@@ -93,16 +60,6 @@ dynamic memory
 	brief: RAII
 
 OOP
-	[x] introduction
-	[x] classes, encapsulation
-	[x] member functions (+accessors)
-	[x] constructors (+member init list, +delegating ctors), destructors
-	[x] this
-	[x] const members (variables, functions)
-	[x] mutable member variables
-	[x] static member variables
-	[x] static member functions
-	[x] friends
 	nested types
 
 RAII
@@ -132,10 +89,10 @@ operator overloading
 	unary ""
 	custom convertions + explicit keyword, unary ! ~
 	new / delete
+	SO: how to set and clear each bit
 
 inheritance
 	public / protected / private inheritance
-	order of construction
 	delegating construction to parents
 	derived, inherited functions
 	shadowing inherited functions
@@ -144,21 +101,12 @@ inheritance
 	virtual inheritance
 
 polymorphism
-	[x] base class pointers
-	[x] virtual functions
-	[x] override, final
-	[x] covariant return type
-	[x] virtual destructors
 	virtual assignment
 	early binding vs late binding
-	[x] virtual table implementation
-	[x] ABC, pure virtual functions
-	[x] interfaces
 	virtual base classes
 	object slicing
 	dynamic_cast vs static_cast
 	RTTI
-	[x] polymorphic operator<<
 
 lambda expressions
 	intro: higher order functions
@@ -170,17 +118,7 @@ lambda expressions
 	templated lambdas
 
 exceptions
-	[x] intro: error handling methods (return, out code, expected, exceptions)
-	[x] throw and catch
-	[x] stack unwinding
-	[ ] uncaught exceptions
-	[x] catch(...)
-	[x] exception specifiers
-	[x] noexcept
-	[x] exception classes
-	[x] rethrowing exceptions
-	[x] function try blocks
-	[x] exception downsides and the future of them in C++
+	uncaught exceptions
 
 miscellaneous
 	alignas, alignof
@@ -215,6 +153,8 @@ missing
 	multiple inheritance - multiple vtable pointers
 	function type vs function signature
 	rule of 3/5/0
+	bitmask operations
+	alternative tokens (compl, bitand etc)
 	
 **articles which do not have title (below layout) are considered unfinished**
 

@@ -12,6 +12,8 @@ The full reference table, with all operators, their precedence and arity is at t
 
 One of key aspects of operators is their **arity**. This states how many objects they operate on
 
+TODO pre/code for table below
+
 <div class="table-responsive">
     <table class="table table-bordered table-dark">
         <tbody>
@@ -46,7 +48,12 @@ One of key aspects of operators is their **arity**. This states how many objects
 
 You don't have now to understand exactly what `!a` or `a ? b : c` does, but you should remember arity names.
 
-Note: some operators may have multiple arities. For example `a - b` uses binary minus which is a subtraction, but `-a` uses unary minus which flips the sign of an integer.
+**Note:** some operators may use multiple characters, eg `a && b`, `a->b`.
+
+**Note:** some operators use the same characters but have different arity:
+
+- `b = a - a` uses binary operator which performs subtraction
+- `b = -a` uses unary operator which performs negation
 
 ## construction
 
@@ -56,7 +63,7 @@ The simplest operators come from math and are written by 1 character: `+`, `-`, 
 
 A lot of operators in C++ language are written by a combination of 2 (or more) characters: `&&`, `++`, `--`, `>>`, `<<`, `<=>`, `->*`.
 
-Some operators are named words: `sizeof`, `alignof`, `new`, `delete`, `static_cast`, `dynamic_cast`
+Some operators are keywords: `sizeof`, `alignof`, `new`, `delete`, `static_cast`, `dynamic_cast`
 
 This means there is a difference between writing `+ +` vs `++` or `& &` vs `&&`. First two are 2 separate operators `+` and `&`, second are 1 operator `++` and 1 operator `&&`.
 
@@ -66,17 +73,15 @@ This means there is a difference between writing `+ +` vs `++` or `& &` vs `&&`.
 
 ## evaluation order
 
-Most operators evaluate from left to right. This means that $a + b + c$ is processed as $(a + b) + c$, not $a + (b + c)$. Of course it doesn't matter for addition, but there are operators for which it does.
+Most operators evaluate from left to right. This means that $a + b + c$ is processed as $(a + b) + c$, not $a + (b + c)$. Of course it doesn't matter for addition, but there are operators for which it does: `a / b / c`.
 
-Assignment operators (`=`, `+=`, `<<=` and similar construts) evaluate from right to left: `a = b` first reads `b`, then saves it to `a`. This means that $a = b = c$ is processed as $a = (b = c)$.
+Assignment operators (`=`, `+=`, `<<=` and similar construts) evaluate from right to left: `a = b` first reads `b`, then saves it to `a`. This means that $a = b = c$ is processed as $a = (b = c)$ (read c, save it to b, read b, save it to a).
 
 ## precedence
 
 Some operators have higher priority than others. Obviously $a + b * c$ is processed as $a + (b * c)$ but C++ offers more than 40 (or 60+ depending how it's counted) operators so things can get complicated once multiple very different operators are used in one expression.
 
 <div class="note pro-tip">
-#### Intuitive code
-
 No one remembers precedence order of all possible operators. Code should be easy to read and understand, therefore it's highly recommended to wrap complex subexpressions in parentheses
 
 ```c++
@@ -86,8 +91,6 @@ No one remembers precedence order of all possible operators. Code should be easy
 
 Long or very complex expressions should be split into multiple statements, giving each intermediate value meaningful name.
 </div>
-
-If multiple operators with the same precedence are used within the same statement, they are processed from left to right.
 
 ## overloading
 
