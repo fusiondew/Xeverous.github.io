@@ -19,8 +19,7 @@ operators
 	bit operators - theory (logic gates, link numberphile vid) (+DeMorgans law)
 
 pointers
-	string literals
-	void pointers
+	pointers to pointers
 
 references
 	lvalue vs rvalue (the simpler form)

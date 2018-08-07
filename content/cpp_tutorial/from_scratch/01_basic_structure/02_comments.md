@@ -31,12 +31,23 @@ Watch out for accidental `\` at the end of a single-line comment. It extends the
 this text is also a part of the comment
 ``` 
 
-It's adviced to just write 2 comments instead:
+It's advised to just write 2 comments instead:
 
 ```c++
 // text
 // text
 ```
+</div>
+
+<div class="note pro-tip">
+IDEs have (or at least should have) a shortcut for commenting current line/selected text:
+
+- Practically everything: ctrl + /
+- Visual Studio:
+    - comment: ctrl + K, ctrl + C (or ctrl + K + C)
+    - uncomment: ctrl + K, ctrl + U (or ctrl + K + U)
+
+Don't ask me why.
 </div>
 
 Multi-line comments can start and end any time - in such scenario they can be shorter than `//` comments:
