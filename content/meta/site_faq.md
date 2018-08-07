@@ -36,9 +36,27 @@ Still, as with first point - I find that more examples are always better.
 
 #### What was the motivation to create the site?
 
-Initially, I wanted to contribute to learncpp.com (which is regarded as one of the best sites for learning C++), but [Alex said](http://www.learncpp.com/site-news/find-something-wrong/comment-page-2/#comment-310505) it's not currently possible and "technology is not there yet".
+**Practically everything besides few websites about C++ is garbage. Not only sites - there are many bad books too!!! Nothing has really motivated me so strong as the amount of trash tier content.** So many sites copy-paste average C or "C without C-only features" and claim it to be C++ "because we added a class", "because it compiles":
 
-There are many other sites, but since they are more blog-oriented for periodic news and posts, I disregarded them and planned to build own guide based on plain markdown repository. I wanted a structured, step-by-step guide, not date ordered blog posts.
+- cprogramming (ironically most of their C++ is C)
+- geeksforgeeks (take any exercise, C and C++ solutions are often the same code or have marginal differences)
+- code project (countless beginner level mistakes in most articles)
+
+A unique exception is thisPointer.com. It has some good idiomatic STL examples.
+
+learncpp.com is regarded as one of the best sites for learning C++. Site is good but it still has many mistakes. Still, I rate it \#1 after mine which hopefully will be \#0 for you.
+
+There is a C++ language tutorial on cplusplus.com. It is not bad, assuming we read it in 2003. Most content on the site is heavily outdated. Tutorial is pretty fast and compact, but:
+
+- does not give any reasoning about desicions - readers do not learn, they just follow recomemndations with no understanding
+- many features lack recommendation - reader can remember them, but has no idea what's their purpose and when to use them
+- even for old C++98/03, the site does not mention many features
+- some features are not presented in very convenient order
+- the site does not seem to be maintained
+
+Initially, I wanted to contribute to learncpp.com, but [Alex said](http://www.learncpp.com/site-news/find-something-wrong/comment-page-2/#comment-310505) it's not currently possible and "technology is not there yet".
+
+There are few other good sites (eg fluent C++, bfilipek), but since they are more blog-oriented for periodic news and posts, I disregarded them and planned to build own guide based on plain markdown repository. I wanted a structured, step-by-step guide, not random blog posts about certain problems - 90% of C++ problems are already solved by Stack Overflow.
 
 Soon then, I realized GitHub has opened GitHub Pages and allowed for free static website hosting also offering integrated Jekyll. That's much better than reading pure markdown.
 
@@ -60,4 +78,3 @@ Other consequences
 #### Who is behind the site?
 
 So far all the content is written by me ([/u/Xeverous](https://www.reddit.com/user/Xeverous/) on reddit, [Xeverous](https://github.com/Xeverous) on GitHub) and all the frontend is done by <a style="font-weight: 300 !important;" href="mailto:miks.szymon@gmail.com">Szymon Miks</a>.
-

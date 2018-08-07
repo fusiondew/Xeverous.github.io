@@ -135,15 +135,17 @@ This is a bad habit coming from C89 where all local variables had to be declared
 
 ## arrays with non-constant size
 
-*ignoring lack of `std::array` for this one*
+*ignoring lack of `std::array`/`std::vector` for this one*
 
 ```c++
-int arr[n]; // where n is not a compile-time constant
+int n;
+std::cin >> n;
+int arr[n];
 ```
 
-This was never a valid C++ code.
+Arrays of non-constant size were valid in C99 but feature was optional. Feature has been removed in C11.
 
-This was only valid in C99 but the feature of arrays with non-constant size was optional. Feature has been removed in C11.
+This was never a valid C++ code.
 
 <div class="note warning">
 Many compilers accept it as non-standard extension. Note that there are no guuarantees on stack size and `n` big enough will cause undefined behaviour.
