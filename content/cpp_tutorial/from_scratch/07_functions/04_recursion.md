@@ -2,7 +2,7 @@
 layout: article
 ---
 
-In previous lesson you saw that it's possible to create a buggy program that never finishes - there were 2 functions calling each other. In some cases, it would never end (in reality it ends with a crash once the processor stack limit is reached).
+In previous lesson you saw that it's possible to create a buggy program that never finishes - there were 2 functions calling each other. In some cases, it would never end (in reality it ends with a crash once the processor stack limit is reached - you might need to wait really long for it though).
 
 There is also a special case of such calling - recursion.
 
@@ -137,7 +137,7 @@ $$
 
 ## recursion vs iteration
 
-All of recursive functions can also be written in iterative form. The iterative form is very often faster because calling a function recursively requires some overhead for each call (pushing return address onto the stack). However, it's not always easy to write an iterative form - many recursive functions have self-similarity and a good iterative implementation needs to optimize redundant calculations - for example $fib(5) = fib(4) + fib(3) = fib(3) + fib(2) + fib(2) + fib(1)$ will need to call $fib(2)$ 3 times and $fib(1)$ 2 times. Since recursion does not save the result anywhere, it's being lost and recomputed every time - iterative form can save some time on storing 2 previous results.
+All of recursive functions can also be written in iterative form. The iterative form is very often faster because calling a function recursively requires some overhead for each call (pushing return address onto the stack). A good iterative implementation can optimize out redundant calculations - for example $fib(5) = fib(4) + fib(3) = fib(3) + fib(2) + fib(2) + fib(1)$ will need to call $fib(2)$ 3 times and $fib(1)$ 2 times. Since recursion does not save the result anywhere, it's being lost and recomputed every time - iterative form can save some time on storing 2 previous results.
 
 ```c++
 #include <iostream>
@@ -183,7 +183,7 @@ Note that in the program above a lot of computation is still redundant - each ca
 
 ## recursive main
 
-The C++ standard explicitly forbids to call main function. You can not make the program call it's start, although some compilers may accept such code (then it has undefined behaviour).
+The C++ standard explicitly forbids to call main function. You can not make the program call it's start, although in reality compilers have no problems with such code (then it has undefined behaviour unless the compiler documentation specifies non-standard feature).
 
 ## summary
 

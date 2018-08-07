@@ -18,19 +18,12 @@ program structure
 operators
 	bit operators - theory (logic gates, link numberphile vid) (+DeMorgans law)
 
-pointers
-	pointers to pointers
-
 references
 	lvalue vs rvalue (the simpler form)
 	lvalue references
 	rvalue references
 	
 functions
-	syntax
-	void return type
-	declarations
-	recursion
 	overloading
 	default arguments
 	returns (return by reference, static variables, return multiple values)

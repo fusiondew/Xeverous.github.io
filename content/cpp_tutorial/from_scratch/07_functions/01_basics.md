@@ -2,7 +2,7 @@
 layout: article
 ---
 
-I assume you know what a *function* term means in math (a mapping from input to output). In programming it's very similar.
+You probably know what a *function* term means in math (a mapping from input to output). In programming it's very similar.
 
 TODO def
 
@@ -31,7 +31,7 @@ int f(int x)
 
 There are multiple noticeable things here:
 
-- `int` is used to indicate return type (on the left) and argument type (inside parentheses); `int` means *integer* - this function works with whole numbers
+- `int` is used to indicate return type (on the left) and argument type (inside parentheses) - also `int` 
 - the function is named `f` (longer names are also possible)
 - the function takes 1 argument named `x` which is an `int`eger
 - the function *returns* `x` multiplied by `x`
@@ -63,40 +63,12 @@ int square(int x)
 }
 ```
 
-- (1) - `int` - function return type. Indicates what type of result the function *returns*.
-- (2) - `square` - the name of the function
-- (3) - `(int x)` - function arguments and their types
-- (4) - everything between `{` and `}` - function body. This groups multiple statements
+- (1) - `int` - function return type. Indicates what type of result the function *returns*. If `void`, function does not have to have return statement.
+- (2) - `square` - the name of the function. In math functions often have short names, but in programming more descriptive ones are preferred.
+- (3) - `(int x)` - function arguments and their types. In practice, the reasonable maximum amount of arguments is 6, where 4+ should already be quite rare. More than this suggests a need for a refactor. Many functions may exceed this "reasonable limit" due to their unique purpose or strong convention. Don't treat this rule too seriously. In the case of 0 arguments, `()` still has to be written.
+- (4) - everything between `{` and `}` - function body. Braces are mandatory even if the body is just 1 statement.
 
-Functions form a reusable pieces of code. Function `square` can be called as many times as wanted without the need to write it's body again.
-
-### return type
-
-Indicates what's the type of the function result. Functions return a result (exactly once) when they reach `return` statement (works similar to `break`).
-
-It's possible not to return anything (return of type `void` - then no return statment is required) and return multiple data in the form of an object (requires knowledge of classes).
-
-The `return` statement can appear multiple times - functions may have multiple execution paths. Any return statement terminates the function.
-
-### name
-
-Just a name that will be used to call the function. Names do not have any restrictions on length - in math functions often have short names, but in programming more descriptive ones are preferred.
-
-### arguments
-
-Functions can take 0+ arguments as their input (any type). In practice, the reasonable amount of arguments is 0 - 6, where 6 is already quite rare. More than this would suggest a need for a refactor.
-
-syntax
-
-```c++
-(type1 arg1, type2 arg2, type3 arg3) // and so on...
-```
-
-Note that in the case of 0 arguments, `()` still has to be written.
-
-### body
-
-A group of statements. Free function bodies form their own local scope, which is able to access at most global objects. This may seem limiting but it's the core idea and advantage of functions - they do not mess with other code - the output of a stateless free function should depend only on the input
+Functions form reusable pieces of code. Function `square` can be called as many times as wanted without the need to write it's body again.
 
 ## examples
 
@@ -134,7 +106,8 @@ $$g(x, a, b) = (x + a)(x + b)$$
 ```c++
 int g(int x, int a, int b)
 {
-    // * is required in C++ - there is no implicit multiplication
+    // * is required - there is no implicit multiplication
+    // (x + a)(x + b) would only create syntax ambiguities
     return (x + a) * (x + b);
 }
 ```
@@ -147,6 +120,29 @@ int h(int x, int y, int z)
     return g(-abs(x), f(y), f(z)) - f(x);
 }
 ```
+
+This function does not return anything, so it's return type is `void`. It just wraps a reusable piece of code.
+
+```c++
+void greet()
+{
+    std::cout << "hello, world\n";
+}
+```
+
+Void functions do not need any return statement, but they may have one to end prematurely.
+
+```c++
+void print(int x)
+{
+    if (x < 0)
+        return;
+
+    std::cout << "x = " << x << "\n";
+}
+```
+
+The function above does not print anything if the argument is negative.
 
 ## missing return
 
@@ -164,7 +160,7 @@ int func(int x)
 }
 ```
 
-The function above has no defined return statements for all execution paths. In the case of `x == 0` the flow reaches end of the function without returning - this is **undefined behaviour**. Compilers should warn if they see there is a way through `if`s/`switch`es that does not end in a return statement.
+The function above has no defined return statements for all execution paths. In the case of `x == 0` the flow reaches end of the function without returning - this is **undefined behaviour**. Compilers warn if they see there is a way through `if`s/`switch`es that does not end in a return statement - they just check whether all possible paths hit a return statement.
 
 The solution is simple - and it works for any case - place a return at the end, out of any control flow:
 
@@ -194,18 +190,6 @@ int func(int x, int y)
 }
 ```
 
-## using functions
-
-Functions are simply called by their name and arguments.
-
-```c++
-// simples function call
-func1(arg1, arg2, arg3)
-
-// nested calls + assignment of the result
-int x = func1(arg1, arg2, func2(arg3, arg4));
-```
-
 ## full example
 
 Since it must be known inside the main function what other functions are, they need to be placed before the main function. If `f()` wanted to call any other function, it would need to have them above too.
@@ -221,15 +205,21 @@ int f(int x)
 int main()
 {
     int x = 5;
-    std::cout << f(x) << "\n";
+    int y = f(x);
+    std::cout << f(y) << "\n";
     std::cout << f(13) << "\n";
     std::cout << f(f(f(3))) << "\n"; 
 }
 ```
 
+## C++ standard library functions
+
+- Simplest mathematical functions are provided by `<cmath>` and `<cstdlib>` - [see reference](https://en.cppreference.com/w/cpp/numeric/math) for their list
+- [Special mathematical functions](https://en.cppreference.com/w/cpp/numeric/special_math) are available from C++17
+
 ## exercise
 
-Write and execute following functions:
+Write following functions:
 
 $$
 f1(x, y, p) = 
@@ -240,7 +230,7 @@ y^3 & \text{if not } p \text{ and } x = 0
 \end{cases}
 $$
 
-Hint: in the above function, `p` should be a parameter of type `bool`. Remember that `^` is not a power operator - at least now you have to write multiplications.
+`p` should be a parameter of type `bool`. Remember that `^` is bitwise XOR, not a power operator - use multiplication or `std::pow()` from `<cmath>`.
 
 $$
 f2(a, b) = 
@@ -261,7 +251,7 @@ f3(a, b) =
 \end{cases}
 $$
 
-Hint: write a helper function retuning absolute value. Note: you might get a name conflict if `abs()` from C happens to be available - use a different name. This is not a bug, but a consequence of implementation-defined header contents (more about it later).
+Hint: use a helper function inside - you own or `std::abs()`.
 
 <details>
 <summary>
@@ -276,7 +266,7 @@ int f1(int x, int y, bool p)
         return -x;
 
     if (x == 0) // test for x first, because it's easier to read x == 0 than x != 0
-        return y * y * y;
+        return y * y * y; // or std::pow(y, 3)
 
     return x * y; // could also be a part of else block
 }
@@ -302,7 +292,7 @@ int absolute(int x)
 
 bool f3(int a, int b)
 {
-    return absolute(a) == absolute(b);
+    return absolute(a) == absolute(b); // or std::abs(a) == std::abs(b)
 }
 ~~~
 

@@ -32,7 +32,7 @@ Function declaration does not need parameter names, only types.
 ```c++
 #include <iostream>
 
-void func(int, int); // ok, no body so names are not needed
+void func(int, int); // names are not needed
 
 int main()
 {
@@ -49,7 +49,7 @@ It's still recommended to always write names - in the current examples `x`, `y` 
 
 ## advantages of declarations
 
-Obviously, you no longer need to place the function before the main function. It's body can be anywhere, as long as it's declared before it's used. The body of the function can be placed even in a different source file!
+Obviously, you no longer need to place the function before the main function. It's body can be anywhere, as long as it's declared before it's used. The body of the function can be placed even in a different source file! *more about header vs source files later*
 
 Sometimes declarations are necessary - the simplest example are 2 functions that call each other.
 
@@ -114,7 +114,8 @@ int main()
 <details>
 <summary>output</summary>
 <p>
-<pre><code>
+
+~~~
 foo: 5
 bar: 4
 foo: 3
@@ -129,7 +130,7 @@ bar: 1
 bar: 3
 foo: 2
 bar: 1
-</code></pre>
+~~~
 </p>
 </details>
 
@@ -182,7 +183,7 @@ int main()
 
 <details>
 <summary>answer</summary>
-<p>0 can not be catched and in effect the program never finishes - all subsequent calls decrease number even more.</p>
+<p>0 can not be catched and in effect the program never finishes - all subsequent calls decrease the number even more.</p>
 </details>
 
 - What happens if the premature return statement is removed from one of functions?
