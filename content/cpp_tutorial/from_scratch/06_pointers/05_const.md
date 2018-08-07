@@ -49,7 +49,7 @@ const int* ptr; // good, clear separatino of type and name
 const int *ptr; // bad habit from C, it's not named *ptr neither unary operator
 
 const int* const ptr; // good, const pointer to const int
-const int *const ptr; // [syntax used on guidelines] also good:
+const int *const ptr; // [syntax used on guidelines] also good because stuff is grouped
 //        ^^^^^^ "const pointer to"
 //^^^^^^^ "const int"
 ```

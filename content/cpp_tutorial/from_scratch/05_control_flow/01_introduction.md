@@ -20,4 +20,4 @@ Multiple control flow keywords exist - all of these do similar things. The key i
 In programming, there is <s>often</s> almost always a situation where multiple solutions are possible. The key is to choose appropriately - overgeneric solutions are easy to <s>use</s> abuse and create more doubt than certainty. When possible, use more specific solutions which are better suited for the task.
 </div>
 
-Exceptions are much more complex compared to the rest and their core purpose is not control flow. They will be explained much much later.
+Exceptions are much more complex compared to the rest and their core purpose is not control flow but error handling. They will be explained much much later.

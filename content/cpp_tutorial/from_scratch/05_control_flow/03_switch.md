@@ -11,7 +11,7 @@ switch (variable)
 switch (init-statement; variable) // since C++17
 ```
 
-Then, multiple `case`s may follow. Each case must use a constant expression (some data available at compile time)
+Then, multiple `case`s may follow. Each case must use a constant expression (data available at compile time)
 
 ```c++
 // all cases must use a different value
@@ -58,8 +58,6 @@ you entered 0 or a higher number
 
 The case `2` is matched and the execution begins there. All subsequent cases are also executed - they are not checked if they match - the flow simply goes further.
 
-TODO better example?
-
 ## break
 
 You can input a `break` statement to stop the execution
@@ -71,7 +69,7 @@ You can input a `break` statement to stop the execution
     // for 4 and 5, prints "45"
     // for 6, prints "6"
     // for anything else, does nothing
-    switch (2)
+    switch (x)
     {
         case 1: std::cout << "1";
         case 2: std::cout << "2";
@@ -112,7 +110,7 @@ int main()
 }
 ```
 
-## default
+## default case
 
 You can add `default` case which will be executed only if no other cases were matched. This is equivalent to last `else` (with no following condition) in an `else-if` block.
 
@@ -207,6 +205,6 @@ Switch comes from C and features a quite unique behaviour - it jumps to the firs
 - all cases must use a constant expression
 - you can only test for equality
 
-Because of these, switch in C++ is used mostly as an alternative, shorter version of else-if blocks, most often for enumerations. The possibility of accidental fallthrough can be a good source of bugs, most compilers warn if any case has no break. If a fallthrough is intentional, document it with a comment (smart compilers will understand comments like `// fallthrough`) or an attribute (attributes are explained later).
+Because of these, switch in C++ is used mostly as an alternative, shorter version of else-if blocks, most often for enumerations. The possibility of accidental fallthrough can be a good source of bugs but most compilers warn if any case has no break. If a fallthrough is intentional, document it with a comment (smart compilers will understand comments like `// fallthrough`) or an attribute (attributes are explained later).
 
-TODO some tests?
+TODO exercise?

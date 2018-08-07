@@ -7,7 +7,6 @@ layout: article
 TODO def block
 
 <div class="note success">
-#### Dangling pointer
 
 A dangling pointer is a pointer that holds memory address which is no longer valid.
 
@@ -33,6 +32,11 @@ int main()
 ```
 
 The program above invokes undefined behaviour. It is because `x` lifetime ended and whatever memory it occupied can now be owned by the system or given to another program. You can't read/write to memory which is not yours, hence the crash.
+
+<div class="note warning">
+
+The above program may work for you. It's possible because UNDEFINED BEHAVIOUR MEANS EVERYTHING CAN HAPPEN, including "seems to work". Do not rely on this, it's just a random accident where you got lucky.
+</div>
 
 ### uninitialized pointer
 
@@ -67,7 +71,6 @@ int* ptr = nullptr;
 `nullptr` is defined as universal representation of unknown address of it's own type (notably `std:nullptr_t`) which is implicitly convertible to any other pointer type. You can compare this to booleans: `bool` is a type capable of holding only 2 values: `true` and `false`. `std::nullptr_t` is a type capable of holding only 1 value: `nullptr`. Booleans are implicitly convertible to integers. Null pointers are implicitly convertible to any pointer type.
 
 <div class="note warning">
-#### NULL
 
 In a lot of C or old C++ code, you will see `NULL`. It's a macro that is used in C to represent null pointers.
 

@@ -17,7 +17,6 @@ int x_array[3];
 ```
 
 <div class="note pro-tip">
-#### array names
 
 Because arrays hold multiple values at once, it's recommended to use plural forms. `int number[10]` might cause problems in understanding what it represents but `int numbers[10]`  speaks for itself.
 </div>
@@ -33,7 +32,7 @@ int arr[10];
 int[10] arr;
 ```
 
-It's natural to think that `arr` is of type `int[10]` which means that it's an array of 10 integers. The original syntax from C was left in C++ as-is due to backwards compability. The good part is that you will not use the above syntax a lot - in few chapters later you will learn about `std::array` and why `std::array<int, 10> arr` is much better than `int arr[10]`.
+It's natural to think that `arr` is of type `int[10]` which means that it's an array of 10 integers. The original syntax from C was left in C++ as-is due to backwards compability. The good part is that you will not use the above syntax a lot - in few chapters later you will learn about `std::array` and why C++ array class is superior.
 
 Just remember the above fact, plain arrays will not be used a lot because there are better alternatives which use more advanced language features.
 
@@ -53,13 +52,15 @@ int arr[5];
 arr = { 2, 5, 6, -1, -4 }; // will not compile
 ```
 
+**Arrays can never be assigned to.**
+
 ## default initialization
 
 ```c++
 int arr[5]; // contents are unknown, likely garbage values (uninitialized memory)
 int arr[5] = { }; // all values are default-constructed - for integers it means all elements are 0
 int arr[5] = { 10, 20, 30 }; // first 3 elements are 10, 20, 30 rest is 0
-int arr[5] = { 10, 20, 30, 40, 50, 60 } // error: too many elements
+int arr[5] = { 10, 20, 30, 40, 50, 60 }; // error: too many elements
 ```
 
 ## automatic size deduction
@@ -160,7 +161,7 @@ int arr[3] = { 3, 1, 4 };
 std::cout << arr << "\n"; // no subscript
 ```
 
-Works but prints something like `0x7fff9ce500a0`. This is not a bug - arrays are closely related to pointers and in this case `arr` was treated like a pointer - the printed value is the memory address of the array. You will learn about this in a couple of lessons.
+It works but prints something like `0x7fff9ce500a0`. This is not a bug - arrays are closely related to pointers and in this case `arr` was treated like a pointer - the printed value is the memory address of the array. You will learn about this in a couple of lessons.
 
 ## variable length arrays
 
@@ -169,17 +170,16 @@ It might be tempting to do something like
 ```c++
 int size; // not const!
 std::cin >> size;
-int arr[size] = { };
+int arr[size];
 ```
 
 This is not a valid C++. Array size, must be a compile-time constant. It is because the array contents are allocated on the stack and the compiler must know the size of memory to allocate - otherwise further instructions fechted in the processor could be skipped and/or started at the wrong place.
 
-The code above *may* compile. Non-constant array size was a feature in C89, but it has been made optional in C99 - it is too dangerous to risk the stack corruption.
+The code above should not compile. 
 
 <div class="note info">
-#### VLAs (variable length arrays)
 
-Dynamic array size was a feature in C89 to potentially boost performance. It was found to be risky due to possible stack corruption and made an optional feature in C99.
+Non-constant array size was a feature in C89, but it has been made optional in C99 and completely removed in C11.
 
 Dynamic array size was never a valid code in any C++ standard. If you manage to build such code, you are using compiler-specific non-standard extentions.
 </div>

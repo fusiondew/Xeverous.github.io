@@ -113,3 +113,6 @@ for (int y = 0; y < size_y; ++y)
     }
 }
 ```
+
+Recommended solution is to use lambdas or functions. Return statements end entire function or lambda expression.
+ 

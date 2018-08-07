@@ -52,11 +52,12 @@ int main()
 }
 ```
 
-Note: **the do-while loop ends with a semicolon**.
+TODO important block
+
+**Note:** the do-while loop ends with a semicolon.
 
 <div class="note info">
-#### do-while usage
-<i class="fas fa-info-circle"></i>
+
 Do-while loops are rarely used. Almost always the condition is needed to be checked before loop statements. Do-while loops may be hard to read if they span multiple lines - you can always refactor these by changing order of statements.
 </div>
 

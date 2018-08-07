@@ -18,22 +18,7 @@ program structure
 operators
 	bit operators - theory (logic gates, link numberphile vid) (+DeMorgans law)
 
-control flow
-	brief: control flow, why not just jumps
-	goto
-	if
-	switch
-	while
-	for
-	loop control (break, continue)
-
 pointers
-	arrays
-	nested arrays
-	pointers
-	null pointers
-	const
-	pointers and arrays
 	string literals
 	void pointers
 

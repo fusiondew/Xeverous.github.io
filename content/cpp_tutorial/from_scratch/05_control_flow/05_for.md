@@ -13,7 +13,7 @@ There is a special construct that is intended to use these 2 on the same line, t
 
 The syntax is as follows:
 
-```
+```c++
 for (initialization; condition; step)
 {
     loop_body
@@ -22,19 +22,21 @@ for (initialization; condition; step)
 
 Which works as:
 
-```
-initialization;
-
-while (condition)
+```c++
 {
-    loop_body
-    step
-}
+    initialization;
+
+    while (condition)
+    {
+        loop_body
+        step
+    }
+} // initialized variable dies after the loop
 ```
 
 Initialization comes handy as often you will need a new variable to control the loop (eg what user is writing) but you may not get the point of the step part - why would someone want to split part of the loop body and put it somewhere else?
 
-The key is the purpose of the step. It's intended to modify the loop control, something that can affect the condition. In almost all `for` loops, intialization, condition and step all use the same variable. This variable is commonly named `i` (from index or iteration) and it's name is a very strong convention. The body of the loop should not change `i`.
+The key is the purpose of the step. It's intended to modify the loop control, something that can affect the condition. **In almost all `for` loops, intialization, condition and step all use the same variable.** This variable is commonly named `i` (from index or iteration) and it's name is a very strong convention. The body of the loop should not change `i`.
 
 See an example to grasp the concept - the same program, printing numbers from 0 to 9 written using different types of loops.
 
@@ -67,8 +69,7 @@ int main()
 The specific advantage of a `for` loop is that the stop condition is closely related to the step. All instructions use `i`, but the body of the loop do not interfere with the exit. In contrast, in `while` loops usually the body was doing something with `n` (or `x`, depends how you name it) that affected when the loop will stop.
 
 <div class="note info">
-#### for loops
-<i class="fas fa-info-circle"></i>
+
 For loops are best suited if you know ahead what's the exit condition and how many times you want to repeat the instruction. The loop body should not modify `i`.
 </div>
 
@@ -99,7 +100,7 @@ for (int i = 0; i < N; ++i) // iterates in range [0, N-1]
 
 An even better example is to showcase nested loops. Think how would you attempt to write such table:
 
-```
+~~~
 0 1 2 3 4 5 6 7 8 9 
 10 11 12 13 14 15 16 17 18 19 
 20 21 22 23 24 25 26 27 28 29 
@@ -110,7 +111,7 @@ An even better example is to showcase nested loops. Think how would you attempt 
 70 71 72 73 74 75 76 77 78 79 
 80 81 82 83 84 85 86 87 88 89 
 90 91 92 93 94 95 96 97 98 99 
-```
+~~~
 
 ```c++
 #include <iostream>
@@ -133,7 +134,7 @@ How it works:
 
 - the `j` variable is controlling lines (from 0 to 9)
 - the `i` variable is controlling numbers from 0 to 9 on the given line
-- the value is formed from multiplication - eg line 5 (`j == 5`), number (`i == 3`) is equal to `j * 10 + i` which is 53
+- the value is formed from multiplication - eg line 5 (`j == 5`), number 3 (`i == 3`) is equal to `j * 10 + i` which is 53
 - the linebreak is printed after each line - note that if you place the line break in the inner loop the output would make a new line for each number, not a row
 
 **loop counter naming**
@@ -198,6 +199,8 @@ while (n--)
 ```
 
 The loop counter decreases each iteration as long as it is not 0 (`0` converted to `bool` evaluates to `false`), essentially invoking the body `n` times. With this trick `n` in the loop body is rarely used - usually the body of the loop is always the same - focus is on the number of repeats, not the body chaning depending on the `n`.
+
+Note that in the for loop you get `i` with values 0, 1, 2, ..., N-1 but with the while loop you get `n`: N, N-1, N-2, ..., 3, 2, 1.
 
 ## exercise
 

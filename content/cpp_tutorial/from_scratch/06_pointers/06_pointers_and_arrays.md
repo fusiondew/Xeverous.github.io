@@ -24,10 +24,10 @@ You can set a pointer to point to an array.
 
 ```c++
 int arr[10];
-int* ptr = arr; // set the pointer to (the start) of this array
+int* ptr = arr; // set the pointer to (the start of) the array
 ```
 
-TODO &arr\[0\]
+The line above applies implicit convertion - `arr` is converted from `int[10]` to `int*`. This specific implicit convertion is known as **array to pointer decay**.
 
 ## pointer arithmetics
 
@@ -38,14 +38,14 @@ We can iterate over an array using pointers.
 
 int main()
 {
-    const int arr_size = 10;
+    constexpr int arr_size = 10;
     int arr[arr_size];
 
     // make the array hold { 0, 10, 20, 30, ... }
     for (int i = 0; i < arr_size; ++i)
         arr[i] = i * 10;
 
-    // conventional array print
+    // print array
     for (int i = 0; i < arr_size; ++i)
         std::cout << arr[i] << " ";
 
@@ -67,7 +67,7 @@ The most important thing here is that `sizeof(int)` is likely not `1` (it's `4` 
 
 int main()
 {
-    const int arr_size = 10;
+    constexpr int arr_size = 10;
     int arr[arr_size];
 
     // make the array hold { 0, 10, 20, 30, ... }
@@ -104,7 +104,7 @@ Now test it with some different type:
 
 int main()
 {
-    const int arr_size = 10;
+    constexpr int arr_size = 10;
     long long arr[arr_size];
 
     // make the array hold { 0, 10, 20, 30, ... }
@@ -145,7 +145,6 @@ Note: you may get different results on different systems. These examples were ru
 TODO def block
 
 <div class="note success" markdown="block">
-#### pointer aritchmetics
 
 Adding (or subtracting) an integer to (or from) a pointer moves it forward (or backward) `sizeof(pointed type)` bytes.
 
@@ -158,14 +157,14 @@ Pointer arithmetic rules make it easy to move across the arrays - by adding `i` 
 
 ## subscript on pointers
 
-The subscript operator (`[]`) actually works on pointers. When you do `arr[i]` in fact the `arr` is first (implicitly) converted to a pointer, then the operator is applied on it.
+The subscript operator (`[]`) actually works on pointers. When you do `arr[i]` in fact the `arr` is first (implicitly) decayed to a pointer, then the operator is applied on it.
 
 ```c++
 #include <iostream>
 
 int main()
 {
-    const int arr_size = 10;
+    constexpr int arr_size = 10;
     int arr[arr_size];
 
     // make the array hold { 0, 10, 20, 30, ... }
@@ -201,7 +200,6 @@ Technically, they are different types. This may seem hard to observe but note th
 
 The other difference is that an array knows it's size. In the example above, `arr` is of type `int[10]` but `ptr` is of type `int*`. The array type knows where it starts in memory and how many elements it has, the pointer knows only the start place in memory.
 
-`sizeof(arr)` gives the size (in bytes) of the memory occupied by all elements of the array (size of the entire block).
+`sizeof(arr)` gives the size (in bytes) of the memory occupied by all elements of the array (size of the entire array block).
 
 `sizeof(ptr)` gives the size of the pointer in memory (4 bytes on 32-bit systems, 8 bytes on 64-bit systems).
-

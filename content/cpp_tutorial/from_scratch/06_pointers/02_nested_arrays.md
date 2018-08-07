@@ -45,7 +45,6 @@ for (int y = 0; y < 5; ++y) // note the order: the outer dimension has size 5
 TODO note definition
 
 <div class="note success">
-#### Array dimentions
 
 Array dimensions start from the most outer to the most inner: `int arr[Z][Y][X]`. X is in the loop at the biggest depth, Z on the outside.
 
@@ -58,7 +57,6 @@ for (int z = 0; z < size_z; ++z)
 </div>
 
 <div class="note warning">
-#### Array loops
 
 A lot of crashes can happen due to wrongly written loops. Make sure you iterate correcty (from outside to inside).
 
@@ -70,10 +68,8 @@ for (int x = 0; x < size_x; ++x)
         std::cout << arr[x][y] // swapped access
 ```
 
-This works due to a "double negative" effect but it has degraded performance - memory is not accessed byte-after-byte but 
+This works due to a "double negative" effect but it has degraded performance - memory is not accessed sequentially.
 </div>
-
-
 
 ## size deduction
 
@@ -81,7 +77,7 @@ Only the most outer size can be ommited
 
 ```c++
 // valid
-int arr[3][] = {
+int arr[][3] = {
     { 1, 2, 3 },
     { 2, 4, 6 },
     /* ... more possible arrays of 3 */
@@ -93,7 +89,9 @@ int arr_size = sizeof(arr) / sizeof(arr[0]); // note that arr[0] is not an integ
 
 // invalid
 int arr[][] = { /* ... */ };
-int arr[][3] = { /* ... */ };
+int arr[3][] = { /* ... */ };
 int arr[3][][] = { /* ... */ };
 int arr[3][][3] = { /* ... */ };
 ```
+
+This gets very messy. Later, you will learn about C++ classes which solve this problem.

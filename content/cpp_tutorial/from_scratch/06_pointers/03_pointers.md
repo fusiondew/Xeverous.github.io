@@ -2,10 +2,10 @@
 layout: article
 ---
 
-<div class="note success">
+<div class="note info">
 This lesson is very important. **Understanding pointers is crucial in understanding tons of other language features**. Focus on the topic and do not leave a spot for any doubt.
 
-Pointers are commonly listed as one of the most complicated C (and C++) language features. There are many explanations on the internet available. If something in this lesson is unclear - find a different article on the internet but also don't forget to message me and inform what needs more examples/better explanation.
+Pointers are commonly listed as one of the most complicated C (and C++) language features. There are many explanations on the internet available. If something in this lesson is unclear - find a different article on the internet but also don't forget to message me and inform what and how can be improved.
 </div>
 
 ## theory
@@ -113,7 +113,6 @@ Visualization:
 It is the opposite of address-of operator. It reads the value stored in the given address.
 
 <div class="note info">
-#### same symbol for different operators
 
 Unary `*` is the dereference operator: `*x`.
 
@@ -210,7 +209,6 @@ And so it is used across the entire website. All asterisks that are part of the 
 **Note:** the problem above is not only about `*`, it applies to other type modifiers too. This includes `&`, `&&`, `const`, `volatile` and `...`.
 
 <div class="note pro-tip">
-#### asterisk alignment
 
 Stick asterisks and other type modifiers to the type name.
 
@@ -265,6 +263,7 @@ Thit should not be surprising - the contents of the pointer are equal to the add
 --+---+---+---+---+---+---+---+---+---+---+---+---+---+--
   |   |   |   |   | 0x7ffd4e6c179c|   |   |   |   |   |
 --+---+---+---+---+---+---+---+---+---+---+---+---+---+--
+                    ^ somewhere_else
 ```
 
 The variable `x` is of type `int` and holds `10` (a numeric value).
@@ -289,7 +288,7 @@ There were some possible workarounds for 32-bit systems, similar to using multip
 
 The limit for 64-bit computers is far larger, namely $2^{64}$ which is ${2^{32}}^2$ which is $4294967296^2$ bytes which is $18446744073709551616$ bytes which is $16$ exabytes. So far enough.
 
-Fun fact: current computers have actually 48-bit address bus. No one currently needs more than 256 terabytes on one computer so hardware manufacturers just save money on transistors which would always only store 0s; [more info](https://stackoverflow.com/questions/6716946/why-do-64-bit-systems-have-only-a-48-bit-address-space).
+Fun fact: current computers have actually 48-bit address bus. No one currently needs more than 256 terabytes on one computer so hardware manufacturers just save money on transistors which would always only store 0s. [More info.](https://stackoverflow.com/questions/6716946/why-do-64-bit-systems-have-only-a-48-bit-address-space)
 
 ## pointer usage - example 1
 
@@ -353,9 +352,7 @@ int main()
 
 Can you deduce the output before you run the program? If so, you understood the lesson well.
 
-TODO fix formatting
-
-<div><details>
+<details>
 <summary>
 output
 </summary>
@@ -373,7 +370,7 @@ y = -100
 ~~~
 
 </p>
-</details></div>
+</details>
 
 ## exercise
 
@@ -389,7 +386,7 @@ Find all the mistakes in this code:
 int x = 100;
 int y = 3;
 int* ptr = &x;
-ptr = &y;
+ptr = y;
 *ptr = 2 * ptr;
 *ptr = &y;
 ```
@@ -419,4 +416,12 @@ ptr = &y;
 *ptr = y;
 ```
 
-TODO solution
+<details>
+<summary>answer</summary>
+<p>
+
+The first line assigns to the pointer the address of `y`.
+
+The second line assigns `y` to the value located at the address stored in the pointer.
+</p>
+</details>
