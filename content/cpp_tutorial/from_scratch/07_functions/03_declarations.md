@@ -134,6 +134,57 @@ bar: 1
 </p>
 </details>
 
+## `(void)`
+
+A remnant of C you might see is the unnecessary `void` inside declarations
+
+In C, empty parentheses declare a function but express that function arguments are unspecified. This is known as old C (pre C89) or K&R C declaration.
+
+```c++
+// C
+void f();     // declares a function with unspecified argument amount and types
+void g(void); // declares a function
+
+f(1, 2, 3); // will compile, but it will be undefined behaviour if actual function does not take 3 parameters of type int
+g(1, 2, 3); // will not compile
+
+// C++
+void f();     // declares a function
+void g(void); // declares a function, bad style in C++
+
+f(1, 2, 3); // will not compile
+g(1, 2, 3); // will not compile
+```
+
+In C, to correctly declare a function taking no parameters `(void)` must be written. There is no such problem in C++.
+
+<div class="note pro-tip">
+
+Don't write unnecessary `void` in function declarations.
+</div>
+
+## ODR
+
+TODO def block
+
+**One Definition Rule**
+- **declaration** can appear multiple times as long as every is the same
+- there can be only 1 **definition**
+- every definition is also a declaration
+
+```c++
+void func(); // declaration
+void func(); // ok, same declaration
+void func(void); // ok, same declaration (just with bad style)
+
+void func() {} // definition
+void func() {} // error: redefinition
+```
+
+This is very trivial but ODR will be a very crucial thing when learning how to split code into *header* and *source* files (which are roughly declaration and definition files).
+
+A function declaration specifies **function type**. The type of `void func(int x, int y)` is `void(int, int)`.
+
 ## exercise
 
 - Swap the order of the functions and place `bar()` first. Declare what's needed.

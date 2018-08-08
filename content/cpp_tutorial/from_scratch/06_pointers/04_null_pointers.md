@@ -62,13 +62,13 @@ There is a similar concept for pointers - a special value, which says "this poin
 
 You may ask - but what's the value of null pointer? Some fixed `0xhexnumber`? It is actually system-specific, but so far for any hardware I have seen it was `0x00000000` which makes a lot of sense.
 
-C++ has a keyword for it - `nullptr`. It represents this system-specific value.
+Since 2011 update of C++ it has a keyword for it - `nullptr`. It represents this system-specific value.
 
 ```c++
 int* ptr = nullptr;
 ```
 
-`nullptr` is defined as universal representation of unknown address of it's own type (notably `std:nullptr_t`) which is implicitly convertible to any other pointer type. You can compare this to booleans: `bool` is a type capable of holding only 2 values: `true` and `false`. `std::nullptr_t` is a type capable of holding only 1 value: `nullptr`. Booleans are implicitly convertible to integers. Null pointers are implicitly convertible to any pointer type.
+`nullptr` is defined as universal representation of unknown address of it's own type (notably `std:nullptr_t`) which is implicitly convertible to any other pointer type. Analogy: `bool` is a type capable of holding only 2 values: `true` and `false`. `std::nullptr_t` is a type capable of holding only 1 value: `nullptr`. Booleans are implicitly convertible to integers. Null pointer type is implicitly convertible to any other pointer type.
 
 <div class="note warning">
 
@@ -76,13 +76,14 @@ In a lot of C or old C++ code, you will see `NULL`. It's a macro that is used in
 
 This macro (because it's macro) causes a lot of problems due to it's text replacement. In C, it is defined as `((void*)0)` which would not form valid C++ code. For backwards compability, `NULL` in C++ either is just `0` or something `__compiler_specific`.
 
-`0` has a special rule that it can be used as a null pointer (not an integer). This rule is only for character `0`, no other numbers can be assigned to pointers. It is a remnant of old times where type safety was not thought of as important as it is now.
+`0` has a special rule that it can be used as a null pointer (not an integer). This rule is only for character `0`, no other numberic expressions can be assigned to pointers. It is a remnant of old times and kept for backwards compatibility.
 
 The consequences of using `NULL` in C++ can be quite harsh. Mostly because of it being treated like integer, not pointer (broken type safety). Example bugs are different function calls than intended, different program behaviour on different compiler or weird compiler errors related to templates.
 </div>
 
 <div class="note pro-tip">
-DO NOT EVER USE `NULL` MACRO. Use proper keyword `nullptr`.
+
+DO NOT EVER USE `NULL` MACRO OR `0`. Use the keyword `nullptr`.
 </div>
 
 ## null pointer print
@@ -94,7 +95,6 @@ int main()
 {
     // this actually does't compile because nullptr is not assigned to any type
     // and standard stream does not know how to print value of type std::nullptr_t
-    // full details why it is so will be explained at function overloading
     // std::cout << nullptr;
 
     // so just use any specific pointers

@@ -11,13 +11,14 @@ void print_nums(int x)
         std::cout << i << " ";
 }
 
+
+// If we assume that `print_nums` is very often called with `10`, we can write a
+// convenience overload that will just call the main version with preset argument:
 void print_nums()
 {
     print_nums(10);
 }
 ```
-
-If we assume that `print_nums` is very often called with `10`, we can write a convenience overload that will just call the main version with preset argument.
 
 However, there is a simpler way to do this:
 
@@ -36,7 +37,7 @@ print_nums();   // uses 10
 print_nums(20); // uses 20
 ```
 
-### rules
+## rules
 
 - it is possible to have multiple default arguments
 
@@ -55,13 +56,15 @@ void func5(int a = 0, int b = 5, int c);      // invalid
 void func6(int a = 0, int b,     int c = 10); // invalid
 ```
 
-### more complex rules
+This should be obvious as you can ommit only the rightmost arguments.
 
-**You do not have to remember these rules. They are borderline cases of the language and the code that relies on them is a bad code. Listed only for reference - you should not use these rules.**
+## more complex rules
 
-<div class="note pro-tip">
-Write function declaration only once, with everything needed. Don't redeclare to add/fix something - change first declaration instead.
-</div>
+**You do not have to remember these rules. They are borderline cases of the language and the code that relies on them is a bad code. Listed only for reference.**
+
+<details>
+<summary>corner-case rules</summary>
+<p markdown="block">
 
 - If a function is **redeclared in the same scope**, default arguments can be added.
 
@@ -76,6 +79,10 @@ void h()
 
 void f(int x = 0, int y); // ok, adds default argument (specifying y again would be an error)
 ```
+
+<div class="note pro-tip">
+Write function declaration only once, with everything needed. Don't redeclare to add/fix something - change first declaration instead.
+</div>
 
 - If an `inline` function is declared in different translation units, the accumulated sets of default arguments must be the same at the end of each translation unit.
 
@@ -138,10 +145,13 @@ void f()
 
 - \[...\] more rules regarding pointers, classes and lambdas (ommited because explained later). Full information: https://en.cppreference.com/w/cpp/language/default_arguments
 
-### advantages of default arguments
+</p>
+</details>
+
+## advantages of default arguments
 
 - Less code - better than wrappers like the one in the beginning of this lesson. Easier to maintain than putting a value at every call.
 - Refactoring. Not so rare scenario: some function needs to have additional functionality due to different/new requirements. All the code that is already using the function works, adding a new argument with default value will not break it - in new use cases, you will be able to specify new argument and all of existing uses can rely on default argument
 - Extensibility. You can add new argument with defaulted value and it will not break the code, only add a possibility to specify it.
 
-Last 2 are common practices when writing libraries. They extend the functionality while not breaking code compatibility.
+Last 2 are common practices when writing libraries. They extend the functionality while not breaking compatibility of existing code.

@@ -24,11 +24,8 @@ references
 	rvalue references
 	
 functions
-	overloading
-	default arguments
-	returns (return by reference, static variables, return multiple values)
+	static variables
 	function pointers
-	ellipsis
 
 dynamic memory
 	theory
@@ -109,7 +106,6 @@ miscellaneous
 	trigraphs
 
 missing
-	overflow
 	underflow
 	implcit convertions
 	converting constructors
@@ -128,7 +124,6 @@ missing
 	vector, vector of references
 	function pointers, void pointers and member pointers are not compatible
 	multiple inheritance - multiple vtable pointers
-	function type vs function signature
 	rule of 3/5/0
 	bitmask operations
 	alternative tokens (compl, bitand etc)
@@ -154,6 +149,9 @@ articles
 		null-terminated strings
 		errno
 		qsort()
+		(void)
+		default int
+		macro solutions (keywords, complex type exception)
 		
 learncpp problems
 	NULL

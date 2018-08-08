@@ -62,14 +62,14 @@ x after multiplying: 20
 x = 20
 ~~~
 
-This time it works. The function still gets the copy of the argument, but this time it's the copy of a pointer - the function is able to access original variable. This works even if you change the name of `x` - the function argument has it's own scope - in this case the main function has own variable `x` of type `int` and the custom function has the argument named `x` of type `int*`.
+This time it works. The function still gets the copy of the argument, but this time it's a copy of the pointer - the function is able to access original variable. This works even if you change the name of `x` - the function argument has it's own scope - in this case the main function has own variable `x` of type `int` and the custom function has the argument named `x` of type `int*`.
 
 The body of the function had to be changed - `x` was changed to `*x` because the pointer has to be dereferenced.
 
 Advantages of passing pointers:
 
 - You can work on the original variable and the result will stay.
-- Pointers have fixed length for the given system. Copying heavy types can be expensive
+- Pointers have fixed length for the given system. Copying large structures can be expensive
 
 Disadvantages of passing pointers as arguments:
 
@@ -81,7 +81,7 @@ To solve these problems, **references** have been created.
 
 ## passing references
 
-References keep the ordinary type semantics, but work like pointers.
+References are just hidden pointers but keep the same syntax as regular objects. Because of their restrictions, they can sometimes be optimized better than plain pointers.
 
 ```c++
 #include <iostream>
@@ -107,7 +107,7 @@ x after multiplying: 20
 x = 20
 ~~~
 
-Note how all syntax is back again like `x` was plain `int`, but the function works on the same `x`.
+All syntax is back again like `x` was plain `int`, but the function works directly on the argument.
 
 ## references
 
@@ -120,8 +120,8 @@ int& ref; // reference to integer
 ```
 
 <div class="note warning">
-<h4>&</h4>
 <p markdown="block">
+
 Do not confuse `&` applied to the type and `&` applied to the variable
 
 - `&` applied to the variable is the address-of operator. Expression `&x` returns an address
@@ -141,7 +141,7 @@ int main()
     int y = 10;
     // note that pointers operate on adresses but references work directly
     int* ptr = &x; // create an integer pointer equal to the address of x
-    int& ref = y;  // create an integer reference equal to the variable y
+    int& ref = y;  // create an integer reference bound to the variable y
 
     std::cout << "x = " << x << "\n";
     std::cout << "y = " << y << "\n";
@@ -168,7 +168,7 @@ x address = 0x7ffe2c70f628
 y address = 0x7ffe2c70f62c
 ~~~
 
-## refeence initialization
+## reference initialization
 
 When a reference is created, it is being set to be an alias of some concrete object. Further assignments do not re-bind the reference but change the referenced object
 
@@ -184,15 +184,15 @@ int main()
     int& ref = a; // create an alias "ref" that works like "a"
     std::cout << "referenced value: " << ref << "\n";
 
-    // HOW IT WORKS: referenced variable is set to b
+    // HOW IT WORKS: referenced variable is assigned value of b
     // HOW IT DOES NOT WORK: reference is set to alias "b"
     ref = b;
 
-    std::cout << "referenced value: " << ref << "\n"; // we still print a, but a was changed
+    std::cout << "referenced value: " << ref << "\n";
     std::cout << "b = " << b << "\n";
 
-    ref = c; // referenced variable (a) is set to the value of c
-    std::cout << "referenced value: " << ref << "\n"; // we still print a
+    ref = c; // referenced variable (a) is assigned value of c
+    std::cout << "referenced value: " << ref << "\n";
     std::cout << "b = " << b << "\n"; // b is unchanged
 }
 ```
@@ -218,7 +218,7 @@ int main()
     int& ref2 = nullptr; // error: invalid initialization of non-const reference of type 'int&' from an rvalue of type 'std::nullptr_t'
 
     int* ptr = nullptr;
-    int& ref3 = *ptr; // null pointer dereference is undefined behaviour
+    int& ref3 = *ptr; // this will compile but has undefined behaviour
 }
 ```
 
@@ -246,22 +246,25 @@ int main()
 }
 ```
 
-**References can not be nested. A reference to reference can not exist - it will collapse instead and alias the original variable.**
+**There are two categories of references:**
 
-`int&&` is a valid syntax, but actually it means something other than a usual reference.
+- `type&` - **lvalue reference**
+- `type&&` - **rvalue reference**
+
+They have 1 but very important difference which you do not need to know now. For now, all code will use lvalue references.
+
+**Unlike pointers, references can not be nested.**
 
 ```c++
 int x = 100;
 int& ref = x;
-// int&& // different token, explained later
 int& & refref = ref; // error: can not create reference to a reference
+// int&& // different reference, explained later
 ```
-
-Nonetheless the code above will not compile, but the reason will be very different - the compiler will not output that nested references are impossible, but something about **lvalue** vs **rvalue**. This is a quite complicated topic (value types), it's explained later, including the difference between `&` and `&&` reference.
 
 **References can not be themselves const. They can alias const objects, but since a reference can not be rebound it itself is always implicitly const.**
 
-Don't get this rule wrong: you *can* write `const` with a reference declaration. But it does not mean that the reference is const - it means that the referenced object is const. References themselves are always const, because they can't be rebound. So `int&` has similar restrictions to `int* const` and `const int&` to `const int* const`.
+Don't get this rule wrong: you *can* write `const` with a reference declaration. But it does not mean that the reference is const - it means that the referenced object is const. References themselves are always const, because they can't be rebound. So `int&` is already like `int* const` and `const int&` like `const int* const`.
 
 ```c++
 int x = 10;
@@ -279,9 +282,11 @@ ptr2 = &y; // error: ptr2 is const
 int& ref1 = x;
 ref1 = y; // does not rebind, instead changes the value of x
 
-// invalid syntax
+// invalid
 int& const ref2 = x;
 ```
+
+The key is to understand that first `=` performs initialization which binds the reference to some object and any subsequent `=` is normal value assignment.
 
 **References do not offer pointer arithmetics. They have semantics of aliased type.**
 
@@ -296,23 +301,39 @@ ptr[3]  // accesses 3rd value
 
 // value semantics - uses values
 ref + 3 // adds 3 to the aliased object (10 becomes 13)
-ref[3]  // invalid syntax
+ref[3]  // invalid
 ```
 
 All of the above features make references a safer, less error prone construct.
 
-#### Question: How do references work under the hood?
+## dangling references
 
-At worst case, they are just hidden pointers. At best case (due to their rules) compiler can perform multiple optimizations and remove them altogether making them a pure zero-cost abstraction.
+**Don't return references to local objects.**
+
+```c++
+int& func()
+{
+    int result = /* ... */;
+
+    // ...
+
+    return result;
+} // dangling reference, returned variable no longer exists
+```
+
+This is basically the same issue as with dangling pointers.
 
 ## summary
 
 References:
 
-- work like pointers (can access and modify original objects - no copying)
-- use syntax like values (no dereference needed, references are never null)
+- use regular syntax but offer *reference semantics*
 - must always be initialized and can not be rebound
+- unlike pointers, can not be null - they are always assumed to be bound to valid object
+- do not allow pointer arithmetics
 
-Note: all of the examples above are about **lvalue references** (`type&`). In the future you will learn about **rvalue references** (`type&&`) which are different but still share all the constraints.
+Generally, references are safer and better optimized.
 
-TODO returning refernces/pointers to local variables
+<div class="note pro-tip">
+Whenever possible, use references instead of pointers.
+</div>

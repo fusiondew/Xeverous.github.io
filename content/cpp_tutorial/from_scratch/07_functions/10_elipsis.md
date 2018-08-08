@@ -15,12 +15,12 @@ Function takes the string representing the format and a variable amount of argum
 ```c
 int x = 10;
 int y = 100;
-printf("%d %d", x, y); // %d %f %s are various formatting options
+printf("%d %d", x, y); // %d %f %s etc are various formatting options
 ```
 
 ## accessing variadic arguments
 
-Since the number of arguments is not known at compile-time, obtaining them is not so straightforward. **Macros** are used to access arguments, they all start with `va_` (**v**ariadic **a**rguments).
+Since the number of arguments is not known at compile-time, obtaining them is not so straightforward. **MACROS** are used to access arguments, they all start with `va_` (**v**ariadic **a**rguments).
 
 ```c++
 typedef /* unspecified */ va_list; // use to create a named object of va_list type
@@ -61,27 +61,63 @@ The purpose of this lesson is not to teach you how to use variadic arguments - t
 
 Concrete reasons:
 
-- obscure **lowercase** macros
-- bug-prone access to arguments (`va_` macros need to be in certain order)
+- **obscure macros**
+- **lowercase macros**
+- **type-unaware macros**
+- **macros**
+- bug-prone access to arguments (macros need to be in certain order)
 - bug-prone calls - if more than needed arguments are specified, they are ignored; if less than needed - undefined behaviour
 - variadic arguments have the same or worse performance than their alternatives
 - variadic arguments undergo implicit convertions
-- variadic arguments can violate type system - this can lead to undefined behaviour
 - variadic argument types are restricted (only certain types can be used)
+- **variadic arguments can violate type system** - this can easily lead to undefined behaviour
 - the behavior of the `va_start` macro is undefined if the last parameter before the ellipsis has reference type, or has type that is not compatible with the type that results from default argument promotions
 
 ### better alternatives
 
+- arrays
 - `std::initializer_list` - lightweight object holding multiple arguments of common type - explained later
 - variadic templates - achieve compile-time well-defined behaviour with strict type safety, they are free of all variadic argument flaws - explained in template tutorial. This is basically the same feature but done the modern C++ way with full type safety
 
-## summary
+## passing arrays
 
-Scream when you see someone using variadic function arguments. They should better learn templates.
+Very strong convention: **always pass array length**. A pointer alone does not bring enough information - **never assume array length**.
 
 ```c++
-void print(const char* fmt, ...); // error-prone, types unchecked
+void print(const int* arr, int length) // 2 arguments, in this order
+//         ^^^^^^^^^^^^^^ some people prefer to write const int arr[] instead
+{
+    std::cout << "printing " << length << " elements:\n";
+
+    for (int i = 0; i < length; ++i)
+        std::cout << *arr << ", ";
+
+    std::cout << "\n";
+}
+```
+
+Still, such functions does not take the full power of C++ and are usually written only in C. You will later learn about `std::array` and `std::vector` classes.
+
+```c++
+// actual C++
+void print(const std::vector<int>& vec)
+{
+    std::cout << "printing " << vec.size() << " elements:\n";
+
+    for (int x : vec)
+        std::cout << x << ", ";
+
+    std::cout << "\n";
+}
+```
+
+## summary
+
+Scream when you see someone using variadic function arguments. They should learn how to use better alternatives.
+
+```c++
+void print(const char* fmt, ...); // prone to undefined behaviour
 
 template <typename... Ts>
-void print(Ts&&... ts); // everything well-defined, types checked
+void print(Ts&&... ts); // strict type safety
 ```
