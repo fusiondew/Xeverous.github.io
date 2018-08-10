@@ -37,7 +37,7 @@ C++ specifies 4 types of object lifetime.
 
 TODO def block
 
-**Linkage** allows to refer to objects from other scopes and possibly other **translation units**.
+**Linkage** allows to refer to objects from other scopes and possibly from other **translation units**.
 
 **Translation unit** - code which gets feed to the compiler. Essentially the code after being preprocessed (all includes and macros expanded) and tokenized: removed comments, concatenated string literals, character escapes etc.
 
@@ -46,11 +46,11 @@ There are 3 types of linkage:
 - **no linkage** - name can be referred only from the scope it is declared. Applies to:
     - all variables declared without `extern`
     - everything else declared locally (inside a function)
-- **internal linkage** - name can be referred from all scopes in current **translation unit**. Applies to:
+- **internal linkage** - name can be referred from all scopes in **current translation unit**. Applies to:
     - variables and functions declared `static`
     - members of anonymous *unions*
     - members of anonymous namespaces
-- **external linkage** - name can be referred from all scopes in different translation units. Applies to:
+- **external linkage** - name can be referred from all scopes in **different translation units**. Applies to:
     - variables declared `extern`
     - basically everything else which is not `static`.
 
@@ -130,9 +130,9 @@ Essentially it's a globally living variable that can be accessed only from it's 
 ## summary
 
 - Linkage defines when object can be accessed (when it's visible). Modified by:
-    - (default) - no linkage
-    - `static` - internal linkage
-    - `extern` - external linkage
+    - (default) - no linkage (only local scope)
+    - `static` - internal linkage (only current translation unit)
+    - `extern` - external linkage (all translation units)
 - Storage duration defines object lifetime. Modified by:
     - (default) - automatic (just enclosing scope)
     - `thread_local` - whole thread
@@ -141,4 +141,4 @@ Essentially it's a globally living variable that can be accessed only from it's 
 
 **Linkage and storage duration are independent.**
 
-Linkage has only sense for things that live long enough - static and thread durations.
+Linkage has only sense for things that live long enough - whole thread or entire program. Automatic objects live very short and dynamically allocated objects are "too dynamic" to be linked.

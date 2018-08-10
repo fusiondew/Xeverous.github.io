@@ -2,11 +2,13 @@
 layout: article
 ---
 
-So far all the programs that were presented were only using static and automatic allocation. 
+For static duration, thread duration and automatic duration variables, the size of the allocation must be a compile time constant. Compiler must know at compile time what's the size of the object to correctly handle memory. This is why arrays must have a compile-time size.
 
-Static duration variables are allocated in main memory, usually along with the executable code of the program, and persist for the lifetime of the program; automatic-duration variables are allocated on the stack and come and go as functions are called and return. For static duration and automatic duration variables, the size of the allocation must be a compile time constant.
+Even if it's known how much memory is needed, large arrays such as `int[1000000]` may crash. Automatic/static/thread allocation is fast and generally very efficient but the stack is limited - 1 to 8 MB on most dektop systems.
 
-Large arrays such as `int[1000000]` may crash because there might not be enough static memory. Automatic allocation is good for functions but the stack is limited - 1 to 8 MB on most dektop systems. **Dynamic memory allocation** allows to acquire the specified amount of memory at runtime.
+**Dynamic memory allocation** allows two very unique things:
+- access to unlimited heap memory (basically as much RAM as the computer has)
+- ability to allocate memory blocks at runtime of any length
 
 ## dynamic memory - C functions
 
