@@ -135,6 +135,7 @@ replace "technicals" with "technicalities"
 cheatsheet - header/source (keywords, syntax)
 cheatsheet - operator overloading
 	operator - arity - example expression - overloading (can not/should member/should non-mmeber/must member) - syntax example - notes (specific return, losing short-circuit)
+cheatsheet - linkage + storage duration
 
 inheritance should be after smart pointers + data structures - reason - examples, need vector and string
 

@@ -65,7 +65,7 @@ Out parameters have multiple conventions:
 
 **out parameters in C**
 
-C does not have references, it uses pointers to be able to write to the given parameters. If the argument is already a pointer, this causes the function to use second level pointers. Functions in C++ standard library which were imported from C can be easily recognized if they use out paremeters.
+C does not have references, it uses pointers to be able to write to the given parameters. If the argument is already a pointer, this causes the function to use second level pointers. Functions in C++ standard library which were imported from C can be easily recognized by second-level pointers.
 
 ```c++
 // C function converting "string to long"
