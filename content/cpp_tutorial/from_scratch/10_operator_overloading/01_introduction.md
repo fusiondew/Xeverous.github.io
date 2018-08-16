@@ -52,4 +52,4 @@ There is a cheatsheet about operator overloading - handy reference after complet
 
 ##
 
-Enough theory, now let's move to the examples.
+Enough theory, now let's move to the examples. Many operators have different recommendations.

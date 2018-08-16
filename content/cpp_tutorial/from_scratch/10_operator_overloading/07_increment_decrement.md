@@ -29,7 +29,7 @@ integer& integer::operator--()
 }
 ```
 
-As usually, we reuse the built-in operator for member `x` and return reference to the current object to allow chaining.
+Reference is returned to allow reuse of the object. Otherwise expressions like `std::cout << ++x` would complain that `++x` returns `void` and there is no object to print.
 
 Note: the code above is for **prefix** operators. It might seem intuitive to expect language to have `operator++()` and `++operator()` but it's not how it works.
 
@@ -66,4 +66,4 @@ Postfix operators are expected to return a copy of the old value - that's why th
 
 ## notable exception
 
-`std::atomic` prefix operators return by value. It would be pointless to return references to objects that are intended to be modified only atomically (more information in concurrency tutorial). Atomics overload most operators to provide the same syntax as for plain types but due to various aspects of concurrency they do not stick to all conventions.
+`std::atomic` prefix operators return by value. It would be pointless to return references to objects that are intended to be modified only atomically (more information in concurrency tutorial). Atomics overload most operators to provide the same syntax as for plain types but due to various aspects of concurrency they have good reasons not to stick to all conventions.

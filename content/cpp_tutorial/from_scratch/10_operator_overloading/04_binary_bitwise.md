@@ -6,7 +6,7 @@ Binary bitwise operators are rarely overloaded, examples only for reference.
 
 **Note:** `&` has 2 arity variants:
 
-- binary (`a & b`) which by default performs bitwise AND
+- binary (`a & b`) which by default performs bitwise operations
 - unary (`&a`) which is the address-of operator
 
 Here we overload the binary one.
@@ -71,4 +71,14 @@ friend integer operator&(integer lhs, const integer& rhs)
     lhs &= rhs;
     return lhs;
 }
+
+// even shorter version - uses the fact that expression (lhs &= rhs) returns reference
+friend integer operator&(integer lhs, const integer& rhs)
+{
+    return lhs &= rhs;
+}
 ```
+
+## unary `~`
+
+It's unary (see other unary operators for examples) but worth to mention here because it's usually overloaded together with other bit-related operators. `~` itself has no strong convention and therefore it's recommended to use it only for types that represent some bit operations.

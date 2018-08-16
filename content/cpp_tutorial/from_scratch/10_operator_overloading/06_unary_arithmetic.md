@@ -43,7 +43,7 @@ The built-in unary + does not change values in any way but since C++ states that
 
 int main()
 {
-    std::cout << 'a' << "\n";  // prints a (value treated as character)
-    std::cout << +'a' << "\n"; // prints 97 (underlying ASCII value)
+    std::cout << 'a' << "\n";  // prints char a (value treated as character)
+    std::cout << +'a' << "\n"; // prints int 97 (underlying ASCII value)
 }
 ```

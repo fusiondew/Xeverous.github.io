@@ -24,13 +24,9 @@ references
 	rvalue references
 	
 functions
-	static variables
 	function pointers
 
 dynamic memory
-	theory
-	malloc, free
-	operator new, operator delete
 	brief: RAII
 
 OOP
@@ -46,22 +42,11 @@ RAII
 	std::string
 
 operator overloading
-	core rules (creating operators, short-circuit, sequencing, member/free)
-	binary + - * / %
-	binary += -= *= /= %=
-	binary ^ & |, binary ^= &= |=
-	binary << >>, binary <<= >>=
-	unary + -
-	unary ++ --
 ?	binary = - move semantics where?
-	2way comparisons: == != < > <= >=
-	3way comparisons: <=> and equality/ordering types
-	binary && ||, binary ,
 	unary -> ->*
 	unary []
 	N-ary ()
 	unary ""
-	custom convertions + explicit keyword, unary ! ~
 	new / delete
 	SO: how to set and clear each bit
 
@@ -78,7 +63,6 @@ polymorphism
 	virtual assignment
 	early binding vs late binding
 	virtual base classes
-	object slicing
 	dynamic_cast vs static_cast
 	RTTI
 
@@ -127,6 +111,7 @@ missing
 	rule of 3/5/0
 	bitmask operations
 	alternative tokens (compl, bitand etc)
+	preincrement/postincrement - functions (they are in operator overloading - too late)
 	
 **articles which do not have title (below layout) are considered unfinished**
 

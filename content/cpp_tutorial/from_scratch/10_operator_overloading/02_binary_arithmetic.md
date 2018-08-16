@@ -56,9 +56,9 @@ So to fix this problem, we declare operator as a friend:
 ```c++
 // inside any section (access specifiers does not matter here) of integer class
 friend integer operator+(const integer& lhs, const integer& rhs);
-```
 
-TODO why it is still global function
+// remainder: friends are declared in class scope but they are non-members (here: global function)
+```
 
 The body of the function can stay as written before.
 
@@ -68,10 +68,10 @@ A different approach is to make it a member function - there is no need for frie
 
 ```c++
 // inside class public section
-integer operator+(const integer& rhs);
+integer operator+(const integer& rhs) const;
 
 // definition - as usually, class_name::func_name
-integer integer::operator+(const integer& rhs)
+integer integer::operator+(const integer& rhs) const
 {
     return integer(x + rhs.x);
 }
@@ -124,9 +124,7 @@ int main()
 }
 ```
 
-Expressions `x1 + 5` and `5 + x1` actually require `operator+(integer lhs, int rhs)` and `operator+(int lhs, integer rhs)`. They work because C++ language allows to convert arguments to different types if the function does not match.
-
-There is no operator+ that takes 1 `integer` and 1 `int` but we can turn an `int` to an `integer` by using the constructor. The expression works as it is `x1 + integer(5)` - compiler automatically inserts convertions/constructors when needed.
+There is no operator+ that takes 1 `integer` and 1 `int` but we can turn an `int` to an `integer` by implicit construction. The expression `x1 + 5` works like `x1 + integer(5)`.
 
 But the following program does not compile:
 
@@ -140,7 +138,7 @@ public:
     integer(int x = 0) : x(x) { }
     
     // member function approach
-    integer operator+(const integer& rhs)
+    integer operator+(const integer& rhs) const
     {
         return integer(x + rhs.x);
     }

@@ -53,5 +53,5 @@ std::ostream& operator<<(std::ostream& os, const person& p)
 
 <details>
 <summary>answer</summary>
-<p>`os` is not used (would generate a compiler warning). The function is wrong because it always calls standard output, ignoring the argument.</p>
+<p>`os` is not used (would generate a compiler warning). The function is wrong because it always calls the standard character output stream, not the stream provided as an argument</p>
 </details>

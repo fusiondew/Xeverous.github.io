@@ -6,9 +6,10 @@ For static duration, thread duration and automatic duration variables, the size 
 
 Even if it's known how much memory is needed, large arrays such as `int[1000000]` may crash. Automatic/static/thread allocation is fast and generally very efficient but the stack is limited - 1 to 8 MB on most dektop systems.
 
-**Dynamic memory allocation** allows two very unique things:
-- access to unlimited heap memory (basically as much RAM as the computer has)
-- ability to allocate memory blocks at runtime of any length
+**Dynamic memory allocation** allows few very unique things:
+- access to the heap memory (basically the entire RAM)
+- ability to allocate and deallocate at any time
+- ability to allocate memory blocks of any length
 
 ## dynamic memory - C functions
 
@@ -19,15 +20,15 @@ There are 2 core functions:
 ```c
 #include <stdlib.h> // in C++ <cstlib>, functions inside namespace std
 
-void* malloc(size_t size); // memory allocation
-void free(void* ptr);      // freeing memory
+void* malloc(size_t size); // memory allocation (size in bytes)
+void free(void* ptr);      // memory deallocation
 ```
 
 `malloc()` allocates `size` bytes of free memory and returns a pointer to the first cell. **Dynamically allocated memory is always a one, continuous block.** If the allocation fails (not enough memory in the system) function returns a null pointer.
 
 Because there is a requirement to always allocate 1 continuous block, allocation may fail even if there is enough free memory in the system - the sum of free regions may be larger than the asked for but there might not exist a block that is sufficiently large.
 
-Allocated memory is used like arrays - the core difference is that it is not tied to any scope. Dynamically allocated memory is usable as long as it is not freed.
+Allocated memory has no predefined use. You basically can write/read whatever you want in the entire block.
 
 When the memory is no longer needed, the pointer received from `malloc()` should be passed to `free()` so that the operating system can reclaim that block and reuse it for itself or other programs that ask for dynamic memory.
 
@@ -39,10 +40,6 @@ If the program allocates memory but does not free it it's a **memory leak**. If 
 Dynamically allocated memory is not initialized. It's contents are unknown.
 </div>
 
-<div class="note info">
-Memory is allocated in bytes, not amounts of any type. This means that `sizeof` is needed to correctly calculate required size.
-</div>
-
 ### example
 
 Allocate N integers and then release memory.
@@ -50,7 +47,7 @@ Allocate N integers and then release memory.
 ```c++
 int n = /* something run-time dependent */;
 
-void* ptr = std::malloc(n * sizeof(int));
+void* const ptr = std::malloc(n * sizeof(int)); // allocate memory for n integers
 
 if (ptr == nullptr)
 {
@@ -90,7 +87,7 @@ Magic. More precisely, internal operating system implementation of the memory al
 
 The OS owns all memory - it has no access checks and can access all data freely (no access violations!). OS kernel can dereference any pointer - there is nothing beneath that would prevent it from doing so.
 
-To safely run programs requiring various amount of memory, each program has to ask for it. When a program calls system's memory allocation functions, system searches it's RAM index (called *free list*) for a block that could be assigned. Various allocation algorithms exist with different trade-offs - some take more time to process but result in smaller memory fragmentation (amount of very small free blocks), some store more metadata (amount of free blocks, their size, preference, cached regions, etc) which of course requires some memory for the allocation itself. This is why allocating X memory takes actually more than X - the system has to store information about allocations.
+To safely run programs requiring various amount of memory, each program has to ask for it. When a program calls system's memory allocation functions, system searches it's heap index (called *free list*) for a block that could be assigned. Various allocation algorithms exist with different trade-offs - some take more time to process but result in smaller memory fragmentation (amount of very small free blocks), some store more metadata (amount of free blocks, their size, preference, cached regions, etc) which of course requires some memory for the allocation itself. This is why allocating X memory takes actually more than X - the system has to store information about allocations.
 
 The algorithm used to implement memory allocation has a huge impact on system performance - allocation functions can be called several thousands each second!
 
@@ -98,14 +95,16 @@ An example memory allocation implementation is available as [jemalloc](http://je
 
 If you build own operating system in C or C++, you have to write own memory allocation functions.
 
-## problems with C dynamic allocation
+## problems with C dynamic allocation functions
 
-- `malloc()` returns `void*` - no type safety
+- `malloc()` returns `void*` - **no type safety**
 - It's easy to miscalculate required memory (it's in bytes) - most common mistake is forgetting to multiply by the size of the type
-- It's easy to allocate and then forget to free which results is memory leaks
+- It's very easy to allocate and then forget to free which results is memory leaks
 - If the pointer given by `malloc()` is lost (by overwriting it or going out of scope), it can no longer be passed to `free()` and therefore the program has a memory leak
 - Freed memory can no longer be accessed - calling `free()` twice with the same pointer is undefined behaviour.
 - Freed memory can no longer be accessed - pointers passed to `free()` become dangling pointers
+
+Generally, `malloc()` approach is very bug-prone and has no type checking.
 
 ## C++ dynamic memory allocation abstractions
 

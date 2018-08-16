@@ -47,7 +47,7 @@ If a plain type is created such as `int`, it has to be deleted with `delete`. If
 
 - new-expression allocates memory for N objects of given type, not bytes - no need for calculating size
 - new-expression is type-safe - no void pointers, no casting
-- new-expression initializes data - `malloc()` is usually followed by an initializing loop, there is `calloc()` but it offers only zero-initialization while new-expression can take any initial value
+- new-expression initializes data - `malloc()` is usually followed by an initializing loop, there is `calloc()` but it offers only zero-initialization while new-expression allows any initial value
 - new-expression is actually an operator and can be overloaded - this provides convenience when implementing custom allocations
 
 ## full example
@@ -89,11 +89,18 @@ int main()
 
 ## problems with new
 
-New-expression still shares some dangers with C allocations functions:
+New expression solves these problems:
+
+- initialization of allocated memory
+- type safety
+
+New-expression still shares some dangers with C allocation functions:
 
 - it's easy to forget to detele (memory leak)
-- it's easy to delete twice (badly written control flow)
-- `delete[]` can be mistakenly written as `delete` causing improper release of memory
-- allocating with `malloc()` and freeing with `delete` or allocating with `new` and freeing with `free()` is undefined behaviour - allocation methods should not be mixed
+- it's easy to delete twice (undefined behaviour)
+- `delete[]` can be mistakenly written as `delete` causing undefined behaviour
 
-Nonetheless, new is still an improvement over C allocation functions but it's not the end - there are far better abstractions. These abstractions require to understand classes.
+
+Allocating with `malloc()` and freeing with `delete` or allocating with `new` and freeing with `free()` is undefined behaviour - allocation methods should not be mixed.
+
+Nonetheless, new is still an improvement over C allocation functions (it brings type safety and some customizations) but it's not the end - there are far better abstractions. These abstractions require to understand classes.

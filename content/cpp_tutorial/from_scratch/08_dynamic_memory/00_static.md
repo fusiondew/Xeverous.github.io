@@ -24,7 +24,7 @@ C++ specifies 4 types of object lifetime.
     - global objects
     - objects declared with `static`
     - objects declared with `extern`
-- **thread storage duration** - smilarly to static, but with the difference that object is created when thread launches and destroyed when thread ends. Each thread will have own object. This applies to:
+- **thread storage duration** - similarly to static, but with the difference that object is created when thread launches and destroyed when thread ends. Each thread will have own object. This applies to:
     - objects declared with `thread_local`
 - **dynamic storage duration** - object is allocated (created) and deallocated (destroyed) per request in code. The core topic of this chapter.
 
@@ -141,4 +141,4 @@ Essentially it's a globally living variable that can be accessed only from it's 
 
 **Linkage and storage duration are independent.**
 
-Linkage has only sense for things that live long enough - whole thread or entire program. Automatic objects live very short and dynamically allocated objects are "too dynamic" to be linked.
+Linkage has only sense for things that live long enough - whole thread or entire program. Automatic objects live very short and dynamically allocated objects are not possible to be linked.

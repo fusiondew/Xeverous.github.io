@@ -162,7 +162,7 @@ There is a [type trait](https://en.cppreference.com/w/cpp/utility/compare/common
             <tr>
                 <th>category</th>
                 <th>supported operators</th>
-                <th>everything can be compared</th>
+                <th>any pair of objects is comparable</th>
                 <th>equal values are trully the same</th>
             </tr>
             <tr>
@@ -220,7 +220,7 @@ Which comparison categories are in the following situations?
 <summary>answers</summary>
 <p markdown="block">
 
-- weak ordering (points 3,5 and 4,4 are equal) OR partial ordering if we consider that the sum might be outside integer range
+- weak ordering (points 3,5 and 4,4 are equal)
 - weak ordering (files with same size can be different)
 - weak equality (symlinks can create multiple paths for the same file)
 - partial ordering (files may not have common parent directory) - this example is similar to persons in family trees
