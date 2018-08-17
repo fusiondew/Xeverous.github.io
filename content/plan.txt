@@ -46,7 +46,6 @@ operator overloading
 	unary -> ->*
 	unary []
 	N-ary ()
-	unary ""
 	new / delete
 	SO: how to set and clear each bit
 
@@ -90,6 +89,8 @@ miscellaneous
 	trigraphs
 
 missing
+	auto - needs to be explained before classes
+	term: user-defined
 	underflow
 	implcit convertions
 	converting constructors

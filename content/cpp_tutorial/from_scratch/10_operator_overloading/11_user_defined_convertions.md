@@ -175,5 +175,5 @@ if (!opt) // uses operator!()
 
 <div class="note pro-tip">
 
-When overloading convertion to `bool`, also overload `!`.
+When implementing convertion to `bool`, also overload `!`.
 </div>
