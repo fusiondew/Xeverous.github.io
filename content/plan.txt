@@ -146,6 +146,11 @@ learncpp problems
 	14.3 - sqrt from cmath
 	14.5 - "deriving your class from std::exception" - example does not compile (const issues)
 	
+terms misuse
+	C being low level
+	C++ being OOP
+	Java being native for Android
+
 pygments test
 	// text \
 	this text is also a part of the comment

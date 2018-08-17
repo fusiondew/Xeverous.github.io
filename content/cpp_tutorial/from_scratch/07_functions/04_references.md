@@ -69,7 +69,7 @@ The body of the function had to be changed - `x` was changed to `*x` because the
 Advantages of passing pointers:
 
 - You can work on the original variable and the result will stay.
-- Pointers have fixed length for the given system. Copying large structures can be expensive
+- Pointers have fixed length for the given system. Copying large structures can be expensive but copying an address is very trivial
 
 Disadvantages of passing pointers as arguments:
 
@@ -96,7 +96,7 @@ void func(int& x) // int reference
 int main()
 {
     int x = 10;
-    func(x);
+    func(x); // pass by reference, not by value
     std::cout << "x = " << x;
 }
 ```
@@ -114,8 +114,8 @@ All syntax is back again like `x` was plain `int`, but the function works direct
 References are simply aliases to existing objects. A reference is denoted by adding `&` to the type.
 
 ```c++
-int x; // integer
-int* ptr; // poiter to inetegr
+int x;    // integer
+int* ptr; // poiter to integer
 int& ref; // reference to integer
 ```
 
@@ -205,9 +205,16 @@ referenced value: 1000
 b = 100
 ~~~
 
-In other words, `ref` for the entire program was `a`. The first line where the reference was created set it to alias `a`, but all subsequent instructions were modifying `a`, NOT changing the reference aliases.
+In other words, `ref` for the entire program was `a`. The first line where the reference was created set it to alias `a`, but all subsequent instructions were modifying `a`.
 
 ## core rules of references
+
+**There are two categories of references:**
+
+- `type&` - **lvalue reference**
+- `type&&` - **rvalue reference**
+
+They have 1 but very important difference which you do not need to know now. For now, all code will use lvalue references.
 
 **References must always be initialized. It's imposible to have a null or uninitialized reference.**
 
@@ -220,6 +227,18 @@ int main()
     int* ptr = nullptr;
     int& ref3 = *ptr; // this will compile but has undefined behaviour
 }
+```
+
+**References must be initialized to valid, existing objects**
+
+Imagine a function which is supposed to save the result into passed variable. Passing something that is not an object doesn't make sense - and thus does not compile.
+
+```c++
+void f(int& x);
+
+int x = 0;
+f(x);  // ok: x will be modified
+f(10); // error: 10 is not an object (can not bind lvalue reference to rvalue...)
 ```
 
 **References can not be rebound. Once you initialize a reference, it will always alias the same object.**
@@ -245,13 +264,6 @@ int main()
     std::cout << "y = " << y << "\n"; // y is untouched
 }
 ```
-
-**There are two categories of references:**
-
-- `type&` - **lvalue reference**
-- `type&&` - **rvalue reference**
-
-They have 1 but very important difference which you do not need to know now. For now, all code will use lvalue references.
 
 **Unlike pointers, references can not be nested.**
 
@@ -322,6 +334,8 @@ int& func()
 ```
 
 This is basically the same issue as with dangling pointers.
+
+Compilers have a warning about it.
 
 ## summary
 
