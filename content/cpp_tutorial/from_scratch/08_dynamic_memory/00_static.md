@@ -4,16 +4,16 @@ layout: article
 
 <div class="note warning">
 
-`static` keyword has 5 different meanings depending on the context.
+`static` keyword has different meanings depending on the context.
 
-- global object declaration
-- object inside function
+- global static object
+- static object inside function
 - static struct / function
 - static member function (C++ only) (related to classes)
 - static member variable (C++ only) (related to classes)
 </div>
 
-This lesson whill show you first two.
+This lesson will explain first two.
 
 ## storage duration
 
@@ -81,7 +81,7 @@ Global variables behave similarly to `std::cout`, except that they have internal
 
 ## static objects
 
-Applying `static` to a global object doesn't change much except assembly code at program startup and in which memory segment that object is placed. The only big difference is zero-initialized.
+Applying `static` to a global object doesn't change much except assembly code at program startup and in which memory segment that object is placed. The only big difference is zero-initialization.
 
 ```c++
 // globals, these will have unknown values
@@ -95,7 +95,7 @@ static int* ptr2; // this will be a null pointer
 // printing first two is undefined behaviour, printing second two will yield 0s
 ```
 
-The thing gets interesting when used for local variables. `static` objects live the entire program.
+The thing gets interesting when used for local variables. **`static` objects live the entire program.**
 
 ```c++
 #include <iostream>

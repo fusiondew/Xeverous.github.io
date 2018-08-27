@@ -113,6 +113,7 @@ missing
 	bitmask operations
 	alternative tokens (compl, bitand etc)
 	preincrement/postincrement - functions (they are in operator overloading - too late)
+	pointer trap: *i++ (order of operators)
 	
 **articles which do not have title (below layout) are considered unfinished**
 
