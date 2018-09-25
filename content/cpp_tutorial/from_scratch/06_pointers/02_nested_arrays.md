@@ -26,6 +26,14 @@ int arr[Y][X]
 //      ^ the outer size
 ```
 
+for example array ```int arr[Y][X]``` Y = 3, X = 4
+Y / X | X column 0 | X column 1 | X column 2 | X column 3
+------|------|------|------|------
+Y row 0 | arr[0][0] | arr[0][1] | arr[0][2] | arr[0][3]
+Y row 1 | arr[1][0] | arr[1][1] | arr[1][2] | arr[1][3]
+Y row 2 | arr[2][0] | arr[2][1] | arr[2][2] | arr[2][3]
+
+
 ## printing
 
 To print nested arrays you need ... nested loops. Should be self-explanatory.
