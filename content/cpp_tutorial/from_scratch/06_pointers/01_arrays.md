@@ -190,3 +190,26 @@ Dynamic array size was never a valid code in any C++ standard. If you manage to 
 - Write a program asking the user to input values into an array. Then perform any operation on each element and print the array.
 
 TODO solution
+
+solution:
+```c++
+#include <iostream>
+
+int main()
+{
+	const int numberOfElements = 10; // we set this const variable to easly magange size of array (magic numbers)
+	int array[numberOfElements];
+	for(int i = 0; i < numberOfElements; i++)
+	{
+		std::cout << "Enter your number to array: ";
+		std::cin >> array[i];
+	}
+
+	for(int j = 0; j < numberOfElements; j++)
+	{
+		std::cout << "Element at index " << j << " equals: " << array[j] << "\n";
+	}
+
+	return 0;
+}
+```
