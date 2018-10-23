@@ -160,7 +160,7 @@ This rule might look easier to understand when presented this way:
 
 ```c++
 integer x2 = x1.operator+(5); // ok, we can build integer object from 5
-integer x3 = 5.operator+(x1); // error: 5 is not a class object and has no mmeber functions
+integer x3 = 5.operator+(x1); // error: 5 is not a class object and has no member functions
 ```
 
 #### Question: Is this rule really needed?

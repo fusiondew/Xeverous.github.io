@@ -114,9 +114,8 @@ missing
 
 replace "technicals" with "technicalities"
 
-cheatsheet - header/source (keywords, syntax)
 cheatsheet - operator overloading
-	operator - arity - example expression - overloading (can not/should member/should non-mmeber/must member) - syntax example - notes (specific return, losing short-circuit)
+	- syntax example - notes (specific return, losing short-circuit)
 cheatsheet - linkage + storage duration
 
 inheritance should be after smart pointers + data structures - reason - examples, need vector and string
@@ -142,6 +141,8 @@ learncpp problems
 	const-qualified member function, really everywhere
 	14.3 - sqrt from cmath
 	14.5 - "deriving your class from std::exception" - example does not compile (const issues)
+	teachers: forbidding std
+	teachers: forbidding "not yet learned" features
 	
 terms misuse
 	C being low level
