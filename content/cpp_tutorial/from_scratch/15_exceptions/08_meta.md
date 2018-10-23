@@ -26,7 +26,7 @@ Exceptions are mostly disabled for these reasons:
 - they require stack information which bloats the executable
 - they prevent some optimizations (without them, everything is `noexcept`)
 - they are that one feature which is against C++ philosophy "you don't pay for what you don't use" - the sole possibility of exceptions to happen requires more machine code
-- standard library can throw `std::bad_alloc` in every place of dynamic allocation - disabling exceptions removes possible overhead of checking pointers
+- standard library can throw `std::bad_alloc` in every place of dynamic allocation - disabling exceptions removes possible overhead of checking pointers - this may seem to be a wrong approach but most systems can not do anything better in case of allocation failure other than self-terminating and restart
 
 ## recommendation
 
@@ -36,9 +36,12 @@ I still encourage you to use exceptions because:
 - it's better to write in ISO standard C++
 - the size of programs you will write during learning is far below points in which you will be lacking top performance
 - currently used exception mechanisms do not incur overhead unless an exception is actually thrown
+- you are learning and using is a part of it - no project uses all of C++ features - the point of the tutorial is to try to use to in order to learn
 
 ## the future
 
 The committee is aware of the problem. What looks very promising is [Herb Sutter's proposal](https://wg21.link/P0709) which completely overhauls exceptions giving complete refactor of the feature - in both how exceptions work and what they can offer.
 
 The committee also wants to remove `std::bad_alloc` and possible other unnecessary exceptions in the standard library - they would be replaced by *contracts* which are new, **configurable** language feature introduced in C++20. Such change would make significant part of the standard library `noexcept` and allow to write standard-compliant code while having choices how errors such as failed dynamic allocation are handled.
+
+Update: proposed [unified zero-overhead exception mechanism for C and C++](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2289.pdf).

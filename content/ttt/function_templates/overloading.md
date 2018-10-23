@@ -10,6 +10,7 @@ Suppose you have mixed function overloading with templates. One implementation i
 class animal
 {
 public:
+    virtual ~animal() = default;
     virtual std::string sound() const = 0;
 };
 

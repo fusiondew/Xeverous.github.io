@@ -63,7 +63,7 @@ There are 3 types of linkage:
 
 Now, what are the consequences of this?
 - some objects may live but be inaccessible
-- some objects may be accessible but do not live (this actually doesn't happen)
+- some objects may be accessible but do not live
 
 In the case of **automatic storage duration** linkage and storage have the same bounds. You can only refer to the object from it's scope and as soon as object dies it's no longer accessible. Lifetime has the same range as visibility.
 
@@ -121,11 +121,13 @@ x is now 4
 x is now 5
 ~~~
 
-In such scenario:
+In the code above:
 - `x` has static storage duration - it lives the entire program
 - `x` has no linkage - it's only accessible inside the function
 
 Essentially it's a globally living variable that can be accessed only from it's scope.
+
+Remove `static` from example above and the function will print that `x` is always `1`.
 
 ## summary
 

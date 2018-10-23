@@ -114,6 +114,8 @@ missing
 	alternative tokens (compl, bitand etc)
 	preincrement/postincrement - functions (they are in operator overloading - too late)
 	pointer trap: *i++ (order of operators)
+	char* non_const_ptr = "text"
+	http://www.open-std.org/jtc1/sc22/wg21/
 	
 **articles which do not have title (below layout) are considered unfinished**
 

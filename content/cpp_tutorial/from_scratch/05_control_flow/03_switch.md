@@ -207,4 +207,6 @@ Switch comes from C and features a quite unique behaviour - it jumps to the firs
 
 Because of these, switch in C++ is used mostly as an alternative, shorter version of else-if blocks, most often for enumerations. The possibility of accidental fallthrough can be a good source of bugs but most compilers warn if any case has no break. If a fallthrough is intentional, document it with a comment (smart compilers will understand comments like `// fallthrough`) or an attribute (attributes are explained later).
 
-TODO exercise?
+## exercise
+
+Rewrite calculator from previous lesson using `switch`.
