@@ -18,7 +18,7 @@ Dereferencing such pointer is **undefined behaviour**.
 ```c++
 int main()
 {
-    int* p;
+    int* ptr;
 
     {
         int x;
