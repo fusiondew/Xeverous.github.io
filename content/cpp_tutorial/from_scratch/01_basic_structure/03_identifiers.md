@@ -43,7 +43,7 @@ Additionally, the C++ standard reserves following names (you should not use them
 - anything in the namespace `posix`
 - [keywords](https://en.cppreference.com/w/cpp/keyword)
 
-More about namespaces later. For now, simply remember to not start names with `_` character.
+More about namespaces later. For now, simply remember to not start names with `_` character. If you accidentally write a name that is a language keyword you will see it by different syntax highlight from the editor.
 
 ___
 
@@ -60,7 +60,7 @@ PascalCaseNameStyle
 camelCaseNameStyle (in camelCase first letter is lowercase)
 ```
 
-It's bad to mix these styles - any of the follwoing names are against convention:
+It's bad to mix these styles - any of the folloing names are against convention:
 
 ```
 Account_Manager

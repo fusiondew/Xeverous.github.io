@@ -2,7 +2,7 @@
 layout: article
 ---
 
-Enough math for now, this time a minimal working program - the so called ["Hello World"](https://en.wikipedia.org/wiki/"Hello,_World!"_program)
+Enough theory for now, time to test a minimal working program - the so called ["Hello World"](https://en.wikipedia.org/wiki/"Hello,_World!"_program)
 
 ```c++
 #include <iostream>
@@ -14,7 +14,7 @@ int main()
 }
 ```
 
-This is a minimal program that should print the "hello, world" on the terminal. It is commonly used as a sanity check (in any programming language) to verify that all tools are setup correctly and the build succeeds.
+This is a minimal program that should print the "hello, world" on the terminal. Hello worlds are commonly used as a sanity check (in any programming language) to verify that all tools are setup correctly and the build succeeds.
 
 <div class="note info">
 
@@ -58,17 +58,17 @@ Binaries are usually searched in `/usr/bin` and a couple other distribution-spec
 
 If your compiler is installed in a different place, you can try to create a symlink `/usr/bin/gcc` which points to the actual compiler executable (note: this is needed to be done also for other executables, eg `make`).
 
-If not, I trust if you have managed to install a custom compiler on your distribution, you are also be able to fix this problem.
+If not, I trust if you have managed to install a custom compiler on your Linux distribution, you are also be able to fix this problem.
 
-#### IDE complains it can not find `make` (or something else) in `PATH`
+#### (Windows) IDE complains it can not find `make` (or something else) in `PATH`
 
-This problem similar to the one above - this time the `make` program could not be found.
+This problem is similar to the one above - this time the `make` program could not be found.
 
 Go to your compiler installation directory and check that `make` actually exists. It's common that you will find something like `mingw-make32.exe` or `i686-w64-mingw32-make.exe`. It is because various GCC distributions prefix some executables with architecture name in case someone wanted to have a multi-acrhitecture toolchain installed in 1 place. I hardly doubt you want to compile now for something other than x86 (i686) / x86_64 (these are the architecture names of standard 32-bit and 64-bit PC).
 
 If this is the case - simply copy the executable and give the copy a correct name (`make.exe` on Windows and `make` on Unix systems).
 
-You might also find more exectables with prefixed names - in case of problems do the same.
+You might also find more executables with prefixed names - in case of problems do the same.
 
 Test that it works by calling make from command line:
 
@@ -76,13 +76,21 @@ TODO make --version
 
 #### Visual Studio complains it can not find something related to `stdafx.h` or throws `fatal error C1010: unexpected end of file while looking for precompiled header directive`
 
-This is one of the reasons why I don't like this IDE - it sometimes inserts some code or non-standard features. `stdafx.h` is for precompiled headers (explained later, or for now: [SO link](https://stackoverflow.com/questions/4726155/)) and it requires additional changes in the source code which make the code non-portable.
+VS may have already inserted some code including non-standard features. `stdafx.h` is for precompiled headers (explained here: [SO link](https://stackoverflow.com/questions/4726155/)) and it requires additional changes in the source code which may make the code non-portable.
 
 It is possible to disable this feature or change it in a such way that no code should be modified.
 
 If you have choosen any type of application, you may also try to create an empty C++ project - VS should not generate then anything additional in the solution.
 
-**It works, but the window disappears instantly or doesn't show up but the IDE informs that execution succeded.**
+At worst case scenario just prepend
+
+```c++
+#include "stdafx.h"
+```
+
+to EVERY program you build (on the first line, before any other includes).
+
+#### It works, but the window disappears instantly or doesn't show up but the IDE informs that execution succeded.
 
 This is a correct behaviour, since the only task for the program was to print the text and close. It's actually a feature in some IDEs that they stop the program when it finishes so the window does not disappear.
 
@@ -100,14 +108,6 @@ int main()
 ```
 
 You can also search the options in the IDE or find solutions on the internet.
-
-At worst case scenario just prepend
-
-```c++
-#include "stdafx.h"
-```
-
-to EVERY program you build (on the first line, before any other includes).
 
 #### Build is finished but the program can not be launched
 
@@ -132,11 +132,13 @@ Use static linking of C++ standard library - it's content will be put inside you
 
 Option 2.
 
-Copy C++ standard library dlls to the directory where your executable is or to the root directory of your project (dlls should be inside compiler installation, eg `C:\MinGW\bin\libstdc++-6.dll`).
+Copy C++ standard library dlls to the directory where your executable is or to the root directory of your project (dlls are in the same place as compiler executable).
 
 #### (Windows) Strange x86 / x86_64 error when launching the executable
 
 You have a 32-bit computer but build the project for 64-bit. Your processor architecture can not run this instruction set.
+
+Solution: change settings so that 32 bit programs are built instead.
 
 - GCC / Clang - Add `-m32` to compiler and linker flags
 - MSVC - open project properties and the linker settings

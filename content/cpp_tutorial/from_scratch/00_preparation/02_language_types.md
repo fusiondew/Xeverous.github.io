@@ -26,7 +26,7 @@ C and C++ are examples of very typical statically typed languages. There is more
 
 **compiled** - source code (text files) is transformed (compiled) into machine code (executable files) and then it can be run on the target machine. Each processor architecture has different machine instruction set so developing software to different types of processors requires compilations with different settings.
 
-**virtualized** - source code is compiled, but not to machine instructions but some intermediate form - usually named bytecode. Then the bytecode can be understood by a virtual machine which executes real machine instructions. Typical languages using virtual machine are Java (running on JVM) and C# (running on .NET). The same bytecode can be run on different machines, but it requires virtual machine support - not all platforms are supported.
+**virtualized** - source code is compiled, but not to machine instructions but some intermediate form - usually named bytecode. Then the bytecode can be understood by a virtual machine which executes real machine instructions. Typical languages using virtual machine are Java (running on JVM) and C# (running on .NET VM). The same bytecode can be run on different machines, but it requires virtual machine support - not all platforms are supported.
 
 **interpreted** - code is transformed on the go to machine instructions. You don't have to do anything with the code to make it runable - interpreter loads it directly as text. As with virtualized languages, it requires interpreter support on the given platform. Typical interpreted languages are Python, Ruby, JavaScript.
 
@@ -52,4 +52,4 @@ Programs using manual or deterministic memory management incorrectly may crash o
 
 Over time, garbage collection algorithms have undergone multiple changes, and the GC is running better and better. GC languages have also gained features which simplify problematic situations where resource can not be GC'ed.
 
-C++ started with basic abstraction (`new`, `delete` keywords) over C `malloc()`, `free()` and later has gained significant abstractions to further ease acquisition and release of resources (RAII idiom is the big thing here). Language offers various smart pointers and other zero-overhead wrappers which decide at compile time how resources are manipulated. `new` and `delete` are no longer used, unless someone writes own resource management abstractions.
+C++ started with basic type abstraction (`new`, `delete` keywords) over C's manual management (`malloc()`, `free()`) and later has gained significant abstractions to further ease acquisition and release of resources (RAII idiom is the big thing here). Language offers various smart pointers and other zero-overhead wrappers which decide at compile time how resources are manipulated. `new` and `delete` are no longer used, unless someone writes own resource management abstractions.

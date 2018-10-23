@@ -16,7 +16,7 @@ int main()
 
 ## include directive
 
-The first line is telling the compiler about additional code which is needed to run this program. `#include` is a preprocessor directive - it tells the compiler to *include* the contents of the `<iostream>` header before this program. *iostream* means nothing more than *input/output stream* - it is the part of standard library used to input and output data. Of course more parts of the C++ standard library will be presented in further chapters.
+The first line is telling the compiler about additional code which is needed to run this program. `#include` is a preprocessor directive - it tells the compiler to *include* the contents of the `<iostream>` header before this program. *iostream* name comes from *input/output stream* - it is the part of standard library used to input and output data. Of course more parts of the C++ standard library will be presented in further chapters.
 
 ## main function
 
@@ -24,7 +24,7 @@ The first line is telling the compiler about additional code which is needed to 
 
 ## braces
 
-`{` and `}` represent scope. Braces are an important part of C++ language (and many other derivatives of C language syntax) and will be used every time something needs to be specified how many code it covers.
+`{` and `}` represent scope. Braces are an important part of C++ language (and many other derivatives of C language syntax) and will be used every time something needs to be specified how many code it covers. Here, main function consists of 2 lines.
 
 ## `std::cout`
 

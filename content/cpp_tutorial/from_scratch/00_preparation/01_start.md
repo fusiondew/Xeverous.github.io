@@ -49,14 +49,14 @@ All tools presented on this site are free and very often (if not always) open so
 
 The reason is simple: In the beginning, there was only pure machine code. Then, basic abstractions such as assembly appeared. These only mapped codes to named instructions so you could write `add`, `mov` instead of directly working on the binary system. Then, more advanced abstractions appeared allowing to write even easier to read code.
 
-No solution can fully satisfy everyone, so this why we have multiple human and programming languages. Someone preferred `begin`, `end`, someone else `{` and `}` symbols. Someone wanted more convenience, someone else more performance.  Different languages have different aims. All in all everything ends up in machine instructions.
+No solution can fully satisfy everyone, some appeared independently and this is why we have multiple human and programming languages. Someone preferred `begin`, `end`, someone else `{` and `}` symbols. Someone wanted more convenience, someone else more performance.  Different languages have different aims. All in all everything ends up in machine instructions.
 
 **So why C++?**
 
 I predict you are reading this tutorial mostly for these reasons:
 
 - you heard C++ is very fast
-- you heard C++ can do things which many other languages can't 
+- you heard C++ can do things which some other languages can't 
 - you heard C++ is better than C
 - you know C and want to leverage your skills
 - you know C++ is complex and you like it (well, I prefer chess to checkers)
@@ -66,6 +66,33 @@ I predict you are reading this tutorial mostly for these reasons:
 All of these reasons are good, although not required to start this tutorial.
 
 More about types of programming languages and their differences later.
+
+C++ relies on 2 core pillars:
+
+- direct map to hardware
+- zero-overhead abstraction
+
+Language aims:
+
+- You do not pay what you do not use (unused features should not impact performance).
+- User-defined types need to have the same support and performance as built-in types.
+- It must be driven by actual problems and its features should be useful immediately in real world programs.
+- Every feature should be implementable (with a reasonably obvious way to do so).
+Programmers should be free to pick their own programming style, and that style should be fully supported by C++.
+- Allowing a useful feature is more important than preventing every possible misuse of C++.
+- It should provide facilities for organising programs into well-defined separate parts, and provide facilities for combining separately developed parts.
+- No implicit violations of the type system (but allow explicit violations; that is, those explicitly requested by the programmer).
+- There should be no language beneath C++ (except assembly language).
+- C++ should work alongside other existing programming languages, rather than fostering its own separate and incompatible programming environment.
+- If the programmer's intent is unknown, allow the programmer to specify it by providing manual control.
+
+C++ is well-know for:
+
+- it's performance
+- being one of (if not the most) complex programming language
+- being hard to learn but covering most features of many other languages together
+- having 40 years long history
+
 
 #### Question: Where is C++ used?
 

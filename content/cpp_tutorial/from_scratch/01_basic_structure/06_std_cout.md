@@ -25,9 +25,9 @@ If you are using an Unix system (MacOS, Linux, Android, BSD and other), these 3 
 Programs using different standard output streams will print to the screen the same way, but their content can be split by stream redirection - see [this SO question](https://stackoverflow.com/questions/818255/in-the-shell-what-does-21-mean). Eg by adding `1>/dev/null` you will see only error prints.</p>
 </details>
 
-`<<` is an operator that is used by streams to output data. I don't want to explain all internals of this now as there are used many advanced language features which are yet to be explained later. For now, just assume there is some underlying magic which allows it to understand various data types and convert them to characters and output them to the screen.
+`<<` is an operator that is used by streams to output data. I don't want to explain all internals of this now as there are used many advanced language features which are yet to be explained later. For now, just assume there is some underlying magic which allows it to understand various data types and output textual interpretation the screen.
 
-`<<` can output vary many different data types (so far seen numbers and character sequenes) but more data types will be shown in a couple of lessons. If you get an error like `no match for 'operator<<' (operand types are 'std::ostream' ...` this means you have hit a data type that has no defined output. It is possible to define it, but that obviously requires you to understand many language features first.
+`<<` can output many different data types (so far seen numbers and character sequenes) but more data types will be shown in a couple of lessons. If you get an error like `no match for 'operator<<' (operand types are 'std::ostream' ...` this means you have hit a data type that has no defined output. It is possible to define it, but that obviously requires you to understand many language features first.
 
 ### chaining
 
@@ -74,13 +74,13 @@ When chaining operators, watch out for typical syntax mistakes:
 
 ### escape sequences
 
-One noticeable thing in the example above is `\n`. This encodes a newline. Without it, the output would be:
+One noticeable thing in the example above is `\n`. This encodes a newline character. Without it, the output would be:
 
 ```
 hello, worldx = 7
 ```
 
-Character `\` is an escape character. This means that the next character after it has a different meaning. Escaped `n` forms a line break instead of regular `n`.
+Character `\` is an escape character. This means that it is not printed and the next character after it has a different meaning. Escaped `n` forms a line break instead of regular `n`.
 
 Most important escape characters:
 
@@ -125,12 +125,6 @@ Most important escape characters:
 
 Null-terminator character is not visible, but it has important uses.
 
-<div class="note info">
-#### endl
-<i class="fas fa-info-circle"></i>
-You might have see examples on other sites that use `std::endl` instead of `\n`. This is almost always used incorrectly, because `std::endl` does not only output line break but also explicitly flushes the buffer, which is hardly ever needed. Don't use it unless you know exactly what that means and you have a reason to do the flush.
-</div>
-
 Example
 
 ```c++
@@ -155,6 +149,10 @@ some	spaced	text
 
 </p>
 </details>
+
+**`std::endl`**
+
+You might have see examples on other sites that use `std::endl` instead of `\n`. This is almost always used incorrectly, because `std::endl` does not only output line break but also explicitly flushes the buffer, which is hardly ever needed. Don't use it unless you know exactly what that means and you have a reason to do the flush.
 
 ### exercise
 

@@ -2,7 +2,6 @@
 layout: article
 ---
 
-
 Every C++ (and C) program consists of **statements** and **functions** (note: if you heard the term *class* already it can be seen as a definition statement). Statements consist of **expressions**.
 
 Example expressions:

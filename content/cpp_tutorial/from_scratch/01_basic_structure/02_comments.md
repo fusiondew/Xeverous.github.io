@@ -39,17 +39,6 @@ It's advised to just write 2 comments instead:
 ```
 </div>
 
-<div class="note pro-tip">
-IDEs have (or at least should have) a shortcut for commenting current line/selected text:
-
-- Practically everything: ctrl + /
-- Visual Studio:
-    - comment: ctrl + K, ctrl + C (or ctrl + K + C)
-    - uncomment: ctrl + K, ctrl + U (or ctrl + K + U)
-
-Don't ask me why.
-</div>
-
 Multi-line comments can start and end any time - in such scenario they can be shorter than `//` comments:
 
 ```c++
@@ -71,7 +60,7 @@ Some IDEs do it automatically. If you have a comment that spans many lines it's 
 Sometimes you may find documentation comments:
 
 ```c++
-/*
+/**
  * @brief some short description
  * @param x 
  * @param y
@@ -93,7 +82,7 @@ Multi-line comments can not be nested. You can't write a comment inside a commen
 
 An error will appear at the `text3`.
 
-### recommendations
+### the purpose of comments
 
 Do not comment **what** happens - it's visible in the code. Describe **why**.
 
@@ -111,7 +100,7 @@ good comment
 cost = items / 2 * price;
 ```
 
-Multiple comments in this tutorial will break this rule, as here they must explain what's actually happening. They are comments for learning, not how actual comments should be written.
+Multiple comments in this tutorial will break this rule, as here they must explain what's actually happening. They are comments for learning, not how actual comments should be written. In actual job we assume the reader knows the language and does not need to know **what** the code is doing but **why** it is.
 
 ### commenting out the code
 
@@ -122,7 +111,14 @@ You can disable code by making it comments. Use it for experiments.
 std::cout << "my" << "own" << "text";
 ```
 
-Multiple IDEs and text editors offer shortcuts to comment/uncomment multiple lines at once. Usually `ctrl`+`/` which changes selected text.
+<div class="note pro-tip">
+IDEs have (or at least should have) a shortcut for commenting current line/selected text:
+
+- all popular IDEs except Visual Studio: ctrl + /
+- Visual Studio:
+    - comment: ctrl + K, ctrl + C (or ctrl + K + C)
+    - uncomment: ctrl + K, ctrl + U (or ctrl + K + U)
+</div>
 
 ## exercise
 

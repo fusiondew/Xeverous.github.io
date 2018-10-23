@@ -1,19 +1,11 @@
 # Brief plan of the core language tutorial. Expect it to be changed very often while building the site
 
 preparation
-	what is C++ (language types: static/dynamic typing, memory mamanegement, build, etc)
-	terms (IDE, compiler, etc),
-	build configurations
-	common configuration problems
-	history
-	hello world
+	build process
+	history ?
 
 type fundamentals
 	brief: custom types (struct, enums)
-
-program structure
-	std::cout
-	std::cin
 
 operators
 	bit operators - theory (logic gates, link numberphile vid) (+DeMorgans law)
@@ -116,6 +108,7 @@ missing
 	pointer trap: *i++ (order of operators)
 	char* non_const_ptr = "text"
 	http://www.open-std.org/jtc1/sc22/wg21/
+	cout/cin/getline tutorial
 	
 **articles which do not have title (below layout) are considered unfinished**
 

@@ -17,7 +17,7 @@ There is a distinction between statically allocated memory and dynamically alloc
 
 #### Question: Does it means the programs will not use any RAM?
 
-Obviously the operating system will need to use some RAM to run the program and the standard library may ask for some too. But the code you will write will not do it.
+Obviously the operating system will need to use some RAM to run the program and the standard library may ask for some too. But the code you will write now will not explicitly allocate memory.
 
 ## definition and assignment vs initialization
 
@@ -41,8 +41,6 @@ int x = 5;
 
 which forms an **initialization**. **Initialization is a definition + inital value at the same statement.**
 
-For now, it doesn't matter whether you do both in 1 initialization statement or split them to definition + assignment, but it will make a difference in the future. Assignment always uses `=` operator, but initialization may use (and often requires) a different syntax.
-
 Other possible initializations:
 
 ```c++
@@ -64,16 +62,18 @@ int b;
 b = 2; // assignment (value given after first statement)
 ```
 
+For now, it doesn't matter whether you do both in 1 initialization statement or split them to definition + assignment, but it will make a difference in the future. Assignment always uses `=` operator, but initialization may use (and often requires) a different syntax. Some constructs require initialization and other do not allow assignment.
+
 ## uninitialized variables
 
-C and C++ does not require to set any initial value (unless we use some advanced features). If you do not set anything, the value stored in variable's memory will be unknown - typically some garbage bits which were left after previous program that used the same memory location.
+C and C++ does not require to set any initial value in many situations. If you do not set anything, the value stored in variable's memory will be unknown - typically some garbage bits which were left after previous program that used the same memory location.
 
 ```c++
 int x;
 std::cout << "x = " << x;
 ```
 
-It is unknown what the program above will print. It might be 0 but also some huge number - it happens when we reuse other program's memory which had different purpose. Each program execution may print different value of `x`. There might be or not some pattern in the outputs of the program - depends on how your system manages memory.
+It is unknown what the program above will print. It might be 0 but also some huge number - it happens when we reuse other program's memory which had different purpose. Each program execution may print different value of `x`. There might be or not some pattern in the outputs of the program - depends on how your system manages memory and what other programs are currently running.
 
 <div class="note pro-tip">
 Always initialize variables. Prefer direct initialization over definition + assignment.
@@ -157,12 +157,12 @@ It's possible to reuse the value of the given variable to set its new value
 ```c++
 int x = 5;
 x = x * 2; // assign to x value equal to 2 times current value of x
-std::cout << x; // prints "10", no doubt
+std::cout << x; // guuaranteed to print "10"
 ```
 
 This is normal and works as expected. Language defines that assignments are made from right to left so the right side expression is evaluated first before it's saved in `x`.
 
-Obviously it has no sense when variable is defined:
+Obviously it has no sense when variable is defined through it's own value:
 
 ```c++
 int x = 2 * x; // nonsense
