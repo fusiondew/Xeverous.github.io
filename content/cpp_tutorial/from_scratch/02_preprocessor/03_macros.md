@@ -10,7 +10,7 @@ The macro is substituted to it's text (if any). The macro must be matched exactl
 #define identifier text
 ```
 
-Whenever *identifier* is used within code, it will be replaced by *text*.
+Whenever *identifier* is used within the code, it will be replaced by *text*.
 
 **Example**
 
@@ -151,7 +151,7 @@ int main()
 #ifdef __STDCPP_THREADS__
     std::cout << "This program can have multiple threads.\n";
 #else
-    std::cout << "This program can not have multiple threads\n";
+    std::cout << "This program can not have multiple threads.\n";
 #endif
 }
 ```
@@ -208,20 +208,20 @@ for (auto it = vec.begin(); it != vec.end(); ++it) // syntax error: vec.0()
     *it += 2;
 ```
 
-Text-replacing macros can be used as shortcuts to avoid repetitive code. The problem with them is that the entire "find and replace" system is very primitive and can lead to many surprising results. You can not control them or reduce their scope - for this reason there is a very strong convention that macros should be written using `UPPERCASE_STYLE`. No other code should use this style to avoid conflicts.
+Text-replacing macros can be used as shortcuts to avoid repetitive code. The problem with them is that the entire "find and replace" system is a very primitive solution from 1980s (where programming was not as much advanced as today) and can lead to many surprising results. You can not control macros to reduce their scope - for this reason there is a very strong convention that macros should be written using `UPPERCASE_NAME_STYLE`. Nothing else should use this style to avoid any potential name clashes.
 
-Macros are popular in C language but C++ is far more complicated and has many more language features which are vastly superior to macros.
+Macros are popular in C but C++ is far more complicated and has many more language features which are strictly superior to macros. It's adviced to never use text-replacing macros unless there is no other way to achieve something.
 
-**legitimate uses for macros**
+**legitimate uses for text-replacing macros**
 
-- testing/debugging (eg print statements that add `__FILE__` and `__LINE__`)
-- logging (avoid repetitive code)
-- conditional compilation (switching includes)
+- testing/debugging (eg print statements use `__FILE__` and `__LINE__`)
+- logging (avoids repetitive code)
+- convoluted memory operations which can not be simplified (eg code that binds different programming languages)
 
 ## summary
 
-- `#include`s are a preprocessor directive but not a macro.
-- macros may be just defined (no text replacement) for `#ifdef` directives
-- macros may be defined to replace text - these are the ones that are evil
+- `#include`s are a preprocessor directive but not a macro
+- macros may be just defined (purely for `#ifdef` directives) or defined to replace text
+- text-replacing macros are evil because they operate on text and do not understand the code which can lead to hidden bugs or surprising results
 
-There will be practically no macros used in the entire tutorial.
+There will be no text-replacing macros used in the entire tutorial.

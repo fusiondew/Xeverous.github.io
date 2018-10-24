@@ -8,7 +8,7 @@ Preprocessor is a program which performs text-related tasks before the actual co
 
 From other languages point of view, C++ build system is pretty primitive and needs some manually written information but at the same time it offers things that are not possible outside C/C++ world.
 
-Modules are planned for next standard (work is already ongoing), which will significantly reduce and change how preprocessor is used.
+Modules are being worked on as a complete overhaul of C++ build system that will change how projects are build and significantly reduce preprocessor usage. Some compilers/IDEs are already providing experimental support.
 
 ## the need for metadata
 
@@ -70,9 +70,9 @@ and the second are searched in:
 - the same directory as the originating file
 - explicitly added paths
 
-The first one is intended for C++ standard library and other (external) libraries.
+The `<>` form is intended for C++ standard library and is also used for external libraries.
 
-The second one is intended for your own files - since they are expected to be together (in the same or very close directories) files are searched starting from the same directory as the file which mentions them.
+The `""` form is intended for your own files - since they are expected to be together (in the same or very close directories) files are searched starting from the same directory as the file which mentions them (paths are relative).
 
 <div class="note info">
 In any case, if included file can not be found program compilation fails.
@@ -111,6 +111,6 @@ Sometimes circular dependencies may happen in the code - for example, both code 
 
 ## other notes
 
-Preprocessor is a process that happens transparently - you don't see the generated files with pasted/replaced content. Most of the build process, consisitng of many more steps than just preprocessor is done completely in memory.
+Preprocessor is a process that happens transparently - you don't see the generated files with pasted/replaced content. Most of the build process, which consists of many more steps than just preprocessor is done completely in memory.
 
-This is not a strict technical requirement, but it's a big optimization to avoid unnecessary disk operations.
+This is not a strict technical requirement, but it's a big optimization to avoid unnecessary disk operations. That's one of the reasons documentation uses the term *translation unit* instead of *file* when describing compilation process.

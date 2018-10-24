@@ -38,9 +38,9 @@ GCC does this when you `#include` a file from C++ standard library which is not 
 #warning "quoted text"
 ```
 
-This directive is a language extension. C++ standard does not mention such thing, but from user point of view it's purpose and usage is rather obvious.
+This directive is a language extension. C++ standard does not mention such thing, but from user point of view its purpose and usage is rather obvious.
 
-By using this directive you will often get double warning: first, the text that this directive is used with; second, the information that this is a language extension.
+By using this directive you may get 2 warnings: first, the text that this directive is used with; second, the information that a non-standard language extension has been used.
 
 ## line
 
@@ -59,6 +59,8 @@ Compiler-specific command. Standard requires that unknown pragmas should be igno
 #_Pragma command
 ```
 
+Generally pragmas should be avoided in favour of compiler command line options.
+
 There is 1 very popular pragma:
 
 ```c++
@@ -66,3 +68,5 @@ There is 1 very popular pragma:
 ```
 
 Which is an alternative form of *header guards*. It's very broadly supported - there have been even attepts to standarize it.
+
+More about *header guards* later.
