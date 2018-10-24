@@ -12,7 +12,7 @@ In this chapter you will mostly learn about **first-order** **stateless** **free
 
 - **first-order** - this is hard to explain, you will understand this term better when contrasted with **higher-order** functions. First-order functions have no complications.
 - **stateless** - just like in math, a stateless function output depends only on it's input. This means that if you input the same argument again, you should always get the same result. Functions do not have state - they do not save anything (unless we use global variables but that's already bad)
-- **free** - functions have no further complications. Will be later contrasted with **methods** which are functions that are tied to specific class or hierarchy of classes
+- **free** - functions have no further complications. Will be later contrasted with **methods** which are functions that are tied to and can only work on objects of specific class or hierarchy of classes
 
 ## syntax
 
@@ -37,8 +37,6 @@ There are multiple noticeable things here:
 - the function *returns* `x` multiplied by `x`
 
 So how this function is used? It's surprisingly very similar to math:
-
-TODO check render
 
 $$
 x = 5 \\
