@@ -94,7 +94,7 @@ Long or very complex expressions should be split into multiple statements, givin
 
 ## overloading
 
-C++ allows to define custom types (classes) and then overload operators for them giving unique behaviour.
+C++ allows to define custom types and then overload operators for them giving unique behaviour.
 
 In fact, you have already seen an example of this: `std::cout << "text"` uses overloaded opertor `<<` - the default behaviour is to perform bit shifts, not output text. Another example would be defining a custom class representing a matrix and then overloading `*` so that it can perform matrix multiplication.
 

@@ -63,7 +63,7 @@ std::cout << "size of x: " << sizeof(x) << "\n";
 
 ## size type
 
-The type of value returned by `sizeof` operator is not `int` but `std::size_t` (size type). It is the widest possible unsigned integer type on the given platform (usually `unsigned long long`).
+The type of value returned by `sizeof` operator is not `int` but `std::size_t` (size type). It is an alias to the widest possible unsigned integer type on the given platform (usually `unsigned long long`).
 
 ## size of structures
 
@@ -86,8 +86,6 @@ struct foo
 ```
 
 Padding increases memory usage but simplifies layout: both integers are separated by the size of an integer. Structures without such padding would complicate memory read and write instructions. Moving by a multiple of size of element simplifies instructions.
-
-Some harware may have even stricter requirements and would require the structure above to occupy 16 bytes.
 
 ## applications
 

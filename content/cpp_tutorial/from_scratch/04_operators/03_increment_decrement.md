@@ -65,7 +65,7 @@ int i = 10;
 int j = i++ + ++i + i++;
 ```
 
-`j` has unspecified value because compiler is requested to change value of `i` multiple times in one line.
+`j` has unspecified value because compiler is requested to change value of `i` multiple times in one statement.
 
 ## exercise
 

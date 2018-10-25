@@ -12,9 +12,9 @@ If operands are not of the same type, implicit convertion (if possible) is perfo
 
 `a + b` works as expected both with integers and floating-point types.
 
-All calculations are performed on an integer or larger type. If any of operands is smaller (`char` or `short`) it's first *promoted* to a larger type.
+All integral calculations are performed on an `int` or larger type. If any of operands is smaller (`char` or `short`) it's first *promoted* to a larger type.
 
-Floating-point calculations may have higher accuracy than their types. For example, on x86 and x86_64 `double` takes 64 bits (8 bytes) but the relevant processor part uses 80-bit registers when doing the math.
+Floating-point calculations may have higher accuracy than their types. For example, on x86 and x86_64 `double` occupies 8 bytes (64 bits) but the relevant processor part uses 80-bit registers when doing the math.
 
 ## unary plus and minus
 
@@ -46,7 +46,7 @@ d = -3.14
 
 `+a` for integers and floating-point numbers doesn't do anything. It exists for consistency with unary minus, but because operators can be overloaded someone might find a use for them.
 
-`+a` can be used to force promotion from `char` to `int` if it's desirable - this works because C++ mandates that all "calculations" are performed on integers or larger types.
+`+a` can be used to force promotion from `char` to `int` if it's desirable - this works because C++ mandates that all calculations are performed on `int` or larger type.
 
 ```c++
 #include <iostream>
@@ -66,14 +66,9 @@ a = 65
 
 ## multiplication
 
-`a * b` works as expected. Nothing needed to explain.
+`a * b` works as expected but if you multiply too large numbers and the result does not fit an *overflow* will happen. Explained later in this chapter.
 
 ## division
-
-There are 2 types of division:
-
-- integer division
-- floating-point division
 
 While machine instructions for all arithmetic operators are different depending on argument types, division has also different behaviour.
 
@@ -84,7 +79,7 @@ While machine instructions for all arithmetic operators are different depending 
 
 **Integer division** has different aspects:
 
-- there are no fractions: `7 / 2` is `3`, not `3.5`
+- there are no fractions: `7 / 2` is `3`, not `3.5` (result is always rounded down)
 - division by `0` is undefined behaviour (integers do not support special values like infinity or NaN)
 
 ```c++
