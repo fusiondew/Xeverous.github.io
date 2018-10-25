@@ -25,12 +25,12 @@ TODO pre/code for table below
             <tr>
                 <td>nullary</td>
                 <td>0</td>
-                <td>(), {}</td>
+                <td>throw</td>
             </tr>
             <tr class="even">
                 <td>unary</td>
                 <td>1</td>
-                <td>!a, ~a, &a</td>
+                <td>!a, ~a, &amp;a</td>
             </tr>
             <tr>
                 <td>binary</td>
@@ -52,8 +52,8 @@ You don't have now to understand exactly what `!a` or `a ? b : c` does, but you 
 
 **Note:** some operators use the same characters but have different arity:
 
-- `b = a - a` uses binary operator which performs subtraction
-- `b = -a` uses unary operator which performs negation
+- `c = b - a` uses binary operator which performs subtraction
+- `c = -a` uses unary operator which performs negation
 
 ## construction
 
@@ -67,9 +67,9 @@ Some operators are keywords: `sizeof`, `alignof`, `new`, `delete`, `static_cast`
 
 This means there is a difference between writing `+ +` vs `++` or `& &` vs `&&`. First two are 2 separate operators `+` and `&`, second are 1 operator `++` and 1 operator `&&`.
 
-`?:` operator characters are not written next to each other but between variables they operate on: `a ? b : c`.
+`?:` operator characters are not written next to each other but between operands: `a ? b : c`.
 
-`[]` operator is used this way: `a[b]`. It's an unary operator (`a` is not considered to be a part of the input)
+`[]` operator is used this way: `a[b]`.
 
 ## evaluation order
 
@@ -106,11 +106,11 @@ It's intuitive for unary operators to have higher priority than binary operators
 
 ```c++
 // bad
-a+!b +c
-a + ! b + c
-a +! b+c
+a+!b +c [d] <<e
+a + ! b + c[ d]<< e
+a +! b+c [ d ] << e
 // good
-a + !b + c
+a + !b + c[d] << e
 ```
 
 In other words, if an operator applies to only 1 object (unary), don't put spaces as in `!b`. If it applies to 2 (or more) objects (binary, ternary), write spaces on both sides of the operator as in `b + c`.

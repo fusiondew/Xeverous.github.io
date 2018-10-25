@@ -143,7 +143,7 @@ In C, empty parentheses declare a function but express that function arguments a
 ```c++
 // C
 void f();     // declares a function with unspecified argument amount and types
-void g(void); // declares a function
+void g(void); // declares a function that takes 0 arguments
 
 f(1, 2, 3); // will compile, but it will be undefined behaviour if actual function does not take 3 parameters of type int
 g(1, 2, 3); // will not compile
