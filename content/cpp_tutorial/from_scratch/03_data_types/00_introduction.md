@@ -22,8 +22,8 @@ C++ is a language which does not do anything unless explicitly asked to (for per
 - no accidental mistakes - generally variables of different types are incompatible - `a = b` will not compile if types of both are different
 - no unnecessary operations - types can be converted but you decide when
 - no unnecessarily wasted memory - each data is stored on fixed amount of bits - with dynamic typing variables are often stored multiple times as different types
-- clear code - you know what you work with
-- better optimization - compilers can better utilize machine instructions knowing how memory is used
+- cleaner, more explicit code - you know what you work with
+- better optimization - compilers can better utilize machine instructions knowing for what data memory is used
 
 The first point might seem trivial but it can be a source of bugs in the software. By having multiple different types we give each variable specific purpose and prevent mistakes from wrong interpretation. This is known as **type safety**.
 
@@ -35,8 +35,8 @@ TODO important block
 
 We can distinguish 2 types of types (pun intended):
 
-- Built-in types - types that are directly supported by the processor - these types are keywords, for example: `int` (integer), `char` (character).
-- User-defined types - types that are created in the code. In short, these are types that can consist of multiple built-in types, for example: `std::string` (represents character sequence), `std::array` (represents multiple values of the same type).
+- Built-in types - types that are directly supported by the language - these types are keywords, for example: `int` (integer), `char` (character).
+- User-defined types - types that are created in the code, they can consist of multiple built-in types, for example: `std::string` (represents character sequence), `std::array` (represents multiple values of the same type).
 
 User-defined types are referred to as **classes** (and sometimes **structs**).
 
@@ -46,4 +46,4 @@ Multiple classes are already provided by the standard library. In later chaptes,
 
 This is a very special type - it represents absence of data. `void` is a type that has no possible values.
 
-You can't have variables of type `void` (they could not store anything) but the void type can be used in many other contexts.
+You can't have variables of type `void` (they could not store anything) but the void type can be used in some contexts to express that no data is being used.

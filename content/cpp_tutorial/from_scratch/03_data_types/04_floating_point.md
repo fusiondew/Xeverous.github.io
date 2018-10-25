@@ -20,7 +20,7 @@ C and C++ offer 3 floating-point types:
 
 Additional (non-standard) types may be offered by the compiler (eg `__float128` in GCC).
 
-On typical hardware that satisfies IEEE-754 standard:
+On a hardware that satisfies IEEE-754 standard:
 
 - 32 bit `float` uses
     - 1 bit for sign (+/-)

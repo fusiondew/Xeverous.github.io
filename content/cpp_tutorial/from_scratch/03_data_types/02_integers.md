@@ -16,9 +16,9 @@ In decimal system, if you are given 3 digit space, you can't go beyond 999. Simi
 
 `int` can be surrounded by specific other keywords which modify the size and encoding. This can be used to change the possible value range and modify how it's interpreted.
 
-Because plain binary numbers represent sums of consecutive powers of 2 (1, 2, 4, 8, 16, ...) there is no built-in way to represent negative numbers. Representations which allow this are named *signed representations*, they usually do this by treating first bit as +/- sign and some addiional changes in intepretation.
+Because plain binary numbers represent sums of consecutive powers of 2 (1, 2, 4, 8, 16, ...) there is no built-in way to represent negative numbers. Representations which allow this are named *signed representations*, they usually do this by treating first bit as +/- sign and having some addiional changes in intepretation.
 
-Note that at the machine instruction level, there is notion of type - only the size. 8-bit, 16-bit, 32-bit data fields and such. It's the programmer who gives this data a meaningful interpretation.
+Note that at the machine instruction level, there is no notion of type - only the size. 1/2/4/8 byte data fields and such. It's the programmer who gives this data a meaningful interpretation. Processor does not know the purpose of the data and will execute any size-matching instruction with no problems.
 
 If type safety is violated, given any number, we could easily interpret it in various ways resulting in multiple different values.
 
@@ -129,7 +129,7 @@ From the table above you can see that:
 - one's complement signed integer has value range $\[-127, 127\] \space (\[-2^7+1, 2^7-1\])$; 0 has two representations
 - two's complement signed integer has value range $\[-128, 127\] \space (\[-2^7, 2^7-1\])$
 
-The reverse order of negative numbers (in both complement encodings) allows some math optimizations. Negavive/positive values can be switched by flipping all bits (look at 126 and 127).
+The reverse order of negative numbers (in both complement encodings) allows some math optimizations. Negavive/positive values can be switched by flipping all bits (look at +/-127).
 
 Two's complement compared to one's complement is shifted by 1 on negative numbers - it avoids the problem of two 0 representations.
 
@@ -293,4 +293,6 @@ Integers can have varying length - it's controlled by `short` and `long` keyword
 
 Integers may be interpreted differently - this is controlled by `signed` and `unsigned` keywords. Unsigned integers have wider range of positive values but can not represent negative numbers.
 
-Default interpretation is signed: `int` is the same as `signed int`. 
+Default interpretation is signed: `int` is the same as `signed int`.
+
+By default, you should use `int` type (even if you would store only positive numbers) unless you need something specific. Detailed rationale will be given later.

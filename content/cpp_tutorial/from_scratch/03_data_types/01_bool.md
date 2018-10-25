@@ -16,9 +16,9 @@ layout: article
 
 `bool` will often occupy full byte (8 bits) or more memory - this is because in typical Von-Neumann architecture memory is addressed by bytes, not bits.
 
-Still, for many instructions compiler can optimize them to single bits if processor registers are available.
+For some instructions compiler can optimize them to single bits if processor registers are available but generally packing multiple 1-bit variables to a single byte would unnecessarily complicate processor instructions slowing the program.
 
-Note that less memory usage does not necessarily mean better performance. In many situations, memory use is larger than necessary to store intermediate computation results to prevent repetitive calculations (very typical space for time tradeoff).
+Higher memory usage does not necessarily mean worse performance. Vast majority of today's software strives for faster execution, not less required memory. In many situations, more memory is used than needed to store intermediate computation results to prevent repetitive calculations - very typical space for time tradeoff.
 </p>
 </details>
 

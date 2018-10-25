@@ -4,9 +4,6 @@ preparation
 	build process
 	history ?
 
-type fundamentals
-	brief: custom types (struct, enums)
-
 operators
 	bit operators - theory (logic gates, link numberphile vid) (+DeMorgans law)
 
