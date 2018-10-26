@@ -15,11 +15,11 @@ Then, multiple `case`s may follow. Each case must use a constant expression (dat
 
 ```c++
 // all cases must use a different value
-case constant_expression1:
+case constant_expression_1:
     // ...
-case constant_expression2:
+case constant_expression_2:
     // ...
-case constant_expression3:
+case constant_expression_3:
     // ...
 ```
 

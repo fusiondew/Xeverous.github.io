@@ -7,7 +7,7 @@ In all previous loops the were 2 visible aspects:
 - loop body (what is repeated)
 - loop stop condition
 
-There is a special construct that is intended to use these 2 on the same line, together with initialization which is performed only once, before the loop starts
+There is a special construct that is intended to use these 2 on the same line, together with initialization which is performed only once, before the loop starts.
 
 ## the for loop
 
@@ -135,7 +135,7 @@ How it works:
 - the `j` variable is controlling lines (from 0 to 9)
 - the `i` variable is controlling numbers from 0 to 9 on the given line
 - the value is formed from multiplication - eg line 5 (`j == 5`), number 3 (`i == 3`) is equal to `j * 10 + i` which is 53
-- the linebreak is printed after each line - note that if you place the line break in the inner loop the output would make a new line for each number, not a row
+- the linebreak is printed after each line - note that if you place the line break in the inner loop the output would make a new line for each number, not for each row
 
 **loop counter naming**
 
@@ -200,7 +200,7 @@ while (n--)
 
 The loop counter decreases each iteration as long as it is not 0 (`0` converted to `bool` evaluates to `false`), essentially invoking the body `n` times. With this trick `n` in the loop body is rarely used - usually the body of the loop is always the same - focus is on the number of repeats, not the body chaning depending on the `n`.
 
-Note that in the for loop you get `i` with values 0, 1, 2, ..., N-1 but with the while loop you get `n`: N, N-1, N-2, ..., 3, 2, 1.
+Note that in the for loop you get `i` with values 0, 1, 2, ..., N-3, N-2, N-1 but with the while loop you get `n`: N, N-1, N-2, ..., 3, 2, 1.
 
 ## exercise
 

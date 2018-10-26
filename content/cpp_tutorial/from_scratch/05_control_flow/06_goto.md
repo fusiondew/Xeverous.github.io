@@ -32,7 +32,8 @@ mylabel:
 
 `goto` is kept for backwards compability, but it's so bad that multiple new C++ features do not allow it to be used inside their code. Multiple programming languages do not have `goto`.
 
-<div class="note pro-tip" markdown="1">
+<div class="note pro-tip" markdown="block">
+
 Don't use `goto`. Ever.
 </div>
 
