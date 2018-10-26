@@ -22,6 +22,12 @@ A pointer is a variable which holds the memory address of another variable.
 
 ... is written as `&`. It is an unary operator (takes only 1 argument). So for a variable named `x` it's address is `&x`. Read the expression `&x` as "address of x".
 
+<div class="note warning">
+
+Don't mistake unary `&x` (address-of) with binary `x & y` which performs bitwise AND.
+</div>
+
+
 ```c++
 #include <iostream>
 
@@ -90,20 +96,27 @@ prints
 
 Do you see that addresses are very similar? Elements of the array are placed one after another in the memory. Also, the address value grows by 4 (`0x...4` + `4` = `0x...8` and `0x...8` + `4` = `0x...c`) - this means that `int`s occupy 4 bytes on the system on which the code was run.
 
-Visualization:
+Visualization (assuming *big endian* archtecture):
 
 ```
-                                v 0x7ffd8ddc053b                v 0x7ffd8ddc0543
-                            v 0x7ffd8ddc053a                v 0x7ffd8ddc0542
-                        v 0x7ffd8ddc0539                v 0x7ffd8ddc0541
-                    v 0x7ffd8ddc0538                v 0x7ffd8ddc0540
---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+--
-  |     arr[0]    |     arr[1]    |     arr[2]    |   |   |   |   |   |   |    
---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+--
-    ^ 0x7ffd8ddc0534                ^ 0x7ffd8ddc053c
-        ^ 0x7ffd8ddc0535                ^ 0x7ffd8ddc053d
-            ^ 0x7ffd8ddc0536                ^ 0x7ffd8ddc053e
-                ^ 0x7ffd8ddc0537                ^ 0x7ffd8ddc053f
+memory cells (each line - 4 bytes)            addresses
+|               |
++---+---+---+---+
+|               |                            ..., 0x7ffd8ddc052e, 0x7ffd8ddc052f
++---+---+---+---+
+|               | 0x7ffd8ddc0530, 0x7ffd8ddc0531, 0x7ffd8ddc0532, 0x7ffd8ddc0533
++---+---+---+---+
+|     arr[0]    | 0x7ffd8ddc0534, 0x7ffd8ddc0535, 0x7ffd8ddc0536, 0x7ffd8ddc0537
++---+---+---+---+
+|     arr[1]    | 0x7ffd8ddc0538, 0x7ffd8ddc0539, 0x7ffd8ddc053a, 0x7ffd8ddc053b
++---+---+---+---+
+|     arr[2]    | 0x7ffd8ddc053c, 0x7ffd8ddc053d, 0x7ffd8ddc053e, 0x7ffd8ddc053f
++---+---+---+---+
+|               | 0x7ffd8ddc0540, 0x7ffd8ddc0541, 0x7ffd8ddc0542, 0x7ffd8ddc0543
++---+---+---+---+
+|               | 0x7ffd8ddc0544, 0x7ffd8ddc0545, ...
++---+---+---+---+
+|               |
 ```
 
 ## the dereference operator
@@ -145,7 +158,7 @@ What if we could store that address somewhere?
 
 ## pointers - syntax
 
-Append `*` to the type to indicate that it's the address.
+Append `*` to the type to indicate that it's an address.
 
 ```c++
 int x = 10;  // variable "x" of type int (integer) set to the value 10
@@ -154,7 +167,7 @@ int* p = &x; // variable "p" of type int* (pointer to integer) set to the addres
 
 ### C heritage
 
-The example presented above showcases modern C++ syntax. In C, you will mostly see the asterisk sticked to the pointer name:
+The example presented above showcases modern C++ style. In C, you will mostly see the asterisk sticked to the pointer name:
 
 ```c++
 // very common in C
@@ -216,12 +229,10 @@ Stick asterisks and other type modifiers to the type name.
 // bad, misleading
 int &p; // p is of type "reference to int" which should be int&
 int *f1(); // function is not named "*f1" but "f1", and it returns int*, not int
-int f2()[3]; // int and [3] should be together - this is one type!
 
 // good - all type modifiers are sticked together
 int& p;    // clear: p is an integer reference
 int* f1(); // clear: function returns integer pointer
-auto f2() -> int[3]; // int[3] together (using C++11 new trailing syntax)
 ```
 </div>
 
@@ -252,6 +263,8 @@ int main()
 
 Thit should not be surprising - the contents of the pointer are equal to the address of the variable.
 
+TODO replace with image.
+
 ```
                     the variable x
 --+---+---+---+---+---+---+---+---+---+---+---+---+---+--
@@ -268,13 +281,17 @@ Thit should not be surprising - the contents of the pointer are equal to the add
 
 The variable `x` is of type `int` and holds `10` (a numeric value).
 
-The variable `ptr` is of type `int*` and holds `0x7ffd4e6c179c` (an address)
+The variable `ptr` is of type `int*` and holds `0x7ffd4e6c179c` (an address).
 
 ## pointer types
 
 All pointers (at the hardware level) are the same. On 32-bit systems they occupy 4 bytes (32 bits) and on 64 bit systems they occupy 8 bytes (64 bits).
 
-Still, at the language level they differ by the type they point to. All `int*`, `double*`, `long*` etc are the same in the machine instructions but they are differentiated at the language level for type safety purposes. If it was not the case, if we had a pointer we would not know to interpret that data (and how many memory cells that data spans).
+Still, at the language level they differ by the type they point to. All `int*`, `double*`, `long*` etc are the same in the machine instructions but they are distinguished at the language level for type safety purposes. If it was not the case, if we had a pointer we would not know to interpret that data (and how many memory cells that data spans).
+
+TODO def block
+
+All pointer types on the given architecture occupy the same amount of bytes - they just hold an address. Types of pointers are used to specify how data they point to should be interpreted.
 
 ## RAM limit
 

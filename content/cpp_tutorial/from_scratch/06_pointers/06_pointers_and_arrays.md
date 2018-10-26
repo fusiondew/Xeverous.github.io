@@ -134,13 +134,13 @@ address: 0x7fff68a43bf8 value: 90
 
 This program was obviously run in a different memory location but it's not the concern here. Notice that this time the addresses increase by 8.
 
-The both examples showcase the fundamental rule of **pointer arithmetics** - adding an integer to a pointer can move it forward multiple bytes - specifically `sizeof(pointed type)` bytes.
+Both examples showcase the fundamental rule of **pointer arithmetics** - adding an integer to a pointer can move it forward multiple bytes - specifically `sizeof(pointed type)` bytes.
 
-In the first example it was `4` because it is equal to `sizeof(int)`.
+In the first example it was `4` because it was equal to `sizeof(int)`.
 
-In the second example it was `8` because it is equal to `sizeof(long long)`.
+In the second example it was `8` because it was equal to `sizeof(long long)`.
 
-Note: you may get different results on different systems. These examples were run on 64-bit PC on which `int` occupies 4 bytes (32 bits) and long long occupies 8 bytes (64 bits).
+Note: you may get different results on different systems. These examples were run on 64-bit PC on which `int` occupies 4 bytes (32 bits) and `long long` occupies 8 bytes (64 bits).
 
 TODO def block
 

@@ -35,7 +35,7 @@ The program above invokes undefined behaviour. It is because `x` lifetime ended 
 
 <div class="note warning">
 
-The above program may work for you. It's possible because UNDEFINED BEHAVIOUR MEANS EVERYTHING CAN HAPPEN, including "seems to work". Do not rely on this, it's just a random accident where you got lucky.
+The above program may work for you. It's possible because **undefined behaviour means everything can happen, including "seems to work" behaviour**. Do not rely on this, it's just a random accident where you got lucky.
 </div>
 
 ### uninitialized pointer
@@ -51,6 +51,10 @@ int main()
 Just like with uninitialized variables, it is unknown what pointers start with. It's usually the memory content which was left after previous program.
 
 If we do not know what address `ptr` holds, we should not write there. At best, we get instant crash (because memory is not ours), at worst operation will succeed (pointer randomly holds address that's a part of our program) and we overwrite own memory creating very random, tough to find bug.
+
+TODO def block
+
+Bugs which are a result of invalid pointer operations are **memory corruptions**.
 
 ### initialization
 
@@ -74,7 +78,7 @@ int* ptr = nullptr;
 
 In a lot of C or old C++ code, you will see `NULL`. It's a macro that is used in C to represent null pointers.
 
-This macro (because it's macro) causes a lot of problems due to it's text replacement. In C, it is defined as `((void*)0)` which would not form valid C++ code. For backwards compability, `NULL` in C++ either is just `0` or something `__compiler_specific`.
+This macro (because it's macro) causes a lot of problems due to it's text replacement. In C, it is defined as `((void*)0)` which often would not form valid C++ code. For backwards compability, `NULL` in C++ either is just `0` or something `__compiler_specific`.
 
 `0` has a special rule that it can be used as a null pointer (not an integer). This rule is only for character `0`, no other numberic expressions can be assigned to pointers. It is a remnant of old times and kept for backwards compatibility.
 

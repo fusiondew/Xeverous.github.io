@@ -27,7 +27,7 @@ main.cpp:5:25: error: initializer-string for array of chars is too long [-fpermi
                          ^~~~~
 ```
 
-This is because literal strings have actually 1 more character: the null termination character, notably `'\0'`.
+This is because literal strings have actually 1 more character: the hidden null termination character, notably `'\0'`.
 
 The name "null termination character" has nothing to do with null pointers. Just a coincidence.
 
@@ -42,10 +42,11 @@ Every literal string has appended null termination character at the end
 
 ```c++
 // pseudocode
-""    == { '\0' }
-"a"   == { 'a', '\0' }
-"ab"  == { 'a', 'b', '\0' }
-"abc" == { 'a', 'b', 'c', '\0' }
+""      == { '\0' }
+"a"     == {  'a', '\0' }
+"ab"    == {  'a',  'b', '\0' }
+"abc"   == {  'a',  'b',  'c', '\0' }
+"a\0bc" == {  'a', '\0',  'b', 'c', '\0' }
 ```
 
 This gives the benefit that given a `const char*`, we do not have to know the length - we can print as long as the character is not null character.
@@ -62,13 +63,15 @@ int main()
 }
 ```
 
-String literals can be implicitly converted to `const char*` (or other pointer-to-const-character types).
+String literals (character arrays) can be implicitly converted to `const char*` (or other pointer-to-const-character types).
 
 ```c++
 const char* str = "literal string of any length";
 ```
 
-Additionally, streams can take character pointers and print them:
+### printing strings
+
+Streams can take character pointers and print them:
 
 ```c++
 #include <iostream>
@@ -76,16 +79,27 @@ Additionally, streams can take character pointers and print them:
 int main()
 {
     const char* str = "literal string of any length";
-    std::cout << str; // does the same loop - prints untill '\0' is hit
+    std::cout << str << "\n"; // does the same loop - prints untill '\0' is hit
 
     const char str2[] = "another string\0this part will not be printed";
-    std::cout << str2; // as above, but additionally implicitly decays array to pointer
+    std::cout << str2 << "\n"; // as above, but additionally implicitly decays array to pointer
 }
 ```
 
-This is the only case for character pointers. Any other pointer will be treated as address and some `0xhexvalue` will be printed.
+~~~
+literal string of any length
+another string
+~~~
 
-___
+This is the only case for character pointers - instead of printing the address they loop and print memory contents until null terminator is found.
+
+Any other pointer types results in `0xhexvalue` being printed.
+
+#### Question: What if the string has no null terminator?
+
+The printing loop would not stop. Going outside range would cause undefined behaviour - usually printing some random characters untill crash or accidental null terminator.
+
+### string literal concatenation
 
 String literals can be split to multiple lines:
 
@@ -97,6 +111,26 @@ const char* str = "a very very very very very"
     " very very very very very very very very"
     " very long string literal";
 ```
+
+### raw strings
+
+Raw strings do not feature character escapes. Data is read exactly as it is written.
+
+TODO HTML syntax form
+
+```c++
+const char[] raw_1 = R"(\a\b\c)"; // would print \a\b\c
+const char[] raw_2 = R"xyz(\a\b\c)xyz"; // delimeter xyz is ignored
+
+// these 2 are the same
+const char[] str_3 = "\nHello\nWorld // comment\n";
+const char[] raw_3 = R"(
+Hello
+World // comment
+)";
+```
+
+Raw strings are useful when defining *regular expressions* or other strings that tend to contain a lot of symbols.
 
 ## comparing C strings
 

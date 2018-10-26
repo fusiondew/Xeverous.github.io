@@ -105,7 +105,8 @@ Previously it was stated that using macros for something different than platform
 
 TODO note definition
 
-<div class="note success">
+<div class="note success" markdown="block">
+
 `[]` is called **subscript operator**.
 </div>
 
@@ -129,7 +130,7 @@ int main()
     std::cout << "\n";
 
     for (int i = 0; i < array_size; ++i)
-        arr[i] = arr[i] * 2;
+        arr[i] = arr[i] * 2; // shorter: arr[i] *= 2;
 
     std::cout << "array after modification: ";
 
@@ -173,7 +174,7 @@ std::cin >> size;
 int arr[size];
 ```
 
-This is not a valid C++. Array size, must be a compile-time constant. It is because the array contents are allocated on the stack and the compiler must know the size of memory to allocate - otherwise further instructions fechted in the processor could be skipped and/or started at the wrong place.
+This is not a valid C++. Array size must be a compile-time constant. It is because the array contents are allocated on the stack and the compiler must know the size of memory to allocate - otherwise further instructions fetched in the processor could be skipped and/or started at the wrong place.
 
 The code above should not compile. 
 
