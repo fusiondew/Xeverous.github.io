@@ -4,17 +4,6 @@ layout: article
 
 .
 
-<details>
-    <summary>Technicals</summary>
-    <p>`void` is an incomplete type that can not be completed.
-    
-- a function can return `void` - in other words, such function does not return any data
-- there are no references to `void`
-- there are no arrays of `void`
-- pointers to `void` are allowed</p>
-</details>
-
-
 ```c
 // some extreme case
 int (*(*foo)(void))[3]; // define pointer to function (void) returning pointer to an array of 3 ints
