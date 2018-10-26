@@ -97,7 +97,8 @@ void func6(int*);
 void func6(int&);
 void func6(int&&);
 
-// error: exception specification does not affect signature
+// error: redeclaration with different exception specifier
+// (more about exceptions later)
 void func7();
 void func7() noexcept;
 ```

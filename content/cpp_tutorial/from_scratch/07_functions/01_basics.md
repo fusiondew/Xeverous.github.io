@@ -31,10 +31,11 @@ int f(int x)
 
 There are multiple noticeable things here:
 
-- `int` is used to indicate return type (on the left) and argument type (inside parentheses) - also `int` 
-- the function is named `f` (longer names are also possible)
-- the function takes 1 argument named `x` which is an `int`eger
-- the function *returns* `x` multiplied by `x`
+- first `int` is used to indicate **return type** - what is the result of this function
+- the function is **name**d `f`; in math functions often have short names, but in programming more descriptive ones are preferred
+- the function takes 1 **argument** named `x` which is an `int`eger
+- `{` and `}` form **function body**; braces are mandatory even if the body is just 1 statement
+- the function uses a **`return` statement** to output it's result
 
 So how this function is used? It's surprisingly very similar to math:
 
@@ -49,24 +50,6 @@ int y = f(x);
 ```
 
 The difference is that since we are using strongly typed language both `x` and `y` have to be given types - the compiler need to know we are working on numbers. As usual, each statement ends with `;`.
-
-## function parts
-
-```c++
-//(1) (2)   (3)  
-int square(int x)
-{ // <- (4)
-    int result = x * x;
-    return result;
-}
-```
-
-- (1) - `int` - function return type. Indicates what type of result the function *returns*. If `void`, function does not have to have return statement.
-- (2) - `square` - the name of the function. In math functions often have short names, but in programming more descriptive ones are preferred.
-- (3) - `(int x)` - function arguments and their types. In practice, the reasonable maximum amount of arguments is 6, where 4+ should already be quite rare. More than this suggests a need for a refactor. Many functions may exceed this "reasonable limit" due to their unique purpose or strong convention. Don't treat this rule too seriously. In the case of 0 arguments, `()` still has to be written.
-- (4) - everything between `{` and `}` - function body. Braces are mandatory even if the body is just 1 statement.
-
-Functions form reusable pieces of code. Function `square` can be called as many times as wanted without the need to write it's body again.
 
 ## examples
 
@@ -215,6 +198,12 @@ int main()
 - Simplest mathematical functions are provided by `<cmath>` and `<cstdlib>` - [see reference](https://en.cppreference.com/w/cpp/numeric/math) for their list
 - [Special mathematical functions](https://en.cppreference.com/w/cpp/numeric/special_math) are available from C++17
 
+## recommendations
+
+- **Name:** describe clearly performed action. Prefer verbs to nouns. Too long name is better than too short.
+- **Arguments amount:** there is no hard requirement, but generally the more arguments the more complex (to write and use) function becomes. Functions taking 5+ arguments should be very rare.
+- **Body length:** There is no hard requirement. Various sources recommend max 10/25/50/100 lines or "1 screen of code". If you feel a function is too long split it into multiple smaller ones.
+
 ## exercise
 
 Write following functions:
@@ -249,7 +238,7 @@ f3(a, b) =
 \end{cases}
 $$
 
-Hint: use a helper function inside - you own or `std::abs()`.
+Hint: use a helper function inside - your own or `std::abs()`.
 
 <details>
 <summary>
@@ -264,7 +253,7 @@ int f1(int x, int y, bool p)
         return -x;
 
     if (x == 0) // test for x first, because it's easier to read x == 0 than x != 0
-        return y * y * y; // or std::pow(y, 3)
+        return y * y * y; // or return std::pow(y, 3)
 
     return x * y; // could also be a part of else block
 }
@@ -290,7 +279,7 @@ int absolute(int x)
 
 bool f3(int a, int b)
 {
-    return absolute(a) == absolute(b); // or std::abs(a) == std::abs(b)
+    return absolute(a) == absolute(b); // or return std::abs(a) == std::abs(b)
 }
 ~~~
 
