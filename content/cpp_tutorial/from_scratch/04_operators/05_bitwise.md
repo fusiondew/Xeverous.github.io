@@ -8,11 +8,11 @@ This lesson requires understanding of the binary system.
 It can be skipped as the knowledge gained from this lesson is needed only in very specific situations.
 </div>
 
-## binary operations
+## bitwise operations
 
-Should be performed on unsigned types - numbers are expected to behave as pure binary values. Sign bits would cause complications: in some cases, using bit operations on signed integers is implementation-defined behaviour or even undefined behaviour.
+... are nothing more than logical operations applied bitwise. For example, if one 8-bit number has bits a, b, c, d, e, f, g, h and other one has bits A, B, C, D, E, F, G, H then a bitwise AND would form a number with bits (a AND A), (b AND B), (c AND C) and so on. In other words, bitwise operations are logical operations applied on consecutive pairs of same-position bits from both operands.
 
-With smart use of these operators, one can set or test specific single bits in any integer. This is often done for *bitmasks*.
+Bitwise operations should be performed on unsigned integer types - numbers are expected to behave as pure binary values. Sign bits would cause complications: in some cases, using bit operations on signed integers is implementation-defined behaviour or even undefined behaviour.
 
 ## bitwise operators
 
@@ -26,6 +26,7 @@ With smart use of these operators, one can set or test specific single bits in a
 
 int main()
 {
+    // note: binary literals require C++14
     unsigned a = 0b11101001;
     unsigned b = 0b01010101;
 
@@ -82,9 +83,11 @@ shift right by 3: 00000001
 shift right by 4: 00000000
 ~~~
 
+Bitshifts may be thought as moving a point in fractions. In decimal system, moving a point multiplies or divides number by 10. In binary system - by 2. `x << n` is $x * 2^n$ and `x >> n` is $x \div 2^n$
+
 ## negation
 
-Flips all bits in the given number. This operator is unary.
+`~` flips all bits in the given number. This operator is unary.
 
 ```c++
 #include <iostream>
@@ -146,3 +149,9 @@ TODO pre/code for table below
         </tbody>
     </table>
 </div>
+
+## bit masks
+
+With smart use of these operators, one can set or test specific single bits in any integer. This is often done for *bitmasks*.
+
+TODO more about in functions chapter, write examples from SO

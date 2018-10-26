@@ -139,6 +139,10 @@ TODO check if LaTeX below renders correctly.
 
 In other words, $100 / 7 = 14$ and $100\space\%\space7 = 2$ so $2 + 14 * 7 = 100$.
 
+## power
+
+Operator `^` performs bitwise XOR. There is no operator that performs powers. It's done through functions which are explained in further chapters. Untill then, examples will write code like `x * x * x`.
+
 ## short versions
 
 All of operators above can be shortened when combined with assignments

@@ -25,8 +25,6 @@ In my opinion, the enough level is understanding functions and second-degree equ
 
 It is not required, but it is an advantage. At worst you will just skip bit operations lessons. Fortunately nothing really depends on them so you can learn everything else.
 
-Still, I recommend to learn the binary system. Numberphile has a [great video](https://www.youtube.com/watch?v=lNuPy-r1GuQ) explaining how logic gates work using dominos as the current.
-
 #### Question: Do I need to be good in English?
 
 I try to write in easy language on this website but I encourage you to learn English first (or during the reading) if you have problems reading the content.

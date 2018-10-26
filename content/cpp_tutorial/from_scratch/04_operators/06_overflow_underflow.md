@@ -43,13 +43,15 @@ Overflow behaviour is intentional. In some computations (eg hashing, checksums, 
 
 ... is undefined behaviour. It's programmers responsibility to ensure that computations will not exceed the limit.
 
-In realily, on all major arcitetures signed integer overflow behaves just like with unsigned integers - it wraps around, but while it is sometimes desirable to overflow $255$ to $0$, overflow $127 + 1 = -128$ would not give any usability.
+In realily, on all major arcitetures signed integer overflow behaves just like with unsigned integers - it wraps around, but while it is sometimes desirable to overflow $255$ to $0$, $127 + 1 = -128$ does not provide any usability.
 
 Specifying signed overflow as undefined behaviour at the language level has important effect - it allows multiple optimizations. With unsigned integers, `a + b` may be less than `a` (if it overflows) which may need additional instructions depending what further code does.
 
 <div class="note pro-tip">
 
-Do not use unsigned types just because something can not be negative. **Use unsigned types only when you need wrap-around behaviour or bit operations** - for everything else use signed integers, even if you don't need negative values.
+Do not use unsigned types just because something can not be negative. **Use unsigned types only when you need wrap-around behaviour or bitwise operations** - for everything else use signed integers, even if you don't need negative values.
+
+Signed integers are a subject for better optimizations and dealing with signed overflow bugs which end in sudden negative numbers is much easier than dealing with huge positive numbers that come from unsigned overflow.
 </div>
 
 ## floating-point overflow
@@ -58,9 +60,9 @@ Floating-point types do not wrap around. Depending on the environment, you would
 
 ## floating-point underflow
 
-The problem of too small values (very small fractions near 0), not huge negative numbers.
+This is a different problem. It's not caused by going beyond value range but by very small absolute values - fractions which are very close to 0.
 
 Depending on the environment 2 things can happen:
 
 - flush to 0 - the number is too small to represent, instead it's rounded to zero
-- [denormal number](https://en.wikipedia.org/wiki/Denormal_number) representation - allows smaller numbers than usual representation but may degrade performance
+- [denormal number](https://en.wikipedia.org/wiki/Denormal_number) representation - allows smaller numbers than usual floating-point representation but may degrade performance

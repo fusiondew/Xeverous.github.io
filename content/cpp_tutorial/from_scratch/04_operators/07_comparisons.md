@@ -50,6 +50,12 @@ TODO pre/code for table below
 
 All of these expressions result in a value of type `bool`.
 
+## chaining comparisons
+
+Unfortunately code like `if (a < b < c)` does not behave as expected. It's parsed as `if ((a < b) < c)` which means that first expression results in a value `true` or `false` which is then compared with `c`. If `c` is an integer, it can not be compared with `bool` type - *implicit convertion* results in converting `false` to integer `0` and `true` to integer `1`. So instead of comparing `c` with `b` it's compared with `0` or `1`.
+
+The correct way is to write two comparison expressions and logically merge their result: `if (a < b && b < c)`.
+
 ## floating-point comparisons
 
 They work, but floating-point numbers are rarely equal due to their limited accuracy.
@@ -73,10 +79,10 @@ int main()
 not equal
 ~~~
 
-Floating-point numbers are very rarely compared for equality. If such comparison is desired, computation result is usually checked whether it falls in certain range. The minimum supported difference between two values is named *epsilon*.
+Floating-point numbers are very rarely compared for equality. If such comparison is desired, computation result is usually checked whether it falls within certain range. The minimum supported difference between two values is named *epsilon*.
 
-Unfortunately the error margin is dependent on the calculations and it grows after each operation. Solutions like `result >= 0.3 - epsilon or result <= 0.3 + epsilon` are not correct either.
+Unfortunately the error margin is dependent on the calculations and it grows after each operation. Solutions like `result >= 0.3 - epsilon || result <= 0.3 + epsilon` are not correct either.
 
-There is a [fully correct floating-point range comparison example](https://en.cppreference.com/w/cpp/types/numeric_limits/epsilon) but it's far to complicated to explain at this point.
+There is a [fully correct floating-point range comparison example](https://en.cppreference.com/w/cpp/types/numeric_limits/epsilon) but it's far too complicated to explain at this point.
 
 Just remember: do not expect floating-point values to be equal.

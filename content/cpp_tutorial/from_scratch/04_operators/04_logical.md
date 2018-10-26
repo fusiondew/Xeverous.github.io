@@ -92,10 +92,10 @@ int main()
     bool e = !a && b; // NOT true AND true = false AND true = false
     bool f = !a || b; // NOT true OR  true = false OR  true = true
     std::cout << std::boolalpha;
-    std::cout << "true  AND true = " << c << std::endl;
-    std::cout << "true  OR  true = " << d << std::endl;
-    std::cout << "false OR  true = " << e << std::endl;
-    std::cout << "false AND true = " << f << std::endl;
+    std::cout << "true  AND true = " << c << "\n";
+    std::cout << "true  OR  true = " << d << "\n";
+    std::cout << "false OR  true = " << e << "\n";
+    std::cout << "false AND true = " << f << "\n";
 }
 ```
 
@@ -105,6 +105,8 @@ true
 true
 false
 ~~~
+
+Boolean algebra is the fundametal theory behind [logic gates](https://en.wikipedia.org/wiki/Logic_gate). Connecting output of gates to input of other gates allows to build complex integrated circuits which can perform calculations in the binary system. Numberphile has a [great video](https://www.youtube.com/watch?v=lNuPy-r1GuQ) explaining how logic gates work using dominos as the current.
 
 ## secondary operations
 
@@ -116,7 +118,7 @@ These operations are composed from basic ones:
 
 <br>
 
-- x IMPL y = NOT x OR y
+- x IMPL y = (NOT x) OR y
 - x XOR y = (x OR y) AND NOT(x AND y)
 - x NXOR y = NOT(x XOR y)
 
@@ -162,4 +164,16 @@ These operations are composed from basic ones:
     </table>
 </div>
 
-There is no direct support for these operations in the language (they are very rarely needed).
+There is no direct support for these operations in the language (they are hardly ever needed).
+
+## alternative spellings
+
+Various language tokens offer [alternative spellings](https://en.cppreference.com/w/cpp/language/operator_alternative) for encodings that do not support all characters. These are mostly a remnant of the past and are hardly ever used.
+
+```c++
+~X() {}
+compl X() <%%>
+
+[&val](const X& x) { return x != val; }
+<:bitand val:>(const X bitand x) <% return x not_eq val; %>
+```
