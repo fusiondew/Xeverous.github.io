@@ -183,7 +183,7 @@ Note that in the program above a lot of computation is still redundant - each ca
 
 ## recursive main
 
-The C++ standard explicitly forbids to call main function. You can not make the program call it's start, although in reality compilers have no problems with such code (then it has undefined behaviour unless the compiler documentation specifies non-standard feature).
+The C++ standard explicitly forbids to call main function. You can not make the program call it's start, although in reality compilers have no problems with such code.
 
 ## summary
 

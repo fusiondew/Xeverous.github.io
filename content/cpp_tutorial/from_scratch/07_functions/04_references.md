@@ -62,7 +62,7 @@ x after multiplying: 20
 x = 20
 ~~~
 
-This time it works. The function still gets the copy of the argument, but this time it's a copy of the pointer - the function is able to access original variable. This works even if you change the name of `x` - the function argument has it's own scope - in this case the main function has own variable `x` of type `int` and the custom function has the argument named `x` of type `int*`.
+This time it works. The function still gets the copy of the argument, but this time it's a copy of the pointer which through function is able to access original variable. This works even if you change the name of `x` - the function argument has it's own scope - in this case the main function has own variable `x` of type `int` and the custom function has the argument named `x` of type `int*`.
 
 The body of the function had to be changed - `x` was changed to `*x` because the pointer has to be dereferenced.
 
@@ -205,7 +205,7 @@ referenced value: 1000
 b = 100
 ~~~
 
-In other words, `ref` for the entire program was `a`. The first line where the reference was created set it to alias `a`, but all subsequent instructions were modifying `a`.
+In other words, `ref` for the entire program was `a`. The first line where the reference was created set it to alias `a`, but all subsequent instructions were modifying `a`. Both initialization and assignment use `=` but do different things.
 
 ## core rules of references
 
@@ -229,7 +229,7 @@ int main()
 }
 ```
 
-**References must be initialized to valid, existing objects**
+**Non-const references must be initialized to valid, existing objects**
 
 Imagine a function which is supposed to save the result into passed variable. Passing something that is not an object doesn't make sense - and thus does not compile.
 
@@ -238,7 +238,15 @@ void f(int& x);
 
 int x = 0;
 f(x);  // ok: x will be modified
-f(10); // error: 10 is not an object (can not bind lvalue reference to rvalue...)
+f(10); // error: can not bind lvalue reference to rvalue...
+
+void g(const int& x);
+g(10); // ok: argument is used read-only
+```
+
+```c++
+const int& x = 10; // ok, read only
+int& y = 10; // error: we need something with lifetime
 ```
 
 **References can not be rebound. Once you initialize a reference, it will always alias the same object.**

@@ -88,7 +88,7 @@ void foo(int x)
         return;
 
     std::cout << "foo: " << x << "\n";
-    bar(x - 1); // needs at least declaration of bar
+    bar(x - 1); // OK: bar declared
 }
 
 void bar(int x)
@@ -97,7 +97,7 @@ void bar(int x)
         return;
 
     std::cout << "bar: " << x << "\n";
-    foo(x - 1); // needs at least declaration of foo
+    foo(x - 1); // OK: foo declared
 }
 
 int main()
@@ -136,7 +136,7 @@ bar: 1
 
 ## `(void)`
 
-A remnant of C you might see is the unnecessary `void` inside declarations
+A remnant of C you might see is the unnecessary `void` inside declarations.
 
 In C, empty parentheses declare a function but express that function arguments are unspecified. This is known as old C (pre C89) or K&R C declaration.
 
@@ -147,16 +147,18 @@ void g(void); // declares a function that takes 0 arguments
 
 f(1, 2, 3); // will compile, but it will be undefined behaviour if actual function does not take 3 parameters of type int
 g(1, 2, 3); // will not compile
+```
 
+```c++
 // C++
-void f();     // declares a function
-void g(void); // declares a function, bad style in C++
+void f();     // declares a function that takes 0 arguments
+void g(void); // declares a function that takes 0 arguments, bad style in C++
 
 f(1, 2, 3); // will not compile
 g(1, 2, 3); // will not compile
 ```
 
-In C, to correctly declare a function taking no parameters `(void)` must be written. There is no such problem in C++.
+In C, to correctly declare a function taking no parameters `(void)` must be written, otherwise declaration only introduces function name. There is no such problem in C++ but syntax is kept for backwards compatibility.
 
 <div class="note pro-tip">
 
@@ -171,6 +173,7 @@ TODO def block
 - **declaration** can appear multiple times as long as every is the same
 - there can be only 1 **definition**
 - every definition is also a declaration
+- `inline` can be added to *some definitions* (details later) allowing them to appear more than once; all definitions must then be the same
 
 ```c++
 void func(); // declaration
