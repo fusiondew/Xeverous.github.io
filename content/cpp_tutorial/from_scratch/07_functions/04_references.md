@@ -229,25 +229,32 @@ int main()
 }
 ```
 
-**Non-const references must be initialized to valid, existing objects**
+**Non-const l-value references must be initialized to valid, existing objects.**
 
-Imagine a function which is supposed to save the result into passed variable. Passing something that is not an object doesn't make sense - and thus does not compile.
+Imagine a function which is supposed to save the result into passed variable. Passing something that is read-only doesn't make sense - and thus does not compile.
 
 ```c++
-void f(int& x);
-
 int x = 0;
-f(x);  // ok: x will be modified
-f(10); // error: can not bind lvalue reference to rvalue...
+void f(const int& x);
+void g(      int& x);
 
-void g(const int& x);
-g(10); // ok: argument is used read-only
+f(x);  // ok
+f(10); // ok
+
+g(x);  // ok
+g(10); // error: 10 is read-only, need modifiable int
 ```
 
 ```c++
-const int& x = 10; // ok, read only
-int& y = 10; // error: we need something with lifetime
+const int& r1 = 10; // ok
+      int& r2 = 10; // error: 10 is read-only but we need something mutable with lifetime
 ```
+
+This specific restriction is related to *value categories* which are explained in further chapters.
+
+L/R-value references differ **only** by those restrictions.
+
+If you get an error like `error: cannot bind rvalue reference of type 'T&&' to lvalue of type 'T'` you have violated these restrictions.
 
 **References can not be rebound. Once you initialize a reference, it will always alias the same object.**
 
@@ -278,9 +285,19 @@ int main()
 ```c++
 int x = 100;
 int& ref = x;
-int& & refref = ref; // error: can not create reference to a reference
-// int&& // different reference, explained later
+int& & refref = ref; // error: can not create 'reference to a reference' type
 ```
+
+If you accidentally create a reference to a reference it "collapses" to alias original variable:
+
+```c++
+int y = 10;
+int& r1 = y;
+int& r2 = r1; // ok, collapses to '= y'
+int& r3 = r2; // ok, collapses to '= r1' which collapses to '= y'
+```
+
+This is known as **reference collapsing**.
 
 **References can not be themselves const. They can alias const objects, but since a reference can not be rebound it itself is always implicitly const.**
 
@@ -338,7 +355,7 @@ int& func()
     // ...
 
     return result;
-} // dangling reference, returned variable no longer exists
+} // dangling reference - referenced variable no longer exists
 ```
 
 This is basically the same issue as with dangling pointers.
@@ -347,12 +364,12 @@ Compilers have a warning about it.
 
 ## summary
 
-References:
-
-- use regular syntax but offer *reference semantics*
-- must always be initialized and can not be rebound
-- unlike pointers, can not be null - they are always assumed to be bound to valid object
-- do not allow pointer arithmetics
+- references use regular syntax but offer *reference semantics*
+- references must always be initialized and can not be rebound
+- unlike pointers, references can not be null - they are always assumed to be bound to a valid object
+- only const references can be bound to read-only values, non-const references require named mutable objects
+- references do not allow pointer arithmetics
+- references collapse
 
 Generally, references are safer and better optimized.
 

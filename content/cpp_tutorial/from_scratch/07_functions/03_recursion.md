@@ -2,7 +2,7 @@
 layout: article
 ---
 
-In previous lesson you saw that it's possible to create a buggy program that never finishes - there were 2 functions calling each other. In some cases, it would never end (in reality it ends with a crash once the processor stack limit is reached - you might need to wait really long for it though).
+In previous lesson you saw that it's possible to create a buggy program that never finishes - there were 2 functions calling each other. In some cases, it would never end (in reality it usually ends with a crash once the processor stack limit is reached and it's no longer able to save another return address - you might need to wait really long for it though).
 
 There is also a special case of such calling - recursion.
 

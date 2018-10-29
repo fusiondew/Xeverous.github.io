@@ -109,22 +109,16 @@ void func7() noexcept;
 void func1(int);
 void func1(const int); // treated as the same declaration
 
-void func1(int) {}
-void func1(const int) {} // error: redefinition
-
 void func2(int*);
 void func2(int* const); // treated as the same declaration
 
-void func2(int*) {}
-void func2(int* const) {} // error: redefinition
+// 4 different overloads
+void func3(int*);
+void func3(const int*);
+void func3(int&);
+void func3(const int&);
 
-// OK - all types are different
-void func3(int*)
-void func3(const int*)
-void func3(int&)
-void func3(const int&)
-
-// all are the same declaration
+// all are the same declaration - still 1 overload
 int f(char s[10]);
 int f(char[]);
 int f(char* s);
@@ -142,15 +136,15 @@ void func(int);
 void func(integer); // treated as the same declaration
 void func(my_int);  // treated as the same declaration
 
-void func(integer) {}
-void func(int) {} // error: redefinition
+void func(int) {}
+void func(integer) {} // error: redefinition (there is only 1 overload)
 ```
 
 ## overloading - choosing
 
 TODO qualified/unqalified name lookup? ADL Too complex? Something more intuitive?
 
-When call to a function is encountered, (un)qualified name lookup is performed (depending how the call is written) and template overloads are deduced. All possible function calls are then *candidates*.
+When call to a function is encountered, *(un)qualified name lookup* is performed (depending how the call is written) and template overloads are deduced. All possible function calls are then *candidates*.
 
 If there are multiple candidates, there are few possible results:
 
@@ -160,17 +154,18 @@ If there are multiple candidates, there are few possible results:
     - multiple or all convertions have the same priority - complication error
     - 1 convertion has higher priority - then this overload is chosen
 
-The most tricky is the bolded part. The full list of rules regarding overload resolution [is long](https://en.cppreference.com/w/cpp/language/overload_resolution) but somewhat intuitive.
+The most tricky is the bolded part. [The full list of rules regarding overload resolution is long](https://en.cppreference.com/w/cpp/language/overload_resolution) but somewhat intuitive.
 
 When multiple overloads are possible, this is the priority of choosing:
 
 - Perfect match. Should be obvious - if nothing is needed to do with the types, such overload is always choosen.
 
 ```c++
-void func(int, float);
-// other overloads...
+void func(int, float);  // A
+void func(int, double); // B
+void func(long, float); // C
 
-func(42, 3.14f); // perfect match - types are int and float
+func(42, 3.14f); // A is a perfect match - types are int and float
 ```
 
 - Promotion (lossless implicit convertion).
@@ -242,5 +237,41 @@ Without overloading, you would need to remember a separate function name for eac
 ## summary
 
 - Specific parts of function type affect it's signature.
-- Operator overloading lets to define multiple functions with the same name (or operators) if they have different signatures.
+- Function overloading lets to define multiple functions with the same name (or operators) if they have different signatures.
 - During overload resolution, if there are multiple valid candidates, the one with least required work is choosen (in order: perfect match, promotion, standard convertion, user-defined convertion). If more than 1 candidate requires the same amount of work it's a compilation error.
+
+## exercise
+
+How many overloads are there? Which declarations are the same?
+
+```c++
+void func(int);              // A
+void func(const int);        // B
+void func(int const);        // C
+void func(int*);             // D
+void func(int* const);       // E
+void func(const int*);       // F
+void func(const int* const); // G
+void func(int&);             // H
+void func(const int&);       // I
+void func(int&&);            // J
+```
+
+<details>
+    <summary>answer</summary>
+    <p>6 (A = B = C, D = E, F = G)</p>
+</details>
+
+Is this valid?
+
+```c++
+void func(int*);       // A
+int  func(const int);  // B
+int& func(int&);       // C
+int  func(int* const); // D
+```
+
+<details>
+    <summary>answer</summary>
+    <p>No, because D redeclares A but has different return type which alone is not enough to form a separate overload.</p>
+</details>

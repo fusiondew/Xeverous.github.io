@@ -14,8 +14,8 @@ Function takes the string representing the format and a variable amount of argum
 
 ```c
 int x = 10;
-int y = 100;
-printf("%d %d", x, y); // %d %f %s etc are various formatting options
+float y = 100;
+printf("%d %f", x, y); // %d %f %s etc are various formatting options
 ```
 
 ## accessing variadic arguments
@@ -79,7 +79,7 @@ Concrete reasons:
 - `std::initializer_list` - lightweight object holding multiple arguments of common type - explained later
 - variadic templates - achieve compile-time well-defined behaviour with strict type safety, they are free of all variadic argument flaws - explained in template tutorial. This is basically the same feature but done the modern C++ way with full type safety
 
-## passing arrays
+## working with arrays
 
 Very strong convention: **always pass array length**. A pointer alone does not bring enough information - **never assume array length**.
 
@@ -90,13 +90,13 @@ void print(const int* arr, int length) // 2 arguments, in this order
     std::cout << "printing " << length << " elements:\n";
 
     for (int i = 0; i < length; ++i)
-        std::cout << *arr << ", ";
+        std::cout << arr[i] << ", ";
 
     std::cout << "\n";
 }
 ```
 
-Still, such functions does not take the full power of C++ and are usually written only in C. You will later learn about `std::array` and `std::vector` classes.
+Still, such functions does not take the full power of C++ and are usually written only in C. Soon you will later learn about `std::array` and `std::vector` classes.
 
 ```c++
 // actual C++
@@ -121,3 +121,49 @@ void print(const char* fmt, ...); // prone to undefined behaviour
 template <typename... Ts>
 void print(Ts&&... ts); // strict type safety
 ```
+
+## exercise
+
+Write 2 functions: one that will print and one that will double each element of integer array. Start with the code below.
+
+```c++
+#include <iostream>
+
+int main()
+{
+    constexpr int sz1 = 5;
+    int arr1[sz1] = { 1, 2, 3, 4, 5 };
+
+    double_array_values(arr1, sz1);
+    print_array(arr1, sz1);
+
+    constexpr int sz2 = 10;
+    int arr2[sz2] = { -1, 20, -3, 44, 0, 5 };
+    arr2[sz2 - 1] = 100;
+
+    double_array_values(arr2, sz2);
+    print_array(arr2, sz2);
+}
+```
+
+<details>
+    <summary>solution</summary>
+    <p markdown="block">
+
+```c++
+void double_array_values(int* arr, int sz)
+{
+    for (int i = 0; i < sz; ++i)
+        arr[i] *= 2;
+}
+
+void print_array(const int* arr, int sz)
+{
+    for (int i = 0; i < sz; ++i)
+        std::cout << arr[i] << " ";
+
+    std::cout << "\n";
+}
+```
+</p>
+</details>

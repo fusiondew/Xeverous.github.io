@@ -30,7 +30,7 @@ void print_nums(int x = 10)
 }
 ```
 
-Now the argument `x` is optional. It has *default value* which will be used unless specified.
+Now the argument `x` is optional. It has a default value which will be used unless specified.
 
 ```c++
 print_nums();   // uses 10
@@ -56,7 +56,7 @@ void func5(int a = 0, int b = 5, int c);      // invalid
 void func6(int a = 0, int b,     int c = 10); // invalid
 ```
 
-This should be obvious as you can ommit only the rightmost arguments.
+This should be obvious as when you are calling a function only the rightmost arguments can be ommited.
 
 ## more complex rules
 

@@ -7,7 +7,7 @@ Sometimes you may want to return multiple values from a function.
 ```c++
 ??? div_and_mod(int x, int y)
 {
-    return x / y, x % y; // this will evaluate both but ignore first
+    return x / y, x % y; // this will evaluate both but return only the value of second expression
 }
 ```
 

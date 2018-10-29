@@ -196,7 +196,7 @@ int main()
 ## C++ standard library functions
 
 - Simplest mathematical functions are provided by `<cmath>` and `<cstdlib>` - [see reference](https://en.cppreference.com/w/cpp/numeric/math) for their list
-- [Special mathematical functions](https://en.cppreference.com/w/cpp/numeric/special_math) are available from C++17
+- [Special mathematical functions](https://en.cppreference.com/w/cpp/numeric/special_math) are available since C++17
 
 ## recommendations
 
