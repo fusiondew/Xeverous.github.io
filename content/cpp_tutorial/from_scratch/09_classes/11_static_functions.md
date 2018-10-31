@@ -43,8 +43,8 @@ private:
     static inline int next_id = 0;
 
 public:
-    static int get_next_it();
-    static int generate_next_it(); // TODO this is good for [[nodiscard]]
+    static int get_next_id();
+    static int generate_next_id(); // TODO this is good for [[nodiscard]]
 };
 
 int user::get_next_id()

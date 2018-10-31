@@ -2,14 +2,20 @@
 layout: article
 ---
 
-For static duration, thread duration and automatic duration variables, the size of the allocation must be a compile time constant. Compiler must know at compile time what's the size of the object to correctly handle memory. This is why arrays must have a compile-time size.
+For static duration, thread duration and automatic duration variables, the size of the allocation must be a compile time constant. Compiler must know at compile time what's the size of the object to correctly handle stack memory. This is why arrays must have a compile-time size.
 
-Even if it's known how much memory is needed, large arrays such as `int[1000000]` may crash. Automatic/static/thread allocation is fast and generally very efficient but the stack is limited - 1 to 8 MB on most dektop systems.
+Even if it's known how much memory is needed, large arrays such as `int[1000000]` may crash. Automatic/static/thread allocation is fast and generally very efficient but the stack is limited - 1 to 8 MB on most dektop systems. Stack size is limited by the processor, not by the RAM.
+
+When we want arrays of runtime-dependent size or large blocks of memory there is no other choice than dynamic allocation.
 
 **Dynamic memory allocation** allows few very unique things:
 - access to the heap memory (basically the entire RAM)
-- ability to allocate and deallocate at any time
 - ability to allocate memory blocks of any length
+- ability to allocate and deallocate at any time
+
+**Dynamically allocated memory is always a one, continuous block.**
+
+Dynamic memory allocation is not a simple topic and has been a very important thing across multiple levels of programming (OS stuff, language/library design, application performance and more). I will now go through all abstractions over dynamic memory allocation from the past to the present and possible future additions.
 
 ## dynamic memory - C functions
 
@@ -24,13 +30,13 @@ void* malloc(size_t size); // memory allocation (size in bytes)
 void free(void* ptr);      // memory deallocation
 ```
 
-`malloc()` allocates `size` bytes of free memory and returns a pointer to the first cell. **Dynamically allocated memory is always a one, continuous block.** If the allocation fails (not enough memory in the system) function returns a null pointer.
+`malloc()` allocates (reserves for your program) `size` bytes of free memory and returns a pointer to the first cell. If the allocation fails (not enough memory in the system) function returns a null pointer.
 
 Because there is a requirement to always allocate 1 continuous block, allocation may fail even if there is enough free memory in the system - the sum of free regions may be larger than the asked for but there might not exist a block that is sufficiently large.
 
-Allocated memory has no predefined use. You basically can write/read whatever you want in the entire block.
+Allocated memory has no predefined state or type. You basically can write/read whatever you want in the entire block.
 
-When the memory is no longer needed, the pointer received from `malloc()` should be passed to `free()` so that the operating system can reclaim that block and reuse it for itself or other programs that ask for dynamic memory.
+When the memory is no longer needed, the pointer received from `malloc()` should be passed to `free()` so that the operating system can reclaim that block and reuse it for itself or other programs that ask for dynamic memory. After freeing, `ptr` is a dangling pointer.
 
 TODO def block
 
@@ -67,6 +73,8 @@ else
 }
 ```
 
+TODO more examples, give something runnable
+
 ### additional allocation functions
 
 ```c
@@ -97,12 +105,12 @@ If you build own operating system in C or C++, you have to write own memory allo
 
 ## problems with C dynamic allocation functions
 
-- `malloc()` returns `void*` - **no type safety**
-- It's easy to miscalculate required memory (it's in bytes) - most common mistake is forgetting to multiply by the size of the type
-- It's very easy to allocate and then forget to free which results is memory leaks
-- If the pointer given by `malloc()` is lost (by overwriting it or going out of scope), it can no longer be passed to `free()` and therefore the program has a memory leak
+- `malloc()` returns `void*` - **no type safety**.
+- It's easy to miscalculate required memory (it's in bytes) - most common mistake is forgetting to multiply by the size of the type.
+- It's very easy to allocate and then forget to free which results is memory leaks.
+- If the pointer given by `malloc()` is lost (by overwriting it or going out of scope), it can no longer be passed to `free()` and therefore the program has a memory leak.
 - Freed memory can no longer be accessed - calling `free()` twice with the same pointer is undefined behaviour.
-- Freed memory can no longer be accessed - pointers passed to `free()` become dangling pointers
+- Freed memory can no longer be accessed - pointers passed to `free()` become dangling pointers.
 
 Generally, `malloc()` approach is very bug-prone and has no type checking.
 
