@@ -75,7 +75,7 @@ Disadvantages of passing pointers as arguments:
 
 - Syntax gets complicated - pointers need to be dereferenced to access actual variable.
 - `x += 2` will always compile, but there is a big difference where `x` is an integer (adding value 2) and where `x` is a pointer (moving 2 objects forward in memory). Forgetting to add dereference when chaning argument to a pointer can cause a hard to find bug which results in crashes.
-- someone can put a null pointer as an argument - this can further complicate the function body (adding null pointer checks)
+- Someone can put a null pointer as an argument - this can further complicate the function body (adding null pointer checks and/or specific behaviour for it).
 
 To solve these problems, **references** have been created.
 
@@ -115,7 +115,7 @@ References are simply aliases to existing objects. A reference is denoted by add
 
 ```c++
 int x;    // integer
-int* ptr; // poiter to integer
+int* ptr; // pointer to integer
 int& ref; // reference to integer
 ```
 
@@ -216,6 +216,27 @@ In other words, `ref` for the entire program was `a`. The first line where the r
 
 They have 1 but very important difference which you do not need to know now. For now, all code will use lvalue references.
 
+**Unlike pointers, references can not be nested.**
+
+```c++
+int x = 100;
+int& ref = x;
+int& & refref = ref; // error: can not create 'reference to a reference' type
+int&& rv_ref = 10; // not a nested reference but rvalue reference instead
+```
+
+If you accidentally create a reference to a reference it "collapses" to alias original variable:
+
+```c++
+int y = 10;
+int& r1 = y;
+int& r2 = r1; // ok, collapses to '= y'
+int& r3 = r2; // ok, collapses to '= r1' which collapses to '= y'
+// all r1, r2 and r3 refer to the same integer in memory
+```
+
+This is one of **reference collapsing** rules. Speaking differently, you can not create a new object by a reference.
+
 **References must always be initialized. It's imposible to have a null or uninitialized reference.**
 
 ```c++
@@ -279,25 +300,6 @@ int main()
     std::cout << "y = " << y << "\n"; // y is untouched
 }
 ```
-
-**Unlike pointers, references can not be nested.**
-
-```c++
-int x = 100;
-int& ref = x;
-int& & refref = ref; // error: can not create 'reference to a reference' type
-```
-
-If you accidentally create a reference to a reference it "collapses" to alias original variable:
-
-```c++
-int y = 10;
-int& r1 = y;
-int& r2 = r1; // ok, collapses to '= y'
-int& r3 = r2; // ok, collapses to '= r1' which collapses to '= y'
-```
-
-This is known as **reference collapsing**.
 
 **References can not be themselves const. They can alias const objects, but since a reference can not be rebound it itself is always implicitly const.**
 
@@ -375,4 +377,6 @@ Generally, references are safer and better optimized.
 
 <div class="note pro-tip">
 Whenever possible, use references instead of pointers.
+
+In case of passing arrays to functions use pointers.
 </div>
