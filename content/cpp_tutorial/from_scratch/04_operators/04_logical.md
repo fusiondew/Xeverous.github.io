@@ -170,6 +170,8 @@ There is no direct support for these operations in the language (they are hardly
 
 Various language tokens offer [alternative spellings](https://en.cppreference.com/w/cpp/language/operator_alternative) for encodings that do not support all characters. These are mostly a remnant of the past and are hardly ever used.
 
+Brief comparison for 2 code lines:
+
 ```c++
 ~X() {}
 compl X() <%%>
@@ -177,3 +179,21 @@ compl X() <%%>
 [&val](const X& x) { return x != val; }
 <:bitand val:>(const X bitand x) <% return x not_eq val; %>
 ```
+
+Alternative tokens which are not keywords are commonly referred to as **digraphs** or **trigraphs**.
+
+Some trigraphs could actually cause trouble:
+
+```c++
+// Does it work ??/
+std::cout << "x: " << x << "\n";
+std::cout << "y: " << y << "\n";
+```
+
+Here, `??/` is a trigraph that represents `\` which causes comment to span 1 more line which causes only `y` print to be executed.
+
+You do not need to remember any di/trigraph as they are not really used apart in some very IBM-specific systems which do not feature ASCII keyboard. The entire feature is so obscure that all major compilers have it disabled by default even in pedantic mode.
+
+<div class="note info">
+Trigraphs have been removed in C++17.
+</div>

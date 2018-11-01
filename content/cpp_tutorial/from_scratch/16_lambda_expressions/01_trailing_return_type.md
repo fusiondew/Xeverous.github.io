@@ -162,7 +162,7 @@ In the examples so far - pretty much nothing besides deeper terminology. But in 
 Technically, lambda expression creates a unique class satisfying `ClosureType` concept.
 
 <details>
-    <summary>Full technicals</summary>
+    <summary>Full technicalities</summary>
     <p>The lambda expression is a prvalue expression of unique unnamed non-union non-aggregate class type, known as closure type, which is declared (for the purposes of ADL) in the smallest block scope, class scope, or namespace scope that contains the lambda expression.
     </p>
 </details>

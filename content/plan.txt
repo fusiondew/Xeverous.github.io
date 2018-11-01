@@ -1,5 +1,7 @@
 # Brief plan of the core language tutorial. Expect it to be changed very often while building the site
 
+Articles which do not have title/author (below layout) are considered unfinished.
+
 preparation
 	build process
 	history ?
@@ -74,13 +76,10 @@ miscellaneous
 	asm
 	decltype
 	future directions (concurrency, modules)
-	digraphs
-	trigraphs
 
 missing
 	auto - needs to be explained before classes
 	term: user-defined
-	underflow
 	implcit convertions
 	converting constructors
 	overloading the assignment operator
@@ -100,16 +99,12 @@ missing
 	multiple inheritance - multiple vtable pointers
 	rule of 3/5/0
 	bitmask operations
-	alternative tokens (compl, bitand etc)
 	preincrement/postincrement - functions (they are in operator overloading - too late)
 	pointer trap: *i++ (order of operators)
 	char* non_const_ptr = "text"
 	http://www.open-std.org/jtc1/sc22/wg21/
 	cout/cin/getline tutorial
 	
-**articles which do not have title (below layout) are considered unfinished**
-
-replace "technicals" with "technicalities"
 
 cheatsheet - operator overloading
 	- syntax example - notes (specific return, losing short-circuit)
