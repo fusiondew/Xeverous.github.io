@@ -126,6 +126,7 @@ articles
 		(void)
 		default int
 		macro solutions (keywords, complex type exception)
+		rand() and srand()'s global state
 		
 learncpp problems
 	NULL

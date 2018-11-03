@@ -73,11 +73,9 @@ In the case of **automatic storage duration** linkage and storage have the same 
 } // x dies, and is no longer visible
 ```
 
-In the case of other storage durations objects may live but be inaccessible. We can add `extern` to them to allow them to be visible from other files.
+In the case of other storage durations objects may live but be inaccessible. Global objects live entire program but `extern` has to be added to allow them to be visible from other files.
 
 One such object has been already used - `std::cout`. It's a global object with **external linkage**. Given a C++ project which consists of multiple source files, `std::cout` will exist when at least 1 file includes `<iostream>`. Object will then exist in the entire program, but only files which include the I/O stream header will have it accessible.
-
-Global variables behave similarly to `std::cout`, except that they have internal linkage. If you want to use such variable in other files too, you just need to add `extern` to the declaration. More about splitting code across files in further chapters.
 
 ## static objects
 
@@ -144,3 +142,5 @@ Remove `static` from example above and the function will print that `x` is alway
 **Linkage and storage duration are independent.**
 
 Linkage has only sense for things that live long enough - whole thread or entire program. Automatic objects live very short and dynamically allocated objects are not possible to be linked.
+
+You do not need to remember all of linkage and storage keywords. The point of this lesson is to make you just aware that these 2 are separate and do not always have exactly the same span - you might already see this with dangling references/pointers.
