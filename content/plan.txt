@@ -80,7 +80,7 @@ miscellaneous
 missing
 	auto - needs to be explained before classes
 	term: user-defined
-	implcit convertions
+	implcit convertions - mention +!!""
 	converting constructors
 	overloading the assignment operator
 	more OO syntax examples (something like (A() + B()).func().f2())

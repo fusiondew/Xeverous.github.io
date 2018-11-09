@@ -139,7 +139,10 @@ Remove `static` from example above and the function will print that `x` is alway
     - `static` - whole program
     - *allocation/deallocation functions* - you decide
 
-**Linkage and storage duration are independent.**
+**Linkage and storage duration are independent.** Consequences:
+- some objects may live but be inaccessible (example program above)
+- some objects may be accessible but do not live (dangling pointers)
+
 
 Linkage has only sense for things that live long enough - whole thread or entire program. Automatic objects live very short and dynamically allocated objects are not possible to be linked.
 
