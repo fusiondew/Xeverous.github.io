@@ -127,6 +127,10 @@ articles
 		default int
 		macro solutions (keywords, complex type exception)
 		rand() and srand()'s global state
+		syntax (cdecl)
+		no const
+		implicit declarations
+	"C/C++"
 		
 learncpp problems
 	NULL

@@ -28,30 +28,3 @@ Multilevel pointers are not really used. The highest one ever needed would be 2 
 However, multi-dimentional arrays still decay to first-level pointer. `int[Z][Y][X]` is still one block of memory of length `X * Y * Z`.
 
 Multidimenional arrays which use multiple separate memory blocks require *dynamic allocation* which will be covered later.
-
-For now, just the example of printing program arguments which are supplied to the program as an array of C strings.
-
-```c++
-#include <iostream>
-
-// the second form of main function, this one accepts command line arguments
-int main(int argc, char** argv)
-{
-    std::cout << "argument count: " << argc << "\n";
-    std::cout << "argument values:\n";
-
-    for (int i = 0; i < argc; ++i)
-        std::cout << i << ": " << argv[i] << "\n"; // dereference on char** yields char*
-}
-```
-
-~~~
-$ ./program arg1 arg2 "a r g 3" arg4
-argument count: 5
-argument values:
-0: ./program
-1: arg1
-2: arg2
-3: a r g 3
-4: arg4
-~~~

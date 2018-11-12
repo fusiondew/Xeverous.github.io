@@ -17,17 +17,21 @@ Thus, this tutorial does not expain and assumes you understand:
 - in general, the purpose of lambdas
 - how IDEs work in general and the command line
 
-I will still show a lot of basic stuff just to make you familiar with the syntax - while most languages have for-each loop each has a different syntax for it.
+I will still show a lot of basic stuff just to make you familiar with the syntax - while most languages have for-each loop each has a different syntax for it. Explicit use of pointers might also be something new for you.
 
-I will also point out many common mistakes that people coming from other languages may commit.
+I will also point out many common mistakes that people coming from other languages may commit. A lot of mistakes can be classified as writing C in C++.
 
 ## "C/C++"
 
-You may very often encounter this phrase. It has as much meaning as "Java/JavaScript" (and btw this pair does share some history too) or "Ham/Hamster".
+You may very often encounter this phrase. It has as much meaning as "Ham/Hamster" or "Java/JavaScript" (and btw this pair does share some history too).
 
 C++ is much different from C not only by the amount of language features but also by conventions. A good C code may often be terrible C++ code. Having over 35 years of backwards compatibility does not mean we should write C-ish C++ today.
 
 C++ is not "C with classes". C++ is not just object-oriented language. It is a multi-paradigm language that allows multiple styles of programming to be mixed, including but not limited to OOP. In fact, vast majority of C++ standard library does not rely on runtime polymorphism but generic programming. You would need to dig quite deep to even find a virtual function. A large part of standard library are free (not belonging to any class) function templates.
+
+<div class="note warning">
+Do not copy C code without understanding to a C++ project. There is a lot of C that is not legal C++ or legal C++ that invokes undefined behaviour.
+</div>
 
 ## low level access
 
@@ -56,6 +60,8 @@ RAII is a completely different concept: it is a **deterministic resource managem
 
 The tutorial will focus strongly on RAII as it is one of fundamental language pillars. There will be also lots of examples of bad code that is very easy to find on the internet - mostly C code that had minimal edits just to compile as C++.
 
+Using `new` in C++ is considered low-level and discouraged. It should be used only to implement data structures, smart pointers and allocators.
+
 ## inheritance and polymorphism
 
 C++ offers typical dynamic dispatch mechanism (more known as the use of virtual functions or simply polymorphism). Apart from virtual destructors, there is no difference and same OOP principles apply.
@@ -69,3 +75,17 @@ What C++ does differently are inheritance rules:
   - Parent classes may share a parent (inheritance graph does not have to be a tree)
   - A class can be abstract despite all of its parents not being abstract
   - Class templates can perform recursive inheritance and recursive class definitions
+
+Again, being able to do all of this does not mean it should be done. General OOP recommendation applies (max 1 parent class with state).
+
+## generic and metaprogramming
+
+C++ would not be C++ without templates. Around 95% of standard library are templates - there is also a term STL (standard template library).
+
+C++ *templates* much differ from *generics* which are found in other languages - a very good coincidence that other languages use a different term.
+
+In C++, templates are first instantiated and then compiled. Each use (instantiation) with different parameters can produce vastly different assembly. This makes C++ probably the harest ever programming language to reverse-engineer.
+
+Templates in C++ form a functional Turing-complete language itself that can be used to run any metaprogram at compile time to create a type or value. There are very few restrictions, so if you are used to facts like "this expression using `T` is not legal" you can assume it is legal in C++.
+
+It is hard to showcase the power of templates in a short description, but for example - templates let to write generic algorithms than can run on any data structure that satisfies certain criteria. Together with lambdas, they can result in massive code reuse that achieves better performance than hand-written C.
