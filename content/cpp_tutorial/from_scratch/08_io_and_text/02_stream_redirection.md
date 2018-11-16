@@ -16,7 +16,7 @@ Operating systems offer 2 output streams and 1 input stream:
 - STDOUT - standard output
 - STDERR - standard error
 
-In unix, these map directly to file descriptors: 0, 1, 2.
+In unix, these map directly to file descriptors: 0, 1, 2 - unix systems assign identification numbers for each opened "file". Since these streams are somewhat special files and are always opened they have fixed IDs.
 
 ## redirecting output
 
@@ -62,7 +62,7 @@ info message
 error message
 ~~~
 
-We can redirect specific streams to ignore their contents:
+We can redirect specific streams. Here we redirect to null device to ignore any content:
 
 ~~~
 $ ./program 2>/dev/null

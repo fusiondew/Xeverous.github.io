@@ -4,7 +4,7 @@ layout: article
 
 C++ has distinguishes between formatted and unformatted input/output.
 
-All standard streams can do both formatted and unformatted I/O. Operators `<<` and `>>` always do formatted I/O. Unformatted and more formatted output is available through stream member functions.
+All standard streams can do both formatted and unformatted I/O. Operators `<<` and `>>` always do formatted I/O. Unformatted and more formatted output options are available through stream member functions.
 
 Now, what does it mean?
 
@@ -106,7 +106,7 @@ Additionally, by setting adjustment the printed text may be shifted horizontally
 // adjust left and fill with *
 std::cout << std::left << std::setfill('*');
 for (long i = 1; i < 1000000000; i *= 10)
-	std::cout << std::setw(8) << i << "\n";
+	std::cout << std::setw(8) << i << "\n"; // setw in loop because it's not permanent
 
 std::cout << "\n";
 
@@ -293,7 +293,7 @@ int main()
 <details>
 <summary>explanation</summary>
 <p markdown="block">
-Integers have only one representation of 0 and it is regarded as positive (in true mathematical sense 0 is neither positive nor negative).
+Integers have only one representation of 0 and it is regarded as positive (in true mathematical sense 0 is neither positive nor negative). Negating integer 0 does nothing.
 
 Floating points allow many special values including not-a-number and infinities. There is also a separate bit for sign so any value can be both positive and negative, including 0.
 </p>

@@ -75,7 +75,7 @@ Most console terminals allow to send EOF through a shortcut:
 
 **badbit**
 
-Irrecoverable error happened.
+Irrecoverable error happened. Something so bad that you can't do much about it (eg out of memory). 
 
 TODO important block
 
@@ -100,15 +100,93 @@ if (std::cin)        // as above (this code uses hidden feature, explained later
 if (std::cin >> x)   // first read to x, then check if no errors (using same feature)
 ```
 
-## any formatted/unformatted reading
+## reading
 
-Requires that **eofbit** is not set. Otherwise there is nothing left to read.
+Generally you want to read only when the stream is in a good state. Formatted input functions do nothing if any of failure bits is set. If recent parsing failed and you would like to repeat the operation, clear flags: `std::cin.clear()`.
 
-## reading integers
+Note that since formatted input functions do not consume invalid characters, repeating the same input operation again will have the same effect.
+
+### reading integers
 
 ```c++
-int n;
-std::cin >> n;
+#include <iostream>
+
+int main()
+{
+	while (true)
+	{
+		int n; // also can be long/signed/unsigned etc
+		std::cin >> n;
+		
+		if (std::cin.eof())
+		{
+			std::cout << "end of input reached\n";
+			break;
+		}
+
+		if (std::cin.fail())
+		{
+			std::cout << "parsing failed\n";
+			break;
+		}
+		else
+		{
+			std::cout << "entered: " << n << "\n";
+		}
+	}
+}
 ```
 
--
+Skips any whitespace, then extracts characters from the stream as long as they are digits. First character can be a minus sign.
+
+Possible error outcomes:
+
+- first character is not valid (not a whitespace, minus sign or digit)
+  - 0 is written to the variable
+  - **failbit** is set
+- number is too large to fit in the given integer type
+  - largest/smallest value possible is written to the variable
+  - **failbit** is set
+
+TODO when characters are consumed, when not.
+
+Example inputs and outputs:
+
+~~~
+$ echo "1 2 3" | ./program
+entered: 1
+entered: 2
+entered: 3
+end of input reached
+$ echo "1 2 a 3" | ./program
+entered: 1
+entered: 2
+parsing failed
+$ echo "1   2 -3	44" | ./program
+entered: 1
+entered: 2
+entered: -3
+entered: 44
+end of input reached
+$ echo "1 -2 3 -4 5434209798123741273 6 7" | ./program
+entered: 1
+entered: -2
+entered: 3
+entered: -4
+parsing failed
+~~~
+
+### ignoring invalid inputs
+
+In the previous program we exited on parsing failure - but what if we would like to continue and just ignore invalid inputs?
+
+We can not just do
+
+```c++
+if (std::cin.fail())
+	std::cin.clear();
+```
+
+and repeat the operation because it will have exactly the same result - inputs are consumed only if they are valid.
+
+TODO describe ways to ignore input
