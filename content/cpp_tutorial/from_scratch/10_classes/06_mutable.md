@@ -13,7 +13,7 @@ private:
     int amount;
     double velocity;
     double time_in_ms;
-    // more data...
+    // more data... maybe some arrays...
 
 public:
     // setters for data...
@@ -63,7 +63,7 @@ private:
     double time_in_ms;
     // more data...
 
-    mutable physics_result last_result; // cache
+    mutable physics_result last_result; // can be modified in const-qualified functions
 
 public:
     // setters for data...
@@ -76,13 +76,68 @@ Member `last_result` is `mutable`. **Mutable member variables can be modified in
 
 `mutable` is used to implement caches, mutexes and lazy evaluation. Thanks to this keyword, we can still have const-qualified functions even if they modify some data.
 
+Note that storing computation result in the physics data type is not necessarily a good design. In this case, outputting the result by value and expecting the user to save it somewhere for reuse is a better choice probably for both performance and convenience.
+
+## different example
+
+Suppose there is a class that represents a fraction that stores 2 integers - counter and denominator.
+
+```c++
+class fraction
+{
+public:
+    // ... some methods representing math operations
+
+    void simplify(); // changes state from eg 4/8 to 1/2
+
+    bool is_equal_to(fraction other) const;
+
+private:
+    int counter;
+    int denominator;
+};
+
+int gcd(int a, int b) // (greatest common divisor)
+{
+    if (b == 0)
+        return a;
+    else
+        return gcd(b, a % b);
+}
+
+void fraction::simplify()
+{
+    int n = gcd(counter, denominator);
+    // at worst case (already simplified fraction) n == 1 which has no effect
+    counter /= n;
+    denominator /= n;
+}
+
+bool fraction::is_equal_to(fraction other) const
+{
+    return counter == other.counter && denominator == other.denominator;
+}
+```
+
+Obviously the comparison function should be const-qualified because it does not modify object's state. The problem is that with the presented implementation $1/2$ is treated as not equal to $2/4$.
+
+There are few choices to solve this:
+
+- require the user of the class to make sure to call `simplify()` before comparing
+- simplify notation at the end of any modifying method
+- create a simplified copy of the object inside comparison function
+- mark members `mutable` and simplify in-place inside comparison function
+
+Obviously the is no one-answer-to-rule-them-all - each has it's own advantages and disadvantages - mostly performance vs convenience tradeoffs. `mutable` gives just another possibility.
+
 ## recommendation
 
-<div class="note pro-tip">
-Const-qualify member functions that do not modify publicly visible state. Use `mutable` only when necessary to satisfy function constness.
+<div class="note pro-tip" markdown="block">
+
+Const-qualify member functions that do not modify publicly visible state. Use `mutable` only when necessary to satisfy expected function constness.
 </div>
 
-Don't get it wrong - do not const-qualify a function just becase it can be. Action-like functions should not be const-qualified even if they can - they may just happen to not modify any member data (but may affect some global state or external program). Chances are that later they will need to modify some data and you would then need to drop that `const` (and likely get many compilation errors).
+Don't get it wrong - do not const-qualify a function just becase it can be. Action-like functions should not be const-qualified even if they can - they may just happen to not modify any member data (but may affect some global state or external program). Chances are that later they will need to modify some member data and you would then need to drop that `const` (and likely get many compilation errors).
 
 Const-qualifying a member function should not depend just on whether function modifies some data or not. It should depend on the intention.
 
@@ -93,7 +148,7 @@ Examples:
 
 ## other notes
 
-- `mutable` fields can not be `const`
-- `mutable` fields can not be `static`
-- `mutable` fields can not be references (on member references in constructors lesson)
+- `mutable` fields can not be `const` (this contradicts itself)
+- `mutable` fields can not be `static` (on static members later)
+- `mutable` fields can not be references (on member references later)
 - `mutable` fields can be modified even if the expression that gives access to the object returns const-qualified reference
