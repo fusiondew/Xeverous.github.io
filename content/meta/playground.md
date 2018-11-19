@@ -334,6 +334,10 @@ Sometimes all you want to do is embed a little love from another location and se
     <p>whatever</p>
 </details>
 
+## test of custom liquid tag
+
+{% debug_info %}
+
 ## Info notes
 
 TODO move "\<i\>" to CSS, div with "note info" etc should be enough
@@ -431,8 +435,8 @@ $$E=mc^2$$
 $$\frac{n!}{k!(n-k)!} = \binom{n}{k}$$
 
 $$\begin{equation}
-  x = a_0 + \cfrac{1}{a_1 
-          + \cfrac{1}{a_2 
+  x = a_0 + \cfrac{1}{a_1
+          + \cfrac{1}{a_2
           + \cfrac{1}{a_3 + \cfrac{1}{a_4} } } }
 \end{equation}$$
 
@@ -445,11 +449,11 @@ $$
 $$
 
 $$
-A_{m,n} = 
+A_{m,n} =
  \begin{pmatrix}
   a_{1,1} & a_{1,2} & \cdots & a_{1,n} \\
   a_{2,1} & a_{2,2} & \cdots & a_{2,n} \\
   \vdots  & \vdots  & \ddots & \vdots  \\
-  a_{m,1} & a_{m,2} & \cdots & a_{m,n} 
+  a_{m,1} & a_{m,2} & \cdots & a_{m,n}
  \end{pmatrix}
 $$

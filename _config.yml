@@ -58,7 +58,6 @@ unpublished: false
 # list of plugins supported by GitHub: https://pages.github.com/versions/
 whitelist: []
 plugins:
-  - jekyll-feed
   - jekyll-gist # >= 1.5
   - jekyll-paginate # >= 1.1
   - jekyll-feed # >= 0.6
@@ -78,7 +77,7 @@ baseurl: "/" # does not include hostname
 show_dir_listing: false
 
 # Outputting
-permalink:     date  
+permalink:     date
 paginate:      5
 paginate_path: /page:num
 timezone:      null
