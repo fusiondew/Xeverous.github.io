@@ -12,12 +12,12 @@ This is the shortest definition I could form, but the wording requires a bit of 
 
 - **assumption** - Like with undefined behaviour, it is not always possible to verify that it does not happen so compilers assume it never happens. They do output warnings if they happen to find it, but unverifiable cases are just blindly trusted.
 - **unrelated types** - Types that do not share a common parent class or cv-qualification. Signess is ignored (may alias).
-- **aliasing** - Referring to the same memory location. Two pointers alias if they point to the same memory cell. We can also speak of aliasing in terms of arrays - they alias if ranges overlap. Aliasing does not have to be a 2-side relation.
+- **aliasing** - Referring to the same memory location. Two pointers alias if they point to the same memory cell. We can also speak of aliasing in terms of arrays - they alias if ranges overlap. Aliasing does not have to be a 2-side relation: pointers of base types may alias derived type objects, but derived type pointers can not alias base type objects.
 
 ## why it is important
 
-- String aliasing allows multiple optimizations. Having a rule that excludes some objects from being accessed allows to remove some load/store instructions and operate completely on registers.
-- String aliasing is a form of aggressive optimization. It relies on trust to the code - compilers are not able to always verify it so breaking this rule leads to hidden undefined behaviour.
+- Strict aliasing allows multiple optimizations. Having a rule that excludes some objects from being accessed allows to remove some load/store instructions and operate completely on registers.
+- Strict aliasing is a form of aggressive optimization. It relies on trust to the code - compilers are not able to always verify it but they perform optimization transformations based on this assumption. Breaking strict aliasing leads to undefined behaviour.
 - Some low-level code requires *type punning* which is prone to strict aliasing violations.
 
 ## examples
@@ -51,7 +51,7 @@ int x = 0;
 func(&x, &x); // save 2, overwrite with 3, return 3 + 3
 ```
 
-In such case the result should be 6, so we can not optimize the function to return a fixed value.
+In such case the result should be 6, so we can not optimize the function to return a fixed value. That's why first value is reloaded after second is assigned - it might have changed.
 
 Let's add some abstraction.
 
@@ -77,12 +77,40 @@ func(s1*, s2*):
 
 Now the assembly is optimized and the function has hardcoded return value. This is because **`s1` and `s2` are unrelated types - they can not alias**.
 
+The function can not be given two pointers that refer to the same memory location so the compiler is allowed to precompute return value assuming pointers are always different.
+
+## impact on performance
+
+This really depends on the hardware. On some architectures unwanted aliasing may cause to flush buffers and reload the cache after every load-hit-store combo which has a high cost.
+
+More details on the problem: https://en.wikipedia.org/wiki/Load-Hit-Store.
+
 ## exceptions
 
 - For obvious reasons any (potentially cv-qualified) variation of `void*` is excluded from strict aliasing. Void pointers may alias everything.
 - For less obvious reasons, also:
-  - C: any (potentially cv-qualified) signed/unsigned/unspecified `char*` is excluded
-  - C++: any (potentially cv-qualified) unsigned/unspecified `char*` is excluded
+  - C: any (potentially cv-qualified) signed/unsigned/unspecified `char*` is allowed to alias
+  - C++: any (potentially cv-qualified) unsigned/unspecified `char*` is allowed to alias
+
+## enabling SA-based optimizations
+
+### C
+
+C has special keyword for indicating that 2 pointers may not alias.
+
+```c
+int func(int* restrict p1, int* restrict p2);
+```
+
+Because [restrict rules are complex](https://en.cppreference.com/w/c/language/restrict) and C++ has much more complex type system the keyword does not exist in C++. Many compilers offer is as non-standard extension though.
+
+Invalid use of `restrict` is undefined behaviour because optimizers will transform the code on false assumptions, making some wanted assignments impossible to happen.
+
+### C++
+
+The simplest way is to add abstraction - user defined types that do not share a common parent type.
+
+Contracts which come in C++20 might also allow explicit specification that pointers may not alias.
 
 ## type punning
 
@@ -91,21 +119,31 @@ Sometimes you want to interpret one's type memory as it was of different type. S
 The naive way is to simply cast a pointer to a different type - such pointer then aliases the former object.
 
 ```c++
-int n = 1;
+float n = 1.0f;
 
 // C
-float* f = (float*)&n; // UB, violates strict aliasing
+int* n = (int*)&f; // UB, violates strict aliasing
 // C++
-float* f = reinterpret_cast<float*>(&n); // UB, violates strict aliasing
+int* n = reinterpret_cast<int*>(&f); // UB, violates strict aliasing
 ```
 
 ## type punning without SA violations
 
-There are multiple alternatives.
-
 ### union
 
+```c
+union {
+    float f;
+    int n;
+} u;
+
+u.f = 1.0f;
+// use u.n ...
+```
+
 This unfortunately works only in C. In C++ accessing a different union member than the last assigned one is undefined behaviour. Beware of this when porting a C project to C++.
+
+Major C++ compilers do not take advantage of this fact, probably because there are no interesting transformations that could improve performance. Still, such code is not well-defined and may break at any time.
 
 ### `-fno-strict-aliasing`
 
