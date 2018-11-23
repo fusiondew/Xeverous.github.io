@@ -17,14 +17,14 @@ When we want arrays of runtime-dependent size or large blocks of memory there is
 
 Dynamic memory allocation is not a simple topic and has been a very important thing across multiple levels of programming (OS stuff, language/library design, application performance and more). I will now go through all abstractions over dynamic memory allocation from the past to the present and possible future additions.
 
-## dynamic memory - C functions
+## dynamic memory in C
 
 Very basic abstraction, but probably the easiest to understand.
 
 There are 2 core functions:
 
 ```c
-#include <stdlib.h> // in C++ <cstlib>, functions inside namespace std
+#include <stdlib.h> // in C++ also <cstlib>, functions inside namespace std
 
 void* malloc(size_t size); // memory allocation (size in bytes)
 void free(void* ptr);      // memory deallocation
@@ -38,7 +38,7 @@ When the memory is no longer needed, the pointer received from `malloc()` should
 
 TODO def block
 
-If the program allocates memory but does not free it it's a **memory leak**. If a program does not stop growing it's memory consumption at some point no more memory will be available in the system - usually causing itself (and other programs) to crash.
+If the program allocates memory but does not free it it's a **memory leak**. If a program does not stop growing it's memory consumption at some point no more memory will be available in the system - usually causing itself (and other programs) to slowdown significantly (disk memory is used instead) or crash.
 
 <div class="note info">
 Dynamically allocated memory is not initialized. It's contents are unknown.

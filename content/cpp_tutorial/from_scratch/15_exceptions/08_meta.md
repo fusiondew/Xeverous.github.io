@@ -21,6 +21,7 @@ Exceptions are mostly disabled for these reasons:
 - they can be very expensive (the cost of throwing exception is approximately 10-100 times higher than checking return codes)
     - virtual table
     - dynamic allocation
+- *In the Itanium ABI, throwing an exception requires a heap allocation. In the Microsoft ABI, re-throwing an exception will consume surprisingly large amounts of stack space (2,100 bytes for a re-throw in 32-bit environments, 9,700 bytes in a 64-bit environment). Program storage space, heap space, and stack space are typically scarce resources in embedded development.* (taken from [Freestanding Proposal](http://wg21.link/P0829))
 - they do not give any predictable guuarantees on the time it takes to process them
 - they are weakly supported on rarer architectures
 - they require stack information which bloats the executable

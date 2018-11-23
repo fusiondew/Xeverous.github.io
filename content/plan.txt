@@ -127,10 +127,12 @@ articles
 		default int
 		macro solutions (keywords, complex type exception)
 		rand() and srand()'s global state
-		syntax (cdecl)
+		syntax (cdecl) - http://c-faq.com/decl/spiral.anderson.html
 		no const
 		implicit declarations
 	"C/C++"
+	tools
+		http://quick-bench.com/18R_Xajd_gFxBUG8O0vfAvl364Q
 		
 learncpp problems
 	NULL
