@@ -8,7 +8,7 @@ layout: article
 
 - global static object
 - static object inside function
-- static struct / function
+- static struct / function definition
 - static member function (C++ only) (related to classes)
 - static member variable (C++ only) (related to classes)
 </div>
@@ -20,10 +20,10 @@ This lesson will explain first two.
 C++ specifies 4 types of object lifetime.
 
 - **automatic storage duration** - basically everything you have used so far. Objects are limited by enclosing braces and die when they go out of scope. This is the default storage duration for everything unless declared with specific keywords.
-- **static storage duration** - object is created when the program starts and destroyd when the program ends. This applies to:
+- **static storage duration** - object is created when the program starts and destroyed when the program ends. This applies to:
     - global objects
     - objects declared with `static`
-    - objects declared with `extern`
+    - objects declared with `extern` (all external objects are global)
 - **thread storage duration** - similarly to static, but with the difference that object is created when thread launches and destroyed when thread ends. Each thread will have own object. This applies to:
     - objects declared with `thread_local`
 - **dynamic storage duration** - object is allocated (created) and deallocated (destroyed) per request in code. The core topic of this chapter.
@@ -54,6 +54,8 @@ There are 3 types of linkage:
     - variables declared `extern`
     - basically everything else which is not `static`.
 
+Linkage allows code from one source file to refer to code in other files. More details about how to split code to multiple files in future chapters.
+
 ## the core point
 
 - Linkage defines when object can be accessed (no "unknown identifier" errors).
@@ -70,12 +72,13 @@ In the case of **automatic storage duration** linkage and storage have the same 
 ```c++
 {
     int x = /* ... */; // typical object with automatic storage duration
-} // x dies, and is no longer visible
+} // x dies here
+x = 0; // error: x does not exist here
 ```
 
 In the case of other storage durations objects may live but be inaccessible. Global objects live entire program but `extern` has to be added to allow them to be visible from other files.
 
-One such object has been already used - `std::cout`. It's a global object with **external linkage**. Given a C++ project which consists of multiple source files, `std::cout` will exist when at least 1 file includes `<iostream>`. Object will then exist in the entire program, but only files which include the I/O stream header will have it accessible.
+One such object has been already used - `std::cout`. It's a global object with **external linkage**. Given a C++ project which consists of multiple source files, `std::cout` will exist when at least 1 file includes `<iostream>`. Object will then exist in the entire program, but only files which include the I/O stream header will have it accessible - the included file tells about externally defined object.
 
 ## static objects
 
@@ -102,7 +105,7 @@ void increase()
 {
     static int x = 0;
     std::cout << "x is now " << ++x << "\n";
-}
+} // x is not destroyed here, it only loses visibility
 
 int main()
 {
@@ -123,7 +126,7 @@ In the code above:
 - `x` has static storage duration - it lives the entire program
 - `x` has no linkage - it's only accessible inside the function
 
-Essentially it's a globally living variable that can be accessed only from it's scope.
+Essentially it's a globally living variable that can be accessed only from it's local scope.
 
 Remove `static` from example above and the function will print that `x` is always `1`.
 
@@ -146,4 +149,4 @@ Remove `static` from example above and the function will print that `x` is alway
 
 Linkage has only sense for things that live long enough - whole thread or entire program. Automatic objects live very short and dynamically allocated objects are not possible to be linked.
 
-You do not need to remember all of linkage and storage keywords. The point of this lesson is to make you just aware that these 2 are separate and do not always have exactly the same span - you might already see this with dangling references/pointers.
+You do not need to remember all of linkage and storage keywords - I know that all rules may seem complicated at this point. **The point of this lesson is to make you aware that linkage and lifetime are separate and do not always have exactly the same span - you might already see this with dangling references/pointers.**

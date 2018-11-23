@@ -208,6 +208,8 @@ Obviously catch-all block should be always the last.
 
 **\*:** It will not catch language-extension exceptions, like the OS-level exceptions offered by Microsoft (eg null dereference exception instead of crash) - these require their own `__try` and `__except` implementation-provided keywords.
 
+TODO lippincott http://cppsecrets.blogspot.com/2013/12/using-lippincott-function-for.html
+
 ## advantages of try-catch blocks
 
 Exceptions can happen in an arbitrary place of code. Even if the same function is used and it throws the same exception, the handler is dependent on where the function is used. Function can be called multiple times in the entire program and each time the enclosing stack can be different - this gives the flexibility and modularity.
@@ -245,7 +247,7 @@ int main()
         // almost entire program
     }
     catch (...) {
-        // save crash information, notify user
+        // log crash information, notify user
     }
 
     // any other always-necessary closing code
