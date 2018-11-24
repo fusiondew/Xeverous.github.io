@@ -6,7 +6,7 @@ module Jekyll
       @text = text
 	  @tokens = tokens
     end
-	
+
 	# Lookup allows access to the page/post variables through the tag context
 	def lookup(context, name)
 	  lookup = context

@@ -15,15 +15,15 @@ Floating-point representations are standarized and practically all hardware adhe
 On a hardware that satisfies IEEE-754 standard:
 
 - 32 bit floating-point type uses
-    - 1 bit for sign (+/-)
-    - 23 bits for *mantisa*
-    - 8 bits for *exponent*
+  - 1 bit for sign (+/-)
+  - 23 bits for *mantisa*
+  - 8 bits for *exponent*
 - 64 bit floating-point type uses
-    - 1 bit for sign (+/-)
-    - 52 bits for *mantisa*
-    - 11 bits for *exponent*
+  - 1 bit for sign (+/-)
+  - 52 bits for *mantisa*
+  - 11 bits for *exponent*
 
-The bit sign affects mantisa, exponent does not need a bit sign because it's treated like it starts counting off not from 0 but some negative value. For example, all 0 bits on 32-bit type mean power -127. All bits 1 would mean power 128 (256 - 127).
+The bit sign affects mantisa, exponent does not need a bit sign because it's treated like it starts counting off not from 0 but some negative value. For example, all 0 bits on 32-bit type exponent means power -127. All bits 1 would mean power 128 (256 - 127).
 
 C and C++ offer 3 floating-point types:
 
@@ -94,4 +94,4 @@ Watch [CppCon 2015: John Farrier “Demystifying Floating Point"](https://www.yo
 - various math functions round last bit towards even value which causes operations to sometimes increase and sometimes decrease the result - this reduces possibility of stacking bias when the same operation is repeated
 - multiplication is usually faster and more precise than equivalent division
 - epsilon - difference between `1.0` and the next possible representable number
-- ulp - TODO
+- ulp - difference between 2 values that most closely represent given number
