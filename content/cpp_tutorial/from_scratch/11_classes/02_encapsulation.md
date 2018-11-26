@@ -106,12 +106,12 @@ class bar
 
 ```c++
 struct base {};
-struct derived : base {};
-struct derived : public base {}; // same as line above
+struct derived : public base {};
+struct derived : base {}; // same as line above
 
 class base {};
-class derived : base {};
-class derived : private base {}; // same as line above
+class derived : private base {};
+class derived : base {};  // same as line above
 ```
 
 *More about inheritance in it's chapter*.
@@ -124,10 +124,11 @@ Cases where to use `struct` instead of `class`:
 - the type is empty (empty types are useful in some situations)
 - the type is a template helper (also applies to type traits)
 
-<div class="note pro-tip">
-Use structs only as types that tie together few public members. If you need something more (restricting access to protected/private, complex member functions) use classes.
+<div class="note pro-tip" markdown="block">
 
-When in doubt, use a class.
+Use `struct` only when defining types that tie together few public members. If you need something more (restricting access to protected/private, complex member functions) use `class`.
+
+When in doubt, use `class`.
 </div>
 
 ## example
@@ -208,20 +209,20 @@ Applying the above recommendation to the rectangle class:
 
 ## analogy
 
-Kitches devices are pretty good examples - they are relatively simple to use but hide a complicated mechanisms inside.
+Kitchen devices are pretty good examples - they are relatively simple to use but hide a complicated mechanisms inside.
 
 <div class="table-responsive">
     <table class="table table-bordered table-dark">
         <tbody>
             <tr>
                 <th>device</th>
-                <th>private variable(s)</th>
-                <th>private function(s)</th>
-                <th>public function(s)</th>
+                <th>private variables</th>
+                <th>private functions</th>
+                <th>public functions</th>
             </tr>
             <tr>
                 <td>microwave</td>
-                <td>physical measures</td>
+                <td>current power, rotating speed</td>
                 <td>rotate plate, switch light, emit microwaves</td>
                 <td>switch on/off, set time, set power</td>
             </tr>
@@ -278,7 +279,7 @@ Classes in current examples are pretty small. Real classes usually contain 3-10 
 
 Many of OOP decisions are not always trivial. Some problems take a lot of attempts and experiments to learn. If you can't grasp it now, move on, continue and come back later. Remember that **the best way to learn programming is by writing code**. The more problems you encounter and solve, the better.
 
-If you are already experimenting with writing OOP code and are unsure about access - make every variable private and every function public.
+If you still have doubts, the reasonable default is to make every variable private and every function public.
 
 ## exercise
 

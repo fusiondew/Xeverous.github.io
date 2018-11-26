@@ -49,7 +49,7 @@ The most trivial preprocessor directive is include. It simply tells the preproce
 #include <iostream>
 ```
 
-What's exactly inside iostream depends on the compiler. What can be sure though, that inside this file `std::cout`, `std::cin` and other stuff from I/O stream library is defined.
+What's exactly inside iostream depends on the compiler. What can be sure though, that inside this file `std::cout`, `std::cin` and other stuff from I/O stream library is declared or defined.
 
 **syntax**
 
