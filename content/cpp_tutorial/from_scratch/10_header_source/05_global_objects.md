@@ -92,9 +92,9 @@ int main()
 
 ### include redundancy
 
-**main.cpp** includes **iostream** even though it's already provided by **functions.hpp**. This is good because if at any point you realize that **iostream** is not actually needed by functions' header such removal would break the build.
+**main.cpp** includes **iostream** even though it's already provided by **functions.hpp**. This is good because if at any point you realize that **iostream** is not actually needed by functions' header such removal would not break the build.
 
-You should always include headers if you use any stuff from them. Do not rely on other headers including headers you need because if at any point dependencies of your dependencies change, you will get build errors.
+You should always include headers if you use any stuff from them. Do not rely on other headers including headers you need because if at any point dependencies of your dependencies change, you will get build errors. In other words, think of headers as necessary and not rely on what they include themselves.
 
 ### include order
 
@@ -103,6 +103,6 @@ There are no requirements for specific order of include directives (we just list
 Therefore, I advice to list headers in the following order:
 
 - associated header file with the same name (if it's a source file) - see first inclusion in **functions.cpp**
-- any header closely related to the code
+- any header closely related to the code (usually headers from your own project)
 - any external library headers if needed in this file
 - any standard library headers if needed in this file
