@@ -164,6 +164,9 @@ T type_pun(U value) noexcept
     std::memcpy(&result, &value, sizeof(value));
     return result;
 }
+
+float n = 1.0f;
+int n = type_pun<int>(n); // ok, no aliasing through memcpy()
 ```
 
 The function above is available in C++20 as `std::bit_cast`. It is also `constexpr`.
