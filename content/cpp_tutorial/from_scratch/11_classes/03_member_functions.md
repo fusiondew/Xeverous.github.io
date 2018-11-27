@@ -54,7 +54,6 @@ Other important member functions (these have their respective lessons), they hav
 - **assignment operator**
 - **destructors**
 
-
 Getters and setters are sometimes referred to as **accessors**.
 
 Getters and setters do not always come in pairs - getters may combine information from multiple members and setters (and action functions) may change more than 1 variable.

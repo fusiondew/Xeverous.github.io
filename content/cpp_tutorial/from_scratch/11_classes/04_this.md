@@ -151,7 +151,7 @@ int main()
 }
 ```
 
-Accessing `this` inside non-member function does not make any sense - `main` is not working on any object.
+Accessing `this` inside non-member function does not make any sense - `main()` is not working on any object.
 
 ## implicit `this`
 
@@ -179,9 +179,9 @@ You can not add manually `this` parameter (it is already there when you write `c
 
 **All member variables are implicitly accessed through `this` pointer**.
 
-#### Question: If `this` can be skipped, does it exist only for examples or has it some actual purpose? Are there situations where `this` is actually needed to be written?
+#### Question: If `this` can be skipped, does it exist only for examples or has it some actual purpose? Are there any situations where `this` is necessary?
 
-Yes, there are multiple situations in which `this` needs to be explicitly written. One of these situations is presented in few lessons.
+Yes, there are multiple situations in which `this` needs to be explicitly written. One has already been presented in this lesson - printing object's own address.
 
 ## UB warning
 

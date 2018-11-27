@@ -92,9 +92,11 @@ int main()
 
 ### include redundancy
 
-**main.cpp** includes **iostream** even though it's already provided by **functions.hpp**. This is good because if at any point you realize that **iostream** is not actually needed by functions' header such removal would not break the build.
+**main.cpp** includes **iostream** even though it's already provided by **functions.hpp**. This is good because if at any point you realize that **iostream** is not actually needed by **functions.hpp** such removal would not break the build.
 
-You should always include headers if you use any stuff from them. Do not rely on other headers including headers you need because if at any point dependencies of your dependencies change, you will get build errors. In other words, think of headers as necessary and not rely on what they include themselves.
+You should always include headers if you use any stuff from them. Do not rely on other headers including headers you need because if at any point dependencies of your dependencies change, you will get build errors. In other words, think of headers as necessary and don't rely on what they include themselves.
+
+In this case, **main.cpp** should not rely on what is included by headers that **main.cpp** includes. If it did rely, any removal inside **functions.hpp** or **global.hpp** could cause **main.cpp** to miss something.
 
 ### include order
 
@@ -106,3 +108,54 @@ Therefore, I advice to list headers in the following order:
 - any header closely related to the code (usually headers from your own project)
 - any external library headers if needed in this file
 - any standard library headers if needed in this file
+
+This way your project headers will be always parsed first, making sure they are self-contained. If they need some library that you did not include in themselves, build will appropriately fail.
+
+## include paths
+
+In most projects, directory structure resembles namespaces used in the code and groups of classes that have related purpose.
+
+For refactoring reasons, it's bad to use `..` in include paths. Instead, the project root directory should be added as include search path to allow top-down paths in includes.
+
+Example:
+
+~~~
+game_engine
+  - graphic
+    - texture.hpp
+    - texture.cpp
+    - image.hpp
+    - image.cpp
+  - audio
+    - sound_stream.hpp
+    - sound_stream.cpp
+    - music.hpp
+    - music.cpp
+  - util
+    - asset_manager.hpp
+    - asset_manager.cpp
+    - templates.hpp
+    - constants.hpp
+~~~
+
+**asset_manager.hpp**
+
+```c++
+#pragma once
+
+// bad: '..' in include paths
+#include <../audio/sound_stream.hpp>
+#include <../graphic/texture.hpp>
+
+// good: top-down paths, easier to modify code
+#include <game_engine/audio/sound_stream.hpp>
+#include <game_engine/graphic/texture.hpp>
+```
+
+With some IDEs and build systems, to make it work you might need to add project root directory to compiler search paths.
+
+#### Question: Why templates have no corresponding source file?
+
+Since templates must be fully defined before they are used, complete template definitions are put into headers. There is nothing to put into source file.
+
+The same applies for constants - these usually have internal linkage or are implicitly inline.

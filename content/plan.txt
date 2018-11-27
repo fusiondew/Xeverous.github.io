@@ -89,7 +89,6 @@ missing
 	Object relationships
 	Container classes
 	std::initializer_list
-	header/source separation
 	"\n" after every output line
 	delete this
 	nested classes, anonymous classes/namespaces
