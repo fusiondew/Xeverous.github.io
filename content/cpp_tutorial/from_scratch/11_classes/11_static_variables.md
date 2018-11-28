@@ -6,14 +6,15 @@ layout: article
 
 `static` members are not tied to any specific instance. Each object of the same type shares exactly the same variable.
 
-**Do not confuse static class members with variables declared static inside functions. These 2 are very different uses of the keyword `static`.**
+**Do not confuse static class members with variables declared static inside functions. These 2 are different uses of the keyword `static`.**
 
-TODO static explanation precondition: header/source separation
+On the other hand, both share a common property - static objects live entire program.
 
 *I used public access (struct instead of class) to avoid writing too much code for this example.*
 
 ```c++
 // header (foo.hpp)
+#pragma once
 struct foo
 {
     int x;
@@ -31,7 +32,7 @@ foo::foo(int x)
 int foo::s = 5; // definition + initialization of static member
 // note: no static keyword here
 
-// main.cpp
+// source (main.cpp)
 #include <iostream>
 
 int main()
@@ -109,7 +110,7 @@ In the first example, you can replace `f1.s` and `f2.s` with `foo::s`. Everythin
 When using static members, access them through class name + scope resolution operator (`::`).
 </div>
 
-It's allowed to use static members through instances for code compatibility reasons. If you refactor a program by adding `static` to some members (eg because you realize some variable is not needed for every object) you don't have to rewrite all the code from `f.s` to `foo::s`. *You don't have to but you should.*
+It's allowed to use static members through instances for code compatibility reasons. If you refactor a program by adding `static` to some members (eg because you realize some variable is not needed for every object) you don't have to rewrite all the code from `f.s` to `foo::s`. *You don't have to but you should.* Also, some templates can benefit of `.` syntax permission because they don't know whether a given function is static.
 
 Obviously it's better to use the designated way to access static variables - using them through instances is misleading.
 
@@ -119,14 +120,6 @@ Like with all objects, static objects should be initialized before they are used
 
 If you put static variable definition outside the class but still in header file it will likely cause linker problems - headers might be included multiple times (each time by different source file) and therefore result in multiple definition linker errors.
 
-<div class="note pro-tip">
-Headers should provide <b>declarations</b>. If you want to <b>define</b> something, make it `inline`.
-
-Exception: classes are defined within headers (the reason is that they do no provide any code to assemble but specify data layout in memory).
-</div>
-
-TODO implicit inline and more - this lesson really requires header/source separation
-
 ### since C++11
 
 - If the static member is `const`, you can actually declare, define and initialize it in the class.
@@ -134,18 +127,18 @@ TODO implicit inline and more - this lesson really requires header/source separa
 ```c++
 struct bar
 {
-    static const int x = 11;
+    static const int x = 11; // implicitly inline
 };
 
 // nothing outside the class
 ```
 
-- If the static member is `constexpr` it has to be initialized (this is true for all `constexpr` variables) TODO constexpr when?
+- If the static member is `constexpr` it has to be initialized (this is true for all `constexpr` variables).
 
 ```c++
 struct bar
 {
-    static constexpr int x = 11;
+    static constexpr int x = 11; // constexpr initialization implies inline
 };
 
 // nothing outside the class
@@ -153,7 +146,7 @@ struct bar
 
 ### since C++17
 
-- non-const static members may be declared + defined + initialized inside a class if they are `inline` TODO inline when? header/source separation?
+- non-const static members may be declared + defined + initialized inside a class if they are `inline`.
 
 ```c++
 struct bar
@@ -182,7 +175,7 @@ private:
     // other variables (eg name, password, etc)
     // ...
 
-    inline static int next_id = 0; // (this code snippet uses C++17 initialization)
+    inline static int next_id = 0; // (this code snippet requires C++17)
 
 public:
     user(/* things ... */);
@@ -234,8 +227,9 @@ struct bar
 and initialization of one depends on another:
 
 ```c++
-// these 2 lines might be in different files
+// in one source file
 int foo::x = 100;
+// in a different source file
 int bar::x = foo::x;
 ```
 
@@ -245,7 +239,7 @@ The problem is that C++ does not guarantee any order of initialization of global
 - all other globally accessible objects are initialized before main function is run
 - after the main function returns, reverse process is taking place
 
-There is a simple solution to force certain order of initialization - **static functions**!
+To force certain order of initialization you need to put assignments in a function.
 
 ## concurrency
 
@@ -253,7 +247,7 @@ Static member variables (like global variables) may be declared `thread_local`. 
 
 *This is only for informational purposes. The actual concurrency tutorial is a very different thing.*
 
-## other corner cases
+## corner cases
 
 Local classes (1) (classes defined inside functions) and unnamed classes (2), including member classes of unnamed classes (3), cannot have static data members.
 
@@ -271,7 +265,9 @@ class // (2)
 } object;
 ```
 
-But really - who defines a class inside a function?
+But really - who defines a class inside a function? *Ironically, everyone who uses lambda expressions*.
+
+Restrictions like this prevent from even more complex corner cases and simply job of compiler writers.
 
 ## summary
 

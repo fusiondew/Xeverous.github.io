@@ -28,12 +28,12 @@ A::~A()
 
 class B
 {
-private:
-    A a;
-
 public:
     B();
     ~B();
+
+private:
+    A a;
 };
 
 B::B()
@@ -48,12 +48,12 @@ B::~B()
 
 class C
 {
-private:
-    B b;
-
 public:
     C();
     ~C();
+
+private:
+    B b;
 };
 
 C::C()
@@ -318,13 +318,13 @@ B::~B()
 
 class C
 {
-private:
-    A a;
-    B b;
-
 public:
     C();
     ~C();
+
+private:
+    A a;
+    B b;
 };
 
 C::C()
@@ -370,7 +370,7 @@ How objects are related:
 
 ## summary
 
-Objects are constructed like from building blocks - inner parts first, then outer (enclosing) parts. Destruction runs in reverse order.
+Objects are constructed like from building blocks - inner parts first, then outer (enclosing) parts. Destruction runs in exactly reverse order.
 
 Putting objects one inside another is known as **aggregation**. It's stronger variant is named **composition**.
 

@@ -2,7 +2,7 @@
 layout: article
 ---
 
-Ok, you probably surmise what destructors do. Like constructors, they are inevitable (almost) and are always called when an object is destroyed (goes out of scope).
+Ok, you probably surmise what destructors do. They are called when an object is destroyed (goes out of scope).
 
 Destructors are written like constructors, but the class name is prepended with `~`.
 
@@ -15,7 +15,7 @@ public:
 };
 ```
 
-However, one thing comes to mind - what would be a possible use of parameters in destructors? How would I call a destructor on an expiring object?
+One thing comes to mind - what would be a possible use of parameters in destructors? How would I call a destructor on an expiring object?
 
 The answer is simple: you can't. **Destructors are always 0-argument and can not be overloaded.** So every class always has exactly 1 destructor (implicit or custom one) and you can at most customize it's body.
 
@@ -92,13 +92,15 @@ Look how useful destructors can become when dealing with dynamic allocation:
 ```c++
 class dynamic_array
 {
-private:
-    int* const data;
-    const int size;
-
 public:
     dynamic_array(int size);
     ~dynamic_array();
+
+    // other methods...
+
+private:
+    int* const data;
+    const int size;
 };
 
 dynamic_array::dynamic_array(int size)
@@ -112,7 +114,7 @@ dynamic_array::~dynamic_array()
 }
 ```
 
-I used const pointer and const size as it does not change through the lifetime of objects of this class. This also forces us to correctly use member initializer list - and as you see, you can put arbitrary expressions there like `new int[size]` (but don't forget about initialization order).
+I used const pointer and const size as it does not change through the lifetime of objects of this class. This also forces us to correctly use member initializer list - and as you see, you can put arbitrary expressions there like `new int[size]` (don't forget about memberwise initialization order).
 
 In this simple class ctor + dtor form a pair that is hard to break through - if someone creates a local object of type `dynamic_array`, it's guaranteed to execute both ctor and dtor and therefore both allocation and deallocation of memory.
 
@@ -131,12 +133,12 @@ Note that destructor calls are not written - you don't write `da.~dynamic_array(
 
 ## resource management
 
-In short, ctors+dtors form a very good pair that allows to avoid leaks. This specific usage is the RAII idiom. Also known as SBRM. TODO shortcuts. auto-expand?.
+The class presented above encapsulates a resource (allocated memory) which prevents from resource leaks. This specific usage of ctor + dtor pair is a part of RAII idiom. More about RAII in future chapters.
 
 ## going further
 
 We can now write a class that safely manages dynamic memory. By adding more public functions, we can extend it's functionality while preserving invariants. With the help of operator overloading, we can even make `da[i]` work just like it does with plain pointers.
 
-There is such class in stanard library - `std::vector`. If you can already understand and use it (even partially) - that's awesome.
+There is a similar class in the standard library - `std::vector` (it's actually a class template) but it has much greater functionality. If you can already understand it's documentation and use it (even partially) - that's awesome.
 
 There is a vector tutorial later. Now, continue with learning OOP stuff. A lof of further lessons showcase features which are used to write classes like vector.

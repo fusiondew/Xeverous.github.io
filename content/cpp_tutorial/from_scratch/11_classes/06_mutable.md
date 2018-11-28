@@ -9,16 +9,16 @@ Sometimes some member functions may be used more than others. Consider a situati
 ```c++
 class physics_state
 {
+public:
+    // setters for data...
+
+    physics_result compute_result() const; // very expensive
+
 private:
     int amount;
     double velocity;
     double time_in_ms;
     // more data... maybe some arrays...
-
-public:
-    // setters for data...
-
-    physics_result compute_result() const; // very expensive
 };
 ```
 
@@ -34,6 +34,12 @@ But there is one problem - we know that data doesn't change often but we often n
 ```c++
 class physics_state
 {
+public:
+    // setters for data...
+
+    // now return reference
+    const physics_result& compute_result() const; // const?
+
 private:
     int amount;
     double velocity;
@@ -41,12 +47,6 @@ private:
     // more data...
 
     physics_result last_result; // cached result - return it if data has not changed
-
-public:
-    // setters for data...
-
-    // now return reference
-    const physics_result& compute_result() const; // const?
 };
 ```
 
@@ -57,6 +57,11 @@ But now there is another problem - the computation function can no longer be con
 ```c++
 class physics_state
 {
+public:
+    // setters for data...
+
+    const physics_result& compute_result() const; // can be const
+
 private:
     int amount;
     double velocity;
@@ -64,11 +69,6 @@ private:
     // more data...
 
     mutable physics_result last_result; // can be modified in const-qualified functions
-
-public:
-    // setters for data...
-
-    const physics_result& compute_result() const; // can be const
 };
 ```
 

@@ -21,10 +21,10 @@ private:
     int x = 3;
 
     // this is not a member function but a friend function declaration
-    friend void func(const foo& f);
+    friend void func(foo f);
 };
 
-void func(const foo& f)
+void func(foo f)
 {
     std::cout << "f.x = " << f.x << "\n"; // friends can access private and protected members
 }
@@ -47,7 +47,7 @@ private:
     int x = 3;
 
     // global friend function defined inside class is always inline
-    friend void func(const foo& f)
+    friend void func(foo f)
     {
         std::cout << "f.x = " << f.x << "\n";
         // std::cout << this << "\n"; // error: 'this' is not available in non-member functions
@@ -61,7 +61,7 @@ int main()
 }
 ```
 
-Friend function definitions inside class are only allowed if the class is defined non-locally (at global scope or in some namespace, it won't work for class defined locally - eg in a function - but obviously noone defines classes inside functions...).
+Friend function definitions inside class are only allowed if the class is defined non-locally - at global scope or in some namespace, it won't work for class defined locally in a function. Obviously noone defines classes inside functions... and lambdas are already powerful enough they don't need friends.
 
 ## friend classes
 
@@ -138,12 +138,12 @@ In short, friendship is a one-way relation that does not propagate.
 
 ## recommendation
 
-Too many friends defeat the purpose of encapsulation. Don't use them unless necessary. Friends, thanks to unlimited access can break class invariants.
+In addition to not-so-straightforward rules, too many friends defeat the purpose of encapsulation. Don't use them unless necessary. Friends, thanks to unlimited access can break class invariants.
 
 Common situations and how to fix them:
 
 - If two classes friend each other, they probably should be rewritten as one class
-- If one class has many friends, it should provide instead public methods that offer functionality which is implemented in friends
+- If one class has many friends, it should provide instead public methods that offer functionality which is needed by friends
 
 Legitimate uses of friends:
 

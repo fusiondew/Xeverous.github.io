@@ -226,6 +226,21 @@ func(3.14l);   // ambiguous: both (1) and (2) require implicit convertion
 func(3.14f);   // chooses (2) - because it's the only available promotion
 ```
 
+## removing overloads
+
+You can explicitly remove overloads. Deleted overloads have the same rules, they just cause compilation errors when they are choosen.
+
+```c++
+void f(long);
+f(3); // ok, int promoted to long
+
+void f1(int) = delete;
+void f2(long);
+f(4); // chooses first overload, triggers compilation error
+```
+
+Explicitly removing overloads can help to catch bugs coming from unwanted implicit convertions.
+
 ## in practice
 
 There is not that much problem of function overloading. Don't worry if you can not memorize all the rules - intuitively the most fitting function is choosen. The core purpose of overloading is to provide the same interface regardless of the type.

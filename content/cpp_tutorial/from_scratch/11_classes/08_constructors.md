@@ -2,7 +2,6 @@
 layout: article
 ---
 
-
 ## hidden bug
 
 The program is safe against setting invalid values if getters secure all invariants. But there is 1 hidden problem: what if we do:
@@ -102,12 +101,12 @@ The code above works the same way as this code:
 ```c++
 class point
 {
+public:
+    point(); // automatically added
+
 private:
     int x;
     int y;
-
-public:
-    point(); // automatically added
 };
 
 point::point() // automatically added
@@ -124,14 +123,14 @@ All typical rules regarding overloading apply - you can use default arguments to
 ```c++
 class point
 {
-private:
-    int x;
-    int y;
-
 public:
     point();
     point(int value);
     point(int x_value, int y_value);
+
+private:
+    int x;
+    int y;
 };
 
 point::point()
@@ -167,12 +166,12 @@ int main()
 ```c++
 class point
 {
+public:
+    point(int x_value, int y_value); // custom ctor - disables default one
+
 private:
     int x;
     int y;
-
-public:
-    point(int x_value, int y_value); // custom ctor - disables default one
 };
 
 point::point(int x_value, int y_value)
@@ -224,19 +223,19 @@ Const member example:
 ```c++
 class point
 {
+public:
+    point(int x, int y);
+
 private:
     // const members - must be initialized, can not ever be assigned
     const int x;
     const int y;
-
-public:
-    point(int x, int y);
 };
 
 point::point(int x, int y)
 : x(x), y(y) // the only way to initialize const members
 {
-    // 1. "same name" feature does not apply here, 'x' argument will shadow x member (you can reach member x by using this pointer)
+    // 1. "same name" feature does not apply here, 'x' argument will shadow x member (use this pointer to fix it)
     // 2. you can not assign to const members
     this->x = x; // error: 'this->x' is const
 }
@@ -246,7 +245,7 @@ The same applies for reference members. Both references and const variables must
 
 **initialization order**
 
-It's important to note that initialization is always executed in regards to member declaration order, not how the list itself is written
+It's important to note that initialization is always executed in regards to member declaration order, not how the list itself is written.
 
 ```c++
 class order
@@ -265,7 +264,7 @@ order::order(int k, int p)
 }
 ```
 
-```
+```c++
 main.cpp: In constructor 'order::order(int, int)':
 main.cpp:5:9: warning: 'order::b' will be initialized after [-Wreorder]
      int b;
@@ -290,8 +289,9 @@ Always use member initializer list, whenever possible (initialization is always 
 Member initializer list should initialize members in the order of their declaration - use the same order as in the class definition.
 </div>
 
-<div class="note info">
-Member initializer list is not `std::initializer_list`. It's something different.
+<div class="note info" markdown="block">
+
+Don't confuse member initializer list with `std::initializer_list`. It's something different.
 </div>
 
 ## defaulted constructors
@@ -301,13 +301,13 @@ Sometimes you do want to have a default constructor with custom ones too. There 
 ```c++
 class point
 {
+public:
+    point(int x, int y); // custom one (disables default one)
+    point() = default;   // brings back default one
+
 private:
     int x;
     int y;
-
-public:
-    point(int x, int y); // custom one (disables default one)
-    point() = default; // brings back default one
 };
 
 // body for custom ctor
@@ -323,17 +323,17 @@ More things that can be `= default`ed will be presented in further chapters.
 
 ## deleted constructors
 
-Reverse to the above, you can explicitly remove default constructor
+Reverse to the above, you can explicitly remove default constructor - this feature works just like with free functions - compilation error if explicitly deleted overload is choosen.
 
 ```c++
 class point
 {
+public:
+    point() = delete; // default ctor is removed despite no custom ctors
+
 private:
     int x;
     int y;
-
-public:
-    point() = delete; // default ctor is removed despite no custom ctors
 };
 ```
 
@@ -346,13 +346,13 @@ Since C++11 you can use direct initializers for class members.
 ```c++
 class point
 {
+    // no ctor here
+
 private:
-    // custom ctors have higher priority and can ignore these initializers
+    // ctors have higher priority and would override these initializers
     int x = 0;
     int y = 0;
     int z = some_static_or_global_function();
-
-    // no ctor required and everything initialized!
 };
 
 point p; // initialized
@@ -370,4 +370,4 @@ There are uses for protected and private constructors - some are presented in in
 
 ## exercise
 
-TODO - write examples and ask if it compiles
+TODO - write examples and ask if they compile
