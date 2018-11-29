@@ -352,7 +352,7 @@ private:
     // ctors have higher priority and would override these initializers
     int x = 0;
     int y = 0;
-    int z = some_static_or_global_function();
+    int z = some_static_or_free_function();
 };
 
 point p; // initialized

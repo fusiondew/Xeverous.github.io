@@ -17,7 +17,7 @@ matrix2x2 m3 = m1 + m2; // isn't this much better?
 
 Multiple classes in the C++ standard library have overloaded operators:
 
-- `<<` and `>>` for streams  (text I/O)
+- `<<` and `>>` for streams (text I/O)
 - `+` for strings
 - `*` and `->` for smart pointers
 - `[]` for multiple containers
@@ -26,7 +26,7 @@ Overloaded operators are also used by some external libraries, like in the examp
 
 ## how it works
 
-Operators are nothing more than functions. We can think of built-in meaning of `+` for integers as:
+Operators are nothing more than functions with special call syntax. We can think of built-in meaning of `+` for integers as:
 
 ```c++
 int operator+(int lhs, int rhs);
@@ -36,7 +36,7 @@ int operator+(int lhs, int rhs);
 
 The exactly the same syntax is used to define them for custom types.
 
-There is a cheatsheet about operator overloading - handy reference after completing this chapter.
+There is a cheatsheet about operator overloading - handy reference after completing this chapter. TODO link
 
 ## rules
 
@@ -49,7 +49,5 @@ There is a cheatsheet about operator overloading - handy reference after complet
 - at least one of operands must be a user-defined type - you can't redefine behaviour for built-in types
 - `new`/`delete` operators can be overloaded to modify how objects are allocated
 - you can overload *operator type* which creates a user-defined convertion
-
-##
 
 Enough theory, now let's move to the examples. Many operators have different recommendations.

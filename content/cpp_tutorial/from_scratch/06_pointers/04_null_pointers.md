@@ -139,6 +139,36 @@ if (ptr != nullptr)
 Always make a pointer either a null pointer (indicating it does not hold any valid address) or a valid pointer. There is no way to test uninitialized pointers or dangling pointers - you should set them to null so other code doesn't accidentally dereference them.
 </div>
 
+## short-circuit evaluation
+
+```c++
+ptr = func();
+
+if (ptr != nullptr && *ptr != 0) // what if *ptr is tried before null check?
+{
+    // ...
+}
+
+if (ptr == nullptr || *ptr == 0) // as above
+{
+    // ...
+}
+```
+
+The code above is perfectly valid. C++ guuarantees that operators `&&` and `||` feature **short-circuit evaluation** - if the first evaluation already determines boolean result, the second one is not attempted.
+
+This means that:
+
+- first `if`:
+  - `ptr != nullptr` is always checked first
+    - if pointer is null, `if` can not succeed and `*ptr != 0` check is skipped
+    - if pointer is not null, `*ptr != 0` will determine `if` entry
+- seconf `if`:
+  - `ptr == nullptr` is always checked first
+    - if pointer is null, `if` must succeed and `*ptr == 0` check is skipped
+    - if pointer is not null, `*ptr == 0` will determine `if` entry
+
+Short-circuit evaluation makes code more robust and avoids unwanted pointer dereferences.
 
 ## summary
 

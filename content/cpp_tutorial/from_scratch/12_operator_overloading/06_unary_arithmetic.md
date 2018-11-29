@@ -4,7 +4,7 @@ layout: article
 
 Here we overload **unary** `+` and `-`.
 
-These operators have no strong convention whether they should be member functions or not. Some types in standard library implement it as non-member (`std::complex`) and some as member (`std::chrono::duration`).
+These operators have no strong convention whether they should be member functions or not. Some types in standard library implement them as non-member (`std::complex`) and some as member (`std::chrono::duration`).
 
 Member function implementation (const because it does not affect current object in any way):
 
@@ -23,10 +23,10 @@ Non-member function implementation:
 
 ```c++
 // inside class
-friend integer operator-(const integer& rhs);
+friend integer operator-(integer rhs);
 
 // outside
-integer operator-(const integer& rhs)
+integer operator-(integer rhs)
 {
     return integer(-rhs.x); // . has higher priority than -, it's parsed as (-(rhs.x))
 }
@@ -43,7 +43,7 @@ The built-in unary + does not change values in any way but since C++ states that
 
 int main()
 {
-    std::cout << 'a' << "\n";  // prints char a (value treated as character)
+    std::cout <<  'a' << "\n"; // prints char a (value treated as character)
     std::cout << +'a' << "\n"; // prints int 97 (underlying ASCII value)
 }
 ```

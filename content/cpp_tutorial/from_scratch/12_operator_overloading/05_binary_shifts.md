@@ -4,14 +4,14 @@ layout: article
 
 By default, `<<` and `>>` perform bitshifts on the numeric operands: `0b00000001 << 4 == 0b00010000`.
 
-When overloaded, thay are usually used for text output. You can then print objects of custom type just like many other types that streams already accept.
+When overloaded, they are usually used for text output. You can then print objects of custom type just like many other types that streams already accept.
 
 ```c++
 // inside class
-friend std::ostream& operator<<(std::ostream& os, const integer& in);
+friend std::ostream& operator<<(std::ostream& os, integer in);
 
 // outside
-std::ostream& operator<<(std::ostream& os, const integer& in)
+std::ostream& operator<<(std::ostream& os, integer in)
 {
     // os << in.x;
     // return os;
@@ -19,7 +19,7 @@ std::ostream& operator<<(std::ostream& os, const integer& in)
 }
 ```
 
-`std::ostream` is the standard **o**utput **stream** class. `std::cout` is a global object of this type (string streams and file streams - in different tutorial TODO link?).
+`std::ostream` is the standard **o**utput **stream** class. `std::cout` is a global object of this type. Various string streams can also be treated as output streams.
 
 The function returns reference to allow operator chaining. Stream is taken by non-const reference because expression `os << in.x` will modify stream object. Note that we do not implement data-to-text convertion here, we just reuse stream's operator `<<` that takes an `int`.
 
@@ -32,7 +32,7 @@ std::istream& operator>>(std::istream& is, integer& in)
 }
 ```
 
-`std::cin` is a global object of this type.
+`std::cin` is a global object of this type, various string/file streams can be used too.
 
 ## <<= and >>=
 
@@ -53,5 +53,7 @@ std::ostream& operator<<(std::ostream& os, const person& p)
 
 <details>
 <summary>answer</summary>
-<p>`os` is not used (would generate a compiler warning). The function is wrong because it always calls the standard character output stream, not the stream provided as an argument</p>
+<p markdown="block">
+
+`os` is not used (would generate a compiler warning). The function is wrong because it always calls the standard character output stream, not the stream provided as an argument</p>
 </details>

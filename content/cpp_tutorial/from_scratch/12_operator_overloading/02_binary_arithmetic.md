@@ -29,16 +29,14 @@ Binary operators can be defined in 2 ways:
 
 The member function variant takes only 1 argument because `*this` is already accessible (remember hidden first parameter?).
 
-TODO `friend` - explain here or earlier?
-
-**Adding 2 `integer`s - global function variant**
+### Adding 2 `integer`s - global function variant
 
 ```c++
 // declration (in header)
-integer operator+(const integer& lhs, const integer& rhs);
+integer operator+(integer lhs, integer rhs);
 
 // definition (in source)
-integer operator+(const integer& lhs, const integer& rhs)
+integer operator+(integer lhs, integer rhs)
 {
     return integer(lhs.x + rhs.x); // here + is the built-in operator for ints
 }
@@ -55,23 +53,23 @@ So to fix this problem, we declare operator as a friend:
 
 ```c++
 // inside any section (access specifiers does not matter here) of integer class
-friend integer operator+(const integer& lhs, const integer& rhs);
-
-// remainder: friends are declared in class scope but they are non-members (here: global function)
+friend integer operator+(integer lhs, nteger rhs);
 ```
 
-The body of the function can stay as written before.
+TODO remainder block
 
-**Adding 2 `integer`s - member function variant**
+Friend functions (including operators) declared in class scope are global functions, not class members.
+
+### Adding 2 `integer`s - member function variant
 
 A different approach is to make it a member function - there is no need for friends but it looks kinda messy:
 
 ```c++
 // inside class public section
-integer operator+(const integer& rhs) const;
+integer operator+(integer rhs) const;
 
 // definition - as usually, class_name::func_name
-integer integer::operator+(const integer& rhs) const
+integer integer::operator+(integer rhs) const
 {
     return integer(x + rhs.x);
 }
@@ -103,17 +101,17 @@ The following program compiles:
 ```c++
 class integer
 {
-private:
-    int x;
-    
 public:
     integer(int x = 0) : x(x) { }
     
     // global function approach
-    friend integer operator+(const integer& lhs, const integer& rhs)
+    friend integer operator+(integer lhs, integer rhs)
     {
         return integer(lhs.x + rhs.x);
     }
+
+private:
+    int x;
 };
 
 int main()
@@ -131,9 +129,6 @@ But the following program does not compile:
 ```c++
 class integer
 {
-private:
-    int x;
-    
 public:
     integer(int x = 0) : x(x) { }
     
@@ -142,6 +137,9 @@ public:
     {
         return integer(x + rhs.x);
     }
+
+private:
+    int x;
 };
 
 int main()
@@ -174,16 +172,14 @@ Because of the problematic convertion, it's recommended to use global function a
 This recommendation is reverse for operators that do not treat their arguments equally: `a + b` is expected to be the same as `b + a` (return new object) but expressions like `a += b` are expected to modify left object.
 
 <div class="note pro-tip" markdown="block">
-When overloading binary operator:
+When overloading any binary operator:
 
 - use non-member function when operands are treated the same way (as in `a + b`)
 - use member function when operands are not treated the same way (as in `a += b`)
 </div>
 
-The rule for not trying to overuse friends still holds:
 
-<div class="note pro-tip">
-When overloading (any) operator, use `friend` only when necessary.
+<div class="note pro-tip" markdown="block">
+
+Because overloading operators is a part of class functionality, using `friend` to implement them is not considered an abuse.
 </div>
-
-Of course often it is necessary (like in this lesson).
