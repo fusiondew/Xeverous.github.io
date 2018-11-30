@@ -2,6 +2,8 @@
 layout: article
 ---
 
+TODO rewrite this article to showcase std::byte-like type, not integer
+
 Binary bitwise operators are rarely overloaded, examples only for reference.
 
 **Note:** `&` has 2 arity variants:

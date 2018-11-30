@@ -13,7 +13,7 @@ class fraction
 {
 private:
     // greatest common divisor - used to reduce denominators
-    int gcd(int a, int b) { return b == 0 ? a : gcd(b, a % b); }
+    static int gcd(int a, int b) { return b == 0 ? a : gcd(b, a % b); }
 
     int n;
     int d;
@@ -24,7 +24,7 @@ public:
     int num() const { return n; }
     int den() const { return d; }
 
-    fraction& operator*=(const fraction& rhs)
+    fraction& operator*=(fraction rhs)
     {
         int new_n = n * rhs.n / gcd(n * rhs.n, d * rhs.d);
         d = d * rhs.d / gcd(n * rhs.n, d * rhs.d);
@@ -38,21 +38,13 @@ public:
         return static_cast<double>(n) / d;
     }
 };
-// non-member operator* reuses member operator*=
-// - lhs by copy to avoid temporary object
-// - return works because operator*= returns fraction& and then it's copied
-// fraction operator*(const fraction& lhs, const fraction& rhs)
-// {
-//     fraction temp(lhs);
-//     temp *= rhs;
-//     return temp;
-// }
-fraction operator*(fraction lhs, const fraction& rhs)
+
+fraction operator*(fraction lhs, fraction rhs)
 {
     return lhs *= rhs;
 }
 
-std::ostream& operator<<(std::ostream& out, const fraction& f)
+std::ostream& operator<<(std::ostream& out, fraction f)
 {
    return out << f.num() << '/' << f.den();
 }
@@ -88,17 +80,23 @@ as floating-point:
 0.75
 ~~~
 
-It's recommended to make user-defined convertions explicit.
+## brief history
+
+Most of unwanted implicit convertions in C++ are a remnant of bad C design choices. To retain backwards compatibility rules were not changed but keyword `explicit` was introduced which allows new code to use newer, safer rules.
 
 ```c++
 // without explicit - potentially accidental mistake
 double d = f4;
 
 // with explicit - required cast
-double d = static_cast<double>(f4);
+auto d = static_cast<double>(f4);
 ```
 
-Additionally, implicit convertions can result in ambiguities in copy-initialization and reference initialiation because both converting constructor and user-defined convertion are 2 implicit convertions.
+<details>
+<summary>some obscure implicit convertion corner cases</summary>
+<p markdown="block">
+
+Implicit convertions can result in ambiguities in copy-initialization and reference initialiation because both converting constructor and user-defined convertion are 2 implicit convertions.
 
 ```c++
 struct to {
@@ -129,9 +127,10 @@ int main()
 
     const to& t4 = f; // reference-initialization: ambiguous
 }
-
-// making convertion function explicit would remove ambiguities
 ```
+
+</p>
+</details>
 
 <div class="note pro-tip">
 When providing user-defined convertions, make them explicit.
@@ -139,38 +138,42 @@ When providing user-defined convertions, make them explicit.
 
 ## in the standard library
 
-Streams overload `operator bool()` to be able to be tested for valid flags inside conditional expressions.
+Streams overload `operator bool` to be able to be tested for valid flags inside control flow expressions. **Control flow expressions work without explicit casts even if convertion to `bool` is `explicit`.**
 
 ```c++
-while (std::cin >> arr[i]) // << and >> returns reference for chaining
-// but we can also use the stream object to convert it to bool
-while (std::getline(std::cin, str)) // getline returns stream reference, then the stream is converted to bool
+// operators << and >> and std::getline() returns reference to the stream,
+// which is then converted to bool
+while (std::cin >> arr[i])
+while (std::getline(std::cin, str))
 ```
 
-Many other types overload the same operator for easier checking:
+Many other types also provide convertion to `bool` for easier checking:
 
 ```c++
-std::optional<int> opt = func();
-if (opt) // opt is not empty
+std::optional<int> result = func();
+if (result) // if result is not empty
 {
     // ...
 }
 ```
 
-<div class="note info">
-
-Control flow statemets will still work without casts to `bool` even when user-defined convertions are explicit.
-</div>
-
 ## `operator!`
 
-Classes which overload convertion to `bool` should also overload `operator!`, giving it reverse result of the convertion.
-
-With both convertion and negation operator, objects can conveniently be used in any boolean context.
+Classes which implement convertion to `bool` should also overload `operator!`, giving it reverse result.
 
 ```c++
-if (opt)  // uses operator bool()
-if (!opt) // uses operator!()
+// operator! must be member
+bool some_type::operator!() const
+{
+    return !static_cast<bool>(*this); // reuse implementation
+}
+```
+
+With both convertion to `bool` and negation operator, objects can conveniently be used with flow control keywords:
+
+```c++
+if (result)  // uses operator bool
+if (!result) // uses operator!()
 ```
 
 <div class="note pro-tip">

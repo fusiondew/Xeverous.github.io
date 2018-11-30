@@ -41,13 +41,18 @@ There is a cheatsheet about operator overloading - handy reference after complet
 ## rules
 
 - some operators can not be overloaded: `::`, `.`, `.*`, `?:`
-- some operators have restrictions for their return type (more about it later)
-- some operators can not be non-member (later)
+- some operators have restrictions for their return type
+- some operators can not be non-member
 - you can not create new operators - eg `%%` or `<-`
 - you can not change arity of operators - if `/` takes 2 arguments normally, it must be a 2-argument function 
-- some operators lose short-circuit evaluation (see control structures chapter TODO link)
+- some operators lose *short-circuit evaluation*
 - at least one of operands must be a user-defined type - you can't redefine behaviour for built-in types
 - `new`/`delete` operators can be overloaded to modify how objects are allocated
 - you can overload *operator type* which creates a user-defined convertion
+- you can overload *operator""* which creates a user-defined literal suffix
 
-Enough theory, now let's move to the examples. Many operators have different recommendations.
+## recommendation
+
+This chapter is mostly for informational purposes. Note that in practice, very few classes have overloaded operators. While the feature can be useful, reading code that uses a lot of overloaded operators can be hard - unlike functions, operators don't have names.
+
+For this reason, the general recommendation is to not overload operators unless it's very clear what they do.

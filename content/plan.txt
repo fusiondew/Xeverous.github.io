@@ -31,11 +31,9 @@ RAII
 
 operator overloading
 ?	binary = - move semantics where?
-	unary -> ->*
 	unary []
 	N-ary ()
-	new / delete
-	SO: how to set and clear each bit
+	bit operations (SO: how to set and clear each bit)
 
 inheritance
 	public / protected / private inheritance
@@ -95,12 +93,12 @@ missing
 	multiple inheritance - multiple vtable pointers
 	rule of 3/5/0
 	bitmask operations
-	preincrement/postincrement - functions (they are in operator overloading - too late)
 	pointer trap: *i++ (order of operators)
 	char* non_const_ptr = "text"
 	http://www.open-std.org/jtc1/sc22/wg21/
 	cout/cin/getline tutorial
-	
+	copy and swap idiom
+
 
 cheatsheet - operator overloading
 	- syntax example - notes (specific return, losing short-circuit)

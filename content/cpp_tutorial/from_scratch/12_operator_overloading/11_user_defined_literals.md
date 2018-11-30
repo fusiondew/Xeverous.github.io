@@ -10,13 +10,15 @@ Just like language offers multiple suffixes for literals:
 U'貓' // char32_t
 ```
 
-It's possilble to define own literals to create objects of user-defined types (classes).
+It's possilble to define own literals to create objects of user-defined types (classes or enums).
 
 ## syntax
 
 User-defined literals are created by "overloading" operator `""`.
 
 ```c++
+class celcius { /* ... */ };
+
 celcius operator""_C(long double x)
 {
     return celcius(x);
@@ -26,10 +28,10 @@ celcius operator""_C(long double x)
 const auto human_body_temperature = 36.6_C; // auto deduced to 'celcius'
 
 // standard library example
-const auto timeout = 1min + 30s; // auto deduced to 'std::chrono::seconds'
-// 1. constructs object of type std::chrono::minutes
-// 2. constructs object of type std::chrono::seconds
-// 3. applies overloaded operator+ which yields result in smaller units (here 90s)
+const auto timeout = 1min + 30s; // equivalent to std::chrono::seconds(90)
+// 1. constructs object std::chrono::minutes(1)
+// 2. constructs object std::chrono::seconds(30)
+// 3. applies overloaded operator+ which yields result in smaller units (here seconds)
 ```
 
 There are some specific rules regarding this operator:
@@ -59,13 +61,13 @@ kelvin operator"" _K(long double x); // potential error: use of reserved identif
 
 std::complex<double> c = 1.1 + 2.2i; // complex number (real part: 1.1, imaginary: 2.2)
 
-auto z1 = 3.0f + 4.0if; // float(3.0) + std::complex<float>(0, 4.0f) = complex(3, 4)
-auto z2 = 3.0f + 4.0 if; // this will not compile, 'if' will not be treated as suffix
+// float(3.0) + std::complex<float>(0, 4.0f) = std::complex<float>(3.0f, 4.0f)
+auto z1 = 3.0f + 4.0if;
+// this will not compile, 'if' will not be treated as suffix
+auto z2 = 3.0f + 4.0 if;
 ```
 
-- User-defined suffixes can not be used together with language-provided suffixes.
-
-Obviously there would be no way to parse this. Instead, there is a fixed set of signatures (see rule below).
+- User-defined suffixes can not be used together with language-provided suffixes. There is just no way you could apply 2 suffixes at the same time.
 
 This is why `std::complex` has 3 suffixes (for all 3 floating point types), not just one `i` with 3 overloads - it's not possible to input something different than `double`. Each suffix produces complex numbers of different type (`std::complex<float>`, `std::complex<double>`, `std::complex<long double>`).
 
@@ -94,7 +96,7 @@ Because it's impossible to mix language provided suffixes with uder-defined ones
 
 Characters and strings use prefixes and they may be used together with user-defined suffixes. Note that overloads take also the length of the literal (length does not include null-terminating character).
 
-**example - own literals**
+## example literals
 
 ```c++
 #include <iostream>
@@ -131,9 +133,9 @@ constexpr long double operator""_deg(long double deg)
 class meter
 {
 public:
-    constexpr meter(long double value) : value(value) { }
+    constexpr meter(long double value = 0) : value(value) { }
 private:
-    long double value = 0;
+    long double value;
 };
 
 constexpr meter operator""_m(long double x)
@@ -178,7 +180,7 @@ user-defined integer: 123
 3L: abc
 ~~~
 
-**example - standard library literals**
+## standard library literals
 
 Standard library literals are in respective namespaces. They are not exposed in `std` namespace to avoid name conflicts (there are two `s` suffixes: `std::chrono::seconds` and `std::string`).
 
@@ -195,14 +197,14 @@ int main()
 {
     { // C++14
         using namespace std::complex_literals;
-        auto c = 1.0 + 1i; // auto = 'std::complex<double>'
+        auto c = 1.0 + 1i; // std::complex<double>(1.0, 1.0)
         std::cout << "abs" << c << " = " << abs(c) << '\n';
     }
 
     { // C++14
         using namespace std::chrono_literals;
-        auto lesson = 45min;   // auto = 'std::chrono::minutes'
-        auto halfmin = 0.5min; // auto = 'std::chrono::minutes'
+        auto lesson = 45min;   // std::chrono::minutes, uses integers
+        auto halfmin = 0.5min; // std::chrono::minutes, uses floating-point
         std::cout << "one lesson is " << lesson.count() << " minutes\n"
                   << "half a minute is " << halfmin.count() << " minutes\n";
     }
