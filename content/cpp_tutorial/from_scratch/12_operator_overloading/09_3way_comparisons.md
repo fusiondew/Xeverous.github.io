@@ -3,7 +3,7 @@ layout: article
 ---
 
 <div class="note info">
-This lesson describes feature added in C++20
+This lesson describes a feature added in C++20.
 </div>
 
 ## defaulted comparisons
@@ -25,30 +25,44 @@ struct package
 
 New operator `<=>` represents 3-way comparison and behaves similarly to string compare function.
 
-It has it's own language rules and can be safely declared as member function.
+It has it's own language rules and can be safely declared as a member function.
 
 Compiler automatically generates all comparison operators. By default all members of the type are compared in order of their appearance, making it a usual lexicographical comparison. Basically it applies operators to consecutive members which may have operator overloads themselves.
 
-`<=>` operator can also be used directly: `if ((a <=> b) < 0)` (but better not do it). The return type of `<=>` can only be compared with literal `0` or specific relational terms.
+Operator `<=>` can also be used directly: `if ((a <=> b) < 0)` (but better not do it). The return type of `<=>` can only be compared with literal `0` or specific relational terms from the standard library.
 
-## custom comparisons
+## custom (user-defined) comparisons
 
-When default semantics are not suitable (order/amount of compared members), `<=>` operator can be defined with specific return type and custom implementation.
+When default semantics are not suitable, eg:
 
-### ordering
+- we would like to compare fields in a different order
+- we would like to ignore some fields
+- we would like to support only `==` and `!=`
 
-These should be obvious (applicable to any objects of the same type):
+operator `<=>` can be defined with specific enumeration return type and have custom implementation.
 
-- `x < x` is always `false` (irreflexivity).
-- if `x < y` is `true` then `y < x` is `false` (asymmetry).
-- if `x < y` and `y < z` then `x < z` (transitivity).
-- either `x < y` or `x > y` or `x == y`
+Return types that supports all comparison operators:
 
-The above rules form **strong ordering**.
+- `std::strong_ordering`
+- `std::weak_ordering`
+- `std::partial_ordering`
 
-A type that implements strong ordering should compare all of it's members - otherwise substitutability can be compromised (operator `==` returns `true` but some member variables can be different). If this is the case then it's **weak ordering**. If some values can not be compared (for various reasons) then it's **partial ordering**.
+Return types that supports only `==` and `!=`:
 
-#### mathematical example
+- `std::strong_equality`
+- `std::weak_equality`
+
+Each of these expresses a different level of support:
+
+- **strong** means that if two objects compare equal, they are indistinguishable
+- **weak** means that two objects may compare equal but be somewhat different
+- **partial** means that a comparison of two objects may not be possible
+
+There is no **partial equality** (at least in C++).
+
+If the return type is left `auto` it will be the most powerful category that is supported by all members (strong > partial > weak). If there is a member that has no defined comparison category - compilation error.
+
+### mathematical example
 
 Given a set of numbers:
 
@@ -85,20 +99,31 @@ we can sort it using various methods that implement different ordering guarantee
     </table>
 </div>
 
-$f(x)$ (identity function) results in strong ordering. Values are sorted with full respect and without any transformation that loses information. If 2 values would be equal in this ordering, they are exactly the same numbers.
+$f(x)$ (identity function) results in strong ordering. If 2 values are equal in this ordering, they are exactly the same numbers.
 
-$g(x)$ forms weak ordering. The sorting criteria loses some information (here: sign) which creates a possibility that actually different values compare equal ($abs(3) = abs(-3)$). All values are still sorted but there is more than 1 way to achieve the same treatment.
+$g(x)$ results in weak ordering. Different numbers may compare equal ($abs(3) = abs(-3)$).
 
-$h(x)$ forms partial ordering. Some values are higher/lesser but some values can not be compared (here because they are out of domain of square root function).
+$h(x)$ results in partial ordering. Some values can not be compared (here because they are out of domain of square root function).
 
-#### Different examples:
+### code examples
 
-- weak ordering: case-insensitive string search - `word` will match `wOrD` but they are actually different; still all words can be sorted
-- partial ordering: comparing floating-point numbers. Different values can be equal ($0 * 2^1 = 0 * 2^{-2}$); some values (NaN, +/-infinity) can not be compared
+Some types do not make sense in ordering, but we should be able compare whether they are equal.
 
-#### code example
+```c++
+struct point
+{
+    std::strong_equaliy operator<=>(const point& rhs) const = default;
 
-We have some data and class which represents people's ancestry. Not all people can be proved to be parents/childs of others so it's patial ordering.
+    int x;
+    int y;
+};
+```
+
+There is no point (pun intended) in sorting 2D numbers so this type should only support operators `==` and `!=`. To constrain it, we simply change the return type from `auto` to **strong ordering**.
+
+If the point had more members (eg color) but we wanted to compare only X, Y coordinates we would need to write custom body of the operator. Because some information would be ignored, that would be **weak equality**.
+
+Here we have a class which represents people's ancestry. Not all people can be proved to be parents/childs of others so it's patial ordering.
 
 ```c++
 class person
@@ -116,43 +141,16 @@ public:
 };
 ```
 
-### equality
+## recommendation
 
-Some types do not make sense in ordering, but we can compare whether they are equal.
+Strong and weak orderings should always satisfy:
 
-```c++
-struct point
-{
-    int x;
-    int y;
+- irreflexivity: `x < x` is always `false`.
+- asymmetry: if `x < y` is `true` then `y < x` is `false`.
+- transitivity: if `x < y` and `y < z` then `x < z`.
+- exactly one of `x < y`, `x > y`, `x == y` is `true`
 
-    std::strong_equaliy operator<=>(const point& rhs) const = default;
-}
-```
-
-There is no point (pun intended) in sorting 2D numbers so this type should only support operators `==` and `!=`. To constrain it, simply change return type from `auto` to specific comparison category.
-
-If the point had more members (eg color) but we wanted to compare only X, Y coordinates we would need to write custom body of the operator. By default it compares all elements. If the color is skipped, it would be **weak equality**.
-
-Pure equality commonly appears when dealing with pointers. If 2 objects have unknown and/or different origins (they may not come from the same array), we can only check whether these 2 pointers are equal. `std::shared_ptr` (one of smart pointers) satisfies weak equality, but since it knows only about memory owner it can only tell whether it's the same (more about smart pointers later).
-
-There is no **partial equality** (at least in C++).
-
-#### Question: What is the comparison category when return type of operator<=> is automatic?
-
-It depends on the members. In short, it will be the category that is common for all members (i.e. all members can satisfy it's requirements).
-
-partial < weak < strong
-
-equality < ordering
-
-- If there is at least 1 weak ordering, the whole class can be at most weakly ordered (because strong can not be guaranteed).
-- If there is at least 1 partial ordering, the class will be at most partially ordered.
-- (...)
-- If there is at least 1 weak equality, the class will be at most weakly equal (because some members can not be ordered, the class can only be tested for equality)
-- If there is a member that has no defined comparison category, the class will also have no category (ill-formed program - compilation error)
-
-There is a [type trait](https://en.cppreference.com/w/cpp/utility/compare/common_comparison_category) that can provide this information for any amount of types. Using traits requires some template knowledge.
+A type that implements strong ordering/equality should compare all of it's members - otherwise substitutability can be compromised (operator `==` returns `true` but some member variables can be different). If this is the case then it should be weak ordering/equality.
 
 ## summary
 
@@ -163,45 +161,55 @@ There is a [type trait](https://en.cppreference.com/w/cpp/utility/compare/common
                 <th>category</th>
                 <th>supported operators</th>
                 <th>any pair of objects is comparable</th>
-                <th>equal values are trully the same</th>
+                <th>equal objects are indistinguishable</th>
+                <th>example</th>
             </tr>
             <tr>
                 <td>`std::strong_ordering`</td>
                 <td>&lt; &gt; &lt;= &gt;= == !=</td>
                 <td>&#10004;</td>
                 <td>&#10004;</td>
+                <td>player's score in a game</td>
             </tr>
             <tr>
                 <td>`std::weak_ordering`</td>
                 <td>&lt; &gt; &lt;= &gt;= == !=</td>
                 <td>&#10004;</td>
                 <td></td>
+                <td>case-insensitive strings</td>
             </tr>
             <tr>
                 <td>`std::partial_ordering`</td>
                 <td>&lt; &gt; &lt;= &gt;= == !=</td>
                 <td></td>
                 <td></td>
+                <td>floating-point numbers</td>
             </tr>
             <tr>
                 <td>`std::strong_equality`</td>
                 <td>== !=</td>
                 <td>&#10004;</td>
                 <td>&#10004;</td>
+                <td>pointers</td>
             </tr>
             <tr>
                 <td>`std::weak_equality`</td>
                 <td>== !=</td>
                 <td>&#10004;</td>
                 <td></td>
+                <td>?</td>
             </tr>
         </tbody>
     </table>
 </div>
 
-In later tutorials you will be using STL data structures and algorithms - they offer certain operation complexity guarantees but require certain conditions to be satisfied - for example `std::sort` requires at least weak ordering, `std::find` requires at least weak equality.
+In other words:
 
-If you understand these concepts, you should have easier way understanding different data structures (each has diffeent advantages/disadvantages).
+- **strong** guuarantees that 2 objects that compare equal have exactly the same members
+- **weak** allows to objects that compare equal to have somewhat different members (they might just not matter for comparison)
+- **partial** allows comparison to signal a failed attempt
+
+In later tutorials you will be using STL data structures and algorithms - they offer certain operation complexity guarantees but require certain conditions to be satisfied - for example `std::sort` requires at least weak ordering, `std::find` requires at least weak equality.
 
 ## exercise
 
@@ -213,7 +221,6 @@ Which comparison categories are in the following situations?
 - files by their directories
 - users by their ID
 - people by their birth date
-- people by their living place
 - game results by the score of each player
 
 <details>
@@ -226,7 +233,6 @@ Which comparison categories are in the following situations?
 - partial ordering (files may not have common parent directory) - this example is similar to persons in family trees
 - strong equality (IDs are unique) OR strong ordering if IDs are treated as numbers
 - weak ordering (date can be the same for different people)
-- weak equality (the same place can be inhabited by more than 1 person)
 - weak ordering (the same score can be achieved by multiple players)
 </p>
 </details>

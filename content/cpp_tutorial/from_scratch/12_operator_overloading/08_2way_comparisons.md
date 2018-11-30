@@ -2,16 +2,16 @@
 layout: article
 ---
 
-Comparing integer class would be fairly simple - I guess you can already deduce how to write overloads for comparison operators. This (and the next lesson) will use different structures instead.
+Comparing integer class would be fairly simple - I guess you can already deduce how to write overloads for comparison operators. To showcase more complex problems this (and the next lesson) will use structures consisting of multiple members.
 
 ## convention
 
 Overloads of comparison operators do not have any constraints on the return type. But it would be pointless to return any other type than `bool`.
 
-Consider this struct:
+For a such type:
 
 ```c++
-struct package // struct to simplify code (everything public)
+struct package
 {
     int floor;
     int shelf;
@@ -63,7 +63,7 @@ bool operator<(const package& lhs, const package& rhs)
 }
 ```
 
-This is **lexicographical comparison** - in order of priority searches for first pair of different elements and then compares them. This method is short circuited - if high-priority elements are different, the comparison stops on them. In our case floor is checked first, if it's the same we move to shelf and if shelf is the same we move to position.
+This is **lexicographical comparison** - elements are compared in priority order. This method is short circuited - if high-priority elements are different, the comparison stops on them. In our case floor is checked first, if it's the same we move to shelf and if shelf is the same we move to position.
 
 There is a simpler way to implement above comparison:
 
@@ -75,7 +75,7 @@ bool operator<(const package& lhs, const package& rhs)
 }
 ```
 
-`std::tie` creates a tuple of references to elements. `std::tuple` has already overloaded comparison operators (thanks to templates) - it uses lexicographical comparisons.
+`std::tie` creates a tuple of references to elements. `std::tuple` has already overloaded comparison operators (thanks to templates) - so we just reuse it's lexicographical comparison implementation.
 
 Other comparison operators reuse `<`:
 
@@ -88,7 +88,7 @@ bool operator<=(const package& lhs, const package& rhs) { return !(lhs > rhs); }
 bool operator>=(const package& lhs, const package& rhs) { return !(lhs < rhs); }
 ```
 
-Thanks to these, we need only to implement actual comparison in `==` and `<`. Other operators (`!=`, `>`, `<=`, `>=`) are then easy to boilerplate. This also saves space for potential mistakes since remaining operators inherit behaviour from first two.
+Thanks to these, we need only to implement actual comparison in `==` and `<`. Other operators (`!=`, `>`, `<=`, `>=`) are then easy to boilerplate. This also reduces space for potential mistakes since remaining operators inherit behaviour from first two.
 
 #### Question: Isn't `!(lhs < rhs)` slower than manual implementation?
 
@@ -121,7 +121,7 @@ bool operator>=(const X& lhs, const X& rhs){ return cmp(lhs, rhs) >= 0; }
 
 ## `std::rel_ops`
 
-There are few convenience templates in standard library that are supposed to automatically implement remaining operators. The core purpose of them was to reduce boilerplate code. Unfortunately, these template functions have their own problems which causes to require different boilerplate code (issues with ADL and namespaces).
+There are few convenience templates in standard library that are supposed to automatically implement remaining operators. The core purpose of them was to reduce boilerplate code. Unfortunately, these function templates have their own problems which causes to require different boilerplate code (issues with ADL and namespaces).
 
 Because of this, it is not adviced to use them and implement operators like in the examples above.
 
