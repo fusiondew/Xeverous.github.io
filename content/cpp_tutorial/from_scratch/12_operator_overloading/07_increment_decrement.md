@@ -2,9 +2,11 @@
 layout: article
 ---
 
-<div class="note info">
-This lesson requires understanding of prefix and postfix operator differences. TODO link?
-</div>
+TODO remainder block
+
+Preincrement/decrement changes value of the object and has immediately visible efect.
+
+Postincrement/decrement changes value of the object but returns old copy of it.
 
 Prefix and postfix operators have to be implemented as members.
 
@@ -31,11 +33,11 @@ integer& integer::operator--()
 
 Reference is returned to allow reuse of the object. Otherwise expressions like `std::cout << ++x` would complain that `++x` returns `void` and there is no object to print.
 
-Note: the code above is for **prefix** operators. It might seem intuitive to expect language to have `operator++()` and `++operator()` but it's not how it works.
+The code above is for **prefix** operators.
 
 ## postfix
 
-**postfix** operators have to take a dummy argument. It's an `int` which is always zero. I don't know why it is that but I guess requiring dummy argument is much cleaner (in terms of language specification) than inventing special reversed `++operator()` syntax (syntax rules are a big pain).
+**Postfix** operators have to take a dummy argument. It's an `int` which is always zero. I don't know why it is that but I guess requiring dummy argument is much cleaner (in terms of language specification) than inventing special reversed `++operator()` syntax (syntax rules are a big pain).
 
 Because the dummy argument is guaranteed to be always zero, it doesn't serve any purpose (behind making a difference from prefix operators) so it's name is ommited to signal that it's not used.
 
@@ -47,9 +49,9 @@ integer operator--(int);
 // outside
 integer integer::operator++(int)
 {
-    integer temp = *this;
-    ++(*this);
-    return *temp;
+    integer temp = *this; // make a copy
+    ++(*this);            // reuse prefix operator implementation
+    return *temp;         // return unmodified copy
 }
 
 integer integer::operator--(int)
@@ -62,7 +64,7 @@ integer integer::operator--(int)
 
 Postfix operators are expected to return a copy of the old value - that's why they save the current object into temporary before `*this` gets changed.
 
-`++(*this);` reuses prefix operator. It can also be written `operator++();`.
+`++(*this);` reuses prefix operator. Like other overloaded operators, you can also call it directly: `operator++();`.
 
 ## notable exception
 

@@ -364,6 +364,25 @@ This is basically the same issue as with dangling pointers.
 
 Compilers have a warning about it.
 
+## prefix/postfix implementation
+
+We can express pre/post increment/decrement operators as functions:
+
+```c++
+int& preincrement(int& x)
+{
+    x += 1;
+    return x; // not a dangling reference because x is not a local object
+}
+
+int postincrement(int& x)
+{
+    int old = x;
+    preincrement(x);
+    return old;
+}
+```
+
 ## summary
 
 - references use regular syntax but offer *reference semantics*
